@@ -1,0 +1,41 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogIndex from '../../components/BlogIndex.astro';
+import { BLOG_PAGE_SIZE, getPosts, postCategories } from '../../lib/content';
+import { seoForPath } from '../../lib/seo';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (async () => {
+  const posts = await getPosts('no');
+  const pageCount = Math.max(1, Math.ceil(posts.length / BLOG_PAGE_SIZE));
+  return Array.from({ length: pageCount }, (_, i) => i + 1).map((page) => ({
+    params: { page: page === 1 ? undefined : String(page) },
+    props: {
+      page,
+      pageCount,
+      posts: posts.slice((page - 1) * BLOG_PAGE_SIZE, page * BLOG_PAGE_SIZE),
+      categories: postCategories(posts),
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { page, pageCount, posts, categories } = Astro.props;
+const entry = await getEntry('pages', 'blog');
+if (!entry) throw new Error('pages/blog not found');
+const path = page === 1 ? '/blog' : `/blog/${page}`;
+const seo = seoForPath('/blog');
+const baseTitle = seo?.title ?? entry.data.seoTitle ?? entry.data.title;
+const title = page === 1 ? baseTitle : `${baseTitle} – Side ${page}`;
+---
+
+<BaseLayout
+  lang="no"
+  title={title}
+  description={seo?.description || entry.data.description}
+  canonicalPath={path}
+  noUrl={path}
+  enUrl={page === 1 ? '/en/blog' : null}
+>
+  <BlogIndex lang="no" entry={entry} posts={posts} page={page} pageCount={pageCount} categories={categories} />
+</BaseLayout>

@@ -6,7 +6,6 @@ description: null
 seoTitle: "PLAY TABLE HOCKEY | Bordhockeyforbundet"
 menuOrder: 1
 ---
-# Play table hockey!
 
 Become part of the table hockey community
 

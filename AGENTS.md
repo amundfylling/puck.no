@@ -8,48 +8,103 @@ bilingual: Norwegian (default, at `/...`) and English (at `/en/...`).
 
 - **Phase 1 (done):** content & media migration from the live Wix site.
   Markdown content, structured data, and all media assets are in the repo.
-- **Phase 2 (todo):** Astro site implementation (layouts, routing, SEO).
+- **Phase 2 (done):** Astro static site — layouts, routing, SEO, RSS,
+  media pipeline. Deployed to Cloudflare Pages (see `public/_redirects`).
+- **Phase 3 (todo):** tournament registration backend + form. A placeholder
+  lives in `src/components/RegistrationForm.astro` (rendered on upcoming
+  tournament pages, `#pamelding` anchor).
+
+## Toolchain
+
+- Astro 7 (static output) + TypeScript (strict) + Tailwind CSS 4 (via
+  `@tailwindcss/vite`). zod schemas come from `astro/zod`.
+- **Node ≥ 22.12 required** (Astro 7). On this machine Node 20 is the
+  default — use the nvm Node 24:
+  `export PATH="$HOME/.nvm/versions/node/v24.18.0/bin:$PATH"`.
+- Commands:
+  - `npm run dev` — dev server
+  - `npm run build` — runs `prebuild` (image optimizer) then `astro build`
+  - `npm run preview` — serve the production build
+  - `npm run check` — `astro check` (must stay 0 errors / 0 warnings)
+  - `npm run check-links` — crawls `dist/` and fails on any broken internal
+    link (honours `public/_redirects` sources; run after a build)
 
 ## Repository structure
 
 ```
 src/
+  content.config.ts      # content collections (glob loader, zod schemas,
+                         # path-based ids: "index", "en/index", ...)
   content/
-    pages/           # static pages, Norwegian (index.md = front page)
-      en/            # static pages, English
-    posts/           # blog posts, Norwegian
-      en/            # blog posts, English
-    tournaments/     # tournament pages (Norwegian slugs; body text is
-                     # intentionally verbatim, often English)
-  data/
-    timers.json                # timer audio tracks
-    galleries.json             # photo galleries -> local image lists
-    documents.json             # årsmøte (annual meeting) PDFs
-    registrations-snapshot.json# tournament participant lists (2026-07 snapshot)
-    seo.json                   # original <title> + meta description per path
-    tricks.json                # 121 bordhockey tricks (kombinasjoner page app)
-    kvalifisering-em26.json    # EM26 qualification standings (4 categories)
+    pages/               # static pages, Norwegian (index.md = front page)
+      en/                # static pages, English
+    posts/               # blog posts, Norwegian
+      en/                # blog posts, English
+    tournaments/         # tournament pages (Norwegian slugs; body text is
+                         # intentionally verbatim, often English)
+  data/                  # structured JSON (unchanged from Phase 1, see below)
+  layouts/BaseLayout.astro  # <head> (SEO/OG/hreflang/JSON-LD), header, footer
+  components/            # Header, Footer, HomePage, BlogIndex, PostCard,
+                         # PostArticle, TournamentList, TournamentCard,
+                         # AudioPlayer (vanilla-JS island), GalleryGrid
+                         # (lightbox island), Arsmoter, RegistrationForm
+                         # (Phase 3 stub), CloudflareAnalytics
+  lib/                   # i18n.ts (nav + UI strings + page/post mirrors),
+                         # dates.ts (Norwegian date parsing), content.ts
+                         # (collection helpers, tournament status), seo.ts
+                         # (seo.json lookup), rss.ts, timere.ts, galleries.ts
+  pages/                 # routes — see "Routing" below
+  styles/global.css      # Tailwind import, @theme tokens (brand red/navy),
+                         # .rich-text styles for rendered markdown
+scripts/
+  optimize-media.mjs     # prebuild image pipeline (see "Media pipeline")
+  check-links.mjs        # dist link checker
+media-originals/         # ORIGINAL images (committed, NOT copied to dist)
+  images/  galleries/
 public/
-  media/
-    images/          # page/post images (originals from Wix)
-    audio/           # timer MP3s
-    pdf/             # årsmøte and other documents
-    galleries/<slug>/# gallery photos
-migration/
-  scrape.mjs         # Phase 1 scraper (Node, cheerio + turndown)
-  download-media.mjs # Phase 1 media downloader (writes manifest.json)
-  verify.mjs         # Phase 1 verification script
-  manifest.json      # every URL processed + every media file (bytes, sha256)
-  raw/               # raw HTML of fetched pages (git-ignored)
-  # recon data used by the scraper:
-  timers-mapping.json   # timer name -> Wix MP3 URL (9 tracks)
-  videos-raw.json       # lesson -> YouTube id mappings (Playwright recon)
-  galleries-raw.json    # gallery image ids (Playwright recon)
-  en-posts.json         # the 2 EN blog post paths
-  # one-off fix-ups kept for reference:
-  patch-tournaments.mjs # re-derives prices/playingSystem frontmatter from raw HTML
-  rename-tricks.mjs     # renames trick images to transliterated slugs
+  media/images|galleries # web-optimized variants (generated by prebuild,
+                         # committed)
+  media/audio|pdf        # originals (small enough, kept as-is)
+  _redirects             # Cloudflare Pages 301s
+  robots.txt  favicon.svg  favicon.png
+migration/               # Phase 1 scraper + one-off fix-ups (raw/ git-ignored)
+dist/                    # build output (git-ignored)
 ```
+
+`src/data/` (unchanged from Phase 1): `timers.json`, `galleries.json`,
+`documents.json`, `registrations-snapshot.json`, `seo.json`, `tricks.json`,
+`kvalifisering-em26.json`.
+
+## Routing
+
+- Norwegian at root, English mirror under `/en/` (tournament and gallery
+  detail pages exist only in Norwegian).
+- `/services-1` was renamed to `/spill-bordhockey` (301 in `_redirects`,
+  `renamedPages` in `src/lib/i18n.ts` maps the slug).
+- Blog: `/blog` + `/blog/<n>` (10 posts/page), `/blog/categories/<cat>`.
+- Tournaments: `/turneringer` index + `/turneringer/<slug>`. Status
+  (upcoming/past) is **computed from the date vs build date** in
+  `lib/content.ts` — `duo-nm-2026` is pinned to upcoming there (postponed;
+  displayed date is stale).
+- RSS: `/blog-feed.xml` and `/en/blog-feed.xml` (exact old paths).
+- Nordic characters in slugs stay decoded (`/lær-bordhockey`,
+  `/turneringer/jæren-open-2025`).
+- SEO: per-page `<title>`/meta description from `src/data/seo.json`
+  (fallback: frontmatter), canonical, OG, hreflang no/en pairs
+  (x-default → no), `@astrojs/sitemap`, JSON-LD SportsEvent on tournament
+  pages + SportsOrganization on the front page.
+- Analytics: `CloudflareAnalytics.astro` renders only when
+  `PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN` is set.
+
+## Media pipeline
+
+Originals live in `media-originals/` (NOT in `public/`, so they never reach
+`dist/`). `npm run prebuild` (`scripts/optimize-media.mjs`, sharp) generates
+web variants into `public/media/` at the **same relative paths** the
+markdown references: max 1600 px wide, jpeg/webp q80, png palette q80;
+galleries additionally get 600 px `thumbs/` for the grid. Idempotent
+(skips up-to-date outputs; `FORCE=1` regenerates). Never move originals
+back into `public/`.
 
 ## Rules
 
@@ -59,8 +114,7 @@ migration/
   Body text was migrated **verbatim** from the live site — do not rewrite,
   summarise, or translate it when editing structure. Norwegian stays
   Norwegian, English stays English.
-- Media files live in `public/media/` and are referenced from content as
-  absolute paths (`/media/...`).
+- Media files are referenced from content as absolute paths (`/media/...`).
 - Slugs keep decoded Nordic characters (e.g. `jæren-open-2025`,
   `lær-bordhockey`). Wix percent-encodes them in URLs; we decode for paths.
 
@@ -72,21 +126,35 @@ migration/
 - Posts: `title`, `slug`, `lang`, `pubDate` (ISO), `categories` (array),
   `cover` (local path), `description` (excerpt).
 - Tournaments: `name`, `slug`, `date`, `location`, `prices`,
-  `playingSystem`, `status` (`upcoming`|`past`). The participant list is a
-  Markdown table in the body and structured data in
-  `src/data/registrations-snapshot.json`.
+  `playingSystem`, `status` (`upcoming`|`past` — display status is computed
+  at build time, see Routing). The participant list is rendered from
+  `src/data/registrations-snapshot.json` — do NOT re-add it to the Markdown
+  body (the Wix duplicate table + registration widget markup was removed in
+  Phase 2, see `migration/clean-tournament-bodies.mjs`).
 
 ## How to add a news post
 
 Create `src/content/posts/<slug>.md` (and optionally
 `src/content/posts/en/<slug>.md` for the English version) with the post
-frontmatter above. Put the cover image in `public/media/images/` and
-reference it as `/media/images/<file>`.
+frontmatter above. Put the cover image in `media-originals/images/` and
+reference it as `/media/images/<file>` — the prebuild optimizer produces
+the web variant automatically. If the post is a translation of another
+post, add the slug pair to `postMirrorsNoToEn` in `src/lib/i18n.ts` (used
+for hreflang + the language switcher).
 
 ## How to add a tournament
 
 Create `src/content/tournaments/<slug>.md` with the tournament frontmatter
-above; set `status: upcoming`. Body: description, playing system, prices,
-schedule, and the participant table. Mirror the participant list into
-`src/data/registrations-snapshot.json` (or the future database) when
-registrations open.
+above; status is computed from `date` at build time. Body: description,
+playing system, prices, `# Tidsskjema` schedule. Keep the participant list
+in `src/data/registrations-snapshot.json` (keyed by slug) — it renders as
+"Påmeldte spillere" on the page. The registration form itself is Phase 3
+(`RegistrationForm.astro` shows a placeholder for upcoming tournaments).
+
+## How to add an image / gallery photo
+
+Put the original in `media-originals/images/` (or
+`media-originals/galleries/<slug>/` and register the file in
+`src/data/galleries.json`), reference it as `/media/images/<file>` (or
+`/media/galleries/<slug>/<file>`), then run `npm run build` — the optimizer
+emits the web variants.

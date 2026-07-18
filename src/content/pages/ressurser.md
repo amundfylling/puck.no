@@ -6,7 +6,6 @@ description: null
 seoTitle: "RESSURSER | Bordhockeyforbundet"
 menuOrder: 6
 ---
-## Ressurser
 
 Timere
 

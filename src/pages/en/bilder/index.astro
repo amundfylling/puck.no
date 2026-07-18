@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import GalleryIndex from '../../../components/GalleryIndex.astro';
+import { seoForPath } from '../../../lib/seo';
+
+const seo = seoForPath('/en/bilder');
+---
+
+<BaseLayout
+  lang="en"
+  title={seo?.title ?? 'Image galleries | Bordhockeyforbundet'}
+  description={seo?.description || null}
+  canonicalPath="/en/bilder"
+  noUrl="/bilder"
+  enUrl="/en/bilder"
+>
+  <section class="mx-auto max-w-6xl px-4 py-10">
+    <h1 class="text-3xl font-extrabold text-navy">Image galleries</h1>
+    <GalleryIndex lang="en" />
+  </section>
+</BaseLayout>

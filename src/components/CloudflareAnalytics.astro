@@ -1,0 +1,14 @@
+---
+---
+<!-- Cloudflare Web Analytics. Token comes from PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
+     the snippet is omitted entirely when the variable is unset. -->
+{
+  import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN && (
+    <script
+      is:inline
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon={JSON.stringify({ token: import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN })}
+    />
+  )
+}

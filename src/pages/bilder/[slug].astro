@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GalleryGrid from '../../components/GalleryGrid.astro';
+import { galleries } from '../../lib/galleries';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (async () => {
+  return galleries.map((gallery) => ({ params: { slug: gallery.slug }, props: { gallery } }));
+}) satisfies GetStaticPaths;
+
+const { gallery } = Astro.props;
+const path = `/bilder/${gallery.slug}`;
+---
+
+<BaseLayout
+  lang="no"
+  title={`${gallery.title} | Bordhockeyforbundet`}
+  description={`Bilder fra ${gallery.title}`}
+  canonicalPath={path}
+  noUrl={path}
+  enUrl={null}
+  ogImage={gallery.images[0]}
+>
+  <section class="mx-auto max-w-6xl px-4 py-10">
+    <p class="text-sm">
+      <a href="/bilder" class="font-semibold text-brand no-underline hover:underline">&larr; Bildegallerier</a>
+    </p>
+    <h1 class="mt-4 text-3xl font-extrabold text-navy">{gallery.title}</h1>
+    <p class="mt-1 text-sm text-slate-500">{gallery.images.length} bilder</p>
+    <div class="mt-8">
+      <GalleryGrid slug={gallery.slug} title={gallery.title} images={gallery.images} lang="no" />
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,11 @@
+# Cloudflare Pages redirects (Phase 2)
+# Renamed pages — old Wix paths get a 301 to the new canonical paths.
+/services-1 /spill-bordhockey 301
+/en/services-1 /en/spill-bordhockey 301
+# The old Wix members area is gone; send those URLs to the front page.
+/members-area/* / 301
+/en/members-area/* /en/ 301
+# Old Wix Events app URLs (linked from a few blog posts) -> tournament pages.
+/event-details/jaeren-open-2025 /turneringer/jæren-open-2025 301
+/event-details/norgesmesterskapet-i-bordhockey-2025 /turneringer 301
+/en/event-details/norgesmesterskapet-i-bordhockey-2025 /en/turneringer 301

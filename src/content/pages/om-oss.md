@@ -8,7 +8,6 @@ menuOrder: 10
 ---
 ![\_DSC0002(1)\_edited.jpg](/media/images/om-oss-96e217ca.jpg)
 
-## OM OSS
 
 Norges Bordhockeyforbund
 

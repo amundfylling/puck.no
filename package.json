@@ -1,0 +1,26 @@
+{
+  "name": "puck-no",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "prebuild": "node scripts/optimize-media.mjs",
+    "preview": "astro preview",
+    "check": "astro check",
+    "check-links": "node scripts/check-links.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.1.1",
+    "sharp": "^0.35.3",
+    "tailwindcss": "^4.3.3"
+  },
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "marked": "^18.0.6",
+    "typescript": "^6.0.3"
+  }
+}

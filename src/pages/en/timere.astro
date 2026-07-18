@@ -1,0 +1,29 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AudioPlayer from '../../components/AudioPlayer.astro';
+import { timerIntroParagraphs, timers } from '../../lib/timere';
+import { seoForPath } from '../../lib/seo';
+
+const entry = await getEntry('pages', 'en/timere');
+if (!entry) throw new Error('pages/en/timere not found');
+const intro = timerIntroParagraphs(entry.body ?? '');
+const seo = seoForPath('/en/timere');
+---
+
+<BaseLayout
+  lang="en"
+  title={seo?.title ?? entry.data.seoTitle ?? entry.data.title}
+  description={seo?.description || entry.data.description}
+  canonicalPath="/en/timere"
+  noUrl="/timere"
+  enUrl="/en/timere"
+>
+  <section class="mx-auto max-w-3xl px-4 py-10">
+    <h1 class="text-3xl font-extrabold text-navy">{entry.data.title}</h1>
+    {intro.map((p) => <p class="mt-3 leading-relaxed text-slate-700">{p}</p>)}
+    <div class="mt-8 space-y-4">
+      {timers.map((timer) => <AudioPlayer title={timer.title} file={timer.file} durationHint={timer.duration_hint} lang="en" />)}
+    </div>
+  </section>
+</BaseLayout>

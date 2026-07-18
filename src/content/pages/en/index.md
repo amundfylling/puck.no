@@ -14,10 +14,6 @@ We have local leagues in Bergen and Jæren. It's free to join.
 
 [Read more](/en/lokalligaer)
 
-1.
-2.
-3.
-
 # Upcoming events
 
 ![](/media/images/norway-open-2026-7be43f15.jpg)

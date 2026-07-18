@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #c8102e;
+  --color-brand-dark: #9e0c25;
+  --color-navy: #0e2a57;
+  --color-navy-dark: #0a1f42;
+  --color-ice: #f4f7fb;
+}
+
+/* ---------- base ---------- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-slate-800 antialiased;
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  @apply absolute left-4 top-4 z-50 -translate-y-24 rounded bg-navy px-4 py-2 font-semibold text-white transition-transform;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* ---------- buttons ---------- */
+@utility btn {
+  @apply inline-block rounded-md px-5 py-2.5 font-semibold no-underline transition-colors;
+}
+.btn-primary {
+  @apply btn bg-brand text-white hover:bg-brand-dark;
+}
+.btn-outline {
+  @apply btn border-2 border-navy text-navy hover:bg-navy hover:text-white;
+}
+
+/* ---------- rendered markdown content ---------- */
+.rich-text {
+  @apply max-w-none;
+}
+.rich-text > *:first-child {
+  margin-top: 0;
+}
+.rich-text h1 {
+  @apply mt-10 mb-4 text-3xl font-bold text-navy;
+}
+.rich-text h2 {
+  @apply mt-10 mb-3 text-2xl font-bold text-navy;
+}
+.rich-text h3 {
+  @apply mt-8 mb-2 text-xl font-bold text-navy;
+}
+.rich-text h4,
+.rich-text h5,
+.rich-text h6 {
+  @apply mt-6 mb-2 text-lg font-semibold text-navy;
+}
+.rich-text p {
+  @apply my-4 leading-relaxed;
+}
+.rich-text a {
+  @apply text-brand underline underline-offset-2 hover:text-brand-dark;
+}
+.rich-text ul {
+  @apply my-4 list-disc pl-6;
+}
+.rich-text ol {
+  @apply my-4 list-decimal pl-6;
+}
+.rich-text li {
+  @apply my-1;
+}
+.rich-text img {
+  @apply my-6 h-auto max-w-full rounded-lg;
+}
+.rich-text blockquote {
+  @apply my-6 border-l-4 border-brand bg-ice px-4 py-2 italic;
+}
+.rich-text hr {
+  @apply my-8 border-slate-200;
+}
+.rich-text table {
+  @apply my-6 w-full border-collapse text-sm;
+}
+.rich-text th,
+.rich-text td {
+  @apply border border-slate-300 px-3 py-2 text-left align-top;
+}
+.rich-text thead th {
+  @apply bg-navy text-white;
+}
+.rich-text tbody tr:nth-child(even) {
+  @apply bg-ice;
+}
+.rich-text table img {
+  @apply my-0;
+}
+.rich-text strong {
+  @apply font-semibold text-slate-900;
+}

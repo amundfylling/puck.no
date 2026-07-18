@@ -6,7 +6,6 @@ description: null
 seoTitle: "Lær bordhockey | Bordhockeyforbundet"
 menuOrder: 3
 ---
-# Lær bordhockey!
 
 ## Har du aldri spilt bordhockey før?
 

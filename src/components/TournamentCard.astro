@@ -1,0 +1,31 @@
+---
+import { t, type Lang } from '../lib/i18n';
+import type { TournamentView } from '../lib/content';
+
+interface Props {
+  view: TournamentView;
+  lang: Lang;
+}
+
+const { view, lang } = Astro.props;
+const { entry, status } = view;
+const href = `/turneringer/${entry.data.slug}`;
+---
+
+<article class="flex items-center justify-between gap-4 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+  <div>
+    <h3 class="text-lg font-bold">
+      <a href={href} class="text-navy no-underline hover:text-brand">{entry.data.name}</a>
+    </h3>
+    <p class="mt-0.5 text-sm text-slate-600">{entry.data.date}</p>
+  </div>
+  <div class="flex shrink-0 items-center gap-3">
+    <span
+      class:list={[
+        'rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide',
+        status === 'upcoming' ? 'bg-brand text-white' : 'bg-slate-200 text-slate-600',
+      ]}>{t(lang, status)}</span
+    >
+    <a href={href} class="btn-outline hidden !px-3 !py-1.5 text-sm sm:inline-block">{t(lang, 'viewTournament')}</a>
+  </div>
+</article>

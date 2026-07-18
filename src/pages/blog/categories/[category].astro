@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PostCard from '../../../components/PostCard.astro';
+import { categorySlug, getPosts, postCategories } from '../../../lib/content';
+import { t } from '../../../lib/i18n';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (async () => {
+  const posts = await getPosts('no');
+  return postCategories(posts).map((category) => ({
+    params: { category: categorySlug(category) },
+    props: { category, posts: posts.filter((p) => p.data.categories.includes(category)) },
+  }));
+}) satisfies GetStaticPaths;
+
+const { category, posts } = Astro.props;
+const path = `/blog/categories/${Astro.params.category}`;
+---
+
+<BaseLayout
+  lang="no"
+  title={`${category} | Bordhockeyforbundet`}
+  description={`Innlegg i kategorien ${category}`}
+  canonicalPath={path}
+  noUrl={path}
+  enUrl={null}
+>
+  <section class="mx-auto max-w-6xl px-4 py-10">
+    <p class="text-sm">
+      <a href="/blog" class="font-semibold text-brand no-underline hover:underline">&larr; {t('no', 'backToBlog')}</a>
+    </p>
+    <h1 class="mt-4 text-3xl font-extrabold text-navy">{category}</h1>
+    <p class="mt-1 text-sm text-slate-500">{t('no', 'categories')}</p>
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {posts.map((post, i) => <PostCard post={post} lang="no" eager={i < 3} />)}
+    </div>
+  </section>
+</BaseLayout>

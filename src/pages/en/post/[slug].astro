@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PostArticle from '../../../components/PostArticle.astro';
+import { postMirrorsEnToNo } from '../../../lib/i18n';
+import { seoForPath } from '../../../lib/seo';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection('posts', (p) => p.data.lang === 'en');
+  return posts.map((post) => ({ params: { slug: post.data.slug }, props: { post } }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+const path = `/en/post/${post.data.slug}`;
+const seo = seoForPath(path);
+const noSlug = postMirrorsEnToNo[post.data.slug];
+---
+
+<BaseLayout
+  lang="en"
+  title={seo?.title ?? `${post.data.title} | Bordhockeyforbundet`}
+  description={seo?.description || post.data.description}
+  canonicalPath={path}
+  noUrl={noSlug ? `/post/${noSlug}` : null}
+  enUrl={path}
+  ogImage={post.data.cover ?? null}
+  ogType="article"
+>
+  <PostArticle post={post} lang="en" />
+</BaseLayout>

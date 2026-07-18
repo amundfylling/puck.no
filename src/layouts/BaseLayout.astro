@@ -1,0 +1,82 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CloudflareAnalytics from '../components/CloudflareAnalytics.astro';
+import { t, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+  /** Full <title> (from seo.json or frontmatter). */
+  title: string;
+  description?: string | null;
+  /** Path of this page, e.g. "/om-oss" — used for canonical + og:url. */
+  canonicalPath: string;
+  /** Path of the Norwegian mirror (for hreflang + switcher). */
+  noUrl?: string | null;
+  /** Path of the English mirror, when it exists. */
+  enUrl?: string | null;
+  ogImage?: string | null;
+  ogType?: 'website' | 'article';
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[] | null;
+}
+
+const {
+  lang,
+  title,
+  description,
+  canonicalPath,
+  noUrl = null,
+  enUrl = null,
+  ogImage = null,
+  ogType = 'website',
+  jsonLd = null,
+} = Astro.props;
+
+const site = Astro.site ?? new URL('https://www.puck.no');
+const abs = (path: string) => new URL(path, site).href;
+const canonical = abs(canonicalPath);
+const ogImageAbs = ogImage ? abs(ogImage) : abs('/media/images/index-2f7a1d75.png');
+const desc = description || undefined;
+const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+---
+
+<!doctype html>
+<html lang={lang === 'en' ? 'en' : 'no'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {desc && <meta name="description" content={desc} />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={lang === 'en' ? 'NBHF news (English)' : 'NBHF nyheter'}
+      href={lang === 'en' ? '/en/blog-feed.xml' : '/blog-feed.xml'}
+    />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Norges Bordhockeyforbund" />
+    <meta property="og:title" content={title} />
+    {desc && <meta property="og:description" content={desc} />}
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageAbs} />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'nb_NO'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {noUrl && <link rel="alternate" hreflang="no" href={abs(noUrl)} />}
+    {enUrl && <link rel="alternate" hreflang="en" href={abs(enUrl)} />}
+    {noUrl && <link rel="alternate" hreflang="x-default" href={abs(noUrl)} />}
+    {ld.map((obj) => <script is:inline type="application/ld+json" set:html={JSON.stringify(obj)} />)}
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a href="#innhold" class="skip-link">{t(lang, 'skipLink')}</a>
+    <Header lang={lang} currentPath={canonicalPath} noUrl={noUrl} enUrl={enUrl} />
+    <main id="innhold" class="flex-1">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <CloudflareAnalytics />
+  </body>
+</html>

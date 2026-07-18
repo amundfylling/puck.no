@@ -1,0 +1,45 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Arsmoter from '../components/Arsmoter.astro';
+import { renamedPages } from '../lib/i18n';
+import { seoForPath } from '../lib/seo';
+import type { GetStaticPaths } from 'astro';
+
+/** Pages with dedicated templates (excluded here). */
+export const getStaticPaths = (async () => {
+  const SPECIAL = new Set(['index', 'blog', 'turneringer', 'timere', 'bilder']);
+  const pages = await getCollection('pages', (p) => p.data.lang === 'no' && !SPECIAL.has(p.data.slug));
+  return pages.map((entry) => ({
+    params: { page: renamedPages[entry.data.slug] ?? entry.data.slug },
+    props: { entry },
+  }));
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const path = `/${Astro.params.page}`;
+const seo = seoForPath(path);
+---
+
+<BaseLayout
+  lang="no"
+  title={seo?.title ?? entry.data.seoTitle ?? entry.data.title}
+  description={seo?.description || entry.data.description}
+  canonicalPath={path}
+  noUrl={path}
+  enUrl={`/en${path}`}
+>
+  <article class="mx-auto max-w-4xl px-4 py-10">
+    <h1 class="text-3xl font-extrabold text-navy">{entry.data.title}</h1>
+    {
+      entry.data.slug === 'årsmøter' ? (
+        <Arsmoter lang="no" />
+      ) : (
+        <div class="rich-text mt-6">
+          <Content />
+        </div>
+      )
+    }
+  </article>
+</BaseLayout>

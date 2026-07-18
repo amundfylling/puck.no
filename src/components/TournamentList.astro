@@ -1,0 +1,28 @@
+---
+import { t, type Lang } from '../lib/i18n';
+import type { TournamentView } from '../lib/content';
+import TournamentCard from './TournamentCard.astro';
+
+interface Props {
+  lang: Lang;
+  views: TournamentView[];
+}
+
+const { lang, views } = Astro.props;
+const upcoming = views.filter((v) => v.status === 'upcoming');
+const past = views.filter((v) => v.status === 'past');
+---
+
+<section class="mx-auto max-w-4xl px-4 py-10">
+  <h1 class="text-3xl font-extrabold text-navy">{lang === 'en' ? 'Tournaments' : 'Turneringer'}</h1>
+
+  <h2 class="mt-8 text-xl font-bold text-navy">{t(lang, 'upcomingTournaments')}</h2>
+  <div class="mt-4 space-y-4">
+    {upcoming.map((view) => <TournamentCard view={view} lang={lang} />)}
+  </div>
+
+  <h2 class="mt-10 text-xl font-bold text-navy">{t(lang, 'pastTournaments')}</h2>
+  <div class="mt-4 space-y-4">
+    {past.map((view) => <TournamentCard view={view} lang={lang} />)}
+  </div>
+</section>

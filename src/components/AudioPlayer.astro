@@ -1,0 +1,113 @@
+---
+import { t, type Lang } from '../lib/i18n';
+
+interface Props {
+  title: string;
+  file: string;
+  durationHint: string;
+  lang: Lang;
+}
+
+const { title, file, durationHint, lang } = Astro.props;
+---
+
+<div
+  class="flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-3 shadow-sm"
+  data-player
+>
+  <audio preload="none" src={file}></audio>
+  <button
+    type="button"
+    data-play
+    aria-label={`${t(lang, 'play')}: ${title}`}
+    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand text-white hover:bg-brand-dark"
+  >
+    <svg data-icon-play width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M4 2.5v11l9-5.5z"></path>
+    </svg>
+    <svg data-icon-pause class="hidden" width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M3.5 2.5h3v11h-3zM9.5 2.5h3v11h-3z"></path>
+    </svg>
+  </button>
+  <div class="min-w-0 flex-1">
+    <p class="truncate text-sm font-semibold text-navy">{title}</p>
+    <input
+      type="range"
+      data-progress
+      min="0"
+      max="1000"
+      value="0"
+      step="1"
+      aria-label={title}
+      class="mt-1 w-full accent-brand"
+    />
+  </div>
+  <p class="shrink-0 text-xs tabular-nums text-slate-600">
+    <span data-current>0:00</span> / <span data-duration>{durationHint}</span>
+  </p>
+</div>
+
+<script>
+  function fmt(sec: number): string {
+    if (!Number.isFinite(sec)) return '0:00';
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return `${m}:${String(s).padStart(2, '0')}`;
+  }
+
+  const players = Array.from(document.querySelectorAll<HTMLElement>('[data-player]')).map((root) => {
+    const audio = root.querySelector<HTMLAudioElement>('audio')!;
+    const btn = root.querySelector<HTMLButtonElement>('[data-play]')!;
+    const iconPlay = btn.querySelector<SVGElement>('[data-icon-play]')!;
+    const iconPause = btn.querySelector<SVGElement>('[data-icon-pause]')!;
+    const progress = root.querySelector<HTMLInputElement>('[data-progress]')!;
+    const current = root.querySelector<HTMLElement>('[data-current]')!;
+    const duration = root.querySelector<HTMLElement>('[data-duration]')!;
+    let seeking = false;
+
+    function setPlaying(playing: boolean) {
+      iconPlay.classList.toggle('hidden', playing);
+      iconPause.classList.toggle('hidden', !playing);
+    }
+
+    btn.addEventListener('click', () => {
+      if (audio.paused) {
+        // one timer at a time
+        for (const p of players) if (p.audio !== audio) p.audio.pause();
+        void audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+    audio.addEventListener('play', () => setPlaying(true));
+    audio.addEventListener('pause', () => setPlaying(false));
+    audio.addEventListener('ended', () => {
+      setPlaying(false);
+      progress.value = '0';
+      current.textContent = '0:00';
+    });
+    audio.addEventListener('loadedmetadata', () => {
+      if (Number.isFinite(audio.duration)) duration.textContent = fmt(audio.duration);
+    });
+    audio.addEventListener('timeupdate', () => {
+      if (!seeking && Number.isFinite(audio.duration)) {
+        progress.value = String(Math.round((audio.currentTime / audio.duration) * 1000));
+      }
+      current.textContent = fmt(audio.currentTime);
+    });
+    progress.addEventListener('pointerdown', () => (seeking = true));
+    progress.addEventListener('input', () => {
+      if (Number.isFinite(audio.duration)) {
+        current.textContent = fmt((Number(progress.value) / 1000) * audio.duration);
+      }
+    });
+    progress.addEventListener('change', () => {
+      if (Number.isFinite(audio.duration)) {
+        audio.currentTime = (Number(progress.value) / 1000) * audio.duration;
+      }
+      seeking = false;
+    });
+
+    return { audio };
+  });
+</script>

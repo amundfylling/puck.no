@@ -14,10 +14,6 @@ Vi har lokalligaer i Bergen og på Jæren. Det er gratis og uforpliktende å sta
 
 [Les mer](/lokalligaer)
 
-1.
-2.
-3.
-
 # Kommende arrangementer
 
 ![](/media/images/norway-open-2026-7be43f15.jpg)

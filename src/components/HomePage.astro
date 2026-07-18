@@ -1,0 +1,94 @@
+---
+import { pagePath, t, type Lang } from '../lib/i18n';
+import type { Page, Post, TournamentView } from '../lib/content';
+import PostCard from './PostCard.astro';
+import TournamentCard from './TournamentCard.astro';
+
+interface Props {
+  lang: Lang;
+  entry: Page;
+  posts: Post[];
+  next: TournamentView | null;
+}
+
+const { lang, entry, posts, next } = Astro.props;
+
+// Labels below are verbatim from src/content/pages/index.md (and en/index.md).
+const l = {
+  play: lang === 'en' ? 'Play table hockey' : 'Spill bordhockey',
+  leagues: lang === 'en' ? 'Local leagues' : 'Lokalligaer',
+  tournaments: lang === 'en' ? 'Tournaments' : 'Turneringer',
+  heroAlt: lang === 'en' ? 'Table hockey game in action' : 'Bordhockeyspill i aksjon',
+  allTournaments: lang === 'en' ? 'All tournaments' : 'Alle turneringer',
+  allNews: t(lang, 'allNews'),
+  aboutHeading: lang === 'en' ? 'About the Norwegian Table Hockey Association' : 'Om Norges Bordhockeyforbund',
+  readMore: t(lang, 'readMore'),
+};
+---
+
+<section class="border-b border-slate-200 bg-ice">
+  <div class="mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 md:grid-cols-2">
+    <div>
+      <h1 class="text-3xl font-extrabold text-navy sm:text-4xl">{entry.data.title}</h1>
+      {entry.data.description && <p class="mt-4 text-lg leading-relaxed text-slate-700">{entry.data.description}</p>}
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href={pagePath('services-1', lang)} class="btn-primary">{l.play}</a>
+        <a href={pagePath('lokalligaer', lang)} class="btn-outline">{l.leagues}</a>
+        <a href={pagePath('turneringer', lang)} class="btn-outline">{l.tournaments}</a>
+      </div>
+    </div>
+    <img
+      src="/media/images/index-2f7a1d75.png"
+      alt={l.heroAlt}
+      width="1600"
+      height="782"
+      class="w-full rounded-lg shadow-md"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+</section>
+
+{
+  next && (
+    <section aria-labelledby="next-tournament" class="mx-auto max-w-6xl px-4 pt-10">
+      <div class="flex flex-wrap items-baseline justify-between gap-2">
+        <h2 id="next-tournament" class="text-2xl font-bold text-navy">
+          {t(lang, 'nextTournament')}
+        </h2>
+        <a href={pagePath('turneringer', lang)} class="text-sm font-semibold text-brand no-underline hover:underline">
+          {l.allTournaments}
+        </a>
+      </div>
+      <div class="mt-4">
+        <TournamentCard view={next} lang={lang} />
+      </div>
+    </section>
+  )
+}
+
+<section aria-labelledby="latest-news" class="mx-auto max-w-6xl px-4 pt-10">
+  <div class="flex flex-wrap items-baseline justify-between gap-2">
+    <h2 id="latest-news" class="text-2xl font-bold text-navy">{t(lang, 'latestNews')}</h2>
+    <a href={pagePath('blog', lang)} class="text-sm font-semibold text-brand no-underline hover:underline">{l.allNews}</a>
+  </div>
+  <div class="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {posts.map((post, i) => <PostCard post={post} lang={lang} eager={i === 0} />)}
+  </div>
+</section>
+
+{
+  entry.data.description && (
+    <section aria-labelledby="about-nbhf" class="mx-auto max-w-6xl px-4 pt-12">
+      <div class="rounded-lg bg-ice p-6 sm:p-8">
+        <h2 id="about-nbhf" class="text-2xl font-bold text-navy">
+          {l.aboutHeading}
+        </h2>
+        <p class="mt-3 leading-relaxed text-slate-700">{entry.data.description}</p>
+        <a href={pagePath('om-oss', lang)} class="btn-outline mt-4">
+          {l.readMore}
+        </a>
+      </div>
+    </section>
+  )
+}

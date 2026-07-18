@@ -6,7 +6,6 @@ description: null
 seoTitle: "Lokalligaer | Bordhockeyforbundet"
 menuOrder: 2
 ---
-# Lokalligaer
 
 Det er aktive miljøer i Bergen og på Jæren. Ta kontakt dersom du er interessert i å starte opp et bordhockeymiljø i ditt område.
 

@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import TournamentList from '../../../components/TournamentList.astro';
+import { getTournamentsSorted } from '../../../lib/content';
+import { seoForPath } from '../../../lib/seo';
+
+const views = await getTournamentsSorted();
+const seo = seoForPath('/en/turneringer');
+---
+
+<BaseLayout
+  lang="en"
+  title={seo?.title ?? 'Tournaments | Bordhockeyforbundet'}
+  description={seo?.description || null}
+  canonicalPath="/en/turneringer"
+  noUrl="/turneringer"
+  enUrl="/en/turneringer"
+>
+  <TournamentList lang="en" views={views} />
+</BaseLayout>

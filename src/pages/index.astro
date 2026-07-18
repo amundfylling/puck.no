@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomePage from '../components/HomePage.astro';
+import { getEntry } from 'astro:content';
+import { getPosts, getTournamentsSorted } from '../lib/content';
+import { seoForPath } from '../lib/seo';
+
+const entry = await getEntry('pages', 'index');
+if (!entry) throw new Error('pages/index not found');
+const seo = seoForPath('/');
+const posts = (await getPosts('no')).slice(0, 3);
+const next = (await getTournamentsSorted()).find((v) => v.status === 'upcoming') ?? null;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SportsOrganization',
+  name: 'Norges Bordhockeyforbund',
+  alternateName: 'NBHF',
+  url: 'https://www.puck.no/',
+  logo: 'https://www.puck.no/favicon.png',
+  sport: 'Table hockey',
+  email: 'amund.fylling@puck.no',
+  address: { '@type': 'PostalAddress', addressCountry: 'NO' },
+};
+---
+
+<BaseLayout
+  lang="no"
+  title={seo?.title ?? entry.data.seoTitle ?? entry.data.title}
+  description={seo?.description || entry.data.description}
+  canonicalPath="/"
+  noUrl="/"
+  enUrl="/en"
+  jsonLd={jsonLd}
+>
+  <HomePage lang="no" entry={entry} posts={posts} next={next} />
+</BaseLayout>

@@ -1,0 +1,146 @@
+---
+import { navItems, t, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+  currentPath: string;
+  noUrl: string | null;
+  enUrl: string | null;
+}
+
+const { lang, currentPath, noUrl, enUrl } = Astro.props;
+const items = navItems(lang);
+const home = lang === 'en' ? '/en' : '/';
+const orgName = lang === 'en' ? 'Norwegian Table Hockey Association' : 'Norges Bordhockeyforbund';
+
+const isActive = (href: string) =>
+  href === home ? currentPath === home : currentPath === href || currentPath.startsWith(href + '/');
+---
+
+<header class="border-b border-slate-200 bg-white">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-3">
+    <a href={home} class="flex items-center gap-3 no-underline" aria-label={`NBHF – ${orgName}`}>
+      <span
+        aria-hidden="true"
+        class="flex h-10 w-10 items-center justify-center rounded-md bg-brand text-lg font-extrabold tracking-tight text-white"
+        >N</span
+      >
+      <span class="leading-tight">
+        <span class="block text-sm font-extrabold tracking-wide text-navy">NBHF</span>
+        <span class="block text-xs text-slate-600">{orgName}</span>
+      </span>
+    </a>
+
+    <div class="flex items-center gap-4">
+      <nav aria-label={t(lang, 'languageSwitcher')} class="text-sm font-semibold">
+        <ul class="flex items-center gap-1">
+          <li>
+            <a
+              href={noUrl ?? '/'}
+              hreflang="no"
+              aria-current={lang === 'no' ? 'true' : undefined}
+              class:list={[
+                'rounded px-2 py-1 no-underline',
+                lang === 'no' ? 'bg-navy text-white' : 'text-navy hover:bg-ice',
+              ]}>NO</a
+            >
+          </li>
+          <li aria-hidden="true" class="text-slate-300">|</li>
+          <li>
+            <a
+              href={enUrl ?? '/en'}
+              hreflang="en"
+              aria-current={lang === 'en' ? 'true' : undefined}
+              class:list={[
+                'rounded px-2 py-1 no-underline',
+                lang === 'en' ? 'bg-navy text-white' : 'text-navy hover:bg-ice',
+              ]}>EN</a
+            >
+          </li>
+        </ul>
+      </nav>
+      <button
+        type="button"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="main-nav"
+        aria-label={t(lang, 'openMenu')}
+        data-open-label={t(lang, 'openMenu')}
+        data-close-label={t(lang, 'closeMenu')}
+        class="rounded p-2 text-navy hover:bg-ice md:hidden"
+      >
+        <svg data-icon-open width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"></path>
+        </svg>
+        <svg data-icon-close class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"></path>
+        </svg>
+      </button>
+    </div>
+
+    <nav id="main-nav" aria-label={t(lang, 'menuLabel')} class="hidden w-full md:block md:w-auto" data-nav>
+      <ul class="flex flex-col gap-1 pb-2 md:flex-row md:flex-wrap md:items-center md:gap-0 md:pb-0">
+        {
+          items.map((item) => (
+            <li class:list={['md:relative', item.children && 'group']}>
+              <a
+                href={item.href}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                class:list={[
+                  'block rounded px-3 py-2 text-sm font-semibold no-underline',
+                  isActive(item.href) ? 'text-brand' : 'text-navy hover:bg-ice hover:text-brand',
+                ]}
+              >
+                {item.label}
+                {item.children && (
+                  <svg class="ml-1 inline h-3 w-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                )}
+              </a>
+              {item.children && (
+                <ul class="border-l-2 border-ice pl-3 md:invisible md:absolute md:left-0 md:top-full md:z-40 md:min-w-56 md:border md:border-slate-200 md:bg-white md:py-2 md:pl-0 md:opacity-0 md:shadow-lg md:transition-opacity md:group-hover:visible md:group-hover:opacity-100 md:group-focus-within:visible md:group-focus-within:opacity-100">
+                  {item.children.map((child) => (
+                    <li>
+                      <a
+                        href={child.href}
+                        aria-current={!child.external && isActive(child.href) ? 'page' : undefined}
+                        {...(child.external ? { target: '_blank', rel: 'noopener' } : {})}
+                        class:list={[
+                          'block rounded px-3 py-1.5 text-sm no-underline md:rounded-none',
+                          !child.external && isActive(child.href)
+                            ? 'font-semibold text-brand'
+                            : 'text-slate-700 hover:bg-ice hover:text-brand',
+                        ]}
+                      >
+                        {child.label}
+                        {child.external && <span class="sr-only"> ({t(lang, 'opensInNewTab')})</span>}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const nav = document.querySelector<HTMLElement>('[data-nav]');
+  if (toggle && nav) {
+    toggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('hidden') === false;
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute(
+        'aria-label',
+        open ? (toggle.dataset.closeLabel ?? '') : (toggle.dataset.openLabel ?? ''),
+      );
+      toggle.querySelector('[data-icon-open]')?.classList.toggle('hidden', open);
+      toggle.querySelector('[data-icon-close]')?.classList.toggle('hidden', !open);
+    });
+  }
+</script>

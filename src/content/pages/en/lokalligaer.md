@@ -6,7 +6,6 @@ description: null
 seoTitle: "Local Leagues | Bordhockeyforbundet"
 menuOrder: 2
 ---
-# Local leagues
 
 There are active communities in Bergen and on Jæren. Get in touch if you are interested in starting a table hockey environment in your area.
 

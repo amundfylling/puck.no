@@ -4,3 +4,4 @@ migration/raw
 .dev.vars
 .DS_Store
 .playwright-mcp
+.astro

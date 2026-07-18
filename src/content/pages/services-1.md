@@ -6,7 +6,6 @@ description: null
 seoTitle: "SPILL BORDHOCKEY | Bordhockeyforbundet"
 menuOrder: 1
 ---
-# Spill bordhockey!
 
 Bli en del av bordhockeymiljøet
 

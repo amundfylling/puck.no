@@ -1,0 +1,118 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RegistrationForm from '../../components/RegistrationForm.astro';
+import { tournamentStatus } from '../../lib/content';
+import { parseNoDate } from '../../lib/dates';
+import { seoForPath } from '../../lib/seo';
+import { t } from '../../lib/i18n';
+import registrations from '../../data/registrations-snapshot.json';
+import type { GetStaticPaths } from 'astro';
+
+interface Player {
+  name: string;
+  country: string;
+  world_ranking?: string;
+}
+
+export const getStaticPaths = (async () => {
+  const tournaments = await getCollection('tournaments');
+  return tournaments.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry } }));
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const status = tournamentStatus(entry);
+const date = parseNoDate(entry.data.date);
+const path = `/turneringer/${entry.data.slug}`;
+const seo = seoForPath(path);
+const players =
+  (registrations.tournaments as Record<string, Player[]>)[entry.data.slug]?.filter(
+    (p) => p.name && p.name.toLowerCase() !== 'name',
+  ) ?? [];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SportsEvent',
+  name: entry.data.name,
+  url: `https://www.puck.no${path}`,
+  ...(date && { startDate: date.toISOString().slice(0, 10) }),
+  eventStatus:
+    status === 'past' ? 'https://schema.org/EventCompleted' : 'https://schema.org/EventScheduled',
+  location: {
+    '@type': 'Place',
+    name: entry.data.location ?? 'Norge',
+    address: { '@type': 'PostalAddress', addressCountry: 'NO' },
+  },
+  organizer: {
+    '@type': 'SportsOrganization',
+    name: 'Norges Bordhockeyforbund',
+    url: 'https://www.puck.no/',
+  },
+};
+---
+
+<BaseLayout
+  lang="no"
+  title={seo?.title ?? `${entry.data.name} | Bordhockeyforbundet`}
+  description={seo?.description || null}
+  canonicalPath={path}
+  noUrl={path}
+  enUrl={null}
+  jsonLd={jsonLd}
+>
+  <article class="mx-auto max-w-4xl px-4 py-10">
+    <p class="text-sm">
+      <a href="/turneringer" class="font-semibold text-brand no-underline hover:underline"
+        >&larr; {t('no', 'tournaments')}</a
+      >
+    </p>
+    <div class="mt-4 flex flex-wrap items-center gap-3">
+      <h1 class="text-3xl font-extrabold text-navy">{entry.data.name}</h1>
+      <span
+        class:list={[
+          'rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide',
+          status === 'upcoming' ? 'bg-brand text-white' : 'bg-slate-200 text-slate-600',
+        ]}>{t('no', status)}</span
+      >
+    </div>
+    <p class="mt-2 text-slate-600">
+      <span class="font-semibold">{t('no', 'date')}:</span> {entry.data.date}
+      {entry.data.location && <span> · {entry.data.location}</span>}
+    </p>
+
+    <div class="rich-text mt-6">
+      <Content />
+    </div>
+
+    {status === 'upcoming' && <RegistrationForm lang="no" />}
+
+    <section aria-labelledby="registered-players" class="mt-10">
+      <h2 id="registered-players" class="text-2xl font-bold text-navy">{t('no', 'registeredPlayers')}</h2>
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr>
+              <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">#</th>
+              <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t('no', 'name')}</th>
+              <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t('no', 'country')}</th>
+              <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t('no', 'wr')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              players.map((player, i) => (
+                <tr class="odd:bg-white even:bg-ice">
+                  <td class="border border-slate-300 px-3 py-2 tabular-nums">{i + 1}</td>
+                  <td class="border border-slate-300 px-3 py-2">{player.name}</td>
+                  <td class="border border-slate-300 px-3 py-2">{player.country}</td>
+                  <td class="border border-slate-300 px-3 py-2 tabular-nums">{player.world_ranking ?? '–'}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

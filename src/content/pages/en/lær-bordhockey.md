@@ -6,7 +6,6 @@ description: null
 seoTitle: "PLAY TABLE HOCKEY | Bordhockeyforbundet"
 menuOrder: 3
 ---
-# Play table hockey!
 
 ## Do you live in Bergen or the Stavanger area?
 

@@ -1,0 +1,17 @@
+---
+import { t, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<section id="pamelding" aria-labelledby="pamelding-heading" class="my-10 rounded-lg border-2 border-dashed border-slate-300 bg-ice p-6">
+  <h2 id="pamelding-heading" class="text-xl font-bold text-navy">{t(lang, 'registerPlayer')}</h2>
+  <!-- PHASE 3: the tournament registration form goes here. It will POST to the
+       registration backend and replace this placeholder. Keep the #pamelding
+       anchor so old links keep working. -->
+  <p class="mt-2 text-slate-600">{t(lang, 'registrationPlaceholder')}</p>
+</section>
