@@ -43,6 +43,13 @@ const tournaments = defineCollection({
     playingSystem: z.string().nullable(),
     /** Frontmatter hint — computed status (date vs build date) wins, see lib/tournaments.ts. */
     status: z.enum(['upcoming', 'past']),
+    /**
+     * Team tournament: both set => teams of teamMin..teamMax players may register.
+     * Both null (default) => individual tournament. Mirrored to the API via
+     * scripts/gen-tournament-config.mjs (runs in prebuild).
+     */
+    teamMin: z.number().int().min(1).nullable().default(null),
+    teamMax: z.number().int().min(1).nullable().default(null),
   }),
 });
 

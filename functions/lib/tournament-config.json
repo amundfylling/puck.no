@@ -1,0 +1,46 @@
+{
+ "bergen-open-2025": {
+  "teamMin": null,
+  "teamMax": null
+ },
+ "duo-nm-2026": {
+  "teamMin": 2,
+  "teamMax": 2
+ },
+ "jæren-open-2025": {
+  "teamMin": null,
+  "teamMax": null
+ },
+ "norgesmesterskapet-2026-dame": {
+  "teamMin": null,
+  "teamMax": null
+ },
+ "norgesmesterskapet-2026-junior": {
+  "teamMin": null,
+  "teamMax": null
+ },
+ "norgesmesterskapet-2026-u13": {
+  "teamMin": null,
+  "teamMax": null
+ },
+ "norgesmesterskapet-2026-veteran": {
+  "teamMin": null,
+  "teamMax": null
+ },
+ "norgesmesterskapet-2026": {
+  "teamMin": null,
+  "teamMax": null
+ },
+ "norway-open-2026": {
+  "teamMin": null,
+  "teamMax": null
+ },
+ "sudden-death-cup": {
+  "teamMin": null,
+  "teamMax": null
+ },
+ "trondheim-open-2025": {
+  "teamMin": null,
+  "teamMax": null
+ }
+}

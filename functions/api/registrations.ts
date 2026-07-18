@@ -4,18 +4,23 @@
  *
  * Body (JSON):
  *   player: { tournament_slug, type: 'player', playerId? | name, email, phone?, turnstileToken }
- *   team:   { tournament_slug, type: 'team',   playerIds?: [id, id] | name, email, phone?, turnstileToken }
+ *   team:   { tournament_slug, type: 'team',   playerIds?: id[] | names?: string[],
+ *             email, phone?, turnstileToken }
  *
- * With playerId(s), the server looks the player(s) up in the LIVE ITHF world
- * ranking (stiga.trefik.cz, cf-cached 6h) and derives name/country/WR itself —
- * client-sent country/world_ranking are IGNORED (tamper-proof). Without
- * playerId (new/unranked player), name is free text and country/WR stay NULL.
+ * Tournaments are individual by default; team tournaments (teamMin/teamMax in
+ * frontmatter) accept only type 'team' with between teamMin and teamMax
+ * players. With playerId(s), the server looks the player(s) up in the LIVE
+ * ITHF world ranking (stiga.trefik.cz, cf-cached 6h) and derives
+ * name/country/WR itself — client-sent country/world_ranking are IGNORED
+ * (tamper-proof). Without playerId (new/unranked player), name is free text
+ * and country/WR stay NULL. Contact info (email/phone) is stored once per
+ * registration — for teams, for the team as a whole.
  *
  * Responses: 201 created · 400 validation (Norwegian messages) ·
  * 403 Turnstile failed · 409 duplicate · 502 ranking unavailable ·
  * 405 other methods. All queries are parameterised.
  */
-import { KNOWN_SLUGS } from '../lib/slugs';
+import { KNOWN_SLUGS, TOURNAMENTS } from '../lib/tournaments';
 
 interface Env {
   DB: D1Database;
@@ -84,6 +89,7 @@ interface Payload {
   tournament_slug?: unknown;
   type?: unknown;
   name?: unknown;
+  names?: unknown;
   email?: unknown;
   phone?: unknown;
   playerId?: unknown;
@@ -91,21 +97,41 @@ interface Payload {
   turnstileToken?: unknown;
 }
 
-/** Basic shape validation (Norwegian message or null). playerId/name resolution happens after. */
+/**
+ * Basic shape validation (Norwegian message or null). Enforces the tournament's
+ * registration kind (individual by default; team with teamMin/teamMax players
+ * when configured). playerId(s)/name resolution happens after.
+ */
 function validate(body: Payload): string | null {
   if (typeof body.tournament_slug !== 'string' || !KNOWN_SLUGS.has(body.tournament_slug)) {
     return 'Ukjent turnering.';
   }
-  if (body.type !== 'player' && body.type !== 'team') {
-    return 'Ugyldig registreringstype.';
-  }
-  const hasPlayerId = body.playerId != null || (Array.isArray(body.playerIds) && body.playerIds.length > 0);
-  if (!hasPlayerId) {
-    if (typeof body.name !== 'string' || body.name.trim().length === 0) {
-      return body.type === 'team' ? 'Spillere er påkrevd.' : 'Navn er påkrevd.';
+  const cfg = TOURNAMENTS[body.tournament_slug as string];
+  const isTeam = cfg.teamMin != null && cfg.teamMax != null;
+
+  if (isTeam) {
+    if (body.type !== 'team') return 'Denne turneringen er en lagturnering.';
+    const ids = Array.isArray(body.playerIds) ? body.playerIds : null;
+    const names = Array.isArray(body.names) ? body.names : null;
+    if ((ids == null) === (names == null)) return 'Ugyldig registrering.';
+    const count = (ids ?? names)!.length;
+    if (count < cfg.teamMin! || count > cfg.teamMax!) {
+      return `Laget må ha mellom ${cfg.teamMin} og ${cfg.teamMax} spillere.`;
     }
-    if (body.name.length > MAX.name) return 'Navnet er for langt.';
+    if (ids && ids.some((v) => asId(v) == null)) return 'Ugyldig spiller.';
+    if (names && names.some((n) => typeof n !== 'string' || !n.trim() || n.length > MAX.name)) {
+      return 'Spillernavn er påkrevd.';
+    }
+  } else {
+    if (body.type !== 'player') return 'Denne turneringen er individuell.';
+    if (body.playerId == null) {
+      if (typeof body.name !== 'string' || body.name.trim().length === 0) {
+        return 'Navn er påkrevd.';
+      }
+      if (body.name.length > MAX.name) return 'Navnet er for langt.';
+    }
   }
+
   if (typeof body.email !== 'string' || body.email.length > MAX.email || !EMAIL_RE.test(body.email.trim())) {
     return 'Ugyldig e-postadresse.';
   }
@@ -152,8 +178,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   let wr: number | null = null;
 
   if (body.type === 'team') {
-    const ids = Array.isArray(body.playerIds) ? body.playerIds.map(asId).filter((v): v is number => v != null) : [];
-    if (ids.length === 2) {
+    const ids = Array.isArray(body.playerIds)
+      ? body.playerIds.map(asId).filter((v): v is number => v != null)
+      : null;
+    if (ids) {
       let ranking: Map<number, RankedPlayer>;
       try {
         ranking = await fetchRanking();
@@ -161,14 +189,13 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         console.error('ranking fetch failed', err);
         return json({ error: 'Kunne ikke hente verdensrankingen. Prøv igjen senere.' }, 502);
       }
-      const p1 = ranking.get(ids[0]);
-      const p2 = ranking.get(ids[1]);
-      if (!p1 || !p2) {
+      const resolved = ids.map((id) => ranking.get(id));
+      if (resolved.some((p) => !p)) {
         return json({ error: 'Spilleren ble ikke funnet på verdensrankingen.' }, 400);
       }
-      name = `${p1.name} / ${p2.name}`;
+      name = resolved.map((p) => p!.name).join(' / ');
     } else {
-      name = (body.name as string).trim();
+      name = (body.names as string[]).map((n) => n.trim()).join(' / ');
     }
   } else {
     const id = asId(body.playerId);

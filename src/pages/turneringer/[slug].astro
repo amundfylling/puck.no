@@ -86,7 +86,11 @@ const jsonLd = {
       <Content />
     </div>
 
-    {status === 'upcoming' && <RegistrationForm lang="no" slug={entry.data.slug} />}
+    {
+      status === 'upcoming' && (
+        <RegistrationForm lang="no" slug={entry.data.slug} teamMin={entry.data.teamMin} teamMax={entry.data.teamMax} />
+      )
+    }
 
     <ParticipantList slug={entry.data.slug} players={players} lang="no" />
   </article>

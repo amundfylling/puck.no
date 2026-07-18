@@ -6,67 +6,90 @@ interface Props {
   lang: Lang;
   /** Tournament slug — posted to the API. */
   slug: string;
+  /** Team tournament when both are set (min/max players per team). */
+  teamMin?: number | null;
+  teamMax?: number | null;
 }
 
-const { lang, slug } = Astro.props;
+const { lang, slug, teamMin = null, teamMax = null } = Astro.props;
+const isTeam = teamMin != null && teamMax != null;
 const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined;
 
 // PHASE 3: live registration form -> POST /api/registrations (Cloudflare
-// Pages Function + D1). Player is chosen from the live ITHF world ranking
+// Pages Function + D1). Players are chosen from the live ITHF world ranking
 // (searchable combobox, /ranking.json loaded lazily); country + world
-// ranking are derived server-side. Vanilla-JS island, no framework.
+// ranking are derived server-side. Team tournaments (teamMin/teamMax set in
+// the tournament's frontmatter) get one combobox per player (min shown,
+// extra rows revealed up to max); contact info is stored once per team.
+// Vanilla-JS island, no framework.
 const l =
   lang === 'en'
     ? {
-        playerTab: 'Register player',
-        teamTab: 'Register team',
+        heading: isTeam ? 'Register team' : 'Register player',
         name: 'Name',
+        playerN: (n: number) => `Player ${n}`,
         searchPlaceholder: 'Search the world ranking…',
         loading: 'Loading the world ranking…',
         noResults: 'No players found',
         fallbackToggle: "I can't find my name",
         fallbackLabel: 'Name (new player without world ranking)',
-        player1: 'Player 1',
-        player2: 'Player 2',
+        addPlayer: 'Add player',
+        removePlayer: 'Remove',
+        teamHint: isTeam && teamMin === teamMax ? `Teams of exactly ${teamMin} players.` : `Teams of ${teamMin}–${teamMax} players.`,
         email: 'Email',
         phone: 'Phone number',
         submit: 'Register',
         sending: 'Registering…',
         success: 'Takk for din registrering!',
         pickPlayer: 'Select a player from the list, or use "I can\'t find my name".',
-        pickBoth: 'Select both players, or enter both names.',
+        pickAll: 'Fill in all players on the team.',
         privacy:
           'We store your name, email and phone number to manage tournament registrations. Contact amund.fylling@puck.no for access or deletion.',
         noscript: 'Registration requires JavaScript.',
         noKey: 'Registration is not configured (missing Turnstile site key).',
       }
     : {
-        playerTab: 'Registrer spiller',
-        teamTab: 'Registrer lag',
+        heading: isTeam ? 'Registrer lag' : 'Registrer spiller',
         name: 'Navn',
+        playerN: (n: number) => `Spiller ${n}`,
         searchPlaceholder: 'Søk i verdensrankingen…',
         loading: 'Laster verdensrankingen…',
         noResults: 'Ingen spillere funnet',
         fallbackToggle: 'Jeg finner ikke navnet mitt',
         fallbackLabel: 'Navn (ny spiller uten verdensranking)',
-        player1: 'Spiller 1',
-        player2: 'Spiller 2',
+        addPlayer: 'Legg til spiller',
+        removePlayer: 'Fjern',
+        teamHint: isTeam && teamMin === teamMax ? `Lag med nøyaktig ${teamMin} spillere.` : `Lag med ${teamMin}–${teamMax} spillere.`,
         email: 'Epost',
         phone: 'Telefonnummer',
         submit: 'Registrer',
         sending: 'Registrerer…',
         success: 'Takk for din registrering!',
         pickPlayer: 'Velg en spiller fra listen, eller bruk «Jeg finner ikke navnet mitt».',
-        pickBoth: 'Velg begge spillerne, eller skriv inn begge navnene.',
+        pickAll: 'Fyll inn alle spillerne på laget.',
         privacy:
           'Vi lagrer navn, e-post og telefonnummer for å administrere turneringspåmeldinger. Kontakt amund.fylling@puck.no for innsyn eller sletting.',
         noscript: 'Påmelding krever JavaScript.',
         noKey: 'Registreringen er ikke konfigurert (mangler Turnstile-nøkkel).',
       };
+
+const type = isTeam ? 'team' : 'player';
+const rowCount = isTeam ? teamMax! : 1;
+const visibleCount = isTeam ? teamMin! : 1;
 ---
 
-<section id="pamelding" aria-labelledby="pamelding-heading" class="my-10 rounded-lg border border-slate-200 bg-ice p-6" data-registration data-slug={slug} data-messages={JSON.stringify({ pickPlayer: l.pickPlayer, pickBoth: l.pickBoth, loading: l.loading, noResults: l.noResults })}>
-  <h2 id="pamelding-heading" class="text-xl font-bold text-navy">{l.playerTab} / {l.teamTab}</h2>
+<section
+  id="pamelding"
+  aria-labelledby="pamelding-heading"
+  class="my-10 rounded-lg border border-slate-200 bg-ice p-6"
+  data-registration
+  data-slug={slug}
+  data-type={type}
+  data-visible={visibleCount}
+  data-messages={JSON.stringify({ pickPlayer: l.pickPlayer, pickAll: l.pickAll, loading: l.loading, noResults: l.noResults })}
+>
+  <h2 id="pamelding-heading" class="text-xl font-bold text-navy">{l.heading}</h2>
+  {isTeam && <p class="mt-1 text-sm text-slate-600">{l.teamHint}</p>}
 
   <noscript>
     <p class="mt-2 font-semibold text-brand">{l.noscript}</p>
@@ -78,51 +101,43 @@ const l =
     )
   }
 
-  <div role="tablist" aria-label={l.playerTab + ' / ' + l.teamTab} class="mt-4 flex gap-2">
-    <button type="button" role="tab" data-tab="player" aria-selected="true" class="tab-btn btn-primary !px-4 !py-2 text-sm">{l.playerTab}</button>
-    <button type="button" role="tab" data-tab="team" aria-selected="false" class="tab-btn btn-outline !px-4 !py-2 text-sm">{l.teamTab}</button>
-  </div>
-
-  <form data-form="player" class="mt-4 grid max-w-lg gap-3">
-    <PlayerSelect
-      id="reg-player"
-      label={l.name}
-      placeholder={l.searchPlaceholder}
-      fallbackToggle={l.fallbackToggle}
-      fallbackLabel={l.fallbackLabel}
-    />
-    <label class="grid gap-1 text-sm font-semibold text-navy">
-      {l.email} <span aria-hidden="true" class="text-brand">*</span>
-      <input name="email" type="email" required maxlength="254" autocomplete="email" class="rounded border border-slate-300 px-3 py-2 font-normal" />
-    </label>
-    <label class="grid gap-1 text-sm font-semibold text-navy">
-      {l.phone}
-      <input name="phone" type="tel" maxlength="30" autocomplete="tel" class="rounded border border-slate-300 px-3 py-2 font-normal" />
-    </label>
-    {siteKey && <div class="cf-turnstile" data-sitekey={siteKey}></div>}
-    <div>
-      <button type="submit" data-submit data-sending={l.sending} disabled={!siteKey} class="btn-primary disabled:cursor-not-allowed disabled:opacity-50">
-        {l.submit}
-      </button>
-    </div>
-    <p data-message data-success={l.success} role="status" aria-live="polite" class="hidden rounded px-3 py-2 text-sm font-semibold"></p>
-  </form>
-
-  <form data-form="team" class="mt-4 hidden max-w-lg gap-3">
-    <PlayerSelect
-      id="reg-team-1"
-      label={l.player1}
-      placeholder={l.searchPlaceholder}
-      fallbackToggle={l.fallbackToggle}
-      fallbackLabel={l.fallbackLabel}
-    />
-    <PlayerSelect
-      id="reg-team-2"
-      label={l.player2}
-      placeholder={l.searchPlaceholder}
-      fallbackToggle={l.fallbackToggle}
-      fallbackLabel={l.fallbackLabel}
-    />
+  <form data-form class="mt-4 grid max-w-lg gap-3">
+    {
+      Array.from({ length: rowCount }, (_, i) => (
+        <div data-player-row={i} class:list={[i >= visibleCount && 'hidden']}>
+          <div class="flex items-end gap-2">
+            <div class="grow">
+              <PlayerSelect
+                id={`reg-${type}-${i}`}
+                label={isTeam ? l.playerN(i + 1) : l.name}
+                placeholder={l.searchPlaceholder}
+                fallbackToggle={l.fallbackToggle}
+                fallbackLabel={l.fallbackLabel}
+              />
+            </div>
+            {i >= visibleCount && (
+              <button
+                type="button"
+                data-remove-row={i}
+                aria-label={`${l.removePlayer} ${isTeam ? l.playerN(i + 1) : ''}`}
+                class="mb-1 shrink-0 rounded border border-slate-300 px-2 py-1 text-xs font-semibold text-slate-600 hover:border-brand hover:text-brand"
+              >
+                {l.removePlayer}
+              </button>
+            )}
+          </div>
+        </div>
+      ))
+    }
+    {
+      isTeam && teamMax! > teamMin! && (
+        <div>
+          <button type="button" data-add-row class="btn-outline !px-3 !py-1.5 text-sm">
+            + {l.addPlayer}
+          </button>
+        </div>
+      )
+    }
     <label class="grid gap-1 text-sm font-semibold text-navy">
       {l.email} <span aria-hidden="true" class="text-brand">*</span>
       <input name="email" type="email" required maxlength="254" autocomplete="email" class="rounded border border-slate-300 px-3 py-2 font-normal" />
@@ -149,26 +164,8 @@ const l =
   const root = document.querySelector<HTMLElement>('[data-registration]');
   if (root) {
     const slug = root.dataset.slug!;
+    const type = root.dataset.type as 'player' | 'team';
     const msgs = JSON.parse(root.dataset.messages ?? '{}') as Record<string, string>;
-
-    /* ---------- tabs ---------- */
-    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-tab]'));
-    const forms = Array.from(root.querySelectorAll<HTMLFormElement>('[data-form]'));
-    tabs.forEach((tab) =>
-      tab.addEventListener('click', () => {
-        tabs.forEach((t) => {
-          const active = t === tab;
-          t.setAttribute('aria-selected', String(active));
-          t.classList.toggle('btn-primary', active);
-          t.classList.toggle('btn-outline', !active);
-        });
-        forms.forEach((f) => {
-          const show = f.dataset.form === tab.dataset.tab;
-          f.classList.toggle('hidden', !show);
-          f.classList.toggle('grid', show);
-        });
-      }),
-    );
 
     /* ---------- ranking comboboxes ---------- */
     type PlayerRow = [number, number, string, string, string]; // rank, id, name, club, nation
@@ -335,85 +332,115 @@ const l =
       return name ? { name } : {};
     }
 
-    /* ---------- submit ---------- */
-    forms.forEach((form) => {
-      const btn = form.querySelector<HTMLButtonElement>('[data-submit]')!;
-      const msg = form.querySelector<HTMLElement>('[data-message]')!;
-      const btnLabel = btn.textContent ?? '';
-      const boxes = Array.from(form.querySelectorAll<HTMLElement>('[data-player-select]'));
-      const states = boxes.map(initPlayerSelect);
-      const type = form.dataset.form as 'player' | 'team';
+    /* ---------- dynamic team rows ---------- */
+    const form = root.querySelector<HTMLFormElement>('[data-form]')!;
+    const rows = Array.from(form.querySelectorAll<HTMLElement>('[data-player-row]'));
+    const states = rows.map((row) => initPlayerSelect(row.querySelector<HTMLElement>('[data-player-select]')!));
+    const minRows = Number(root.dataset.visible ?? rows.length);
+    let active = rows.map((_, i) => i).slice(0, minRows); // indices of visible rows, in order
+    const addBtn = form.querySelector<HTMLButtonElement>('[data-add-row]');
 
-      function showMessage(text: string, ok: boolean) {
-        msg.textContent = text;
-        msg.classList.remove('hidden', 'bg-green-100', 'text-green-900', 'bg-red-100', 'text-red-900');
-        msg.classList.add(ok ? 'bg-green-100' : 'bg-red-100', ok ? 'text-green-900' : 'text-red-900');
+    function refreshRows() {
+      rows.forEach((row, i) => row.classList.toggle('hidden', !active.includes(i)));
+      rows.forEach((row, i) => {
+        const rm = row.querySelector<HTMLElement>('[data-remove-row]');
+        if (rm) rm.classList.toggle('hidden', active[active.length - 1] !== i || active.length <= minRows);
+      });
+      if (addBtn) addBtn.classList.toggle('hidden', active.length >= rows.length);
+    }
+    addBtn?.addEventListener('click', () => {
+      const next = rows.findIndex((_, i) => !active.includes(i));
+      if (next !== -1) {
+        active.push(next);
+        refreshRows();
+        rows[next].querySelector<HTMLInputElement>('[data-combo-input]')?.focus();
       }
+    });
+    form.querySelectorAll<HTMLButtonElement>('[data-remove-row]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const i = Number(btn.dataset.removeRow);
+        if (active.length <= minRows) return;
+        active = active.filter((r) => r !== i);
+        refreshRows();
+      });
+    });
 
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        if (!form.reportValidity()) return;
+    /* ---------- submit ---------- */
+    const btn = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+    const msg = form.querySelector<HTMLElement>('[data-message]')!;
+    const btnLabel = btn.textContent ?? '';
 
-        const players = states.map((s, i) => readPlayer(boxes[i], s));
-        let payload: Record<string, unknown>;
-        if (type === 'team') {
-          const ids = players.map((p) => p.playerId).filter((v): v is number => v != null);
-          if (ids.length === 2) {
-            payload = { playerIds: ids };
-          } else {
-            const names = players.map((p) => p.name?.trim() ?? '');
-            if (names.some((n) => !n)) {
-              showMessage(msgs.pickBoth ?? 'Velg begge spillerne.', false);
-              return;
-            }
-            payload = { name: names.join(' / ') };
-          }
+    function showMessage(text: string, ok: boolean) {
+      msg.textContent = text;
+      msg.classList.remove('hidden', 'bg-green-100', 'text-green-900', 'bg-red-100', 'text-red-900');
+      msg.classList.add(ok ? 'bg-green-100' : 'bg-red-100', ok ? 'text-green-900' : 'text-red-900');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const players = active.map((rowIdx) => readPlayer(rows[rowIdx], states[rowIdx]));
+      let payload: Record<string, unknown>;
+      if (type === 'team') {
+        const ids = players.map((p) => p.playerId);
+        if (ids.every((v): v is number => v != null)) {
+          payload = { playerIds: ids };
         } else {
-          if (players[0].playerId == null && !players[0].name) {
-            showMessage(msgs.pickPlayer ?? 'Velg en spiller.', false);
+          const names = players.map((p) => p.name?.trim() ?? '');
+          if (names.some((n) => !n)) {
+            showMessage(msgs.pickAll ?? 'Fyll inn alle spillerne.', false);
             return;
           }
-          payload = players[0].playerId != null ? { playerId: players[0].playerId } : { name: players[0].name };
+          payload = { names };
         }
+      } else {
+        if (players[0].playerId == null && !players[0].name) {
+          showMessage(msgs.pickPlayer ?? 'Velg en spiller.', false);
+          return;
+        }
+        payload = players[0].playerId != null ? { playerId: players[0].playerId } : { name: players[0].name };
+      }
 
-        btn.disabled = true;
-        btn.textContent = btn.dataset.sending ?? btnLabel;
-        try {
-          const token = form.querySelector<HTMLInputElement>('[name="cf-turnstile-response"]')?.value ?? '';
-          const data = Object.fromEntries(new FormData(form).entries());
-          const res = await fetch('/api/registrations', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              tournament_slug: slug,
-              type,
-              ...payload,
-              email: data.email,
-              phone: data.phone || null,
-              turnstileToken: token,
-            }),
+      btn.disabled = true;
+      btn.textContent = btn.dataset.sending ?? btnLabel;
+      try {
+        const token = form.querySelector<HTMLInputElement>('[name="cf-turnstile-response"]')?.value ?? '';
+        const data = Object.fromEntries(new FormData(form).entries());
+        const res = await fetch('/api/registrations', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            tournament_slug: slug,
+            type,
+            ...payload,
+            email: data.email,
+            phone: data.phone || null,
+            turnstileToken: token,
+          }),
+        });
+        const body = (await res.json().catch(() => ({}))) as { error?: string };
+        if (res.ok) {
+          showMessage(msg.dataset.success ?? 'Takk!', true);
+          form.reset();
+          states.forEach((s) => {
+            s.playerId = null;
           });
-          const body = (await res.json().catch(() => ({}))) as { error?: string };
-          if (res.ok) {
-            showMessage(msg.dataset.success ?? 'Takk!', true);
-            form.reset();
-            states.forEach((s, i) => {
-              s.playerId = null;
-              boxes[i].querySelector('[data-combo-chosen]')?.classList.add('hidden');
-            });
-            document.dispatchEvent(new CustomEvent('registrations:refresh'));
-          } else {
-            showMessage(body.error ?? 'Noe gikk galt. Prøv igjen senere.', false);
-          }
-        } catch {
-          showMessage('Nettverksfeil. Prøv igjen.', false);
-        } finally {
-          btn.disabled = false;
-          btn.textContent = btnLabel;
-          const w = (window as unknown as { turnstile?: { reset: (el?: HTMLElement) => void } }).turnstile;
-          form.querySelectorAll<HTMLElement>('.cf-turnstile').forEach((el) => w?.reset(el));
+          form.querySelectorAll('[data-combo-chosen]').forEach((el) => el.classList.add('hidden'));
+          active = rows.map((_, i) => i).slice(0, minRows);
+          refreshRows();
+          document.dispatchEvent(new CustomEvent('registrations:refresh'));
+        } else {
+          showMessage(body.error ?? 'Noe gikk galt. Prøv igjen senere.', false);
         }
-      });
+      } catch {
+        showMessage('Nettverksfeil. Prøv igjen.', false);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = btnLabel;
+        const w = (window as unknown as { turnstile?: { reset: (el?: HTMLElement) => void } }).turnstile;
+        form.querySelectorAll<HTMLElement>('.cf-turnstile').forEach((el) => w?.reset(el));
+      }
     });
   }
 </script>

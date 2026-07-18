@@ -5,7 +5,7 @@
  * Returns ONLY { name, country, world_ranking } per row — never email/phone.
  * Ordered by world_ranking (NULLS LAST), then name.
  */
-import { KNOWN_SLUGS } from '../../../lib/slugs';
+import { KNOWN_SLUGS } from '../../../lib/tournaments';
 
 interface Env {
   DB: D1Database;

@@ -6,6 +6,8 @@ location: null
 prices: null
 playingSystem: null
 status: "upcoming"
+teamMin: 2
+teamMax: 2
 ---
 ![Duo-NM 2026](/media/images/duo-nm-2026-717a73c5.jpg)
 

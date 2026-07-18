@@ -7,7 +7,7 @@
  * Cf-Access-Authenticated-User-Email header must be present, else 401.
  * CSV is quoted and starts with a BOM so Excel shows Norwegian characters.
  */
-import { KNOWN_SLUGS } from '../../lib/slugs';
+import { KNOWN_SLUGS } from '../../lib/tournaments';
 
 interface Env {
   DB: D1Database;
