@@ -1,0 +1,202 @@
+# Sveltia CMS-konfigurasjon for puck.no
+# Backend: GitHub via sveltia-cms-auth Cloudflare Worker (ingen Netlify).
+# MERK: `repo` og `base_url` fylles inn med reelle verdier ved lansering
+# (se LAUNCH.md). Innlogging krever GitHub OAuth-app (se REDIGERING.md).
+backend:
+  name: github
+  repo: amundfylling/puck.no
+  branch: main
+  base_url: https://sveltia-auth.puck.no # Cloudflare Worker (sveltia-cms-auth)
+  auth_endpoint: /auth
+
+site_url: https://www.puck.no
+locale: 'no'
+logo_url: https://www.puck.no/favicon.svg
+
+# Bilder som lastes opp her går til media-originals/images; prebuild
+# (scripts/optimize-media.mjs) genererer web-varianten under /media/images.
+media_folder: media-originals/images
+public_folder: /media/images
+
+publish_mode: simple # direkte commit til main (CMS-brukere); utviklere bruker PR
+
+collections:
+  - name: posts_no
+    label: Nyheter (norsk)
+    label_singular: Nyhetsartikkel
+    folder: src/content/posts
+    create: true
+    delete: false
+    slug: '{{fields.slug}}'
+    preview_path: /post/{{fields.slug}}
+    summary: '{{title}} — {{pubDate}}'
+    sortable_fields: [pubDate, title]
+    fields:
+      - { label: Tittel, name: title, widget: string }
+      - label: Slug (URL)
+        name: slug
+        widget: string
+        hint: 'Kun små bokstaver, tall og bindestreker — f.eks. nm-2027-forhandstips'
+      - { label: Språk, name: lang, widget: hidden, default: 'no' }
+      - { label: Publiseringsdato, name: pubDate, widget: datetime, date_format: 'YYYY-MM-DD', time_format: 'HH:mm', picker_utc: false }
+      - label: Kategorier
+        name: categories
+        widget: select
+        multiple: true
+        required: false
+        options: [Turneringsreferat, Adventskalender 2024, Forhåndstips]
+      - { label: Forsidebilde, name: cover, widget: image, required: false }
+      - { label: Ingress, name: description, widget: text, required: false }
+      - { label: Innhold, name: body, widget: markdown }
+
+  - name: posts_en
+    label: Nyheter (engelsk)
+    label_singular: News article
+    folder: src/content/posts/en
+    create: true
+    delete: false
+    slug: '{{fields.slug}}'
+    preview_path: /en/post/{{fields.slug}}
+    summary: '{{title}} — {{pubDate}}'
+    sortable_fields: [pubDate, title]
+    fields:
+      - { label: Tittel, name: title, widget: string }
+      - label: Slug (URL)
+        name: slug
+        widget: string
+        hint: 'Engelsk variant av den norske slugen; legg paret til i postMirrorsNoToEn (utvikler)'
+      - { label: Språk, name: lang, widget: hidden, default: 'en' }
+      - { label: Publiseringsdato, name: pubDate, widget: datetime, date_format: 'YYYY-MM-DD', time_format: 'HH:mm', picker_utc: false }
+      - label: Kategorier
+        name: categories
+        widget: select
+        multiple: true
+        required: false
+        options: [Turneringsreferat, Adventskalender 2024, Forhåndstips]
+      - { label: Forsidebilde, name: cover, widget: image, required: false }
+      - { label: Ingress, name: description, widget: text, required: false }
+      - { label: Innhold, name: body, widget: markdown }
+
+  - name: tournaments
+    label: Turneringer
+    label_singular: Turnering
+    folder: src/content/tournaments
+    create: true
+    delete: false
+    slug: '{{fields.slug}}'
+    preview_path: /turneringer/{{fields.slug}}
+    summary: '{{name}} — {{date}}'
+    sortable_fields: [date, name]
+    fields:
+      - { label: Navn, name: name, widget: string }
+      - label: Slug (URL)
+        name: slug
+        widget: string
+        hint: 'Blir /turneringer/<slug>. Kun små bokstaver, tall, bindestreker og norske tegn.'
+      - label: Dato (visningstekst)
+        name: date
+        widget: string
+        hint: 'Norsk datoformat, f.eks. «5. september 2026» eller «1.–3. mai 2026». Styrer om turneringen vises som kommende.'
+      - { label: Sted, name: location, widget: string, required: false }
+      - { label: Priser, name: prices, widget: text, required: false }
+      - { label: Spillsystem, name: playingSystem, widget: text, required: false }
+      - label: Status
+        name: status
+        widget: select
+        options:
+          - { label: Kommende, value: upcoming }
+          - { label: Tidligere, value: past }
+        default: upcoming
+        hint: 'Kun et hint — faktisk visning regnes ut fra datoen ved bygg.'
+      - label: Min. spillere per lag
+        name: teamMin
+        widget: number
+        required: false
+        value_type: int
+        min: 1
+        hint: 'La begge stå tomme for individuell turnering. Fyll inn begge (f.eks. 2 og 2) for lagturnering.'
+      - label: Maks. spillere per lag
+        name: teamMax
+        widget: number
+        required: false
+        value_type: int
+        min: 1
+      - label: Innhold (beskrivelse, tidsskjema)
+        name: body
+        widget: markdown
+
+  - name: pages_no
+    label: Sider (norsk)
+    folder: src/content/pages
+    create: false
+    delete: false
+    preview_path: /{{fields.slug}}
+    summary: '{{title}}'
+    sortable_fields: [title]
+    fields:
+      - { label: Tittel, name: title, widget: string }
+      - { label: Slug (URL), name: slug, widget: string }
+      - { label: Språk, name: lang, widget: hidden, default: 'no' }
+      - { label: Metabeskrivelse, name: description, widget: text, required: false }
+      - { label: SEO-tittel, name: seoTitle, widget: string, required: false }
+      - { label: Rekkefølge i meny, name: menuOrder, widget: number, required: false, value_type: int }
+      - { label: Innhold, name: body, widget: markdown }
+
+  - name: pages_en
+    label: Sider (engelsk)
+    folder: src/content/pages/en
+    create: false
+    delete: false
+    preview_path: /en/{{fields.slug}}
+    summary: '{{title}}'
+    sortable_fields: [title]
+    fields:
+      - { label: Tittel, name: title, widget: string }
+      - { label: Slug (URL), name: slug, widget: string }
+      - { label: Språk, name: lang, widget: hidden, default: 'en' }
+      - { label: Metabeskrivelse, name: description, widget: text, required: false }
+      - { label: SEO-tittel, name: seoTitle, widget: string, required: false }
+      - { label: Rekkefølge i meny, name: menuOrder, widget: number, required: false, value_type: int }
+      - { label: Innhold, name: body, widget: markdown }
+
+  - name: data
+    label: Data
+    files:
+      - name: timers
+        label: Timere (lydfiler)
+        file: src/data/timers.json
+        description: 'Kampklokker med musikk som brukes på turneringer. Last opp MP3 og legg til rad.'
+        fields:
+          - label: Timere
+            name: timers
+            widget: list
+            root: true # timers.json er en topp-nivå liste
+            label_singular: Timer
+            fields:
+              - { label: Tittel, name: title, widget: string }
+              - label: Lydfil (MP3)
+                name: file
+                widget: file
+                media_folder: /public/media/audio
+                public_folder: /media/audio
+              - { label: Varighet (hint, f.eks. 05:38), name: duration_hint, widget: string, required: false }
+      - name: documents
+        label: Årsmøtedokumenter (PDF)
+        file: src/data/documents.json
+        description: 'Referat fra årsmøter. Last opp PDF og legg til rad.'
+        fields:
+          - label: Dokumenter
+            name: documents
+            widget: list
+            root: true # documents.json er en topp-nivå liste
+            label_singular: Dokument
+            fields:
+              - { label: Tittel, name: title, widget: string }
+              - { label: År, name: year, widget: number, value_type: int }
+              - label: PDF-fil
+                name: file
+                widget: file
+                media_folder: /public/media/pdf
+                public_folder: /media/pdf
+              - { label: Kildelenke (Wix, historisk), name: sourceUrl, widget: hidden, required: false }
+              - { label: Side, name: page, widget: hidden, default: '/årsmøter', required: false }
