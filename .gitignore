@@ -8,3 +8,4 @@ migration/raw
 .env
 .wrangler
 participants export wix.csv
+public/ranking.json

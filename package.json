@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "prebuild": "node scripts/optimize-media.mjs",
+    "prebuild": "node scripts/fetch-ranking.mjs && node scripts/optimize-media.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "check-links": "node scripts/check-links.mjs"

@@ -57,21 +57,43 @@ npx wrangler d1 execute DB --local --file=/tmp/seed.sql
 npx wrangler pages dev dist --d1 DB --local
 ```
 
-### Seeded data (the 132 pre-migration registrations)
+### Seeded data (the 135 pre-migration registrations)
 
-`scripts/seed-d1.mjs` converts `src/data/registrations-snapshot.json` to SQL.
-The old Wix site never published emails/phones, so seeded rows get deterministic
-placeholder emails (`seed-<slug>-<n>@seed.puck.no`, type `player`) to satisfy the
-NOT NULL + unique constraints. **Real emails/phones were not migratable** — export
-them from Wix before cancelling the Wix subscription if they are needed.
+`scripts/seed-d1.mjs` converts the real Wix export **`participants export wix.csv`**
+(repo root, GIT-IGNORED — real emails/phones, never commit it) to SQL, and
+regenerates `src/data/registrations-snapshot.json` (public fields only:
+name/country/world_ranking). Tournament names are mapped via `TOURNAMENT_MAP`
+in the script; unmapped rows (e.g. "Norway Open 2025") are skipped and
+reported. Rows sharing an email within the same tournament+type (one person
+registered another) get a deterministic `+dupN` email suffix and are reported.
+
+### World ranking data
+
+The registration form picks players from the live ITHF world ranking
+(https://stiga.trefik.cz/ithf/ranking/ranking.txt, TSV). `scripts/fetch-ranking.mjs`
+(runs first in `prebuild`) converts it to compact JSON
+(`[rank, id, name, club, nation]`, ~7849 players, ~370KB):
+`src/data/ranking.json` is the committed offline fallback, `public/ranking.json`
+(generated, git-ignored) is what the client fetches lazily on first focus of
+the player search. The POST endpoint re-validates `playerId` against the live
+ranking server-side (cf-cached 6h) and derives name/country/WR itself —
+client-sent country/WR are ignored. Note the **egress dependency** on
+stiga.trefik.cz at registration time: if it is down, playerId registrations
+fail with a 502 asking the user to try later (fallback free-text names still
+work). No secret/key needed for the ranking fetch.
 
 ## Data & privacy (GDPR)
 
-Registration stores: name, country (optional), email, phone (optional), world
-ranking (optional), tournament, type (player/team) and a timestamp.
+Registration stores: name, country (optional, from the ITHF world ranking),
+email, phone (optional), world ranking (optional, from the ITHF ranking),
+tournament, type (player/team) and a timestamp.
 
 - **Why:** to administer tournament participation (participant lists, contact
   before/after events).
+- **Ranking data:** player names shown in the registration search come from the
+  public ITHF world ranking (stiga.trefik.cz); selecting a player links the
+  registration to that public ranking entry. The ranking snapshot
+  (`src/data/ranking.json`) contains only already-public ranking data.
 - **Public exposure:** only name, country and world ranking are shown publicly
   (the same fields the old Wix site published). Email/phone are only available
   via the Access-protected CSV export.

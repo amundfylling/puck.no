@@ -67,9 +67,12 @@ migrations/              # D1 schema migrations (0001_init.sql)
 wrangler.toml            # D1 binding DB (placeholder database_id, see README)
 .dev.vars.example        # local env template (Cloudflare TEST keys are safe)
 scripts/
-  optimize-media.mjs     # prebuild image pipeline (see "Media pipeline")
+  fetch-ranking.mjs      # prebuild step 1: ITHF ranking -> src/data/ranking.json
+                         # (committed fallback) + public/ranking.json (served)
+  optimize-media.mjs     # prebuild step 2: image pipeline (see "Media pipeline")
   check-links.mjs        # dist link checker
-  seed-d1.mjs            # registrations-snapshot.json -> seed SQL (stdout)
+  seed-d1.mjs            # "participants export wix.csv" (git-ignored) -> seed SQL
+                         # + regenerates registrations-snapshot.json (public fields)
 media-originals/         # ORIGINAL images (committed, NOT copied to dist)
   images/  galleries/
 public/
@@ -123,7 +126,12 @@ back into `public/`.
 - All changes to `main` go through pull requests. Never push directly.
 - Backend (`functions/`): parameterised D1 queries only, strict server-side
   validation, Norwegian error messages, never expose email/phone publicly.
-  Known tournament slugs come from `src/data/registrations-snapshot.json`.
+  Player identity comes from the ITHF world ranking (`playerId`); client-sent
+  country/world_ranking are ignored. Known tournament slugs:
+  `functions/lib/slugs.ts`.
+- PII: `participants export wix.csv` (real Wix emails/phones) is git-ignored
+  and must NEVER be committed. Derived files with emails/phones stay local;
+  `src/data/registrations-snapshot.json` holds public fields only.
 - Content lives in `src/content/` as Markdown with YAML frontmatter.
   Body text was migrated **verbatim** from the live site — do not rewrite,
   summarise, or translate it when editing structure. Norwegian stays
@@ -160,13 +168,13 @@ for hreflang + the language switcher).
 
 Create `src/content/tournaments/<slug>.md` with the tournament frontmatter
 above; status is computed from `date` at build time. Body: description,
-playing system, prices, `# Tidsskjema` schedule. Keep the participant list
-in `src/data/registrations-snapshot.json` (keyed by slug) — it seeds D1 and
-renders as "Påmeldte spillere" (hydrated live from the API). The slug must
-exist in the snapshot JSON or the registration API rejects it (known-slug
-list). Upcoming tournaments get the live registration form
-(`RegistrationForm.astro`). Also add the slug to `functions/lib/slugs.ts`
-(the API's known-slug list).
+playing system, prices, `# Tidsskjema` schedule. Participant lists flow from
+registrations (Wix export / live D1): `scripts/seed-d1.mjs` regenerates
+`src/data/registrations-snapshot.json` (public fields only) for the static
+build; the page hydrates live from the API. Add the slug to
+`functions/lib/slugs.ts` (the API's known-slug list) and to
+`TOURNAMENT_MAP` in `scripts/seed-d1.mjs`. Upcoming tournaments get the
+live registration form (`RegistrationForm.astro`).
 
 ## How to add an image / gallery photo
 

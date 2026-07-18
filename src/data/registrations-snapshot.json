@@ -1,115 +1,6 @@
 {
  "snapshot_date": "2026-07-18",
  "tournaments": {
-  "norway-open-2026": [
-   {
-    "name": "Rainers Kalnins",
-    "country": "LAT",
-    "world_ranking": "1"
-   },
-   {
-    "name": "Magnus Klippen",
-    "country": "NOR",
-    "world_ranking": "29"
-   },
-   {
-    "name": "Andreas Fjermestad",
-    "country": "NOR",
-    "world_ranking": "74"
-   },
-   {
-    "name": "Amund Risa Fylling",
-    "country": "NOR",
-    "world_ranking": "83"
-   },
-   {
-    "name": "Oystein Klippen",
-    "country": "NOR",
-    "world_ranking": "150"
-   },
-   {
-    "name": "Ane Skadsem",
-    "country": "NOR",
-    "world_ranking": "313"
-   },
-   {
-    "name": "Sinus Moberg",
-    "country": "NOR",
-    "world_ranking": "363"
-   },
-   {
-    "name": "Wilhelm Possl",
-    "country": "SWE",
-    "world_ranking": "384"
-   },
-   {
-    "name": "Sondre Efteland Johansen",
-    "country": "NOR",
-    "world_ranking": "441"
-   },
-   {
-    "name": "Kristin Fjermestad",
-    "country": "NOR",
-    "world_ranking": "569"
-   },
-   {
-    "name": "Kjartan Moberg",
-    "country": "NOR",
-    "world_ranking": "702"
-   },
-   {
-    "name": "Morten Aarflot",
-    "country": "NOR",
-    "world_ranking": "1437"
-   }
-  ],
-  "duo-nm-2026": [
-   {
-    "name": "Magnus Klippen, Andreas Fjermestad",
-    "country": "NOR",
-    "world_ranking": "1"
-   },
-   {
-    "name": "Amund Risa Fylling, Daniel Nygård",
-    "country": "NOR",
-    "world_ranking": "2"
-   },
-   {
-    "name": "Øystein Klippen, Vegard Klippen",
-    "country": "NOR",
-    "world_ranking": "3"
-   },
-   {
-    "name": "Jonas Bolstad, Benjamin Nygård",
-    "country": "NOR",
-    "world_ranking": "4"
-   },
-   {
-    "name": "Ane Skadsem, Kristin Fjermestad",
-    "country": "NOR",
-    "world_ranking": "5"
-   },
-   {
-    "name": "Arne Hetlelid, Gustav Brådland",
-    "country": "NOR",
-    "world_ranking": "null"
-   },
-   {
-    "name": "Arne Johannes Holmin, Oline Holmin Brunvoll",
-    "country": "NOR",
-    "world_ranking": "null"
-   },
-   {
-    "name": "Kjartan Moberg, Trond Ove Gangsøy",
-    "country": "NOR",
-    "world_ranking": "null"
-   },
-   {
-    "name": "Sondre Efteland Johansen, Sinus Moberg",
-    "country": "NOR",
-    "world_ranking": "null"
-   }
-  ],
   "norgesmesterskapet-2026-dame": [
    {
     "name": "Ane Skadsem",
@@ -142,73 +33,144 @@
     "world_ranking": "1910"
    }
   ],
-  "norgesmesterskapet-2026-veteran": [
+  "jæren-open-2025": [
    {
-    "name": "Frode Hagerup",
+    "name": "Magnus Klippen",
     "country": "NOR",
-    "world_ranking": "139"
+    "world_ranking": "17"
+   },
+   {
+    "name": "Andreas Fjermestad",
+    "country": "NOR",
+    "world_ranking": "63"
+   },
+   {
+    "name": "Amund Risa Fylling",
+    "country": "NOR",
+    "world_ranking": "79"
+   },
+   {
+    "name": "Daniel Nygard",
+    "country": "NOR",
+    "world_ranking": "80"
+   },
+   {
+    "name": "Vegard Klippen",
+    "country": "NOR",
+    "world_ranking": "91"
    },
    {
     "name": "Arne Hetlelid",
     "country": "NOR",
-    "world_ranking": "227"
+    "world_ranking": "220"
    },
-   {
-    "name": "Kjartan Moberg",
-    "country": "NOR",
-    "world_ranking": "805"
-   }
-  ],
-  "norgesmesterskapet-2026-junior": [
    {
     "name": "Benjamin Nygard",
     "country": "NOR",
-    "world_ranking": "274"
+    "world_ranking": "279"
    },
    {
     "name": "Sinus Moberg",
     "country": "NOR",
-    "world_ranking": "400"
+    "world_ranking": "394"
    },
    {
     "name": "Ane Skadsem",
     "country": "NOR",
-    "world_ranking": "451"
+    "world_ranking": "452"
+   },
+   {
+    "name": "Thorbjorn F. Hestvaag",
+    "country": "NOR",
+    "world_ranking": "553"
    },
    {
     "name": "Kristin Fjermestad",
     "country": "NOR",
-    "world_ranking": "683"
+    "world_ranking": "701"
+   },
+   {
+    "name": "Kjartan Moberg",
+    "country": "NOR",
+    "world_ranking": "838"
    },
    {
     "name": "Jonas Bolstad",
     "country": "NOR",
-    "world_ranking": "992"
+    "world_ranking": "1003"
+   },
+   {
+    "name": "Jonas Fjelde Larsen",
+    "country": "NOR",
+    "world_ranking": "1492"
    },
    {
     "name": "Ruben Nesse Haland",
     "country": "NOR",
-    "world_ranking": "1640"
-   },
-   {
-    "name": "Nicolas Trae",
-    "country": "NOR",
-    "world_ranking": "2079"
+    "world_ranking": "1866"
    },
    {
     "name": "Ivar Stadheim",
     "country": "NOR",
-    "world_ranking": "2085"
+    "world_ranking": "2633"
    },
    {
-    "name": "Sondre Schulze Stapnes",
+    "name": "Torbjorn Taksdal",
     "country": "NOR",
-    "world_ranking": "2251"
+    "world_ranking": "3066"
    },
    {
-    "name": "Emil Bjondal Lonne",
+    "name": "Judith Taksdal",
     "country": "NOR",
-    "world_ranking": "5409"
+    "world_ranking": "3823"
+   },
+   {
+    "name": "Einar Stadheim",
+    "country": "NOR",
+    "world_ranking": "6330"
+   }
+  ],
+  "duo-nm-2026": [
+   {
+    "name": "Magnus Klippen, Andreas Fjermestad",
+    "country": "NOR",
+    "world_ranking": "1"
+   },
+   {
+    "name": "Amund Risa Fylling, Daniel Nygård",
+    "country": "NOR",
+    "world_ranking": "2"
+   },
+   {
+    "name": "Øystein Klippen, Vegard Klippen",
+    "country": "NOR",
+    "world_ranking": "3"
+   },
+   {
+    "name": "Jonas Bolstad, Benjamin Nygård",
+    "country": "NOR",
+    "world_ranking": "4"
+   },
+   {
+    "name": "Ane Skadsem, Kristin Fjermestad",
+    "country": "NOR",
+    "world_ranking": "5"
+   },
+   {
+    "name": "Arne Hetlelid, Gustav Brådland",
+    "country": "NOR"
+   },
+   {
+    "name": "Arne Johannes Holmin, Oline Holmin Brunvoll",
+    "country": "NOR"
+   },
+   {
+    "name": "Kjartan Moberg, Trond Ove Gangsøy",
+    "country": "NOR"
+   },
+   {
+    "name": "Sondre Efteland Johansen, Sinus Moberg",
+    "country": "NOR"
    }
   ],
   "norgesmesterskapet-2026-u13": [
@@ -261,6 +223,123 @@
     "name": "Sondre Engelsvoll",
     "country": "NOR",
     "world_ranking": "5515"
+   }
+  ],
+  "bergen-open-2025": [
+   {
+    "name": "Magnus Klippen",
+    "country": "NOR",
+    "world_ranking": "15"
+   },
+   {
+    "name": "Andreas Fjermestad",
+    "country": "NOR",
+    "world_ranking": "63"
+   },
+   {
+    "name": "Amund Risa Fylling",
+    "country": "NOR",
+    "world_ranking": "79"
+   },
+   {
+    "name": "Daniel Nygard",
+    "country": "NOR",
+    "world_ranking": "80"
+   },
+   {
+    "name": "Arne Johannes Holmin",
+    "country": "NOR",
+    "world_ranking": "150"
+   },
+   {
+    "name": "Trond Ove Gangsoy",
+    "country": "NOR",
+    "world_ranking": "187"
+   },
+   {
+    "name": "Arne Hetlelid",
+    "country": "NOR",
+    "world_ranking": "226"
+   },
+   {
+    "name": "Benjamin Nygard",
+    "country": "NOR",
+    "world_ranking": "268"
+   },
+   {
+    "name": "Hans Christian Lonne",
+    "country": "NOR",
+    "world_ranking": "337"
+   },
+   {
+    "name": "Sinus Moberg",
+    "country": "NOR",
+    "world_ranking": "408"
+   },
+   {
+    "name": "Ane Skadsem",
+    "country": "NOR",
+    "world_ranking": "450"
+   },
+   {
+    "name": "Anne Grethe Gangsoy",
+    "country": "NOR",
+    "world_ranking": "482"
+   },
+   {
+    "name": "Vegard Flatoy",
+    "country": "NOR",
+    "world_ranking": "693"
+   },
+   {
+    "name": "Kristin Fjermestad",
+    "country": "NOR",
+    "world_ranking": "701"
+   },
+   {
+    "name": "Kjartan Moberg",
+    "country": "NOR",
+    "world_ranking": "875"
+   },
+   {
+    "name": "Oline Holmin Brunvoll",
+    "country": "NOR",
+    "world_ranking": "1162"
+   },
+   {
+    "name": "Mona Gangsoy",
+    "country": "NOR",
+    "world_ranking": "1226"
+   },
+   {
+    "name": "Linnea Gangsoy",
+    "country": "NOR",
+    "world_ranking": "1480"
+   },
+   {
+    "name": "Hakon Hugdahl Larsen",
+    "country": "NOR",
+    "world_ranking": "1632"
+   },
+   {
+    "name": "Eivind Muri Pettersen",
+    "country": "NOR",
+    "world_ranking": "1672"
+   },
+   {
+    "name": "Julia Carina Gangsoy",
+    "country": "NOR",
+    "world_ranking": "1925"
+   },
+   {
+    "name": "Kanutte Holmin Brunvoll",
+    "country": "NOR",
+    "world_ranking": "2085"
+   },
+   {
+    "name": "Tomas Hoven Skauge",
+    "country": "NOR",
+    "world_ranking": "2111"
    }
   ],
   "norgesmesterskapet-2026": [
@@ -401,13 +480,28 @@
    },
    {
     "name": "Kasper Kvello",
-    "country": "NOR",
-    "world_ranking": "null"
+    "country": "NOR"
    },
    {
     "name": "Ole Gunnar Hegle",
+    "country": "NOR"
+   }
+  ],
+  "norgesmesterskapet-2026-veteran": [
+   {
+    "name": "Frode Hagerup",
     "country": "NOR",
-    "world_ranking": "null"
+    "world_ranking": "139"
+   },
+   {
+    "name": "Arne Hetlelid",
+    "country": "NOR",
+    "world_ranking": "227"
+   },
+   {
+    "name": "Kjartan Moberg",
+    "country": "NOR",
+    "world_ranking": "805"
    }
   ],
   "trondheim-open-2025": [
@@ -462,218 +556,118 @@
     "world_ranking": "1711"
    }
   ],
-  "jæren-open-2025": [
+  "norway-open-2026": [
+   {
+    "name": "Rainers Kalnins",
+    "country": "LAT",
+    "world_ranking": "1"
+   },
    {
     "name": "Magnus Klippen",
     "country": "NOR",
-    "world_ranking": "17"
+    "world_ranking": "29"
    },
    {
     "name": "Andreas Fjermestad",
     "country": "NOR",
-    "world_ranking": "63"
+    "world_ranking": "74"
    },
    {
     "name": "Amund Risa Fylling",
     "country": "NOR",
-    "world_ranking": "79"
+    "world_ranking": "83"
    },
    {
-    "name": "Daniel Nygard",
-    "country": "NOR",
-    "world_ranking": "80"
-   },
-   {
-    "name": "Vegard Klippen",
-    "country": "NOR",
-    "world_ranking": "91"
-   },
-   {
-    "name": "Arne Hetlelid",
-    "country": "NOR",
-    "world_ranking": "220"
-   },
-   {
-    "name": "Benjamin Nygard",
-    "country": "NOR",
-    "world_ranking": "279"
-   },
-   {
-    "name": "Sinus Moberg",
-    "country": "NOR",
-    "world_ranking": "394"
-   },
-   {
-    "name": "Ane Skadsem",
-    "country": "NOR",
-    "world_ranking": "452"
-   },
-   {
-    "name": "Thorbjorn F. Hestvaag",
-    "country": "NOR",
-    "world_ranking": "553"
-   },
-   {
-    "name": "Kristin Fjermestad",
-    "country": "NOR",
-    "world_ranking": "701"
-   },
-   {
-    "name": "Kjartan Moberg",
-    "country": "NOR",
-    "world_ranking": "838"
-   },
-   {
-    "name": "Jonas Bolstad",
-    "country": "NOR",
-    "world_ranking": "1003"
-   },
-   {
-    "name": "Jonas Fjelde Larsen",
-    "country": "NOR",
-    "world_ranking": "1492"
-   },
-   {
-    "name": "Ruben Nesse Haland",
-    "country": "NOR",
-    "world_ranking": "1866"
-   },
-   {
-    "name": "Ivar Stadheim",
-    "country": "NOR",
-    "world_ranking": "2633"
-   },
-   {
-    "name": "Torbjorn Taksdal",
-    "country": "NOR",
-    "world_ranking": "3066"
-   },
-   {
-    "name": "Judith Taksdal",
-    "country": "NOR",
-    "world_ranking": "3823"
-   },
-   {
-    "name": "Einar Stadheim",
-    "country": "NOR",
-    "world_ranking": "6330"
-   }
-  ],
-  "bergen-open-2025": [
-   {
-    "name": "Magnus Klippen",
-    "country": "NOR",
-    "world_ranking": "15"
-   },
-   {
-    "name": "Andreas Fjermestad",
-    "country": "NOR",
-    "world_ranking": "63"
-   },
-   {
-    "name": "Amund Risa Fylling",
-    "country": "NOR",
-    "world_ranking": "79"
-   },
-   {
-    "name": "Daniel Nygard",
-    "country": "NOR",
-    "world_ranking": "80"
-   },
-   {
-    "name": "Arne Johannes Holmin",
+    "name": "Oystein Klippen",
     "country": "NOR",
     "world_ranking": "150"
    },
    {
-    "name": "Trond Ove Gangsoy",
+    "name": "Ane Skadsem",
     "country": "NOR",
-    "world_ranking": "187"
-   },
-   {
-    "name": "Arne Hetlelid",
-    "country": "NOR",
-    "world_ranking": "226"
-   },
-   {
-    "name": "Benjamin Nygard",
-    "country": "NOR",
-    "world_ranking": "268"
-   },
-   {
-    "name": "Hans Christian Lonne",
-    "country": "NOR",
-    "world_ranking": "337"
+    "world_ranking": "313"
    },
    {
     "name": "Sinus Moberg",
     "country": "NOR",
-    "world_ranking": "408"
+    "world_ranking": "363"
    },
    {
-    "name": "Ane Skadsem",
-    "country": "NOR",
-    "world_ranking": "450"
+    "name": "Wilhelm Possl",
+    "country": "SWE",
+    "world_ranking": "384"
    },
    {
-    "name": "Anne Grethe Gangsoy",
+    "name": "Sondre Efteland Johansen",
     "country": "NOR",
-    "world_ranking": "482"
-   },
-   {
-    "name": "Vegard Flatoy",
-    "country": "NOR",
-    "world_ranking": "693"
+    "world_ranking": "441"
    },
    {
     "name": "Kristin Fjermestad",
     "country": "NOR",
-    "world_ranking": "701"
+    "world_ranking": "569"
    },
    {
     "name": "Kjartan Moberg",
     "country": "NOR",
-    "world_ranking": "875"
+    "world_ranking": "702"
    },
    {
-    "name": "Oline Holmin Brunvoll",
+    "name": "Morten Aarflot",
     "country": "NOR",
-    "world_ranking": "1162"
-   },
+    "world_ranking": "1437"
+   }
+  ],
+  "norgesmesterskapet-2026-junior": [
    {
-    "name": "Mona Gangsoy",
+    "name": "Benjamin Nygard",
     "country": "NOR",
-    "world_ranking": "1226"
+    "world_ranking": "274"
    },
    {
-    "name": "Linnea Gangsoy",
+    "name": "Sinus Moberg",
     "country": "NOR",
-    "world_ranking": "1480"
+    "world_ranking": "400"
    },
    {
-    "name": "Hakon Hugdahl Larsen",
+    "name": "Ane Skadsem",
     "country": "NOR",
-    "world_ranking": "1632"
+    "world_ranking": "451"
    },
    {
-    "name": "Eivind Muri Pettersen",
+    "name": "Kristin Fjermestad",
     "country": "NOR",
-    "world_ranking": "1672"
+    "world_ranking": "683"
    },
    {
-    "name": "Julia Carina Gangsoy",
+    "name": "Jonas Bolstad",
     "country": "NOR",
-    "world_ranking": "1925"
+    "world_ranking": "992"
    },
    {
-    "name": "Kanutte Holmin Brunvoll",
+    "name": "Ruben Nesse Haland",
+    "country": "NOR",
+    "world_ranking": "1640"
+   },
+   {
+    "name": "Nicolas Trae",
+    "country": "NOR",
+    "world_ranking": "2079"
+   },
+   {
+    "name": "Ivar Stadheim",
     "country": "NOR",
     "world_ranking": "2085"
    },
    {
-    "name": "Tomas Hoven Skauge",
+    "name": "Sondre Schulze Stapnes",
     "country": "NOR",
-    "world_ranking": "2111"
+    "world_ranking": "2251"
+   },
+   {
+    "name": "Emil Bjondal Lonne",
+    "country": "NOR",
+    "world_ranking": "5409"
    }
   ],
   "sudden-death-cup": [

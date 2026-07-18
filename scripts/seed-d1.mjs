@@ -1,50 +1,175 @@
 #!/usr/bin/env node
 /**
- * Generates seed SQL for the registrations table from
- * src/data/registrations-snapshot.json (the 132 pre-migration registrations
- * scraped from the old Wix site).
+ * Generates seed SQL for the registrations table from the REAL Wix export
+ * "participants export wix.csv" (repo root, GIT-IGNORED — contains real
+ * emails/phones and must never be committed).
  *
- * The old site never published emails/phones, so seeded rows get
- * DETERMINISTIC placeholder emails (seed-<slug>-<n>@seed.puck.no) — they
- * satisfy NOT NULL + the unique guard and are easy to recognise. Real
- * emails/phones were NOT migratable (export from Wix before cancellation
- * if needed). type is 'player' for all seeded rows.
+ * Also regenerates src/data/registrations-snapshot.json (name, country,
+ * world_ranking ONLY — that file is committed, so no emails/phones there).
+ *
+ * Mapping: the export's `tournament` names are mapped to our slugs via
+ * TOURNAMENT_MAP below. Unmapped rows are skipped and reported.
+ * type: 'team' for duo-nm-2026 (names are already "A, B" pairs), else
+ * 'player'. rank → world_ranking (empty/invalid → NULL).
+ * Emails: required (rows without are skipped + reported). Unique-guard
+ * collisions (same slug+type+email) get a deterministic +dupN local-part
+ * suffix and are reported (happens when one person registered another).
  *
  * Usage:
  *   node scripts/seed-d1.mjs > /tmp/seed.sql
  *   npx wrangler d1 execute DB --local  --file=/tmp/seed.sql   # local dev
  *   npx wrangler d1 execute DB --remote --file=/tmp/seed.sql   # production
  */
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
-const snapshot = JSON.parse(
-  readFileSync(new URL('../src/data/registrations-snapshot.json', import.meta.url), 'utf8'),
-);
+const CSV_FILE = fileURLToPath(new URL('../participants export wix.csv', import.meta.url));
+if (!existsSync(CSV_FILE)) {
+  console.error(`seed-d1: "${CSV_FILE}" not found — the Wix export is git-ignored;`);
+  console.error('place it in the repo root before seeding.');
+  process.exit(1);
+}
+
+/** Wix export tournament name -> our tournament slug. */
+const TOURNAMENT_MAP = {
+  'Norway Open 2026': 'norway-open-2026',
+  'Duo-NM 2026': 'duo-nm-2026',
+  'NM 2026 - Dame': 'norgesmesterskapet-2026-dame',
+  'NM 2026 - Veteran': 'norgesmesterskapet-2026-veteran',
+  'NM 2026 - Junior': 'norgesmesterskapet-2026-junior',
+  'NM 2026 - U13': 'norgesmesterskapet-2026-u13',
+  'NM 2026 - Åpen klasse': 'norgesmesterskapet-2026',
+  'Trondheim Open 2026': 'trondheim-open-2025',
+  'Jæren Open 2026': 'jæren-open-2025',
+  'Bergen Open 2025': 'bergen-open-2025',
+  'Sudden Death Cup at Preikestolen': 'sudden-death-cup',
+  'Sudden Death Cup at Pulpit Rock': 'sudden-death-cup', // English alias, same 2025 event
+  // 'Norway Open 2025' intentionally unmapped: the page was removed in Phase 2
+  // (it duplicated norway-open-2026 content). Rows are skipped + reported.
+};
+
+const TEAM_SLUGS = new Set(['duo-nm-2026']);
+
+function parseCsv(text) {
+  const rows = [];
+  let row = [], cur = '', inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQ) {
+      if (c === '"') {
+        if (text[i + 1] === '"') { cur += '"'; i++; }
+        else inQ = false;
+      } else cur += c;
+    } else if (c === '"') inQ = true;
+    else if (c === ',') { row.push(cur); cur = ''; }
+    else if (c === '\n' || c === '\r') {
+      if (c === '\n' && text[i - 1] === '\r') continue;
+      row.push(cur); rows.push(row); row = []; cur = '';
+    } else cur += c;
+  }
+  if (cur !== '' || row.length) { row.push(cur); rows.push(row); }
+  return rows;
+}
 
 const esc = (s) => `'${String(s).replaceAll("'", "''")}'`;
 
+const rows = parseCsv(readFileSync(CSV_FILE, 'utf8').replace(/^﻿/, ''));
+const header = rows[0];
+const col = (name) => header.indexOf(name);
+const data = rows.slice(1).filter((r) => r.length > 5);
+
+const seeded = []; // {slug, type, name, country, email, phone, wr}
+const skipped = []; // {reason, tournament, name}
+const adjusted = []; // {name, email, note}
+
+const seenEmails = new Map(); // key slug|type|email -> count
+
+for (const r of data) {
+  const tournament = r[col('tournament')];
+  const name = r[col('playerName')].trim();
+  const slug = TOURNAMENT_MAP[tournament];
+  if (!slug) {
+    skipped.push({ reason: 'unmapped tournament', tournament, name });
+    continue;
+  }
+  const emailRaw = r[col('email')].trim().toLowerCase();
+  if (!emailRaw) {
+    skipped.push({ reason: 'missing email', tournament, name });
+    continue;
+  }
+  const type = TEAM_SLUGS.has(slug) ? 'team' : 'player';
+  const key = `${slug}|${type}|${emailRaw}`;
+  let email = emailRaw;
+  const seen = seenEmails.get(key) ?? 0;
+  seenEmails.set(key, seen + 1);
+  if (seen > 0) {
+    const [local, domain] = emailRaw.split('@');
+    email = `${local}+dup${seen + 1}@${domain}`;
+    adjusted.push({ tournament, name, note: `email shared with another row -> stored as ${email}` });
+  }
+  const country = r[col('nation')].trim() || null;
+  const phone = r[col('phone')].trim() || null;
+  const rankRaw = r[col('rank')].trim();
+  const wr = rankRaw && Number.isInteger(Number(rankRaw)) ? Number(rankRaw) : null;
+  seeded.push({ slug, type, name, country, email, phone, wr });
+}
+
+// --- SQL ---
 const lines = [
-  '-- Generated by scripts/seed-d1.mjs from src/data/registrations-snapshot.json',
-  `-- Snapshot date: ${snapshot.snapshot_date}. Placeholder emails — see script header.`,
+  '-- Generated by scripts/seed-d1.mjs from "participants export wix.csv" (real Wix data).',
   'DELETE FROM registrations;', // idempotent re-seed
 ];
+for (const s of seeded) {
+  lines.push(
+    `INSERT INTO registrations (tournament_slug, type, name, country, email, phone, world_ranking) VALUES (` +
+      `${esc(s.slug)}, ${esc(s.type)}, ${esc(s.name)}, ${s.country ? esc(s.country) : 'NULL'}, ` +
+      `${esc(s.email)}, ${s.phone ? esc(s.phone) : 'NULL'}, ${s.wr ?? 'NULL'});`,
+  );
+}
 
-let count = 0;
-for (const [slug, players] of Object.entries(snapshot.tournaments)) {
-  players.forEach((p, i) => {
-    const n = i + 1;
-    const email = `seed-${slug}-${n}@seed.puck.no`;
-    const raw = p.world_ranking;
-    const wrNum = raw != null && raw !== '' && raw !== 'null' ? Number(raw) : NaN;
-    const wr = Number.isFinite(wrNum) ? wrNum : null;
-    lines.push(
-      `INSERT INTO registrations (tournament_slug, type, name, country, email, phone, world_ranking) VALUES (` +
-        `${esc(slug)}, 'player', ${esc(p.name)}, ${p.country ? esc(p.country) : 'NULL'}, ` +
-        `${esc(email)}, NULL, ${wr ?? 'NULL'});`,
-    );
-    count++;
+// --- snapshot JSON (public fields only!) ---
+const tournaments = {};
+for (const s of seeded) {
+  (tournaments[s.slug] ??= []).push({
+    name: s.name,
+    country: s.country ?? '',
+    ...(s.wr != null ? { world_ranking: String(s.wr) } : {}),
   });
+}
+for (const list of Object.values(tournaments)) {
+  list.sort((a, b) => {
+    const aw = a.world_ranking != null ? Number(a.world_ranking) : Infinity;
+    const bw = b.world_ranking != null ? Number(b.world_ranking) : Infinity;
+    return aw - bw || a.name.localeCompare(b.name);
+  });
+}
+const snapshot = {
+  snapshot_date: new Date().toISOString().slice(0, 10),
+  tournaments,
+};
+writeFileSync(
+  fileURLToPath(new URL('../src/data/registrations-snapshot.json', import.meta.url)),
+  JSON.stringify(snapshot, null, 1) + '\n',
+);
+
+// --- report ---
+const counts = {};
+for (const s of seeded) counts[s.slug] = (counts[s.slug] ?? 0) + 1;
+console.error('seed-d1: rows per tournament:');
+for (const [slug, n] of Object.entries(counts).sort()) console.error(`  ${slug}: ${n}`);
+console.error(`seed-d1: total seeded ${seeded.length}/${data.length}`);
+if (adjusted.length) {
+  console.error(`seed-d1: ${adjusted.length} shared-email adjustment(s):`);
+  for (const a of adjusted) console.error(`  [${a.tournament}] ${a.name} — ${a.note}`);
+}
+if (skipped.length) {
+  console.error(`seed-d1: ${skipped.length} SKIPPED row(s):`);
+  const byReason = {};
+  for (const s of skipped) (byReason[s.reason] ??= []).push(s);
+  for (const [reason, list] of Object.entries(byReason)) {
+    console.error(`  ${reason} (${list.length}):`);
+    for (const s of list) console.error(`    ${s.tournament} — ${s.name}`);
+  }
 }
 
 console.log(lines.join('\n'));
-console.error(`seed-d1: generated ${count} rows for ${Object.keys(snapshot.tournaments).length} tournaments`);
