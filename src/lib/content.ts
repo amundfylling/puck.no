@@ -26,12 +26,10 @@ export function postCategories(posts: Post[]): string[] {
 
 /**
  * Status is computed from the tournament date vs the build date — the
- * frontmatter `status` field is only a hint. Exception: Duo-NM 2026 was
- * postponed and is still listed as upcoming on the old site (its displayed
- * date is stale), so it is pinned to upcoming.
+ * frontmatter `status` field is only a hint. Strict rule: only tournaments
+ * whose date is today or later count as upcoming.
  */
 export function tournamentStatus(t: Tournament, now: Date = new Date()): 'upcoming' | 'past' {
-  if (t.data.slug === 'duo-nm-2026') return 'upcoming';
   const date = parseNoDate(t.data.date);
   if (!date) return t.data.status;
   return endOfDay(date) >= now ? 'upcoming' : 'past';

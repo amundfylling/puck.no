@@ -84,8 +84,7 @@ dist/                    # build output (git-ignored)
 - Blog: `/blog` + `/blog/<n>` (10 posts/page), `/blog/categories/<cat>`.
 - Tournaments: `/turneringer` index + `/turneringer/<slug>`. Status
   (upcoming/past) is **computed from the date vs build date** in
-  `lib/content.ts` — `duo-nm-2026` is pinned to upcoming there (postponed;
-  displayed date is stale).
+  `lib/content.ts` (strict: only today-or-later dates are upcoming).
 - RSS: `/blog-feed.xml` and `/en/blog-feed.xml` (exact old paths).
 - Nordic characters in slugs stay decoded (`/lær-bordhockey`,
   `/turneringer/jæren-open-2025`).
