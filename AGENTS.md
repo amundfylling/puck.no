@@ -10,9 +10,11 @@ bilingual: Norwegian (default, at `/...`) and English (at `/en/...`).
   Markdown content, structured data, and all media assets are in the repo.
 - **Phase 2 (done):** Astro static site — layouts, routing, SEO, RSS,
   media pipeline. Deployed to Cloudflare Pages (see `public/_redirects`).
-- **Phase 3 (todo):** tournament registration backend + form. A placeholder
-  lives in `src/components/RegistrationForm.astro` (rendered on upcoming
-  tournament pages, `#pamelding` anchor).
+- **Phase 3 (done):** tournament registration — Cloudflare Pages Functions
+  in `functions/` + D1 (`migrations/`, seed via `scripts/seed-d1.mjs`),
+  Turnstile-protected form on upcoming tournament pages, CSV admin export.
+  Remaining launch steps (real `database_id`, real Turnstile keys,
+  Cloudflare Access policy) are Phase 5 — see README.md.
 
 ## Toolchain
 
@@ -48,17 +50,26 @@ src/
                          # PostArticle, TournamentList, TournamentCard,
                          # AudioPlayer (vanilla-JS island), GalleryGrid
                          # (lightbox island), Arsmoter, RegistrationForm
-                         # (Phase 3 stub), CloudflareAnalytics
+                         # (live form -> /api/registrations), ParticipantList
+                         # (hydrates from the API), CloudflareAnalytics
   lib/                   # i18n.ts (nav + UI strings + page/post mirrors),
                          # dates.ts (Norwegian date parsing), content.ts
                          # (collection helpers, tournament status), seo.ts
                          # (seo.json lookup), rss.ts, timere.ts, galleries.ts
-  pages/                 # routes — see "Routing" below
+  pages/                 # routes — see "Routing" below (+ /admin/pameldinger)
   styles/global.css      # Tailwind import, @theme tokens (brand red/navy),
                          # .rich-text styles for rendered markdown
+functions/               # Cloudflare Pages Functions (TypeScript):
+  api/registrations.ts            # POST register player/team (Turnstile)
+  api/tournaments/[slug]/players.ts  # GET public participant list
+  api/admin/registrations.csv.ts  # GET full CSV export (Access-protected)
+migrations/              # D1 schema migrations (0001_init.sql)
+wrangler.toml            # D1 binding DB (placeholder database_id, see README)
+.dev.vars.example        # local env template (Cloudflare TEST keys are safe)
 scripts/
   optimize-media.mjs     # prebuild image pipeline (see "Media pipeline")
   check-links.mjs        # dist link checker
+  seed-d1.mjs            # registrations-snapshot.json -> seed SQL (stdout)
 media-originals/         # ORIGINAL images (committed, NOT copied to dist)
   images/  galleries/
 public/
@@ -107,8 +118,12 @@ back into `public/`.
 
 ## Rules
 
-- No secrets in git. `.dev.vars` and `migration/raw/` are git-ignored.
+- No secrets in git. `.dev.vars`, `.env` and `migration/raw/` are git-ignored
+  (`.dev.vars.example` holds only Cloudflare's public TEST keys).
 - All changes to `main` go through pull requests. Never push directly.
+- Backend (`functions/`): parameterised D1 queries only, strict server-side
+  validation, Norwegian error messages, never expose email/phone publicly.
+  Known tournament slugs come from `src/data/registrations-snapshot.json`.
 - Content lives in `src/content/` as Markdown with YAML frontmatter.
   Body text was migrated **verbatim** from the live site — do not rewrite,
   summarise, or translate it when editing structure. Norwegian stays
@@ -146,9 +161,12 @@ for hreflang + the language switcher).
 Create `src/content/tournaments/<slug>.md` with the tournament frontmatter
 above; status is computed from `date` at build time. Body: description,
 playing system, prices, `# Tidsskjema` schedule. Keep the participant list
-in `src/data/registrations-snapshot.json` (keyed by slug) — it renders as
-"Påmeldte spillere" on the page. The registration form itself is Phase 3
-(`RegistrationForm.astro` shows a placeholder for upcoming tournaments).
+in `src/data/registrations-snapshot.json` (keyed by slug) — it seeds D1 and
+renders as "Påmeldte spillere" (hydrated live from the API). The slug must
+exist in the snapshot JSON or the registration API rejects it (known-slug
+list). Upcoming tournaments get the live registration form
+(`RegistrationForm.astro`). Also add the slug to `functions/lib/slugs.ts`
+(the API's known-slug list).
 
 ## How to add an image / gallery photo
 

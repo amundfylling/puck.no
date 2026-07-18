@@ -1,0 +1,91 @@
+---
+import { t, type Lang } from '../lib/i18n';
+
+interface Player {
+  name: string;
+  country: string;
+  world_ranking?: string;
+}
+
+interface Props {
+  slug: string;
+  players: Player[];
+  lang: Lang;
+}
+
+const { slug, players, lang } = Astro.props;
+---
+
+<section aria-labelledby="registered-players" class="mt-10" data-participants data-slug={slug}>
+  <h2 id="registered-players" class="text-2xl font-bold text-navy">{t(lang, 'registeredPlayers')}</h2>
+  <div class="mt-4 overflow-x-auto">
+    <table class="w-full border-collapse text-sm">
+      <thead>
+        <tr>
+          <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">#</th>
+          <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t(lang, 'name')}</th>
+          <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t(lang, 'country')}</th>
+          <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t(lang, 'wr')}</th>
+        </tr>
+      </thead>
+      <tbody data-participant-rows>
+        {
+          players.map((player, i) => (
+            <tr class="odd:bg-white even:bg-ice">
+              <td class="border border-slate-300 px-3 py-2 tabular-nums">{i + 1}</td>
+              <td class="border border-slate-300 px-3 py-2">{player.name}</td>
+              <td class="border border-slate-300 px-3 py-2">{player.country}</td>
+              <td class="border border-slate-300 px-3 py-2 tabular-nums">{player.world_ranking ?? '–'}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="mt-2 text-xs text-slate-500" data-participants-status aria-live="polite"></p>
+</section>
+
+<script>
+  // Hydrate the static (build-time snapshot) participant list from the D1
+  // API so new registrations appear without a rebuild. Re-fetches when a
+  // registration succeeds on this page.
+  const section = document.querySelector<HTMLElement>('[data-participants]');
+  if (section) {
+    const tbody = section.querySelector<HTMLTableSectionElement>('[data-participant-rows]')!;
+    const status = section.querySelector<HTMLElement>('[data-participants-status]');
+    const slug = section.dataset.slug!;
+
+    function row(cells: string[]): HTMLTableRowElement {
+      const tr = document.createElement('tr');
+      tr.className = 'odd:bg-white even:bg-ice';
+      for (const text of cells) {
+        const td = document.createElement('td');
+        td.className = 'border border-slate-300 px-3 py-2';
+        td.textContent = text;
+        tr.appendChild(td);
+      }
+      return tr;
+    }
+
+    async function refresh() {
+      try {
+        const res = await fetch(`/api/tournaments/${encodeURIComponent(slug)}/players`);
+        if (!res.ok) return; // keep the static list
+        const players = (await res.json()) as { name: string; country: string | null; world_ranking: number | null }[];
+        const frag = document.createDocumentFragment();
+        players.forEach((p, i) => {
+          frag.appendChild(
+            row([String(i + 1), p.name, p.country ?? '', p.world_ranking != null ? String(p.world_ranking) : '–']),
+          );
+        });
+        tbody.replaceChildren(frag);
+        if (status) status.textContent = '';
+      } catch {
+        /* offline/API down — keep the static list */
+      }
+    }
+
+    void refresh();
+    document.addEventListener('registrations:refresh', () => void refresh());
+  }
+</script>

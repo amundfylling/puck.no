@@ -5,3 +5,6 @@ migration/raw
 .DS_Store
 .playwright-mcp
 .astro
+.env
+.wrangler
+participants export wix.csv

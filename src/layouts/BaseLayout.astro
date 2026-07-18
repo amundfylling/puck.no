@@ -19,6 +19,7 @@ interface Props {
   ogImage?: string | null;
   ogType?: 'website' | 'article';
   jsonLd?: Record<string, unknown> | Record<string, unknown>[] | null;
+  noindex?: boolean;
 }
 
 const {
@@ -31,6 +32,7 @@ const {
   ogImage = null,
   ogType = 'website',
   jsonLd = null,
+  noindex = false,
 } = Astro.props;
 
 const site = Astro.site ?? new URL('https://www.puck.no');
@@ -49,6 +51,7 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <title>{title}</title>
     {desc && <meta name="description" content={desc} />}
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
     <link

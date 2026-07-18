@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import RegistrationForm from '../../components/RegistrationForm.astro';
+import ParticipantList from '../../components/ParticipantList.astro';
 import { tournamentStatus } from '../../lib/content';
 import { parseNoDate } from '../../lib/dates';
 import { seoForPath } from '../../lib/seo';
@@ -85,34 +86,8 @@ const jsonLd = {
       <Content />
     </div>
 
-    {status === 'upcoming' && <RegistrationForm lang="no" />}
+    {status === 'upcoming' && <RegistrationForm lang="no" slug={entry.data.slug} />}
 
-    <section aria-labelledby="registered-players" class="mt-10">
-      <h2 id="registered-players" class="text-2xl font-bold text-navy">{t('no', 'registeredPlayers')}</h2>
-      <div class="mt-4 overflow-x-auto">
-        <table class="w-full border-collapse text-sm">
-          <thead>
-            <tr>
-              <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">#</th>
-              <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t('no', 'name')}</th>
-              <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t('no', 'country')}</th>
-              <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t('no', 'wr')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              players.map((player, i) => (
-                <tr class="odd:bg-white even:bg-ice">
-                  <td class="border border-slate-300 px-3 py-2 tabular-nums">{i + 1}</td>
-                  <td class="border border-slate-300 px-3 py-2">{player.name}</td>
-                  <td class="border border-slate-300 px-3 py-2">{player.country}</td>
-                  <td class="border border-slate-300 px-3 py-2 tabular-nums">{player.world_ranking ?? '–'}</td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </div>
-    </section>
+    <ParticipantList slug={entry.data.slug} players={players} lang="no" />
   </article>
 </BaseLayout>

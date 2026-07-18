@@ -1,17 +1,211 @@
 ---
-import { t, type Lang } from '../lib/i18n';
+import type { Lang } from '../lib/i18n';
 
 interface Props {
   lang: Lang;
+  /** Tournament slug — posted to the API. */
+  slug: string;
 }
 
-const { lang } = Astro.props;
+const { lang, slug } = Astro.props;
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined;
+
+// PHASE 3: live registration form -> POST /api/registrations (Cloudflare
+// Pages Function + D1). Vanilla-JS island, no framework.
+const l =
+  lang === 'en'
+    ? {
+        playerTab: 'Register player',
+        teamTab: 'Register team',
+        name: 'Name',
+        country: 'Country',
+        email: 'Email',
+        phone: 'Phone number',
+        wr: 'World ranking (optional)',
+        players: 'Players',
+        playersHelp: 'One player per line, or names of both team members.',
+        submit: 'Register',
+        sending: 'Registering…',
+        success: 'Takk for din registrering!',
+        privacy:
+          'We store your name, email and phone number to manage tournament registrations. Contact amund.fylling@puck.no for access or deletion.',
+        noscript: 'Registration requires JavaScript.',
+        noKey: 'Registration is not configured (missing Turnstile site key).',
+        required: 'required',
+      }
+    : {
+        playerTab: 'Registrer spiller',
+        teamTab: 'Registrer lag',
+        name: 'Navn',
+        country: 'Land',
+        email: 'Epost',
+        phone: 'Telefonnummer',
+        wr: 'Verdensranking (valgfritt)',
+        players: 'Spillere',
+        playersHelp: 'Én spiller per linje, eller navnene på begge lagmedlemmene.',
+        submit: 'Registrer',
+        sending: 'Registrerer…',
+        success: 'Takk for din registrering!',
+        privacy:
+          'Vi lagrer navn, e-post og telefonnummer for å administrere turneringspåmeldinger. Kontakt amund.fylling@puck.no for innsyn eller sletting.',
+        noscript: 'Påmelding krever JavaScript.',
+        noKey: 'Registreringen er ikke konfigurert (mangler Turnstile-nøkkel).',
+        required: 'påkrevd',
+      };
 ---
 
-<section id="pamelding" aria-labelledby="pamelding-heading" class="my-10 rounded-lg border-2 border-dashed border-slate-300 bg-ice p-6">
-  <h2 id="pamelding-heading" class="text-xl font-bold text-navy">{t(lang, 'registerPlayer')}</h2>
-  <!-- PHASE 3: the tournament registration form goes here. It will POST to the
-       registration backend and replace this placeholder. Keep the #pamelding
-       anchor so old links keep working. -->
-  <p class="mt-2 text-slate-600">{t(lang, 'registrationPlaceholder')}</p>
+<section id="pamelding" aria-labelledby="pamelding-heading" class="my-10 rounded-lg border border-slate-200 bg-ice p-6" data-registration data-slug={slug}>
+  <h2 id="pamelding-heading" class="text-xl font-bold text-navy">{l.playerTab} / {l.teamTab}</h2>
+
+  <noscript>
+    <p class="mt-2 font-semibold text-brand">{l.noscript}</p>
+  </noscript>
+
+  {
+    !siteKey && (
+      <p class="mt-2 rounded bg-yellow-100 px-3 py-2 text-sm text-yellow-900">{l.noKey}</p>
+    )
+  }
+
+  <div role="tablist" aria-label={l.playerTab + ' / ' + l.teamTab} class="mt-4 flex gap-2">
+    <button type="button" role="tab" data-tab="player" aria-selected="true" class="tab-btn btn-primary !px-4 !py-2 text-sm">{l.playerTab}</button>
+    <button type="button" role="tab" data-tab="team" aria-selected="false" class="tab-btn btn-outline !px-4 !py-2 text-sm">{l.teamTab}</button>
+  </div>
+
+  <form data-form="player" class="mt-4 grid max-w-lg gap-3" novalidate={false}>
+    <input type="hidden" name="type" value="player" />
+    <label class="grid gap-1 text-sm font-semibold text-navy">
+      {l.name} <span aria-hidden="true" class="text-brand">*</span>
+      <input name="name" type="text" required maxlength="200" autocomplete="name" class="rounded border border-slate-300 px-3 py-2 font-normal" />
+    </label>
+    <label class="grid gap-1 text-sm font-semibold text-navy">
+      {l.country}
+      <input name="country" type="text" maxlength="40" autocomplete="country-name" class="rounded border border-slate-300 px-3 py-2 font-normal" />
+    </label>
+    <label class="grid gap-1 text-sm font-semibold text-navy">
+      {l.email} <span aria-hidden="true" class="text-brand">*</span>
+      <input name="email" type="email" required maxlength="254" autocomplete="email" class="rounded border border-slate-300 px-3 py-2 font-normal" />
+    </label>
+    <label class="grid gap-1 text-sm font-semibold text-navy">
+      {l.phone}
+      <input name="phone" type="tel" maxlength="30" autocomplete="tel" class="rounded border border-slate-300 px-3 py-2 font-normal" />
+    </label>
+    <label class="grid gap-1 text-sm font-semibold text-navy">
+      {l.wr}
+      <input name="world_ranking" type="number" min="0" step="1" inputmode="numeric" class="rounded border border-slate-300 px-3 py-2 font-normal" />
+    </label>
+    {siteKey && <div class="cf-turnstile" data-sitekey={siteKey}></div>}
+    <div>
+      <button type="submit" data-submit data-sending={l.sending} disabled={!siteKey} class="btn-primary disabled:cursor-not-allowed disabled:opacity-50">
+        {l.submit}
+      </button>
+    </div>
+    <p data-message data-success={l.success} role="status" aria-live="polite" class="hidden rounded px-3 py-2 text-sm font-semibold"></p>
+  </form>
+
+  <form data-form="team" class="mt-4 hidden max-w-lg gap-3" novalidate={false}>
+    <input type="hidden" name="type" value="team" />
+    <label class="grid gap-1 text-sm font-semibold text-navy">
+      {l.players} <span aria-hidden="true" class="text-brand">*</span>
+      <textarea name="name" required rows="3" maxlength="500" aria-describedby="players-help" class="rounded border border-slate-300 px-3 py-2 font-normal"></textarea>
+    </label>
+    <p id="players-help" class="-mt-2 text-xs text-slate-500">{l.playersHelp}</p>
+    <label class="grid gap-1 text-sm font-semibold text-navy">
+      {l.email} <span aria-hidden="true" class="text-brand">*</span>
+      <input name="email" type="email" required maxlength="254" autocomplete="email" class="rounded border border-slate-300 px-3 py-2 font-normal" />
+    </label>
+    <label class="grid gap-1 text-sm font-semibold text-navy">
+      {l.phone}
+      <input name="phone" type="tel" maxlength="30" autocomplete="tel" class="rounded border border-slate-300 px-3 py-2 font-normal" />
+    </label>
+    {siteKey && <div class="cf-turnstile" data-sitekey={siteKey}></div>}
+    <div>
+      <button type="submit" data-submit data-sending={l.sending} disabled={!siteKey} class="btn-primary disabled:cursor-not-allowed disabled:opacity-50">
+        {l.submit}
+      </button>
+    </div>
+    <p data-message data-success={l.success} role="status" aria-live="polite" class="hidden rounded px-3 py-2 text-sm font-semibold"></p>
+  </form>
+
+  <p class="mt-4 text-xs text-slate-500">{l.privacy}</p>
 </section>
+
+{siteKey && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>}
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-registration]');
+  if (root) {
+    const slug = root.dataset.slug!;
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-tab]'));
+    const forms = Array.from(root.querySelectorAll<HTMLFormElement>('[data-form]'));
+
+    tabs.forEach((tab) =>
+      tab.addEventListener('click', () => {
+        tabs.forEach((t) => {
+          const active = t === tab;
+          t.setAttribute('aria-selected', String(active));
+          t.classList.toggle('btn-primary', active);
+          t.classList.toggle('btn-outline', !active);
+        });
+        forms.forEach((f) => {
+          const show = f.dataset.form === tab.dataset.tab;
+          f.classList.toggle('hidden', !show);
+          f.classList.toggle('grid', show);
+        });
+      }),
+    );
+
+    forms.forEach((form) => {
+      const btn = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+      const msg = form.querySelector<HTMLElement>('[data-message]')!;
+      const btnLabel = btn.textContent ?? '';
+
+      function showMessage(text: string, ok: boolean) {
+        msg.textContent = text;
+        msg.classList.remove('hidden', 'bg-green-100', 'text-green-900', 'bg-red-100', 'text-red-900');
+        msg.classList.add(ok ? 'bg-green-100' : 'bg-red-100', ok ? 'text-green-900' : 'text-red-900');
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!form.reportValidity()) return;
+        btn.disabled = true;
+        btn.textContent = btn.dataset.sending ?? btnLabel;
+        try {
+          const data = Object.fromEntries(new FormData(form).entries());
+          const token = form.querySelector<HTMLInputElement>('[name="cf-turnstile-response"]')?.value ?? '';
+          const res = await fetch('/api/registrations', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              tournament_slug: slug,
+              type: data.type,
+              name: data.name,
+              country: data.country || null,
+              email: data.email,
+              phone: data.phone || null,
+              world_ranking: data.world_ranking || null,
+              turnstileToken: token,
+            }),
+          });
+          const body = (await res.json().catch(() => ({}))) as { error?: string };
+          if (res.ok) {
+            showMessage(msg.dataset.success ?? 'Takk!', true);
+            form.reset();
+            document.dispatchEvent(new CustomEvent('registrations:refresh'));
+          } else {
+            showMessage(body.error ?? 'Noe gikk galt. Prøv igjen senere.', false);
+          }
+        } catch {
+          showMessage('Nettverksfeil. Prøv igjen.', false);
+        } finally {
+          btn.disabled = false;
+          btn.textContent = btnLabel;
+          // turnstile tokens are single-use
+          const w = (window as unknown as { turnstile?: { reset: (el?: HTMLElement) => void } }).turnstile;
+          form.querySelectorAll<HTMLElement>('.cf-turnstile').forEach((el) => w?.reset(el));
+        }
+      });
+    });
+  }
+</script>

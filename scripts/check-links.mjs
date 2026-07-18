@@ -43,7 +43,9 @@ function isInternal(url) {
     !url.startsWith('https://') &&
     !url.startsWith('//') &&
     !/^(mailto|tel|javascript|data|blob):/i.test(url) &&
-    !url.startsWith('#')
+    !url.startsWith('#') &&
+    // API routes are Pages Functions (not static files in dist/)
+    !url.split('?')[0].startsWith('/api/')
   );
 }
 

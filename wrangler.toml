@@ -1,0 +1,14 @@
+name = "puck-no"
+pages_build_output_dir = "dist"
+compatibility_date = "2025-03-01"
+
+# D1 database for tournament registrations (Phase 3).
+# The placeholder database_id works for LOCAL development (wrangler d1 ... --local
+# and wrangler pages dev --local). Before deploying, create the real database with
+#   npx wrangler d1 create puck-no
+# and put the returned id here (or keep it in the Cloudflare dashboard binding).
+[[d1_databases]]
+binding = "DB"
+database_name = "puck-no"
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
