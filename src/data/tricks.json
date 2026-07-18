@@ -1,0 +1,1091 @@
+[
+  {
+    "Namn": "Näcka",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 4,
+    "Forklåring": "Senter startar med pucken i hælgropa, passar med hæl nokre centimeter ut til høgre, og skyter med kølle i høgre hjørne",
+    "Kombo": "/media/images/trick-nacka-2e6af9fd.png"
+  },
+  {
+    "Namn": "Spjass",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 5,
+    "Forklåring": "Senter startar med pucken i hælgropa, passar med kølle nokre centimeter ut til venstre, og snurrar heilt rundt og skyter med kølle i venstre hjørne",
+    "Kombo": "/media/images/trick-spjass-6dadefbc.png"
+  },
+  {
+    "Namn": "Lillhæl",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 5,
+    "Forklåring": "Senter startar med pucken i hælgropa, passar med kølle ca ein centimeter ut til venstre, og skyter med hæl i venstre hjørne",
+    "Kombo": "/media/images/trick-lillhæl-92398556.png"
+  },
+  {
+    "Namn": "Lillstøvel",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 3,
+    "Forklåring": "Senter startar med pucken i tågropa, passar med tå nokre centimeter ut til venstre, og skyter med kølle i venstre hjørne. Oppkalla etter den legendariske Djurgårdaren-spelaren Carl-Göran 'Lill-Stöveln' Öberg, veslebror til Hans 'Stöveln' Öberg",
+    "Kombo": "/media/images/trick-lillstøvel-2c0457d4.png"
+  },
+  {
+    "Namn": "Omvendspjass",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 5,
+    "Forklåring": "Senter startar med pucken i tågropa, passar med kølle nokre centimeter ut til høgre, og snurrar heilt rundt og skyter med kølle i høgre hjørne",
+    "Kombo": "/media/images/trick-omvendspjass-e0edae5c.png"
+  },
+  {
+    "Namn": "Fakie Näcka",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Senter startar med pucken i tågropa, skiftar kjapt til å ha pucken i hælgropa, og utfører ein Näcka",
+    "Kombo": "/media/images/trick-omvendspjass-e0edae5c.png"
+  },
+  {
+    "Namn": "Fakie Spjass",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Senter startar med pucken i tågropa, skiftar kjapt til å ha pucken i hælgropa, og utfører ein Spjass",
+    "Kombo": "/media/images/trick-lillstøvel-2c0457d4.png"
+  },
+  {
+    "Namn": "Fakie Lillstøvel",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 5,
+    "Forklåring": "Senter startar med pucken i hælgropa, skiftar kjapt til å ha pucken i tågropa, og utfører ein Lillstøvel",
+    "Kombo": "/media/images/trick-spjass-6dadefbc.png"
+  },
+  {
+    "Namn": "Fakie Omvendspjass",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Senter startar med pucken i hælgropa, skiftar kjapt til å ha pucken i tågropa, og utfører ein Omvendspjass",
+    "Kombo": "/media/images/trick-nacka-2e6af9fd.png"
+  },
+  {
+    "Namn": "Hjerpe",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Senter startar med pucken ute på køllebladet til høgre for sporet, fører pucken over til venstre side av sporet, og skyter i venstre hjørne",
+    "Kombo": "/media/images/trick-hjerpe-c68b7726.png"
+  },
+  {
+    "Namn": "Hjerpefinte",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 2,
+    "Forklåring": "Senter startar med pucken ute på køllebladet til høgre for sporet, og skyter direkte i høgre hjørne. Fungerar berre mot keeper som ventar Hjerpe",
+    "Kombo": "/media/images/trick-hjerpefinte-f9523f5c.png"
+  },
+  {
+    "Namn": "Søren",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Senter startar med pucken ute på køllebladet til venstre for sporet, fører pucken over til høgre side av sporet, og skyter i høgre hjørne. Oppkalla etter den legendariske bordhockey- og ishockeyspelaren Sören Johansson som gjorde ei liknande finte i ishockey",
+    "Kombo": "/media/images/trick-søren-ada0bf2a.png"
+  },
+  {
+    "Namn": "Sørenfinte",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 2,
+    "Forklåring": "Senter startar med pucken ute på køllebladet til venstre for sporet og skyter direkte i venstre hjørne. Fungerar berre mot keeper som ventar Søren",
+    "Kombo": "/media/images/trick-sørenfinte-748f5082.png"
+  },
+  {
+    "Namn": "Senterkiosk",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 8,
+    "Forklåring": "Senter startar med pucken eit par centimeter til venstre for sporet og utfører ein Kiosk i venstre eller høgre kryss",
+    "Kombo": "/media/images/trick-senterkiosk-0b633f17.png"
+  },
+  {
+    "Namn": "Näckafinte",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Senter utfører ein Näcka, men plasserar pucken i venstre hjørne. Fungerar berre mot reagerande keeper",
+    "Kombo": "/media/images/trick-nackafinte-7dfe9545.png"
+  },
+  {
+    "Namn": "Spjassfinte",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Senter utfører ein Spjass, men plasserar pucken i høgre hjørne. Fungerar berre mot reagerande keeper",
+    "Kombo": "/media/images/trick-spjassfinte-067aa3e8.png"
+  },
+  {
+    "Namn": "Lillstøvelfinte / C 29",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 5,
+    "Forklåring": "Senter utfører ein Lillstøvel, men plasserar pucken i høgre hjørne. Fungerar berre mot reagerande keeper",
+    "Kombo": "/media/images/trick-lillstøvelfinte-c-29-43746e89.png"
+  },
+  {
+    "Namn": "Omvendspjassfinte",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Senter utfører ein Omvendspjass, men plasserar pucken i venstre hjørne. Fungerar berre mot reagerande keeper",
+    "Kombo": "/media/images/trick-omvendspjassfinte-6ba8f294.png"
+  },
+  {
+    "Namn": "Senter-Ceuleman",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Senter skyter pucken frå tågropa via høgre vant og i mål bak (evt. via) keeper",
+    "Kombo": "/media/images/trick-senter-ceuleman-06fd741e.png"
+  },
+  {
+    "Namn": "Fakie Senter-Ceuleman",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Senter skyter pucken frå hælgropa via venstre vant og i mål bak (evt. via) keeper",
+    "Kombo": "/media/images/trick-fakie-senter-ceuleman-9e6a38fa.png"
+  },
+  {
+    "Namn": "Horvath",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Senter startar med pucken litt ute på køllebladet til høgre for sporet, skyter i venstre rundvant, får pucken i retur, og skyter i høgre hjørne",
+    "Kombo": "/media/images/trick-horvath-142415eb.png"
+  },
+  {
+    "Namn": "Fakie Horvath",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Senter skyter i høgre vant bak motspelar sitt mål, får pucken i retur, og skyter i venstre hjørne",
+    "Kombo": "/media/images/trick-fakie-horvath-0d649889.png"
+  },
+  {
+    "Namn": "Spjass-Horvath",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 8,
+    "Forklåring": "Senter utfører ein Spjass, og bommar medvite på mål og treffer venstre rundvant, får pucken i retur, og skyter i høgre hjørne",
+    "Kombo": "/media/images/trick-spjass-horvath-5e975a0d.png"
+  },
+  {
+    "Namn": "Veggdyr",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Senter skyter pucken frå hælgropa via venstre vant og tilbake til senter og i mål",
+    "Kombo": "/media/images/trick-veggdyr-0e070a3a.png"
+  },
+  {
+    "Namn": "Fakie Veggdyr",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Senter skyter pucken frå tågropa via høgre vant og tilbake til senter og i mål",
+    "Kombo": "/media/images/trick-fakie-veggdyr-e0b159da.png"
+  },
+  {
+    "Namn": "Agdur",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Passning frå senter til venstreving og attende til senter og i høgre hjørne",
+    "Kombo": "/media/images/trick-agdur-d68ac5fd.png"
+  },
+  {
+    "Namn": "Halv-Agdur",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Passning frå senter til venstreving som skyter direkte i venstre hjørne",
+    "Kombo": "/media/images/trick-halv-agdur-921a3a7c.png"
+  },
+  {
+    "Namn": "Agduro",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Passning frå senter til venstreving som fører pucken baketter i sporet og passar bak motspelar sin senter attende til eigen senter heilt bake i sporet og i mål (sjå Sentrifugo)",
+    "Kombo": "/media/images/trick-agduro-e9ce4ae3.png"
+  },
+  {
+    "Namn": "Invers Agduro",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 8,
+    "Forklåring": "Senter fører pucken baketter i sporet og passar bak motspelar sin senter til venstreving, som passar attende til senter og i mål",
+    "Kombo": "/media/images/trick-invers-agduro-fa614eea.png"
+  },
+  {
+    "Namn": "Invers Halv-Agduro",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 8,
+    "Forklåring": "Senter fører pucken baketter i sporet og passar bak motspelar sin senter, til venstreving som skyter direkte i venstre hjørne",
+    "Kombo": "/media/images/trick-invers-halv-agduro-759c5e3e.png"
+  },
+  {
+    "Namn": "Fakie Agdur",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Passning frå senter til høgreeving og attende til senter og i venstre hjørne",
+    "Kombo": "/media/images/trick-fakie-agdur-5400f2d4.png"
+  },
+  {
+    "Namn": "Fakie Halv-Agdur",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Passning frå senter til høgreving som skyter direkte i mål",
+    "Kombo": "/media/images/trick-fakie-halv-agdur-ae8e3e5d.png"
+  },
+  {
+    "Namn": "Fakie Invers Agduro",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Senter fører pucken baketter i sporet og passar bak motspelar sin venstreback til høgreving, som fører pucken frametter i sporet og passar framom motspelar sin venstreback attende til senter og i mål",
+    "Kombo": "/media/images/trick-fakie-invers-agduro-0d8a87b9.png"
+  },
+  {
+    "Namn": "Fakie Invers Halv-Agduro",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Senter fører pucken baketter i sporet og passar bak motspelar sin venstreback til høgreving, som skyter direkte i mål",
+    "Kombo": "/media/images/trick-fakie-invers-halv-agduro-8d975656.png"
+  },
+  {
+    "Namn": "Holmin",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 8,
+    "Forklåring": "Senter skyter i vantet i ved starten av høgre rundvant, slik at pucken glid langs vantet til venstreving som skyter direkte i mål",
+    "Kombo": "/media/images/trick-holmin-cec1a26c.png"
+  },
+  {
+    "Namn": "Holms",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 8,
+    "Forklåring": "Senter skyter i vantet i ved starten av høgre rundvant, slik at pucken glid langs vantet til venstreving og vidare inn til senter som skyter direkte i mål",
+    "Kombo": "/media/images/trick-holms-8ed3df70.png"
+  },
+  {
+    "Namn": "Holms-Gretzky",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 8,
+    "Forklåring": "Senter skyter i vantet i ved starten av høgre rundvant, slik at pucken glid langs vantet til venstreving, som er plassert like til venstre for motstandar sitt mål og passar baketter til senter som skyter direkte i mål",
+    "Kombo": "/media/images/trick-holms-gretzky-0e16faa4.png"
+  },
+  {
+    "Namn": "Senter-Velodrom",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Senter passar til venstreving som sender pucken i ein Velodrom over til høgreving som skyter direkte i høgre hjørne",
+    "Kombo": "/media/images/trick-senter-velodrom-81bdbd16.png"
+  },
+  {
+    "Namn": "Senter-Karusell",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Senter passar til venstreving som sender pucken i ein Velodrom over til høgreving og inn til senter og i mål",
+    "Kombo": "/media/images/trick-senter-karusell-9eb56e04.png"
+  },
+  {
+    "Namn": "Fakie Senter-Velodrom",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Senter passar til høgreving som sender pucken i ein Velodrom over til venstreving som skyter direkte i venstre hjørne",
+    "Kombo": "/media/images/trick-fakie-senter-velodrom-84e8f8f6.png"
+  },
+  {
+    "Namn": "Fakie Senter-Karusell",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Senter passar til høgreving som sender pucken i ein Velodrom over til venstreving og inn til senter og i mål",
+    "Kombo": "/media/images/trick-fakie-senter-karusell-d46b2d2c.png"
+  },
+  {
+    "Namn": "Skalpell",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 9,
+    "Forklåring": "Passning frå senter til keeper som skyter på direkten i mål",
+    "Kombo": "/media/images/trick-skalpell-8126d7d8.png"
+  },
+  {
+    "Namn": "General Reiersen",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 8,
+    "Forklåring": "Passning frå senter langs høgre vant bak eige mål til venstreback som skyter på direkten i mål",
+    "Kombo": "/media/images/trick-general-reiersen-64423311.png"
+  },
+  {
+    "Namn": "Senterkniv",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Passning frå senter til venstreback som skyter på direkten i mål",
+    "Kombo": "/media/images/trick-senterkniv-23db4593.png"
+  },
+  {
+    "Namn": "Senterknivo",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Passning frå senter bak motspelar sin senter til venstreback som skyter på direkten i mål",
+    "Kombo": "/media/images/trick-senterknivo-caf5c8d7.png"
+  },
+  {
+    "Namn": "Rambokniv",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Passning frå senter til venstreback som passar bak motspelar sin senter og inn til eigen senter, som skyter på direkten heilt bake i sporet",
+    "Kombo": "/media/images/trick-rambokniv-cb88b462.png"
+  },
+  {
+    "Namn": "Fakie Senterkniv",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Passning frå senter til høgreback som skyter på direkten i mål",
+    "Kombo": "/media/images/trick-fakie-senterkniv-96970c00.png"
+  },
+  {
+    "Namn": "Senter-Backnäcka",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 8,
+    "Forklåring": "Passning frå senter til høgreback som skyter rundt motspelar sin venstreback og i mål (sjå Backnäcka)",
+    "Kombo": "/media/images/trick-senter-backnacka-6f13def6.png"
+  },
+  {
+    "Namn": "Invers Kano",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Passning frå senter via høgre vant til høgreback som skyter på direkten i mål",
+    "Kombo": "/media/images/trick-invers-kano-392cbabd.png"
+  },
+  {
+    "Namn": "Fakie Invers Kano",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Passning frå senter via venstre vant til venstreback som skyter på direkten i mål",
+    "Kombo": "/media/images/trick-fakie-invers-kano-6edf9a40.png"
+  },
+  {
+    "Namn": "Senter-Rokkade",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Passning frå senter til høgreback og vidare til venstreback som skyter på direkten i mål",
+    "Kombo": "/media/images/trick-senter-rokkade-9c4a9212.png"
+  },
+  {
+    "Namn": "Fakie Senter-Rokkade",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Passning frå senter til venstreback og videre til høgreback som skyter på direkten i mål",
+    "Kombo": "/media/images/trick-fakie-senter-rokkade-90a380f0.png"
+  },
+  {
+    "Namn": "Bacalao",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 8,
+    "Forklåring": "Passning frå senter til høgreback som skyter på direkten via høgre vant og i mål",
+    "Kombo": "/media/images/trick-bacalao-2c9bcf71.png"
+  },
+  {
+    "Namn": "Newton",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Senter skyter via motspelar sin høgreback og i mål",
+    "Kombo": "/media/images/trick-newton-0bbc8f04.png"
+  },
+  {
+    "Namn": "Mission Impossible 3",
+    "Spiller": [
+      "Senter"
+    ],
+    "Vanskelighetsgrad": 9,
+    "Forklåring": "Senter spelar vegg med målstonga og set returen i mål",
+    "Kombo": "/media/images/trick-mission-impossible-3-8f62525f.png"
+  },
+  {
+    "Namn": "Direkteskudd",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 3,
+    "Forklåring": "Høyreving skyter direkte i mål, helst med løft i krysset",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Maltzev / Smygar",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 3,
+    "Forklåring": "Høyreving fører pucken fremover i sporet og skyter i mål mellom keeper og høyre stolpe",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Bedehus-Smygar / Tysk Smygar",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 4,
+    "Forklåring": "Høyreving fører pucken fremover i sporet og skyter i mål via keeperens rygg",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Fakie Forulemping",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 3,
+    "Forklåring": "Høyreving starter bak motspillerens mål og fører pucken bakover i sporet og skyter mellom keeper og høyre stolpe",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Nuttunenslegga",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 4,
+    "Forklåring": "Høyreving fører pucken bakover i sporet, stopper og skyter direkte i nærmeste kryss over keeperens kølle",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Tønsbergslegga",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Høyreving fører pucken fremover i sporet, passer den noen cm mot venstre, snurrer rundt og skyter i mål i fart",
+    "Kombo": ""
+  },
+  {
+    "Namn": "EMoe-smyger",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 4,
+    "Forklåring": "Høyreving fører pucken i ytterkøllegrop fremover i sporet og skyter i mål i fart",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Lønnskipp",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 5,
+    "Forklåring": "Pucken ligger nær høyreving, som skyter direkte i krysset med løft",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Tomahawk",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Høyreving står langt bak i sporet og skyter via høyre vant og i mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Fakie Tomahawk",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Høyreving skyter via venstre vant og i mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Brustadbu",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Høyreving scorer med kioskskudd",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Lille Trille",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 8,
+    "Forklåring": "Høyreving scorer med et svakt kioskskudd som ruller inn i venstre hjørne",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Smygero",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Høyreving fører pucken raskt fremover langs vantet og flikker pucken i mål mellom keeper og høyre stolpe",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Invers Smygero / Eidsneskølle",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 4,
+    "Forklåring": "Høyreving fører pucken raskt bakover langs vantet, går forbi pucken og skyter med fast kølle i mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Fakie Jon Spesial / Korabel",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Høyreving skyter via kølla til en stillestående senter og i venstre hjørne av mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Hagerup",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 4,
+    "Forklåring": "Høyreving og senter står helt bak i sporet, og høyreving passer inn til senter som skyter direkte i høyre hjørne",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Spade",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 4,
+    "Forklåring": "Høyreving og senter står helt bak i sporet, og høyreving passer inn til senter som skyter direkte i venstre hjørne",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Lindahlskyffel kort",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 4,
+    "Forklåring": "Høyreving fører pucken fremover i sporet og legger inn til senter som skyter i høyre hjørne",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Lindahlskyffel lang",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 4,
+    "Forklåring": "Høyreving fører pucken fremover i sporet og legger inn til senter som skyter i venstre hjørne",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Edwallskyffel kort",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 4,
+    "Forklåring": "Høyreving fører pucken fremover i sporet med hælgrop og legger inn til senter som skyter i høyre hjørne",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Edwallskyffel lang",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 4,
+    "Forklåring": "Høyreving fører pucken fremover i sporet med hælgrop og legger inn til senter som skyter i venstre hjørne",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Hælskyffel kort",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 4,
+    "Forklåring": "Høyreving fører pucken bakover i sporet med køllegrop og legger inn med hæl til senter som skyter i høyre hjørne. Kan også utføres med kølleinnlegg",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Hælskyffel lang",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 4,
+    "Forklåring": "Høyreving fører pucken bakover i sporet med køllegrop og legger inn med hæl til senter som skyter i venstre hjørne. Kan også utføres med kølleinnlegg",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Tryykari kort",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 5,
+    "Forklåring": "Høyreving fører pucken raskt fremover i sporet med hælgrop (Edwall-dragning), stopper og utfører en hælskyffel i korthjørnet",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Tryykari lang",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 5,
+    "Forklåring": "Høyreving fører pucken raskt fremover i sporet med hælgrop (Edwall-dragning), stopper og utfører en hælskyffel i langhjørnet",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Tryykarifinte",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 5,
+    "Forklåring": "Høyreving fører pucken raskt fremover i sporet med hælgrop (Edwall-dragning), stopper før mållinjen, snur 180 grader mot klokka og skyter med hælen i mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Gangsøyskyffel kort",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 5,
+    "Forklåring": "Høyreving fører pucken raskt bakover langs vantet, snurrer rundt mot klokka og legger inn til senter som skyter i høyre hjørne",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Gangsøyskyffel lang",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 5,
+    "Forklåring": "Høyreving fører pucken raskt bakover langs vantet, snurrer rundt mot klokka og legger inn til senter som skyter i venstre hjørne",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Truls",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 4,
+    "Forklåring": "Høyreving fører pucken på utsiden av køllebladet bakover og legger inn til senter som scorer",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Wilkens",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Høyreving later som om de drar pucken bakover, stopper opp, og legger inn fremover til senter som scorer",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Pettersonskyffel",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Høyreving fører pucken fremover i sporet, går litt forbi pucken, snurrer med klokka og legger inn til senter som scorer",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Furious G",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Smygero med pasning til senter som scorer",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Marcus Andersson",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Høyreskyffel direkte i høyre hjørne",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Fakie Harlem Shuffle",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Høyreving passer til senter som med en svingende kølle flikker pucken i mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Veggskyffel",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 5,
+    "Forklåring": "Høyreving står langt fremme i sporet med pucken og skyter via høyre vant til senter som scorer",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Fakie Velodrom",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Pasning fra høyreving langs vantet bak mål til venstreving som skyter i venstre hjørne",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Fakie Karusell",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Pasning fra høyreving langs vantet bak mål til venstreving som legger inn til senter som scorer",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Snok / Mexikaner",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 5,
+    "Forklåring": "Høyreving skyter pucken via vantet til senter som skyter direkte i mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Snik",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 5,
+    "Forklåring": "Høyreving skyter pucken via keeper til senter som skyter direkte i mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Fakie kniv",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Pasning fra høyreving til høyreback som skyter direkte i mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Fakie lang-kniv",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Pasning fra høyreving til venstreback som skyter direkte i mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Langorv",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Pasning fra høyreving langs vantet bak mål slik at pucken ender hos venstreback som skyter direkte i mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Invers Kryssar",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Pasning fra høyreving til venstreving som skyter i venstre hjørne",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Invers Kryssar med innspill",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Pasning fra høyreving til venstreving som sender den videre til senter som scorer",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Invers Kryssar med Velodrom",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Pasning fra høyreving til venstreving som passer langs vantet bak mål til høyreving som skyter direkte i mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Invers Kryssar med Karusell",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Pasning fra høyreving til venstreving som passer langs vantet bak mål til høyreving som sender inn til senter som scorer",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Fakie Lang-Agdur",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 8,
+    "Forklåring": "Pasning fra høyreving til venstreving som sender tilbake til høyreving som skyter direkte i mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Nuttunen",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Pasning fra høyreving til venstreback og videre til senter som scorer fra langt bak i sporet",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Nuttunen goes useless",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Pasning fra høyreving til senter langt bak i sporet, som flikker videre til venstreback som skyter direkte i mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Reiersen",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Pasning fra høyreving langs høyre vant bak eget mål til venstreback som skyter direkte i mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Reiersen på bærtur",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 9,
+    "Forklåring": "Pasning fra høyreving langs høyre vant bak eget mål til venstreback, som sender bak eget mål til høyreback som skyter direkte i mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Gretzky",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Pasning fra høyreving langs vantet bak mål til venstreving som sender bakover til senter som scorer",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Fakie Mors Kök / Fars Kök",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 8,
+    "Forklåring": "Pasning fra høyreving helt framme i sporet via venstre rundvant til senter som scorer",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Burkgurk",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 8,
+    "Forklåring": "Pasning fra høyreving langs vantet bak eget mål til venstreving som flikker direkte i venstre hjørne",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Burkgurkskyffel",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 8,
+    "Forklåring": "Pasning fra høyreving langs vantet bak eget mål til venstreving som sender videre til senter som scorer",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Jorda Rundt",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 9,
+    "Forklåring": "Pasning fra høyreving langs vantet bak eget mål og hele veien rundt tilbake til høyreving som skyter direkte i mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Jorda Rundt-skyffel",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 9,
+    "Forklåring": "Pasning fra høyreving langs vantet bak eget mål og hele veien rundt tilbake til høyreving som sender til senter som scorer",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Fakie Gutshot",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Pasning fra høyreving til keeper som skyter direkte i mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Fakie Gutshot-Hansen",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 8,
+    "Forklåring": "Pasning fra høyreving til keeper som sender tilbake til høyreving som skyter i høyre hjørne",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Invers Rookierokkade",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Pasning fra høyreving langt bak i sporet til høyreback som sender tilbake til høyreving som scorer",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Fakie Zorro",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 7,
+    "Forklåring": "Pasning fra høyreving til senter, videre til høyreback, og til slutt til venstreback som skyter direkte i mål",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Mission Impossible 2",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 9,
+    "Forklåring": "Høyreving sender pucken langs vantet til venstreving, som sender direkte til senter som scorer",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Edwall-innspill",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 2,
+    "Forklåring": "Høyreving fører pucken fremover i sporet med hælgrop og sender inn til senter",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Lindahl-innspill",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 2,
+    "Forklåring": "Høyreving fører pucken fremover i sporet med køllegrop og sender inn til senter",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Østerman-innspill",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Høyreving fører pucken raskt fremover i sporet, snur 180 grader mot klokka, stopper opp, og snurrer tilbake og sender pucken inn til senter",
+    "Kombo": ""
+  },
+  {
+    "Namn": "Silis-innspill",
+    "Spiller": [
+      "Høyreving"
+    ],
+    "Vanskelighetsgrad": 6,
+    "Forklåring": "Høyreving fører pucken raskt bakover i sporet med hælgrop og sender inn til senter i fart",
+    "Kombo": ""
+  }
+]

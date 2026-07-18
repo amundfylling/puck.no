@@ -1,0 +1,3771 @@
+{
+  "generated": "2026-07-18T10:58:06.060Z",
+  "urls": [
+    {
+      "url": "https://www.puck.no/turneringer/norway-open-2026",
+      "outputs": [
+        "src/content/tournaments/norway-open-2026.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/turneringer/duo-nm-2026",
+      "outputs": [
+        "src/content/tournaments/duo-nm-2026.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/turneringer/norgesmesterskapet-2026-dame",
+      "outputs": [
+        "src/content/tournaments/norgesmesterskapet-2026-dame.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/turneringer/norgesmesterskapet-2026-veteran",
+      "outputs": [
+        "src/content/tournaments/norgesmesterskapet-2026-veteran.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/turneringer/norgesmesterskapet-2026-junior",
+      "outputs": [
+        "src/content/tournaments/norgesmesterskapet-2026-junior.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/turneringer/norgesmesterskapet-2026-u13",
+      "outputs": [
+        "src/content/tournaments/norgesmesterskapet-2026-u13.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/turneringer/norgesmesterskapet-2026",
+      "outputs": [
+        "src/content/tournaments/norgesmesterskapet-2026.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/turneringer/trondheim-open-2025",
+      "outputs": [
+        "src/content/tournaments/trondheim-open-2025.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/turneringer/j%C3%A6ren-open-2025",
+      "outputs": [
+        "src/content/tournaments/jæren-open-2025.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/turneringer/bergen-open-2025",
+      "outputs": [
+        "src/content/tournaments/bergen-open-2025.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/turneringer/sudden-death-cup",
+      "outputs": [
+        "src/content/tournaments/sudden-death-cup.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/turneringer/norway-open-2025",
+      "outputs": [
+        "src/content/tournaments/norway-open-2025.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-9",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-9.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-2",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-2.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-5",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-5.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-11",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-11.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/hvem-kan-utfordre-magnus-i-%C3%A5rets-nm",
+      "outputs": [
+        "src/content/posts/hvem-kan-utfordre-magnus-i-årets-nm.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/norge-med-gull-og-bronse-i-vm-i-ume%C3%A5",
+      "outputs": [
+        "src/content/posts/norge-med-gull-og-bronse-i-vm-i-umeå.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/nbhf-s-adventskalender-2024-luke-3",
+      "outputs": [
+        "src/content/posts/nbhf-s-adventskalender-2024-luke-3.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/caics-suveren-i-trondheim-open",
+      "outputs": [
+        "src/content/posts/caics-suveren-i-trondheim-open.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-22",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-22.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-16",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-16.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/nm-2026-dabs-drama-og-10-gull-p%C3%A5-rad",
+      "outputs": [
+        "src/content/posts/nm-2026-dabs-drama-og-10-gull-på-rad.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-6",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-6.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-8",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-8.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-19",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-19.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-1",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-1.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/medaljister-fra-j%C3%A6ren-open-2025",
+      "outputs": [
+        "src/content/posts/medaljister-fra-jæren-open-2025.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-18",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-18.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-resultater",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-resultater.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller",
+      "outputs": [
+        "src/content/posts/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-17",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-17.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/forh%C3%A5ndtips-krohnengen-open-2024",
+      "outputs": [
+        "src/content/posts/forhåndtips-krohnengen-open-2024.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-23",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-23.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-7",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-7.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-4",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-4.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/profetien-p%C3%A5-singsaker-trondheim-open-2026-oppsummert",
+      "outputs": [
+        "src/content/posts/profetien-på-singsaker-trondheim-open-2026-oppsummert.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-13",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-13.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-15",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-15.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-12",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-12.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-21",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-21.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/hvem-vinner-bordhockey-nm-2025",
+      "outputs": [
+        "src/content/posts/hvem-vinner-bordhockey-nm-2025.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-24",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-24.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/forh%C3%A5ndstips-j%C3%A6ren-open-2025",
+      "outputs": [
+        "src/content/posts/forhåndstips-jæren-open-2025.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-20",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-20.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-10",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-10.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/post/adventskalender-2024-luke-14",
+      "outputs": [
+        "src/content/posts/adventskalender-2024-luke-14.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/en/post/norway-open-2025-drama-world-stars-and-cinnamon-buns",
+      "outputs": [
+        "src/content/posts/en/norway-open-2025-drama-world-stars-and-cinnamon-buns.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/en/post/who-will-win-the-norwegian-championship-2025",
+      "outputs": [
+        "src/content/posts/en/who-will-win-the-norwegian-championship-2025.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/",
+      "outputs": [
+        "src/content/pages/index.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/om-oss",
+      "outputs": [
+        "src/content/pages/om-oss.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/services-1",
+      "outputs": [
+        "src/content/pages/services-1.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/lokalligaer",
+      "outputs": [
+        "src/content/pages/lokalligaer.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/l%C3%A6r-bordhockey",
+      "outputs": [
+        "src/content/pages/lær-bordhockey.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/l%C3%A6r-bordhockey-videoer",
+      "outputs": [
+        "src/content/pages/lær-bordhockey-videoer.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/l%C3%A6r-bordhockey-kombinasjoner",
+      "outputs": [
+        "src/content/pages/lær-bordhockey-kombinasjoner.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/turneringer",
+      "outputs": [
+        "src/content/pages/turneringer.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/timere",
+      "outputs": [
+        "src/content/pages/timere.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/ressurser",
+      "outputs": [
+        "src/content/pages/ressurser.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/kvalifisering-mesterskap",
+      "outputs": [
+        "src/content/pages/kvalifisering-mesterskap.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/bilder",
+      "outputs": [
+        "src/content/pages/bilder.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/blog",
+      "outputs": [
+        "src/content/pages/blog.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/%C3%A5rsm%C3%B8ter",
+      "outputs": [
+        "src/content/pages/årsmøter.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/en",
+      "outputs": [
+        "src/content/pages/en/index.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/en/om-oss",
+      "outputs": [
+        "src/content/pages/en/om-oss.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/en/services-1",
+      "outputs": [
+        "src/content/pages/en/services-1.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/en/lokalligaer",
+      "outputs": [
+        "src/content/pages/en/lokalligaer.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/en/l%C3%A6r-bordhockey",
+      "outputs": [
+        "src/content/pages/en/lær-bordhockey.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/en/l%C3%A6r-bordhockey-videoer",
+      "outputs": [
+        "src/content/pages/en/lær-bordhockey-videoer.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/en/l%C3%A6r-bordhockey-kombinasjoner",
+      "outputs": [
+        "src/content/pages/en/lær-bordhockey-kombinasjoner.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/en/turneringer",
+      "outputs": [
+        "src/content/pages/en/turneringer.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/en/timere",
+      "outputs": [
+        "src/content/pages/en/timere.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/en/ressurser",
+      "outputs": [
+        "src/content/pages/en/ressurser.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/en/kvalifisering-mesterskap",
+      "outputs": [
+        "src/content/pages/en/kvalifisering-mesterskap.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/en/bilder",
+      "outputs": [
+        "src/content/pages/en/bilder.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/en/blog",
+      "outputs": [
+        "src/content/pages/en/blog.md"
+      ]
+    },
+    {
+      "url": "https://www.puck.no/en/%C3%A5rsm%C3%B8ter",
+      "outputs": [
+        "src/content/pages/en/årsmøter.md"
+      ]
+    }
+  ],
+  "media": [
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_7be43f1590974bf6b669191792b56d48~mv2.jpg",
+      "local": "/media/images/norway-open-2026-7be43f15.jpg",
+      "bytes": 12300952,
+      "sha256": "8780dd57476bdd3df48acf8c84f266e9d3451ddb86a0fc5bbe402a3774a5da8b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_717a73c560854f4b875f0195b1ad4ad0~mv2.jpg",
+      "local": "/media/images/duo-nm-2026-717a73c5.jpg",
+      "bytes": 12721706,
+      "sha256": "e3ab44d7a022e13c3f471e92a43c1aa114caed939eacacc7b4b747b82e9075fe"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_6f5c3c827c2242c0a32b25ce5b00f15f~mv2.jpg",
+      "local": "/media/images/norgesmesterskapet-2026-dame-6f5c3c82.jpg",
+      "bytes": 526514,
+      "sha256": "c04b5728bda0610530397b8c6ac3a35392cfd64d2c9c0f9353722ba5dc0373eb"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_62111f861b8942b883ece79fa4f33b5c~mv2.jpg",
+      "local": "/media/images/norgesmesterskapet-2026-veteran-62111f86.jpg",
+      "bytes": 433229,
+      "sha256": "5de1aab02777d2f87d91342cf3654e5b54546c2e8cd6aba0a470eea31ffd4767"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_e4f1e9aca4b04024bd4406ad017f22f0~mv2.jpg",
+      "local": "/media/images/norgesmesterskapet-2026-junior-e4f1e9ac.jpg",
+      "bytes": 419584,
+      "sha256": "7526354a6b453b4b22fcb737441db0353023b82068bc9ed0a28cac73c1b2f734"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_09dc4135908c48519db894e70baf84d7~mv2.jpg",
+      "local": "/media/images/norgesmesterskapet-2026-u13-09dc4135.jpg",
+      "bytes": 519069,
+      "sha256": "9538733b1597a0525dbac97776984acea1d0d6996f6d9fb30e62b479a8f33c2b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_2cf169619d7745879811257805f4ca8b~mv2.jpg",
+      "local": "/media/images/norgesmesterskapet-2026-2cf16961.jpg",
+      "bytes": 12444019,
+      "sha256": "2d22b1b10d66c0bc19764ae0953a9667a70c559db2e250213dd7294cd6745ed1"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_a02e2af606a5483ca82568a0e2cfd933~mv2.webp",
+      "local": "/media/images/trondheim-open-2025-a02e2af6.webp",
+      "bytes": 299496,
+      "sha256": "872afe529a7072f0c17e95ebd85da0f48d9b5b3996f040cada0b7415610c9326"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_bae529530a8140edaef6149d3ca7d5d8~mv2.jpg",
+      "local": "/media/images/jæren-open-2025-bae52953.jpg",
+      "bytes": 12461793,
+      "sha256": "caf1cec177726069dfcd04fa498e0f29f88b3bd94d817e7c9a317319667e3132"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_bb484e0a6786424b81b124442971adfb~mv2.jpg",
+      "local": "/media/images/bergen-open-2025-bb484e0a.jpg",
+      "bytes": 455412,
+      "sha256": "5a9ca1d217873ac3d5cdf9e2cc9348528faba3a6aaff8e1771a732ddf7bcee06"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_24c7773a5bd8403fbfb819466c196804~mv2.jpg",
+      "local": "/media/images/sudden-death-cup-24c7773a.jpg",
+      "bytes": 144242,
+      "sha256": "812d924b3b5ba0c5264fb1a09232d3ece7a0b7a92995d96d315ac59ec7e8f404"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_5e6305bb7ea44ff4aa14e09a38f0a012~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-9-5e6305bb.png",
+      "bytes": 2747546,
+      "sha256": "dc88e61ef9801679356d417dd775255b838b372d278b852acc2b95eb4d00880a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_4a1f5c65ddce403a9743b4a60d960293~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-2-4a1f5c65.png",
+      "bytes": 2567327,
+      "sha256": "6c949d3ccb4e8043fb433700e3ed084144e82c463c250571c3a25a0bb5841451"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_e746f904050b4cafa37656dc6d090867~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-5-e746f904.png",
+      "bytes": 2639683,
+      "sha256": "e74b8a528567322101d2df8c9542bc7ccfb9e9bf977493a2064687c202ba9312"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8cd209033d7c4af9893f7f36d2f51093~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-11-8cd20903.png",
+      "bytes": 2819521,
+      "sha256": "272dad7f07478a33be93880630b874ebbb9ed5c37c889cb4c8dbf8cba03381e0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_c402f994b0e845229592f7980f856a24~mv2.jpg",
+      "local": "/media/images/hvem-kan-utfordre-magnus-i-årets-nm-c402f994.jpg",
+      "bytes": 165391,
+      "sha256": "9548a654130d0841c1fbea8d43885962797d4f9a34bbea31967ba24d4f357851"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_611be7e948b14b059afca48238684177~mv2.png",
+      "local": "/media/images/hvem-kan-utfordre-magnus-i-årets-nm-611be7e9.png",
+      "bytes": 29724,
+      "sha256": "0554a22a39b291f0a897d63c47d01ebb94ae76b58894fcca37f4711126719810"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_21731431bfb84824bfccfef6756f2f62~mv2.jpg",
+      "local": "/media/images/norge-med-gull-og-bronse-i-vm-i-umeå-21731431.jpg",
+      "bytes": 537507,
+      "sha256": "09d28566df5240e6e2e966b05a825e72e60dce4940265921b5cf87c50d200c51"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_ee3db5209464478d8e02b4033d8aa9a7~mv2.jpeg",
+      "local": "/media/images/norge-med-gull-og-bronse-i-vm-i-umeå-ee3db520.jpeg",
+      "bytes": 166453,
+      "sha256": "63b1d0c8e4db4cd7e2fab6a99ea93ec373f4b52d335d88ec340e1e807641068c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_26be8d206d644f0a82c3e9aa39a911af~mv2.jpeg",
+      "local": "/media/images/norge-med-gull-og-bronse-i-vm-i-umeå-26be8d20.jpeg",
+      "bytes": 161721,
+      "sha256": "7415bd3d3a438b5efc4992cf81b99f65f737d88449c16b3ec2a9bf6c22dea2eb"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_b4eb6ef2ea604b95b2707796b05001d9~mv2.png",
+      "local": "/media/images/nbhf-s-adventskalender-2024-luke-3-b4eb6ef2.png",
+      "bytes": 2575954,
+      "sha256": "38066ee98768f014a63e2886a4353a74041389e087864b46e0bbe3c1b8618de8"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_86a548a1ec474d75ba7f7ac804fa8609~mv2.webp",
+      "local": "/media/images/caics-suveren-i-trondheim-open-86a548a1.webp",
+      "bytes": 99208,
+      "sha256": "2cd14617735f1f49e7ecaf5bf6b37d0da24accfdad38b2e9f9e866a97c2a0132"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_780b4615d59f44abb569137790f68c89~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-22-780b4615.png",
+      "bytes": 3051177,
+      "sha256": "fa703daf4d966c365422da8f67062b3aa8dd3567007ea481df8f7b88cee490af"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_4a2aa9fceda14420a6253fc8671b82fe~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-22-4a2aa9fc.png",
+      "bytes": 130825,
+      "sha256": "4085b84e6bb66c3571dcac46ed97a75b2e32efc692c7df9729227e263f43eda3"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_5b66f4a910b04616bb62be4171dbb6a3~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-16-5b66f4a9.png",
+      "bytes": 2964716,
+      "sha256": "abfd48f2732d38cc3f4d3a6992cad3fc31d0c7fef1d944e64d9292ad72448be5"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_3882cbb592344b2dae82466bed81391b~mv2.png",
+      "local": "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-3882cbb5.png",
+      "bytes": 2560964,
+      "sha256": "5790667b9d991ac2ca6aeb8c02208b29ac12c537bdc4f7ec8493db1e59d04c8a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_7cb0ae35684842cbb4b7689ba25f4fa5~mv2.png",
+      "local": "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-7cb0ae35.png",
+      "bytes": 178169,
+      "sha256": "7183f9536aae968827d4550e4c3718c3d070e5f0d5ab61ae2553216bfe8606ff"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_c9056982f8014143859896ba53529e96~mv2.png",
+      "local": "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-c9056982.png",
+      "bytes": 126757,
+      "sha256": "0425cd586437c755fc71bd4eb6e79346be3794dc7f630c902660839d21f19342"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_a8720ab3c43a46ddb56518dbf766cd94~mv2.png",
+      "local": "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-a8720ab3.png",
+      "bytes": 68776,
+      "sha256": "9c93136e03652758934278baee797255028c9ebe6a2363ba39a7eae32a3db070"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_0a301454655b440295def693c8a6abdd~mv2.png",
+      "local": "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-0a301454.png",
+      "bytes": 71710,
+      "sha256": "5ab7b8b53ce6ae470c137880018cb8f98c5897a42c39e0feb51905c57ac96470"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_92f509a9f9a447f2a614637000ba9752~mv2.png",
+      "local": "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-92f509a9.png",
+      "bytes": 42535,
+      "sha256": "34fc4b952eaa17234fcf4b35a96f3a6f6992eee2f9d9f77793805b0ce584a2a5"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_f09fce6dc6c4450785230f0fa3290048~mv2.jpeg",
+      "local": "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-f09fce6d.jpeg",
+      "bytes": 1505448,
+      "sha256": "5ad3dcd3cdfe468cb07f7ea53bd2d1db54682b947517dd6d86096b369afb600d"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_d2bfac6c0da941849decf806f2afe0f5~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-6-d2bfac6c.png",
+      "bytes": 2662598,
+      "sha256": "6a76069874981efd317ba99d1cee625d58c422c49daac110e36b6cfc705e2874"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_4208e02988204e8ab02f8eb8701823ce~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-8-4208e029.png",
+      "bytes": 2728328,
+      "sha256": "ea66742fe06861792bb80a4ccdcae1a77b3acf5c7a9b796ac55022910f1fb308"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_42c5cb92e5b445ff8536fa7610a84b3c~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-19-42c5cb92.png",
+      "bytes": 3015479,
+      "sha256": "504d2fb04d7daab76ea78352d87d019340234478ee2615df0b20c0348d1b0ac3"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_680cea35a29b419d8292c7b9bb1dfc55~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-1-680cea35.png",
+      "bytes": 2550706,
+      "sha256": "b8e9cb3ac50a67df590b70212fe65903821b7b7415c8cb65c1bdf741fbbf48dd"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_41b7c3f57871400b9d140f0963bccdd1~mv2.webp",
+      "local": "/media/images/medaljister-fra-jæren-open-2025-41b7c3f5.webp",
+      "bytes": 226666,
+      "sha256": "5855586a4329cff4ed41f2d237e8833c20b07302f4d4d1d69f0ddc64aee23ea0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_40f1731b92bb4512b91341ac3d04e7b8~mv2.webp",
+      "local": "/media/images/medaljister-fra-jæren-open-2025-40f1731b.webp",
+      "bytes": 202778,
+      "sha256": "d704a0264d536e357ee125a69d7ada10d925896bd69c7680117d0481ed822dcb"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_9cac0305dcdf44199759379e97ecfed7~mv2.png",
+      "local": "/media/images/medaljister-fra-jæren-open-2025-9cac0305.png",
+      "bytes": 10485593,
+      "sha256": "aa55f798fee964d9a5edc4506883753a3b1ea20ca72629073b99fcb13f6439e6"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_81d14babae214a71a839a2a43f24e772~mv2.webp",
+      "local": "/media/images/medaljister-fra-jæren-open-2025-81d14bab.webp",
+      "bytes": 117612,
+      "sha256": "cb2f75764fc4256d4774252f849ffbd51c0b2a69dfc07c472a53ecc71377e698"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_940647d818e846bb9259fb7ba9082680~mv2.webp",
+      "local": "/media/images/medaljister-fra-jæren-open-2025-940647d8.webp",
+      "bytes": 151654,
+      "sha256": "c76ab1ead8f67fe1e6edbd1cce09318ca5aca814908b87c669ad925508435b6b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_7913e3b4805d4622aad72a936063f2b9~mv2.webp",
+      "local": "/media/images/medaljister-fra-jæren-open-2025-7913e3b4.webp",
+      "bytes": 157332,
+      "sha256": "6f9073b472416414597492af5fabb70293fe1e8a0e457061275323c40742083d"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_124a8b5a447f4853abaf9063c216e9b5~mv2.webp",
+      "local": "/media/images/medaljister-fra-jæren-open-2025-124a8b5a.webp",
+      "bytes": 198978,
+      "sha256": "44e27a6f5b368f38fb08baad4e2cbf57da1d9e69f81b27c51257b173c1fccbb4"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_0e4f4e50c8004f6793aa7178e21a0760~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-18-0e4f4e50.png",
+      "bytes": 3005939,
+      "sha256": "2e8910854d95fb19a7575c544cd2151d8108a619a3c71642c933dfae30a81436"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_0b27c9baa80c49d2ae522f6e927e435e~mv2.png",
+      "local": "/media/images/adventskalender-2024-resultater-0b27c9ba.png",
+      "bytes": 3111122,
+      "sha256": "e31bdde226469753eed76a77ac8ad77cf23bed0fd5c239e24bd54295284b85c8"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_3584df1f316f402eb3a24ece59043e0f~mv2.png",
+      "local": "/media/images/adventskalender-2024-resultater-3584df1f.png",
+      "bytes": 2599921,
+      "sha256": "0a9c746823cd9b10a75c7bf4f75ec3a9c458990bf64f21e9cfe57726c298811f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_ca8458717e554377b25f9793c85ae32b~mv2.png",
+      "local": "/media/images/adventskalender-2024-resultater-ca845871.png",
+      "bytes": 76378,
+      "sha256": "1d5b4202e540deb632cc8b3223c8d734f40de124fe1caad28e190caa84b864ee"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_67d4e2a69c9947328131d613b2c6d915~mv2.png",
+      "local": "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.png",
+      "bytes": 11778161,
+      "sha256": "6e066d1f498f4628c6fbfc2d43c0443c3bcc09f87c90ec4d28264f639848a59f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_2dfc30126f6e4eb6a7df8b38b9b1542a~mv2.jpg",
+      "local": "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-2dfc3012.jpg",
+      "bytes": 10582365,
+      "sha256": "e5121742c5693952c2be813e1309c438741cc5fb70d9d2ecfa00e62481d13bd0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_adde5d2a757146be81283bee198731d5~mv2.jpeg",
+      "local": "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-adde5d2a.jpeg",
+      "bytes": 189463,
+      "sha256": "392d7eabc440bf836b57242ae041b75c7e13efa3b9869aafb8cac199af6009a9"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_cbaa7c358dc14e6fb4ac51c2d1a79129~mv2.png",
+      "local": "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-cbaa7c35.png",
+      "bytes": 35583806,
+      "sha256": "064ab3588237eff946b83e3e88df34a13d5e4d906926a20c3b1b0109b213a4db"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_d5a957a52a39425b80b64ac1681f9b7f~mv2.png",
+      "local": "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-d5a957a5.png",
+      "bytes": 31699178,
+      "sha256": "14d5b9b4badc59dce9c682af76fb135f88d5756c8d777e68cbe312e64d5acbf2"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_ee47d146b0594ee49565b61ccb54428d~mv2.png",
+      "local": "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-ee47d146.png",
+      "bytes": 42130460,
+      "sha256": "d622d5fc0a72158849180e6b843843fd8890d076d50373e1930aa98214076110"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_373fe9aa90c54382b90bdff72409d5dc~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-17-373fe9aa.png",
+      "bytes": 2985695,
+      "sha256": "1b2262f08a2bef46eef9ec4cb1ecccdeee746f0761149c3bddaa212a34d21dc0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_f4c0e9137b034ab1ad0684bf42f68073~mv2.jpg",
+      "local": "/media/images/forhåndtips-krohnengen-open-2024-f4c0e913.jpg",
+      "bytes": 455412,
+      "sha256": "5a9ca1d217873ac3d5cdf9e2cc9348528faba3a6aaff8e1771a732ddf7bcee06"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_3f97b1f833eb4701a29b70f79e72e11d~mv2.jpg",
+      "local": "/media/images/forhåndtips-krohnengen-open-2024-3f97b1f8.jpg",
+      "bytes": 478146,
+      "sha256": "1584dfbabfc514a154c5fc8e13eb8ea92caa64ab30bb9291178b02677856e6b8"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_3ba3acebce744ebebc35964e76711de1~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-23-3ba3aceb.png",
+      "bytes": 3072403,
+      "sha256": "527a294c3545b67e2cd7453de75dcbeeca7eecc8a855c52c8d2dd8fa951fb80b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_eb7e567db002402c909d93a3f9604cfa~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-7-eb7e567d.png",
+      "bytes": 2707794,
+      "sha256": "0e355d7762a47e0e17daf042025cbcbb596a199f4c4861088f0081112660984c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_4492f2ef7b6148f59496fc7957d82ba4~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-7-4492f2ef.png",
+      "bytes": 140009,
+      "sha256": "6bd90fafdd2c40b54c9f69e4665760ec022b6597841e3aed9f2526bb8eb8e1d6"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_ad6956d94c594d129244e9dfb079a2b4~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-4-ad6956d9.png",
+      "bytes": 2620202,
+      "sha256": "f5ebda7c4a375ae3b7a6dc2c0083fd4306684f220a5a4b269ddf84f3af0aa83a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_58730dfad9ca4bb5936d1d0e5855d64c~mv2.jpg",
+      "local": "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-58730dfa.jpg",
+      "bytes": 793760,
+      "sha256": "8414cd057a3def6d56b61da4bbfa821204bac50503a5d884d04bf01a66f04d6b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_9146858bbc71400da1a59ac37bff64bf~mv2.png",
+      "local": "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-9146858b.png",
+      "bytes": 104058,
+      "sha256": "7882315b50ae0ae61b7d37856b31da6e4bc2147110c4c531004e48546b39bde0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_7ac8cf6e3b474a03b684ee43dedbb344~mv2.png",
+      "local": "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-7ac8cf6e.png",
+      "bytes": 96786,
+      "sha256": "648c731ce9d89312029d1e9621860b6a1a8279b0325510e03f36137771b1e0db"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8f9b972f186c4bd0a0e28d88ee42585a~mv2.png",
+      "local": "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-8f9b972f.png",
+      "bytes": 55714,
+      "sha256": "eaf23a86a2353ddaf3ac28b5914f0734fd59bf896cb0582d69bafb716c855d74"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_fc5daa5843ac4a1b99bbed42dda1f837~mv2.png",
+      "local": "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-fc5daa58.png",
+      "bytes": 37363,
+      "sha256": "9bab39c62f7bf0a74fdbc18a787a4c1bf67ff4618ceb8858dc95d5af886113a0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_334d7c5f14654eb09a7f85a6536e1b06~mv2.jpg",
+      "local": "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-334d7c5f.jpg",
+      "bytes": 641917,
+      "sha256": "e068fd987d6d0f23ec77d4eb0a6bca74c4ad144fe8eeeb4b19c8a86c019ae0ef"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_5b8724cf3d5648d9bbaeff592005dbc5~mv2.jpg",
+      "local": "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-5b8724cf.jpg",
+      "bytes": 1071658,
+      "sha256": "95de7ac5437c74dae54935525ff40ad89a029da5f123d64dc47e62fd0f579644"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_89b40bd7d7fc41e2b4dc3c2cddaf0d65~mv2.jpg",
+      "local": "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-89b40bd7.jpg",
+      "bytes": 961561,
+      "sha256": "955aa60cfa63391a4ee89ead0676ce7f258b67288219d85f49aa123d69f20e58"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_2035d99c699f4b879c89188656cb9b6c~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-13-2035d99c.png",
+      "bytes": 2870888,
+      "sha256": "21094559144d16a9ed0307460dd6185e2801ca1e6d64df52bc2b5962a46cc434"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_6284b5c809b343b49f8330800951d048~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-15-6284b5c8.png",
+      "bytes": 2924460,
+      "sha256": "02491191f34a04e4b6430eaa9a465a575b03e85cd1ff4e7b7a58537553d58629"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_fe1e6f26b6e94e9eb304eafa508332f6~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-15-fe1e6f26.png",
+      "bytes": 130702,
+      "sha256": "c79e5c341a0fe4ae36580fe017db00ce1ea49cb950f3c90e17ebc1af549b1712"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_e9f49fab76ae4fb9a465ce22b085dcbb~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-12-e9f49fab.png",
+      "bytes": 2838359,
+      "sha256": "532ff904a6ba49f83e369b001582b929490f19fd113f328c0629cc804391a3ab"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_c24271310a844d1b91b89b427e5f83b3~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-21-c2427131.png",
+      "bytes": 3049246,
+      "sha256": "09cd5c1e34547b94eadc72ff78ede02fae47665f6fcfda4d2626be85275078b3"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_71abf4ce0990421c99b4785aac580cd4~mv2.webp",
+      "local": "/media/images/hvem-vinner-bordhockey-nm-2025-71abf4ce.webp",
+      "bytes": 130784,
+      "sha256": "0347354fb19328f5db39a0114ca930c4650901d8bddae69e10efa36958abd9b8"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_086370ffa4a843b3816c7f0760c6348a~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-24-086370ff.png",
+      "bytes": 3096928,
+      "sha256": "773b41dfbe7f0cae1bcebeb32b4da50266889c5d983e9b0d771821e54b3c9477"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_be4dea47eff44b8187c4eacee497328e~mv2.jpg",
+      "local": "/media/images/forhåndstips-jæren-open-2025-be4dea47.jpg",
+      "bytes": 1958462,
+      "sha256": "1283304d26e8d32ee6f440a7934ae3060375ecd6ad79f2f3abb2b98236f82f21"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_d7cd0703f6bf42b9a853d47e4095445e~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-20-d7cd0703.png",
+      "bytes": 3034350,
+      "sha256": "82f0fa02b7a7d46b277b3ff7bd25a1eac00e665dfbe5ee67c8da0d6aff442212"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_3d71095dfc4f4e1192c7daa8f621cafd~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-10-3d71095d.png",
+      "bytes": 2785192,
+      "sha256": "4f9c9be43eb3e850c1cf670ba436e96dac052576e4530c499411e51a9426f195"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_5cb60c87d0534050ac1613befa1a73b6~mv2.png",
+      "local": "/media/images/adventskalender-2024-luke-14-5cb60c87.png",
+      "bytes": 2898064,
+      "sha256": "f48661924462f2d1199b2485e9ece493accf7ca072d4825a328b3a71921e0476"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_2f7a1d7569ae483998323f090a98f3e5~mv2.png",
+      "local": "/media/images/index-2f7a1d75.png",
+      "bytes": 5250908,
+      "sha256": "36fe32086208455c369f63371ff53844f408119622130f766aa636752ab0e692"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_3ffa36e2422e4c6f8230eccaf7a76bd0~mv2.jpeg",
+      "local": "/media/images/index-3ffa36e2.jpeg",
+      "bytes": 10622,
+      "sha256": "246160e165523aa6bf5a959ed3dc52b76c771f9554f81605c0a61c1d19fccad6"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_345e57fdbb2347ee8878584c83f59e30~mv2.jpg",
+      "local": "/media/images/index-345e57fd.jpg",
+      "bytes": 22765,
+      "sha256": "5004fe7e43bfee6cfe24b816b5776375bc9ee0c49bd41ba7edbf9f60d0103a22"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_a6a885d6f6cb4569a9678b60bd821d36~mv2.jpg",
+      "local": "/media/images/index-a6a885d6.jpg",
+      "bytes": 2653547,
+      "sha256": "2ef4bcf647b5b0fe0dbd12e1e103b84309856df64bae840613388f464ce7a076"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_4cc0ec374ed242cea44413f53cdd0e59~mv2.jpg",
+      "local": "/media/images/index-4cc0ec37.jpg",
+      "bytes": 314613,
+      "sha256": "af172bf21a9e4555f3bbcfb74617985668cedb113c5017433fb6f45e23375e8c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_b7d657dfd1fc434f8483032c4f9ca947~mv2.jpg",
+      "local": "/media/images/index-b7d657df.jpg",
+      "bytes": 11302248,
+      "sha256": "28d5cb7de74ae49056b48936612c04105fd894408fad1781d69ebd73184ed220"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_8730af0c432f4c59b87533ebb4724f6f~mv2.jpg",
+      "local": "/media/images/index-8730af0c.jpg",
+      "bytes": 11544282,
+      "sha256": "93fd46475284b189a91b27f17616b8514b70ec26d2ba7b832335bf6a5d6fdff0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_d5bf3d3e33bd4355a3e8612d1f9beacf~mv2.jpg",
+      "local": "/media/images/index-d5bf3d3e.jpg",
+      "bytes": 2945816,
+      "sha256": "c0ec85aa258aa43338502a179f4c04914d4e5b28db0d0f0bee13aa3d8939691f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_18d51b20310846b18780254ba84e0a3f~mv2.jpg",
+      "local": "/media/images/index-18d51b20.jpg",
+      "bytes": 10911818,
+      "sha256": "b24a419865e7c56b9aca0145ff5074265d4ccd0b5fb6004b9e7ed8a5a43f8d93"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_82b9f18854814c54b093178773e0053f~mv2.jpg",
+      "local": "/media/images/index-82b9f188.jpg",
+      "bytes": 11836611,
+      "sha256": "87fe7e29d126ab1c93adcc763decfddcb4e41907fb15c5664f2caeb1ab3cfede"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_96e217ca1ee548e8b09e559f5f4adc3b~mv2.jpg",
+      "local": "/media/images/om-oss-96e217ca.jpg",
+      "bytes": 3198435,
+      "sha256": "7f66ae891f2e75d1ace77d96476585bde88af1130d7e70bac7f1497974d44030"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_0f1ae833e55844adb87d2f787550b8f4~mv2.png",
+      "local": "/media/images/om-oss-0f1ae833.png",
+      "bytes": 145728,
+      "sha256": "932c1f1051157aa7066231cc8d23c9193023ce8eb824ae0e559e4c509a68b0ac"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_b3b94a26720e47f7b3136edbfb2cd3ba~mv2.png",
+      "local": "/media/images/om-oss-b3b94a26.png",
+      "bytes": 632381,
+      "sha256": "311470ef5d3f9be7814f4e6f31f70ec164a5a59750dcdb7c1ac4bbf8f61f81e8"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_be83385b0db34f0d9f6c1ba2091c835d~mv2.png",
+      "local": "/media/images/om-oss-be83385b.png",
+      "bytes": 737784,
+      "sha256": "919c55174fa2035f27d7dd46759616127335219451db8a8125c889f16925517a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_f30dc605fc3d4fe483f01548763b74a4~mv2.png",
+      "local": "/media/images/om-oss-f30dc605.png",
+      "bytes": 866148,
+      "sha256": "7d8c8e80c8d2e2965df5876487a1b9b65bb4de0df5fa4f4237f5f528477eb6d5"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_cfcb7027a3e34602a92f99f48ea061d0~mv2.png",
+      "local": "/media/images/om-oss-cfcb7027.png",
+      "bytes": 795646,
+      "sha256": "030c8a3191af5970decda0b40c10f17ccbe4b1c2f83e42e32e87ef6f337380a7"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_15c93f2864b04430b0b1f4abc832dcf2~mv2.jpg",
+      "local": "/media/images/services-1-15c93f28.jpg",
+      "bytes": 383649,
+      "sha256": "fe05a921ebbcb1262fa1fec7ef46d815beca9762caf71e7d06b478f357fe4a0a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_f5866b836eed4a8e8b3de4da82901dc3~mv2.jpg",
+      "local": "/media/images/services-1-f5866b83.jpg",
+      "bytes": 10983232,
+      "sha256": "acc9feedbf9e2719b69c003d5aff57ab1dc8dedfe7d290a7eec2ab7064b74e76"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_5082764529f841599f4be0d3f13f9809~mv2.jpg",
+      "local": "/media/images/services-1-50827645.jpg",
+      "bytes": 11253102,
+      "sha256": "55b3c7091a83c32e7ca2cd30f6abf94ba4df2bcb05f282eae135de5358e799a2"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_699bd3e5d7ea49b984b7df35e129d0f1~mv2.jpg",
+      "local": "/media/images/lokalligaer-699bd3e5.jpg",
+      "bytes": 1216405,
+      "sha256": "e255957873df0de0771f2178e208ebefd70ca86644615638fd81c60cea2790de"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_a5c66f5e571b4c5d8c0d99023b7ba86b~mv2.jpg",
+      "local": "/media/images/lokalligaer-a5c66f5e.jpg",
+      "bytes": 90245,
+      "sha256": "0f0031d4e91d3f899e8078dcd9d44fbf757dae9f537000db35f1010b614f65d5"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_2e6af9fd83334751b383df3876a29ffe~mv2.png",
+      "local": "/media/images/trick-nacka-2e6af9fd.png",
+      "bytes": 97047,
+      "sha256": "b1a56a18c592f0a252cc121f1f8865fa02db18deec8563f38c5edd58d0fb28a4"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_6dadefbcc3f1448195c7ef1c584065eb~mv2.png",
+      "local": "/media/images/trick-spjass-6dadefbc.png",
+      "bytes": 97316,
+      "sha256": "52bda1bc9df54f4429bb512aa907970e793f3ce883c3466f264760bdde9077da"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_92398556367142d8973a08ce846a34ed~mv2.png",
+      "local": "/media/images/trick-lillhæl-92398556.png",
+      "bytes": 96333,
+      "sha256": "53f5471582f4fe7304d766ab775e735cb2af4b49ec849337759af88d5119cddc"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_2c0457d474334dd8a4a34c9fc51bed6c~mv2.png",
+      "local": "/media/images/trick-lillstøvel-2c0457d4.png",
+      "bytes": 95816,
+      "sha256": "29345edce805555980d2048f9ddc67c36bd25e380c4b16d09fd1aefec861ef40"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_e0edae5c132e427a80acb800a26d1375~mv2.png",
+      "local": "/media/images/trick-omvendspjass-e0edae5c.png",
+      "bytes": 96425,
+      "sha256": "9cf09de12ff04b09824b50bdf65235f8639b5e738b70f9b78c0b0d558ddb0269"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_c68b7726872c43d482772bcdfc85a46f~mv2.png",
+      "local": "/media/images/trick-hjerpe-c68b7726.png",
+      "bytes": 97833,
+      "sha256": "c1842f7156ae149b59a37530fcb54663068e7902b56dca3b6a2dc630988cc4a6"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_f9523f5cc2c443a09ab3e88afa126ad5~mv2.png",
+      "local": "/media/images/trick-hjerpefinte-f9523f5c.png",
+      "bytes": 96371,
+      "sha256": "27c9eca1c119fd7e2b98229dce873a8b8f96e66d7c5071b848d8112e5a303909"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_ada0bf2a84894f38aefa3ebd83be91e0~mv2.png",
+      "local": "/media/images/trick-søren-ada0bf2a.png",
+      "bytes": 96489,
+      "sha256": "d2c6ea4e8ff18a73425e00207cfad8b2b3187f7a3cc2f32432a2aa902ea25619"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_748f508259e0418e934c22f71c461088~mv2.png",
+      "local": "/media/images/trick-sørenfinte-748f5082.png",
+      "bytes": 96906,
+      "sha256": "68e4f192fbd7bfd0550e2f7764edb0bc4b058324bb503ad4234ec727253e545b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_0b633f173ff0426a8f8e4d9ac42d049a~mv2.png",
+      "local": "/media/images/trick-senterkiosk-0b633f17.png",
+      "bytes": 96458,
+      "sha256": "8eaa8d01de568934024e7c8743f09506f7fdcde173c205b5bc47a4f641d9c956"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_7dfe954553604fec887735ddd9a16453~mv2.png",
+      "local": "/media/images/trick-nackafinte-7dfe9545.png",
+      "bytes": 96384,
+      "sha256": "19cc0210fa33038419bb939c48ff6da004fdb7129aea3f598720599db0c5523e"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_067aa3e814b243c891b0fdf34c2bb095~mv2.png",
+      "local": "/media/images/trick-spjassfinte-067aa3e8.png",
+      "bytes": 96710,
+      "sha256": "5c2184df2652077c845d1eca885bdbc1cbe5102efacf7e2abc4643cf52e3e5c3"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_43746e89e2da4c869af249ec95bf6fbc~mv2.png",
+      "local": "/media/images/trick-lillstøvelfinte-c-29-43746e89.png",
+      "bytes": 96178,
+      "sha256": "b2b2c908d2b507f82b9b840f462db03476696b642c241ec3d144751a917f2ec4"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_6ba8f29407f44ed8b2f4fd49b6f10787~mv2.png",
+      "local": "/media/images/trick-omvendspjassfinte-6ba8f294.png",
+      "bytes": 96066,
+      "sha256": "c5af13c86821b18d1859c40a7e71f560354881487f66a338c88b7f6950894469"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_06fd741e2643443a976fcc6a724d3a8d~mv2.png",
+      "local": "/media/images/trick-senter-ceuleman-06fd741e.png",
+      "bytes": 98181,
+      "sha256": "25ff7b1160e4675eb5201c87562601449c67971473150689c215c3cb1656ef60"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_9e6a38fa51a04d6f839ec1ccff5a0384~mv2.png",
+      "local": "/media/images/trick-fakie-senter-ceuleman-9e6a38fa.png",
+      "bytes": 97912,
+      "sha256": "aa2863bb65b9e950b54a9864b15c75c3b1b11c0000ea690e752f8a781621543b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_142415eb1c9a43ce8375cf08fd9c1488~mv2.png",
+      "local": "/media/images/trick-horvath-142415eb.png",
+      "bytes": 106412,
+      "sha256": "21b4e02f8138b7cbaa5a8e482b373a52d1cb0eac16390875738f4aafeaed1eba"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_0d649889879e4e34a0f51753d498d97f~mv2.png",
+      "local": "/media/images/trick-fakie-horvath-0d649889.png",
+      "bytes": 104300,
+      "sha256": "27230c46212f9457bcf5e48fabfcc9c4b6f42d3f588637d287b27423701e59bc"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_5e975a0d71544a0f90a7e8bcecc5213c~mv2.png",
+      "local": "/media/images/trick-spjass-horvath-5e975a0d.png",
+      "bytes": 106618,
+      "sha256": "e657da3beb0eb364383a71c89fa04fc3115a4c5377e00edd7ef05f77adc2863b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_0e070a3aacb44dc98bf83eeb6d318f91~mv2.png",
+      "local": "/media/images/trick-veggdyr-0e070a3a.png",
+      "bytes": 95264,
+      "sha256": "d1cf09f6b4251184171642f3aa1535d4708245cf1f80dfa58de0712887f1235f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_e0b159da8419451f93431ae4bef4f8b4~mv2.png",
+      "local": "/media/images/trick-fakie-veggdyr-e0b159da.png",
+      "bytes": 95669,
+      "sha256": "28b0ac0a796ae5990a72b7882767bf2496a3db8044deebe1896c573a73e18f1b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_d68ac5fd2c9e4a81b817a8d64510d261~mv2.png",
+      "local": "/media/images/trick-agdur-d68ac5fd.png",
+      "bytes": 101266,
+      "sha256": "fb547c3301c753475c44462444b5a7f739fb2ac2b6c6fd6c854c3fac68421d7a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_921a3a7c43f44fb08443bf0bcb890880~mv2.png",
+      "local": "/media/images/trick-halv-agdur-921a3a7c.png",
+      "bytes": 99782,
+      "sha256": "cdc008e3ee422bb2d7583d0666fd06489566a056fdc1c366049661fc4f21c5e8"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_e9ce4ae38040485c85742677db616b80~mv2.png",
+      "local": "/media/images/trick-agduro-e9ce4ae3.png",
+      "bytes": 153976,
+      "sha256": "dbcee92a35ba5b93d4cae9366c50c5f8d0e6ed40891aa4f1af4100638790c6e5"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_fa614eeadac446a0842c231ee9b906e9~mv2.png",
+      "local": "/media/images/trick-invers-agduro-fa614eea.png",
+      "bytes": 154084,
+      "sha256": "701fa610c04be79ac313840b6be966f44e63ecc9acbf73f442f06b7c48726e44"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_759c5e3ef342470dae55efbccb5d75af~mv2.png",
+      "local": "/media/images/trick-invers-halv-agduro-759c5e3e.png",
+      "bytes": 151111,
+      "sha256": "1bf93238ff36bdedf644e3279a68cd86077d4380d596eb2df3b09cad8dfa61ff"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_5400f2d43a0346dc9c5ee45cc2b6294a~mv2.png",
+      "local": "/media/images/trick-fakie-agdur-5400f2d4.png",
+      "bytes": 100373,
+      "sha256": "4e77ae7d17ac7279d74e9ae0917c0c1cba605a1cf444fc82dea8fd495b00e9ad"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_ae8e3e5d0f044b77962ddf553d77dd4b~mv2.png",
+      "local": "/media/images/trick-fakie-halv-agdur-ae8e3e5d.png",
+      "bytes": 97892,
+      "sha256": "d0759698f3ee5e1df13204b3d5f7c9b3fe27af91691450868e496c1b27ff7a81"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_0d8a87b935ed4426a177e3831c46b288~mv2.png",
+      "local": "/media/images/trick-fakie-invers-agduro-0d8a87b9.png",
+      "bytes": 151171,
+      "sha256": "c7ff46bccfc37f508d13a3a4fd938c21373127d1dfa93bc88f8f8cd83d2486e5"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8d97565603e849879bc62b1994dfb440~mv2.png",
+      "local": "/media/images/trick-fakie-invers-halv-agduro-8d975656.png",
+      "bytes": 1282979,
+      "sha256": "7fe4a3c56ff8e3e487344b9a5094afb368654bddfeb44690968c622633e5c65a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_cec1a26c63f8463da445f3e8b4c59ea7~mv2.png",
+      "local": "/media/images/trick-holmin-cec1a26c.png",
+      "bytes": 109103,
+      "sha256": "b43acc26c04bed01762215088810f51ee315956f14a2942805f282cd600d3924"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8ed3df7004c2451d89280c281f194476~mv2.png",
+      "local": "/media/images/trick-holms-8ed3df70.png",
+      "bytes": 111436,
+      "sha256": "3f3a57bd4ec7cfde7d90fa6fa7b6cb24580aa5ba9009ce019e6f13b1f04e0b51"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_0e16faa4c6dd4afdbb5fa7faca935e38~mv2.png",
+      "local": "/media/images/trick-holms-gretzky-0e16faa4.png",
+      "bytes": 111555,
+      "sha256": "f199e04b62c8062eb9e63dd68bcacbcd5f1a061c320c9477dde4e327e3f6853a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_81bdbd16fe6f48e2819186de1182a0eb~mv2.png",
+      "local": "/media/images/trick-senter-velodrom-81bdbd16.png",
+      "bytes": 108730,
+      "sha256": "3494ffa65e5da868c9674bd1f2dc5bc169644f531b5f7f81eda34bd9ff66386c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_9eb56e0463064787b354132759e8b665~mv2.png",
+      "local": "/media/images/trick-senter-karusell-9eb56e04.png",
+      "bytes": 112575,
+      "sha256": "b149542172e7e0d8475caa61b425dfee540a8b7768a6a815e542d92ad6561c10"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_84e8f8f6e03044bf8c8b04beafe6cea7~mv2.png",
+      "local": "/media/images/trick-fakie-senter-velodrom-84e8f8f6.png",
+      "bytes": 107704,
+      "sha256": "d0009fe601884179518ca54f3f870d63f08922e3c943ad430effe518b37811b2"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_d46b2d2cc1b24ced904ed05b5aa29b40~mv2.png",
+      "local": "/media/images/trick-fakie-senter-karusell-d46b2d2c.png",
+      "bytes": 111544,
+      "sha256": "800a6a3e851a0c7d5c37e3866f05257e3ba7d0a85d9a8f6b138c6ca6759228fa"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8126d7d8e66f4e4d833e5e46412d1576~mv2.png",
+      "local": "/media/images/trick-skalpell-8126d7d8.png",
+      "bytes": 297935,
+      "sha256": "6f64f2856a25acc639c07f0b6075de55003a34ddf7f6187fd139f6d6616df8e9"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_64423311c5504ff9ad6a9c2bfcd4df18~mv2.png",
+      "local": "/media/images/trick-general-reiersen-64423311.png",
+      "bytes": 313952,
+      "sha256": "d03ce36483b74922ea2b0790318f66a2fdd094c46bb1a7efe50eb450317df402"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_23db459370264cbaafdc94414ec71e37~mv2.png",
+      "local": "/media/images/trick-senterkniv-23db4593.png",
+      "bytes": 296202,
+      "sha256": "6e505e09d85b39805e2d8189f6ecb039b8eca273765d5a7987de01f15533c513"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_caf5c8d786984676a1de7499a9e124e7~mv2.png",
+      "local": "/media/images/trick-senterknivo-caf5c8d7.png",
+      "bytes": 297851,
+      "sha256": "75c47e822331bbe1baeaddf7a3939bd4d95df08bdd7ba6d5cf55b20bc5b7c229"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_cb88b462355444a083b0ad2efef9f5a6~mv2.png",
+      "local": "/media/images/trick-rambokniv-cb88b462.png",
+      "bytes": 299218,
+      "sha256": "eae62ca84657e304275884e796c99e86ae1b7f9b8d0e85ef2bcd40e5447935ba"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_96970c00a9254bffbc203489e1281d8e~mv2.png",
+      "local": "/media/images/trick-fakie-senterkniv-96970c00.png",
+      "bytes": 295939,
+      "sha256": "431c459f04c9a14cc94f1286884eab6d39f634a4fe87a62a7c5e65b3326aac33"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_6f13def632a64172b60da54d27278806~mv2.png",
+      "local": "/media/images/trick-senter-backnacka-6f13def6.png",
+      "bytes": 301431,
+      "sha256": "f7975a319499f9a6fb3115d5d747c92cc5f63c284207556940c016c591e758b1"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_392cbabda2844c0688e8bbc9182d504a~mv2.png",
+      "local": "/media/images/trick-invers-kano-392cbabd.png",
+      "bytes": 305850,
+      "sha256": "d97933725957e7ad40153b05e6ddc1be4541d16c4b42191b5c11ba963b5ec093"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_6edf9a4099174beaba168ae6f6ec6fe5~mv2.png",
+      "local": "/media/images/trick-fakie-invers-kano-6edf9a40.png",
+      "bytes": 303727,
+      "sha256": "8762e0fe2cba600d9f3d6114712cb3e119c9cd0d6094d8bf8f012b2b4ef8808c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_9c4a9212b43445c9af7347e918222d5a~mv2.png",
+      "local": "/media/images/trick-senter-rokkade-9c4a9212.png",
+      "bytes": 304451,
+      "sha256": "347f165d1fe34ec314db56a57483db63fe8a04226cb48b43727a06dadf2cb261"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_90a380f0f48b4613b8114d98c01e6ac5~mv2.png",
+      "local": "/media/images/trick-fakie-senter-rokkade-90a380f0.png",
+      "bytes": 305372,
+      "sha256": "7c3cd73a752282ad2c895e3bb237639d2575359e486ea7aa2fcf0e33df12305b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_2c9bcf71cae447b182c85273de41e02c~mv2.png",
+      "local": "/media/images/trick-bacalao-2c9bcf71.png",
+      "bytes": 304221,
+      "sha256": "dae19adf4431cebd443e47892996e0a5905b2eefd34ad20c9921e184eb3eb8dc"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_0bbc8f04d4ff4e1888f6a96a43bf8b7f~mv2.png",
+      "local": "/media/images/trick-newton-0bbc8f04.png",
+      "bytes": 97217,
+      "sha256": "c7dc860080134529de5a8feef03921ecf9a39e59d7a098bd84de6a2d78f62fde"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8f62525f02b24a4cae8aa75d462f78fa~mv2.png",
+      "local": "/media/images/trick-mission-impossible-3-8f62525f.png",
+      "bytes": 101999,
+      "sha256": "7433911535a9f4d00a727db4b35f5e288cb3b74b04f4d6baa33ad7f97be0f833"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_d3e10d73d476491da916179b503a326d~mv2.jpg",
+      "local": "/media/images/bilder-d3e10d73.jpg",
+      "bytes": 10861309,
+      "sha256": "2b6596508f2402d09e8b0ff61a6988d6b4662eed4a8098973ff0d0f9a2143050"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_2428f923387541c5a5076d4609312b0e~mv2.jpg",
+      "local": "/media/images/bilder-2428f923.jpg",
+      "bytes": 11536220,
+      "sha256": "96f21baab4dee000cb930064fdf7c658bb693669d3580a2faa6981385ffc55a6"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_32ec236c0b454750b8f6967cffb8feec~mv2.jpg",
+      "local": "/media/images/blog-32ec236c.jpg",
+      "bytes": 3727368,
+      "sha256": "66f5e9b2d2755eb99156bf8b35cecc95eb3d0c42e3406084de9ba22fe1d2696b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_36a066236683453592707e0bf73ff690%7Emv2.jpg",
+      "local": "/media/images/blog-36a06623.jpg",
+      "bytes": 231701,
+      "sha256": "eac355b49e80de08464a337e337848117e2344d315f6590d89cea12da95bf985"
+    },
+    {
+      "remote": "https://www.puck.no/_files/ugd/3b4118_de8a8f4380d5438f8f741b21f838ac95.pdf",
+      "local": "/media/pdf/arsmote-2025.pdf",
+      "bytes": 325931,
+      "sha256": "7782095d1e19ce9e61bc4712cb69f27f7bad1ed2cdd59e2bb362a65201202b4c"
+    },
+    {
+      "remote": "https://www.puck.no/_files/ugd/3b4118_1c802f464cc640f18fd21b6cce4afde5.pdf",
+      "local": "/media/pdf/arsmote-2022.pdf",
+      "bytes": 62404,
+      "sha256": "05a3c12e9cd910fb9f75faba2e2a08123fba4be9c42289c9ba6d2ecd052def86"
+    },
+    {
+      "remote": "https://www.puck.no/_files/ugd/3b4118_5ea88c1bf55d417eb3f04beb91f50be4.pdf",
+      "local": "/media/pdf/arsmote-2019.pdf",
+      "bytes": 211847,
+      "sha256": "996779c94dc117f0698769c9a11f7a0a6217ec0ea182c498f279f3ce58e056b5"
+    },
+    {
+      "remote": "https://www.puck.no/_files/ugd/3b4118_4fd4aa4009094e49ac370e7aa4f574ea.pdf",
+      "local": "/media/pdf/arsmote-2016.pdf",
+      "bytes": 86573,
+      "sha256": "39ef8bfb9db861ec297f86f530d0cabb65edd83e44966b219d72a99e57a96c7e"
+    },
+    {
+      "remote": "https://www.puck.no/_files/ugd/3b4118_db2508bee89b4754ab44a82b38f8a97d.pdf",
+      "local": "/media/pdf/arsmote-2009.pdf",
+      "bytes": 101292,
+      "sha256": "2bd70c9ec7730395f30ac3140c82387f51ff1f34d954d91bed8058d26ab15f18"
+    },
+    {
+      "remote": "https://www.puck.no/_files/ugd/3b4118_db3486d489d741bf97867cce4d60cf04.pdf",
+      "local": "/media/pdf/arsmote-2024.pdf",
+      "bytes": 157382,
+      "sha256": "d54a0acba8408f8b2811ba0429bea164bdc95d226cc40aa311e0b1868b026cb5"
+    },
+    {
+      "remote": "https://www.puck.no/_files/ugd/3b4118_0d46af2cdb544282b3f8e3e008d74fd6.pdf",
+      "local": "/media/pdf/arsmote-2021.pdf",
+      "bytes": 37011,
+      "sha256": "02effc139ecac5a5116aea428fc916030be4ad2f5caa6f4c76105323d568c783"
+    },
+    {
+      "remote": "https://www.puck.no/_files/ugd/3b4118_a2b0ba4cfc224caa9bacc01558846285.pdf",
+      "local": "/media/pdf/arsmote-2018.pdf",
+      "bytes": 41340,
+      "sha256": "42c386f0326ef691bea8d5ed9b927272297ed614a7362fc127f52b5963672915"
+    },
+    {
+      "remote": "https://www.puck.no/_files/ugd/3b4118_34588a5157364bdb8e435b0bcca9ae4e.pdf",
+      "local": "/media/pdf/arsmote-2015.pdf",
+      "bytes": 233653,
+      "sha256": "465c5f2c3f546a1ab88813c40de737075cd73af59d372a6657724cb76816a14e"
+    },
+    {
+      "remote": "https://3b411893-7970-432e-a58f-c22166d5ae3a.usrfiles.com/ugd/3b4118_b9f06b23bc0d4ff9b2ea3694e719ee68.pdf",
+      "local": "/media/pdf/arsmote-2007.pdf",
+      "bytes": 61014,
+      "sha256": "6311501e7f94fa2bdf6dfa8f0d5707aa135f97cec3345654efb316986776a39c"
+    },
+    {
+      "remote": "https://www.puck.no/_files/ugd/3b4118_70e16d3c2d2e4544855e39671e1c09ef.pdf",
+      "local": "/media/pdf/arsmote-2023.pdf",
+      "bytes": 189469,
+      "sha256": "36439fdf06f1ef554282d6e35ee48573273845dc9771797e221648150e9fd1fd"
+    },
+    {
+      "remote": "https://www.puck.no/_files/ugd/3b4118_b6539d40cec54b97b4b812cc8010df83.pdf",
+      "local": "/media/pdf/arsmote-2020.pdf",
+      "bytes": 57867,
+      "sha256": "457fced7084a966e94fe81ee10d27e6ba3db9c46ef62a6fba7b447b58fb7676a"
+    },
+    {
+      "remote": "https://www.puck.no/_files/ugd/3b4118_163de533c0d94894b5e3cbc2b0699547.pdf",
+      "local": "/media/pdf/arsmote-2017.pdf",
+      "bytes": 90688,
+      "sha256": "6f0093116b65504be5ef270f88baab5c94281f85464da3713189bdf3202dc4f6"
+    },
+    {
+      "remote": "https://www.puck.no/_files/ugd/3b4118_174cf808e5f7457a9118a1761847281f.pdf",
+      "local": "/media/pdf/arsmote-2014.pdf",
+      "bytes": 56592,
+      "sha256": "d76bfa7be49ec4906b99ab3869ff935c92c0feaeae5908c6248d25ceabfc21b9"
+    },
+    {
+      "remote": "https://music.wixstatic.com/mp3/3b4118_af062ace3169460ca3aebd89902eb1c9.mp3",
+      "local": "/media/audio/technoku.mp3",
+      "bytes": 5422105,
+      "sha256": "a7fe1f81f1c7a499bb52f5c378b08164decefb99b9c9188554ccdd43c82b7f01"
+    },
+    {
+      "remote": "https://music.wixstatic.com/mp3/3b4118_9a46b6d045284502b76a441292bdf0e5.mp3",
+      "local": "/media/audio/is-everybody-ready.mp3",
+      "bytes": 8107407,
+      "sha256": "8b0d6411dd3f90efe6bc08103a08191876c6d98f5b939d49f21aa32b7d0259cf"
+    },
+    {
+      "remote": "https://music.wixstatic.com/mp3/3b4118_4ba7af550d664589a1c9fcfc7008c565.mp3",
+      "local": "/media/audio/we-built-this-city.mp3",
+      "bytes": 5386657,
+      "sha256": "8ebb140b1680e094bcade14d94cae60a55f55096c1ed46b0a6a4361030042c23"
+    },
+    {
+      "remote": "https://music.wixstatic.com/mp3/3b4118_03f567b2d1db45f29a802e500b5c1ea1.mp3",
+      "local": "/media/audio/cold-as-ice.mp3",
+      "bytes": 8138790,
+      "sha256": "07cfa2f96730f0cc1b54937d84f660c9e848c6049ea7bd67077d25df70f04023"
+    },
+    {
+      "remote": "https://music.wixstatic.com/mp3/3b4118_0efcfbb43c894712afd5e81655ae87e4.mp3",
+      "local": "/media/audio/feel-good-inc.mp3",
+      "bytes": 8113803,
+      "sha256": "a69db9d8e32d2d51b76e67b7fd016e2ed25c767974b414dbfed833b035781159"
+    },
+    {
+      "remote": "https://music.wixstatic.com/mp3/3b4118_ca7948b9ff8046c7bdf1cb18d6c8e72e.mp3",
+      "local": "/media/audio/africa.mp3",
+      "bytes": 8053402,
+      "sha256": "5c7edebe5aeffd7534455ad05b6e7f05a30ea86dd87c3a36957460428936697f"
+    },
+    {
+      "remote": "https://music.wixstatic.com/mp3/3b4118_551f2b1e212741a885035bba5714e13e.mp3",
+      "local": "/media/audio/joletimer.mp3",
+      "bytes": 8227002,
+      "sha256": "6177a8427e62a94bb6e0b684bbf0d4830805bacc369a25b91da89a7dd6f949b1"
+    },
+    {
+      "remote": "https://music.wixstatic.com/mp3/3b4118_efdfa4471c4c499cb626d5636fee6717.mp3",
+      "local": "/media/audio/all-i-want-for-christmas.mp3",
+      "bytes": 2803458,
+      "sha256": "71b96307a1bdf755a4ff998da8c7e0a62780dd12731b02ce90c4477bc20585bb"
+    },
+    {
+      "remote": "https://music.wixstatic.com/mp3/3b4118_fb04f859e5924424ac941616d2be3bc2.mp3",
+      "local": "/media/audio/st-pucktricks-day.mp3",
+      "bytes": 7985560,
+      "sha256": "8d6d78aa10f27f9f4dfb26c6858b850b896478512c3ddb4478e301239e40a0f0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_5770a8b53ce94e41b9f7f1755981c5fd~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/5770a8b5.jpg",
+      "bytes": 9934558,
+      "sha256": "c1ee02273698deaf5f9bdaa82215aba6297ed567c007244335c35329240d27eb"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_1d86c51478e845bc903488258c35245f~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/1d86c514.jpg",
+      "bytes": 9850298,
+      "sha256": "bfc0262d646ee3ad5ef48166612ada9f7a6a6d57296ccf4fdd3bceb2b3f2354f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_e673cc69a9094c76aa30c87d03167cc3~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/e673cc69.jpg",
+      "bytes": 10462245,
+      "sha256": "e73554b472b5f3b338b3bfca4bf26dbbf569703aa2462ddd38f64289a0890ef9"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_8663faba35ee4804981c7ab356dd9de2~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/8663faba.jpg",
+      "bytes": 10497625,
+      "sha256": "76400f1a39daa67aa29fbaaf7617ad9b15a009c70e026dd6deea4095836c115c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_2951886008674207bddc456b05770b54~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/29518860.jpg",
+      "bytes": 10957733,
+      "sha256": "fc925da5db9cdcc2f8037037bc99168343e59720680b63bc1cd8324939e9b04c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_e4241f65d4494f50805420b618e12ee7~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/e4241f65.jpg",
+      "bytes": 9599026,
+      "sha256": "f977144f7a51642570a8b3073eed180f4b397c1ff2d9a463b2fc94c447cba572"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_92b0916b4b5d4fcfaadd07ac2542da04~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/92b0916b.jpg",
+      "bytes": 10044134,
+      "sha256": "e04206f7ac6aab937cbf81d74904601e0da2778f46904be64b69eea32806ce32"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_8730af0c432f4c59b87533ebb4724f6f~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/8730af0c.jpg",
+      "bytes": 11544282,
+      "sha256": "93fd46475284b189a91b27f17616b8514b70ec26d2ba7b832335bf6a5d6fdff0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_c283cca7d4114f39a619ac53f7ce0282~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/c283cca7.jpg",
+      "bytes": 11297548,
+      "sha256": "21273c6368af028baba54caa47df1742061b86bf751b892019d715ac1c4abea4"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_b4c2ab6b934e4ee893a55b71debde4ba~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/b4c2ab6b.jpg",
+      "bytes": 11721792,
+      "sha256": "5f065f19d97d4dac635744959a8477931305a5c2434ac23d89bf7f5f14a62f5f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_ccb2d3a8edb44ca38932c4de868e4e68~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/ccb2d3a8.jpg",
+      "bytes": 11695098,
+      "sha256": "d8925b108965df7e95cb0fb030e935b81b56d2c26e515fc2a8fc85d1d0536c35"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_2aa49f4f45df4c1e8c0b7c5daa1e37f0~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/2aa49f4f.jpg",
+      "bytes": 11640568,
+      "sha256": "150e7ee0d798f44f8297874584ddc314e3bf388abaf43ff19cbedffd6de722cf"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_31e3e0513c404e8482af8ad5ec088566~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/31e3e051.jpg",
+      "bytes": 11360222,
+      "sha256": "a902d97bce94d83d7eaa73ca275faebf7c3b4d61d6116d54108c6b8ad695d9cd"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_f73a96b590f8478ab3a6bb8e654e908d~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/f73a96b5.jpg",
+      "bytes": 12051305,
+      "sha256": "6a7dc06cda02609be362d0f8ecda6888ba5e818311bb746a927b75728a5acae2"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_4f95446bb2b6484f91c34f1ddfb46e1f~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/4f95446b.jpg",
+      "bytes": 11560074,
+      "sha256": "d716a8e3d19b56562db2926665b22fc370923fcc17419c287d1d748850456ba2"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_82b9f18854814c54b093178773e0053f~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/82b9f188.jpg",
+      "bytes": 11836611,
+      "sha256": "87fe7e29d126ab1c93adcc763decfddcb4e41907fb15c5664f2caeb1ab3cfede"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_64bf566cbf684cd28f4192593dd8e308~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/64bf566c.jpg",
+      "bytes": 11829966,
+      "sha256": "31e765689fa8e749dea4affced34230da40f8d23a11def054b3363d22cd99b0e"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_c0ed6e7599c54b0c9a9148409cb080b4~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/c0ed6e75.jpg",
+      "bytes": 11816660,
+      "sha256": "8643beb1b36c04d85285e8e7f6638032bbf3f06a28774b3bfe8c7cab4c6f6fb6"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_bf8c3bc96651491c9154df136c056a9a~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/bf8c3bc9.jpg",
+      "bytes": 11024401,
+      "sha256": "34dc049a27d241e87bb64b38709c24f3df378e153113743952f61a4f9f573f26"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_bd5fb68bf21b48dcaddcbe70b824a7f7~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/bd5fb68b.jpg",
+      "bytes": 11283611,
+      "sha256": "1d38d6a410a852202f0b3360f1934df8da4866590a8f3450fd63058bc44aa7fa"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_35c6fdae16074cf99aecf764b1a514cf~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/35c6fdae.jpg",
+      "bytes": 11140572,
+      "sha256": "2c3562f240f52fea373a8212b8f7bd121893baee8f9955d2a703617eacc56d00"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_a61e06f65ef24ad09414ebe27736cc11~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/a61e06f6.jpg",
+      "bytes": 10842408,
+      "sha256": "51085ea5376f883f41446f5c02631ad9338f289939585481cc5af67004c80304"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_58ec9047623a48dabbeec5c7aae4310e~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/58ec9047.jpg",
+      "bytes": 11193516,
+      "sha256": "46709abd93403faa836d317c0f8732e88620b37b27251f31f5ba7a149cf4b503"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_255d0f51dfa44996a2c3eac38444f4fa~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/255d0f51.jpg",
+      "bytes": 10900494,
+      "sha256": "3938a4f8749b1bb808a7e752896159ae57a5f7fc13da7ac6d038ae840b55a203"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_159d577f1e694c7cace20560db224575~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/159d577f.jpg",
+      "bytes": 11007014,
+      "sha256": "3888a79cbb0421fc0e99fa0cf8166fa54e017ad6dc66a666a07f2464b6e6991d"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_77a2efbb57e0415fa41cdb7024b1906c~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/77a2efbb.jpg",
+      "bytes": 11102802,
+      "sha256": "bd54cfe2af56dbd65d980245e747fae65da0339060190c442ca611b16e0bfa86"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_626871e2393a4a098ff3667c4eae4705~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/626871e2.jpg",
+      "bytes": 10797887,
+      "sha256": "14105b62883d2f53dc10ae5696e76ab8961cc6129897768e86884bcdff0cd1f4"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_66d3d2fc7b194058879acb43efd1d0d8~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/66d3d2fc.jpg",
+      "bytes": 11654457,
+      "sha256": "3330cb24e6bdea89fc9ec581f2e1a2d7a78c0bb70f5345aeb0ceda97aa811f43"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_09bc986848244a79851838eaea8f4ce1~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/09bc9868.jpg",
+      "bytes": 11304420,
+      "sha256": "85bb39d6fdc89ff46a7ec4acb85eda0c2fd97640dbaee162b939f21f8b2ab578"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_bdeb508f372c4e0fa8801eee8dddf774~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/bdeb508f.jpg",
+      "bytes": 11323829,
+      "sha256": "5763a1cfc8b802b7fa52f12bff50a526b835da54a50ecc54992f305f2fb4c2f0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_717a73c560854f4b875f0195b1ad4ad0~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/717a73c5.jpg",
+      "bytes": 12721706,
+      "sha256": "e3ab44d7a022e13c3f471e92a43c1aa114caed939eacacc7b4b747b82e9075fe"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_502d96608a39433f94d01fe67b10433b~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/502d9660.jpg",
+      "bytes": 11296864,
+      "sha256": "511e8d46d914d9b0f849b9b206c9c3bc489d091f6d1a0d556bbe463a04a105b7"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_9d2f4f7386e5402fa17ada8fb3705383~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/9d2f4f73.jpg",
+      "bytes": 11743789,
+      "sha256": "a31a876ca199a94716d05540847fff94775ec17c09b3c2de5a0d165764050371"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_989793c781ed49df802f1b3ac47124d0~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/989793c7.jpg",
+      "bytes": 11600535,
+      "sha256": "631ee26bbc397f574cb54ddb842ea94d65ca50d54aae487351b364b09e390069"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_1da5fdefba924f928ead3017d6e8fe9e~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/1da5fdef.jpg",
+      "bytes": 11955433,
+      "sha256": "d58d23c13a0970fcb54f1ae9b6242abd89f8207626ecd5594c3b41020e836966"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_616ea4bf3a184f78bf36f030f602b18e~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/616ea4bf.jpg",
+      "bytes": 11148711,
+      "sha256": "663429a96299c11a25d107887ab3a110c42183422b48d8fbcca6db8385ced618"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_2cf169619d7745879811257805f4ca8b~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/2cf16961.jpg",
+      "bytes": 12444019,
+      "sha256": "2d22b1b10d66c0bc19764ae0953a9667a70c559db2e250213dd7294cd6745ed1"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_8c84be65e68c4690b882a1073d7667fa~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/8c84be65.jpg",
+      "bytes": 12254130,
+      "sha256": "d54c8e17a04dcf9e92e3c6be470d37c7b1a9935b030797b33236ec17c80eff48"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_7394fcc4b83844c3bbacda4c47bc199f~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/7394fcc4.jpg",
+      "bytes": 12504220,
+      "sha256": "02ec940ca3065bea3d2bd8ff7288b8b5269d701de373eb40d2b40b291dbc7e8e"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_570df727d10c49afb92d159712fd8474~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/570df727.jpg",
+      "bytes": 12077063,
+      "sha256": "395cbecb80c852dfe007673689c983c84596ecd459056e389860d9a28dc56496"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_dae9e5a592c949e48aa64732596f8ad8~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/dae9e5a5.jpg",
+      "bytes": 12080802,
+      "sha256": "d398cb9fec22d4282511f2bc34bd0f4cc5c00d4e82e6edfc633c18b07825e63c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_8a8e352d2c844aadb9acf4237dddeab1~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/8a8e352d.jpg",
+      "bytes": 12622428,
+      "sha256": "3539508a6855f03be0c6061f653d215eec89ce786cb8cf9e02c152d4441bdd46"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_bae529530a8140edaef6149d3ca7d5d8~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/bae52953.jpg",
+      "bytes": 12461793,
+      "sha256": "caf1cec177726069dfcd04fa498e0f29f88b3bd94d817e7c9a317319667e3132"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_4557b77ed4d44b959c1ac750137223b7~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/4557b77e.jpg",
+      "bytes": 12159462,
+      "sha256": "ea89f01eec1faeaecd8c7d1e459927158d88dcfcf8cf45ee84af50c6ebbb456b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_591b20ec4a4d4632977b8adcf1e75e2a~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/591b20ec.jpg",
+      "bytes": 11916043,
+      "sha256": "cdcb33125dd06429db26358454cf690ac4e8f3f969f32f7a292ac22a8155d664"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_051af93d5eb54e51abaf8b3f713295a2~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/051af93d.jpg",
+      "bytes": 12636740,
+      "sha256": "24c5cc3ac8cd749d200643da03aa0a452d5c765f97359fc056f91f3484e83ef9"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_4cd01f24382e4b18b088026f4c98a893~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/4cd01f24.jpg",
+      "bytes": 12047968,
+      "sha256": "1c8adc50b272ed4384d543d3b925e6b5ae56fd9e2ed620d8cb46e34705267fbb"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_62a396bac01d4572a33917c799190e46~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/62a396ba.jpg",
+      "bytes": 12509025,
+      "sha256": "9406ee76a0a2024db5077226740247240448ac03ff9feb91675ccd36a887d1da"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_1704677f0d704317be9c88676f9f4035~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/1704677f.jpg",
+      "bytes": 11466183,
+      "sha256": "1dce33abb7e13babd6abf4883ee116640f07eb6a19bba954f3d063a87daec5be"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_7c3ebce766be4d13ab4bf2eec14be573~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/7c3ebce7.jpg",
+      "bytes": 12345508,
+      "sha256": "21ffad4e09ad7d4ef8d792280d3b5e57793b0572680fc80f026e034293837a0c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_98315f4b346d4b6daabccc677060ad87~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/98315f4b.jpg",
+      "bytes": 11924163,
+      "sha256": "d79f22cc22d1a491ae8bfd1ceb738b194e296955ee3b41fd6b6e6e347937179c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_e86b6689be354e948696c2da8095d6f8~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/e86b6689.jpg",
+      "bytes": 11483608,
+      "sha256": "b0d69c64896cedfc1e821057369a83ca299ec9ce4134d153b44b8bf52289236a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_d22f4f215562455db05c26348bec763d~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/d22f4f21.jpg",
+      "bytes": 11488463,
+      "sha256": "ef44dff00285eab995e7fefc45a5f6f033d75692d1e681ccd4173466b78d160d"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_5628b6bea4ae4dc09ec59d5a88cb6cb1~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/5628b6be.jpg",
+      "bytes": 12389184,
+      "sha256": "68f105ae2622a11e221050a7349880508d91e43d02c6bea881c100ee17ceb164"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_906676953b5145618d4d0a7136307411~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/90667695.jpg",
+      "bytes": 12616323,
+      "sha256": "b77919d8cbff44dd75b5d0e157ab6a184ded83244659e7117436efb7fff679fa"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_7be43f1590974bf6b669191792b56d48~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/7be43f15.jpg",
+      "bytes": 12300952,
+      "sha256": "8780dd57476bdd3df48acf8c84f266e9d3451ddb86a0fc5bbe402a3774a5da8b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_5f11fcec8efc4b629be70544fc226990~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/5f11fcec.jpg",
+      "bytes": 10816371,
+      "sha256": "19cf29bae7c634831751cf418083bb7938f407f8e49eb6fabc01b783cc401450"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_14532ef1e7114295b5be32af4127aecd~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/14532ef1.jpg",
+      "bytes": 9621903,
+      "sha256": "717575d4f53d4f582a47b65b1e6df512d4d9f9f8f9f1a247771ca17b81e6ab42"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_2dfc30126f6e4eb6a7df8b38b9b1542a~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/2dfc3012.jpg",
+      "bytes": 10582365,
+      "sha256": "e5121742c5693952c2be813e1309c438741cc5fb70d9d2ecfa00e62481d13bd0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_cf48cb29aeb742cd86bdb683cdbaae36~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/cf48cb29.jpg",
+      "bytes": 9895519,
+      "sha256": "d2b60199deabeeac4d063c4a1ef3a3d606d7250484bb2d204aa207bda40cb88b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_0deae7f396a448d688726f8e256810ae~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/0deae7f3.jpg",
+      "bytes": 10504603,
+      "sha256": "65871fbc7db8d9d0894ec4f70bee35c7a806dc4724f842610cf715c2f93d0bea"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_7f4193a001624b659905eb880c76fe26~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/7f4193a0.jpg",
+      "bytes": 9807161,
+      "sha256": "1ed1bf4768e1abeae35dcd46f1a436117ba8a201896d6e0685b257a069f509b8"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_121c7220c6dc40938c9b8e27cf264ce2~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/121c7220.jpg",
+      "bytes": 9822389,
+      "sha256": "7d26c32d1fd396d13dbef123ac198f8df230011faea5c5826c22d815357036d1"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_dd484710ec3747aeb826dff57b381f22~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/dd484710.jpg",
+      "bytes": 9502778,
+      "sha256": "ec8eecf6f5845950cefc24e2b871bbbc143783561e5fed47161e522dd37b7209"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_4f5380e4f4704a838789a6127423a254~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/4f5380e4.jpg",
+      "bytes": 9853267,
+      "sha256": "678297ea01589a4ca408d35ee4a7ce009ed08c7ca45b1609ac4f3d47b38667f1"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_fc29741cae1442c3a13e0b2c04416ab4~mv2.jpg",
+      "local": "/media/galleries/norway-open-2025/fc29741c.jpg",
+      "bytes": 9746396,
+      "sha256": "367aeb8b281afee822d4064b96d2684e31f3597ea2b4c286d3e7b5db370b76d9"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/d5a72f_67d4e2a69c9947328131d613b2c6d915~mv2.png",
+      "local": "/media/galleries/norway-open-2025/67d4e2a6.png",
+      "bytes": 11778161,
+      "sha256": "6e066d1f498f4628c6fbfc2d43c0443c3bcc09f87c90ec4d28264f639848a59f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_820c2248f7ff406b8e7059776a8ee030~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/820c2248.jpg",
+      "bytes": 10867661,
+      "sha256": "86da94e19c4ba29547b5249fbc15c7e7d24cee8d90066f40bf3cabc35101166a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_66f4fd46ff3c48e4bbe401304a6b0b02~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/66f4fd46.jpg",
+      "bytes": 12337673,
+      "sha256": "690a6d5544c2f9b335b01419cba1ca606dfad4f2be63820b8126a6f0f795fa0e"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_40ed9f66efe64c1f8417710a87fd2b7e~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/40ed9f66.jpg",
+      "bytes": 10294439,
+      "sha256": "d35298e23145c8ec8a3ff74ab13ba058d3d879e96ec92005b14efe3f1bda2e78"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_f745f8a9570f4b78ad295086211df79a~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/f745f8a9.jpg",
+      "bytes": 10777812,
+      "sha256": "2dd334b8f2be20254cfdde0bcaca2f0c00cfd81917fe1850870c29ac6a9f5fd6"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_d87a5ade57fd40c0adcefc1c02d50bce~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/d87a5ade.jpg",
+      "bytes": 10740497,
+      "sha256": "00ebdf40e22965b4c786d033e01fe5ef8874989cda54a747a4c776654ec58a0f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_67f5e883a49b4ff6a750aba7aaf2bed6~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/67f5e883.jpg",
+      "bytes": 11000139,
+      "sha256": "a3b1512722200f063725aec14abf3f5a607e85b6f8f5564aaa71ffc416f61b69"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_9109656f3ceb4e6589fa10838712d67c~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/9109656f.jpg",
+      "bytes": 11445244,
+      "sha256": "a80a072a09876f010d3617d0ac3a196ec1aa4cdf6e22ad889b5125c731bd1310"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_7c37650d8ee64ac2af1b4ccd19899977~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/7c37650d.jpg",
+      "bytes": 10317479,
+      "sha256": "4d7d755c8b99645dd90c253333bfaa275ef5b22c0f11a8e96676ba96f9ca4af8"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_ae5965ac9925441782b97ae05d888e10~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/ae5965ac.jpg",
+      "bytes": 11401026,
+      "sha256": "0000f9c6df3a486e3dcb64bafb2b8bc48e10db9f82163a1dd996c9b383e3511f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_bf8a046ea64646aea6ea5da0b290d491~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/bf8a046e.jpg",
+      "bytes": 11583850,
+      "sha256": "4bfb655d4ea9937189cc74aab09cbaf3fcb83ae973d93b039caf5ef7de1dd2ed"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_9d9f412247ee43ed98c84c257afd0dff~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/9d9f4122.jpg",
+      "bytes": 10404006,
+      "sha256": "fe8514e793d0a01abc8cc3fcb84cadb138cbd1b65d20fd3b30a5719ef2fdf8e8"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_6754bf6837d947539c0478d9f1f86ecd~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/6754bf68.jpg",
+      "bytes": 10461000,
+      "sha256": "b606ec8b574adbd86b3d8fd8bfb3dfd19fe63f708200333f388bc099e9134822"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_a49f74af7dba445a9aae203bab7c9b58~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/a49f74af.jpg",
+      "bytes": 11435589,
+      "sha256": "d62594e739ca3841f13e26c1b407457d24489aaba134ec55f0572a38337229ea"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_e70b210fdad14ae68a92a465cfaf3bb9~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/e70b210f.jpg",
+      "bytes": 10614321,
+      "sha256": "d7662789f2a81d46e57422449ea2b12e9f03b20ee3a2b713cc57d1532ec07846"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_f0a6521a76614f429ce78a60fe7f1d8d~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/f0a6521a.jpg",
+      "bytes": 12290509,
+      "sha256": "c16dd682c71748595d83eaf71c82a592b45f19f65dd1b865e54c65ec13fbf7f1"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_36ab6073009646e09fa62086fe3e610b~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/36ab6073.jpg",
+      "bytes": 9513924,
+      "sha256": "9b7262c40a2a7ec912137945c172bca84d12a3919c8b677950c73dd4cfc7c39f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_d88e60560a2f4601860fc584495eb298~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/d88e6056.jpg",
+      "bytes": 11378653,
+      "sha256": "978e1ef05ae2e8fdbfe0eea6b378b13d9f12202ac3fdac801fea7c413b82032c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_322d8fd201824943b8ea8922a90b9fe4~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/322d8fd2.jpg",
+      "bytes": 10585530,
+      "sha256": "fa47494f20b8d22c8ab2c40b8542fffa93cfc29eb709ed9945ca4890247a100f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_dcb524ef88c1439ca0c003a273a83f2f~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/dcb524ef.jpg",
+      "bytes": 9377605,
+      "sha256": "53f223b743af0a85be284098b8d3155107896e753248fbea2261e5245ed0dcef"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8e1df63e9fbc419393569a269bfc4728~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/8e1df63e.jpg",
+      "bytes": 11246118,
+      "sha256": "0520500f637c4c220176135def0e3bc49efa230728a0f34a6c75ed7523492856"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_5d39a60c6f0442458b05f5d9a5caadae~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/5d39a60c.jpg",
+      "bytes": 9835341,
+      "sha256": "2804a3b530b85f5058830a93ac939d5a72ae399ace1beb9f90a461ff00a6587a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_a5578bf070df46de95e215ca325ac0b6~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/a5578bf0.jpg",
+      "bytes": 10454481,
+      "sha256": "5f1b8ba5e34ea0be6497bbcae10b5a7d55d73360c0bb6383d5d692458a6af95a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_f614115575bd48b9bf30808e97070606~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/f6141155.jpg",
+      "bytes": 11228306,
+      "sha256": "e36e04252ad944cb111a0add271c891dabb1c5ffd72843848ea8624029b2e68b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_a5dd39cb7e1940aaaecb0baad2072558~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/a5dd39cb.jpg",
+      "bytes": 9469461,
+      "sha256": "c04bffad0b4868296fdbe3291b2d79457f6e187404233108edb94efde192e6e5"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_18db909430b140fc83a42371bb6827db~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/18db9094.jpg",
+      "bytes": 10687553,
+      "sha256": "bdfcab3c2379f458629c13235d55bde8753e4ce47f08df5d782f337e3ee2caef"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_344681747779438b8dc431ba966a9a8c~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/34468174.jpg",
+      "bytes": 10439129,
+      "sha256": "fc313250f2bba4bb913c7ddd9491ebdafcd19e2608a357a91fa349c543308eec"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_c442acb0b7914803b3a68b69fd14ddd6~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/c442acb0.jpg",
+      "bytes": 10305321,
+      "sha256": "a91239f707cd09c2a513240acf092b5e768631c1231d4d99491fb09d928cf714"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_968258826bed4b53b1c84377330667d1~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/96825882.jpg",
+      "bytes": 11268948,
+      "sha256": "b30b1f622a5256c91f359587d5790b71cd77d0d89d944fb8d65ad3f62a3c0a1a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_4a80db264c8d4eafb7aa5317095b8c2d~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/4a80db26.jpg",
+      "bytes": 11152446,
+      "sha256": "9b34dab084c280c8038927ac74a86d1934870e9448e2642cf88565b319be2ed1"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_4f087cfc568c45f7b84cf0aabe0b5d6f~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/4f087cfc.jpg",
+      "bytes": 10234831,
+      "sha256": "09aeb9e6d3feb2dad2141e19b607e89241af36d68bac8bec044b92af4b4c076e"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_67b981951e35473e96ee4e321b4977ee~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/67b98195.jpg",
+      "bytes": 10861177,
+      "sha256": "328964d333e4b4856c04bddac2528dbb1f31bf2683099ad0ece119d9b235f840"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_be577d87c2fd41e485ef7b056feaadfe~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/be577d87.jpg",
+      "bytes": 12037939,
+      "sha256": "96436c3c2777b6c567e347a298cb3d4e3d716505c917783a4bf3946600eb935c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_3ca9ea06683e47b883ce20c6e69c5edf~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/3ca9ea06.jpg",
+      "bytes": 10380469,
+      "sha256": "7e0234a93aa3651d43326358e0096438eb1035c9860f11a5c5c40f7fb2041d3c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_ef883250eb774e9b9dc0f6af40a8ed3a~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/ef883250.jpg",
+      "bytes": 9724086,
+      "sha256": "1fb7cabe038fb6f64a32e321b39b9a22a45a6295e7294c1678afbffa71850c62"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_e7bae6af2fff456ca2dbcb7fbf1f3e29~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/e7bae6af.jpg",
+      "bytes": 11650900,
+      "sha256": "bafb2dafb1c60cf8c14ce104ebef650a1a33a0544819c345eadc4d326a496f01"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_7c7b10c2f51d449d8139dfe4353da270~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/7c7b10c2.jpg",
+      "bytes": 10921253,
+      "sha256": "22086537200181e256c8df4dbfbb44118fe8cfca34ed82a357eca163cbb03c43"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_b44c8ee25e104cce89e21c4f66f3100a~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/b44c8ee2.jpg",
+      "bytes": 9842053,
+      "sha256": "941e58623489a265ae7008793d87ce2f5fd3325e1ae4815a6d707769cb33a84b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_4332797dae924bb0b2a8cc7512ae7d7b~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/4332797d.jpg",
+      "bytes": 10703824,
+      "sha256": "46b71a761f37a74570ed56f900a8c6b5303e8d598877e7b532e1a248d7faf9a6"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8dc2a653d6cf41079cd5f7d53cbfde3e~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/8dc2a653.jpg",
+      "bytes": 11846534,
+      "sha256": "0c75915f02b2d00d4856fe5a152148bf7553712188311c3985dd20b488591475"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_e75100f1f76346f5824700778513f4a4~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/e75100f1.jpg",
+      "bytes": 11922109,
+      "sha256": "0a65e51643dee1dcbdc9b87bf5a6c9b98a46175a26aeb5b9f2098542e886b470"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_96b164b5171345ecad3e425a0d51fc26~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/96b164b5.jpg",
+      "bytes": 11277767,
+      "sha256": "e0ab1a246aec4799526465bf25eab02fe6b53dc3dd8739509efe33b09f78a8c5"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_0adcbf60655b4201b8f110995da3191f~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/0adcbf60.jpg",
+      "bytes": 11525895,
+      "sha256": "b1002cd5adcd4687a0f550cec207e4025b8eba968b6824f1d894ec236773cdcb"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_2b91ed85e9ea4b54a528b950347763d0~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/2b91ed85.jpg",
+      "bytes": 11903479,
+      "sha256": "d3f451ceabefb96f95447004f5feaf0886c97ddc226e64e7da4938e0b58c34d1"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_653aa96c92bc4d0c9dc41414cd09464e~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/653aa96c.jpg",
+      "bytes": 11506954,
+      "sha256": "c3f6bd41e4f84f7f2afc3737b11d914b85745a43e9421c53be959540fe88faea"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_fccc6ae2ceef448895e624b66bf891bf~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/fccc6ae2.jpg",
+      "bytes": 10906021,
+      "sha256": "e0a7c0e4a8679b2ce12be93cb6474d2c7c4f0eddba231a9e63ede0798d95cad2"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_85b4b611c536432686b3242bf4a1b4be~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/85b4b611.jpg",
+      "bytes": 11258154,
+      "sha256": "884c43607fe824e7cc3f1f2981ad7940e57105acd3d368baaeefb5b38148807e"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_9a308b2e810f4b098d2458e361128d0a~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/9a308b2e.jpg",
+      "bytes": 12128307,
+      "sha256": "148df125e2aabe1876d739a864cbc355671111f43589a5a35ab070c36a07e022"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_bee372889a0949b5bb50f1cd10b448dd~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/bee37288.jpg",
+      "bytes": 10917311,
+      "sha256": "5d3d0d44aaa4a56af5c1fce61a04a9c44d33d14bef7151c315c9b9214712a05e"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_84c0f656730b4889aaec8bb8ab47d726~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/84c0f656.jpg",
+      "bytes": 10413606,
+      "sha256": "50f7d81c85f3f4772efcffa36edc0bf4b823e34a163622dbb5b098934584e573"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_d18957cdcbc845cfa89817aa54439009~mv2.png",
+      "local": "/media/galleries/norway-open-2024/d18957cd.png",
+      "bytes": 7331055,
+      "sha256": "f0e4c6cda5dea207ae9ea694a17257ac4ac511985a0abf19f5fed6a33ccec3b7"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_b7d23bc59e5e4947bab94e592d558ede~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/b7d23bc5.jpg",
+      "bytes": 10014164,
+      "sha256": "dca51d4b49086e91e12d6876e543810e3f69b5b348678a59831048009c9b03b0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_b7d657dfd1fc434f8483032c4f9ca947~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/b7d657df.jpg",
+      "bytes": 11302248,
+      "sha256": "28d5cb7de74ae49056b48936612c04105fd894408fad1781d69ebd73184ed220"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_62602877cbd04896b8c1e19bfd30c6c5~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/62602877.jpg",
+      "bytes": 11011783,
+      "sha256": "a27516a517343d11e78ce9a9073206368c30b3cc63b28523348d295e3625c799"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_1de9a63589674bb495b6c2d339149d7b~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/1de9a635.jpg",
+      "bytes": 11173018,
+      "sha256": "b2775cddd8d37f1db13798280c0081653b91fc10cc7a70a335588bb858a5b782"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_5a23688f9bf74e939300dd9e9ff972e1~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/5a23688f.jpg",
+      "bytes": 11400378,
+      "sha256": "20d63dd7da490659d8a162507b81e1a7e81f6ba1280b237537ba0cfe4cdad138"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_01af2aa82512451f857f54183786009c~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/01af2aa8.jpg",
+      "bytes": 11083180,
+      "sha256": "b2decfc30855bacb4cf7b1a332a691108dc7b45a27eea58e03a12e0a56351478"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_2e3bd9d6d3484986aaa5268e4f94b627~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/2e3bd9d6.jpg",
+      "bytes": 10614434,
+      "sha256": "9fa809f0ad3eee3546c11ed065a2913adc44c0b18416443de9ff9f97fa212db8"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_87c9b029f68c413781fcc4fb5f2fe418~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/87c9b029.jpg",
+      "bytes": 10343317,
+      "sha256": "3094e2397c2a4c398bc303a142ea5120e2ff4f23ca392c18b5f097bc435319ee"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_1039bbe94806412288842875c8faf7f4~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/1039bbe9.jpg",
+      "bytes": 11177476,
+      "sha256": "ca9f45086ab80a4f0bf50208ef8fb7b9f7529ee2fdd7bc4cd9e6e7afcf381ed2"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_44eb039912614bf3baf816e158125900~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/44eb0399.jpg",
+      "bytes": 10782258,
+      "sha256": "0630bbc39cfad0ba0add786f1bd6cdfbd6e85231d4f82041f404b50a64f8b68c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_27aacbb437224ed9be88148672484cef~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/27aacbb4.jpg",
+      "bytes": 10836407,
+      "sha256": "c283c6aaca1a1d84e7a0f3226a394bd78c6107cb838a9bfc8593e8910a0b1cb2"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_c0ca16711da24527b54ed7af01f30055~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/c0ca1671.jpg",
+      "bytes": 9188832,
+      "sha256": "3ef3344a669168f538182e52448f91e984936c3d5e14efb48f4624dba2ca1757"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_4eec2e62c927420f8ab78faa30ceb0aa~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/4eec2e62.jpg",
+      "bytes": 11785931,
+      "sha256": "232e6c470f3d1d4e9e54219a435e5a9b91d9446769b882777391f48144cc22a6"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_61990750725e45e0b78bf01c8e327cb1~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/61990750.jpg",
+      "bytes": 10861112,
+      "sha256": "2e036967f2b58a2852e817d6b5f6a4e5d60183e49a5fa54b481101a37077853c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_0adc544d677f4ab996c28bafd4cb8956~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/0adc544d.jpg",
+      "bytes": 11224703,
+      "sha256": "d2eb1cff2b3e5feadc9e7c26adf58656772fc822f0f9192622b7013696893140"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_afb75153c9c94c4d9daa2ff1a8455157~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/afb75153.jpg",
+      "bytes": 11293208,
+      "sha256": "ff7c131cb40c49bddba0ac92bb9239ed22496f828ad577f10d4c38d885d14f68"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_cdd45828146b43a3adeea0d9335fb8a7~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/cdd45828.jpg",
+      "bytes": 11371547,
+      "sha256": "30b44e85290bb42ef1dad6bcc6fc4474b89ed1cf659b51e92c9617f0b085143c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_367121381bc141fd8fcdb201ab309162~mv2.png",
+      "local": "/media/galleries/norway-open-2024/36712138.png",
+      "bytes": 6099795,
+      "sha256": "545ec558446668f711d3e9157686785fc3fb6aedcdcdda1cd8ec5a9aa8970f96"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_4fc0c8db46174d978904a34d99d78433~mv2.png",
+      "local": "/media/galleries/norway-open-2024/4fc0c8db.png",
+      "bytes": 7286394,
+      "sha256": "a7ba202e4f917c1ff1c3c684a3c7af95c1602ae830ad11e84736e07435962a9f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_eba1f2e71f3e48489ddd73cb471b49cc~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/eba1f2e7.jpg",
+      "bytes": 11243638,
+      "sha256": "992492577806faedb75e1193aa50c0b45078506243865e88d7ee55d0fed029d0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_fb72ecce08af44c98b4cd55d86fa2e85~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/fb72ecce.jpg",
+      "bytes": 11227828,
+      "sha256": "3de96214ea26d2f0fa4d6582fab17baf92e3eb803d44e0ecb30298271c0f8b0f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_27744e9aa1c244fd9530aa218b782178~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/27744e9a.jpg",
+      "bytes": 11163566,
+      "sha256": "7e5d89c49d5935b0aabf4aa191829bbdd7dcfeaa26ca841125e29828eee245fb"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_247a9e783d6d45c194bad9f17cd69957~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/247a9e78.jpg",
+      "bytes": 9710230,
+      "sha256": "c3dfedf44085c18b88112d01e6a265e96f4ce05083e1693532c1d23f2d9abd3e"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_9aa26c9b0568442c971140da7a53b9ed~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/9aa26c9b.jpg",
+      "bytes": 11680006,
+      "sha256": "98ff9f29f5fa05b9cc32bf32130e37af719ada13a5443544650d7a6ff4583f33"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_84b085f26504491eaef01eb1c5a148f2~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/84b085f2.jpg",
+      "bytes": 10817851,
+      "sha256": "ed5c1a81a1b0c6138b5f0efb4a35fe306f2cc76b8cbeec072970886d67d5cf6c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8c30d38275804dfc8e6743e9639b20b4~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/8c30d382.jpg",
+      "bytes": 11213047,
+      "sha256": "42b222831c0f3480f07c39bced2cb48a25362ed4dbc04c94f6c0a70e40667562"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_0dec0fa6ff6e44d4b70d0a59633e0341~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/0dec0fa6.jpg",
+      "bytes": 11370433,
+      "sha256": "edbf993f7c2f9ff2331035c9e149b1666bb4ce131f7084944cf757a18be884b6"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_ac67db05bd834d168bc531b0ded62316~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/ac67db05.jpg",
+      "bytes": 10979082,
+      "sha256": "ba88f010ee7ddb069be5bee7978a343236edd490984a479916dc87f5e2bccb5f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_4bcbf4c8f3a649e7890f84c735609ca6~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/4bcbf4c8.jpg",
+      "bytes": 11608241,
+      "sha256": "6b5d81d4128ee1a1e25afd008cdd6ebf4445415a925d7a67e347ae8e6abfd312"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_a58fc1a0794d480085d9eec376fc3d69~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/a58fc1a0.jpg",
+      "bytes": 11579401,
+      "sha256": "1567fcb1a7839635039dacfe1e94a91d7ad34d3f3483d6770b721af15980fc1a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_ab11ea2a17744f2387a417af16a98f4b~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/ab11ea2a.jpg",
+      "bytes": 9349591,
+      "sha256": "8b43ff6b810403d5fd1c992466690b984638ae64120690a7fef5e3d102a59633"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_ec7eb3df3d85443e880e1be3502145e3~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/ec7eb3df.jpg",
+      "bytes": 11540194,
+      "sha256": "ab00ab0fbe03bdd302d861337def35ef17a7bd576fc6995b206292af2928bbed"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_5014c1457b69477ca1172be2b74a2533~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/5014c145.jpg",
+      "bytes": 10278439,
+      "sha256": "68cd5ef5be4e77c100b665a8fb7df75ba698153b8265565f8266c355d1b57fc0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_88449d18753b4909b85f249a6f17453f~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/88449d18.jpg",
+      "bytes": 9721301,
+      "sha256": "f0d5541de90f7ec5977b34afd78801d94a2ab526df3f25fb98642f09cd3fdd97"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8804817770f94ac797c4e77736def8eb~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/88048177.jpg",
+      "bytes": 11246416,
+      "sha256": "4461cc3df30997895b7e5f2dba372823e123398d5461017c84beeb95b89bcfa5"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_f817a6887c1d455d882ffe9ea54a8867~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/f817a688.jpg",
+      "bytes": 11938292,
+      "sha256": "a431365882b7c55eb3fa531ff0c4a24af89a7cc146bed79ee979d2d8448bb2fb"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_6a10713432fa4428ad0558aebb483024~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/6a107134.jpg",
+      "bytes": 11171427,
+      "sha256": "dccece90a53229b62a5ac8d3862fafbab5cf47ee03a87c290d7596a74c3b948a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_d8734f25c6254191b3533e4dd58e83a3~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/d8734f25.jpg",
+      "bytes": 11411639,
+      "sha256": "929a0c4a553f6d8bae7eb5f33c66c153beca4f1134b8000041301f7eb66cd75d"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_70b3d41f66fc414c97afe75c72a2b315~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/70b3d41f.jpg",
+      "bytes": 11394220,
+      "sha256": "1be1e0078e6434aed79e8369fec6a9b2cace54f62bfd0e328b7aa5f0c957ed7c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_d4c0c1bf20c3479e804c356766fdd595~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/d4c0c1bf.jpg",
+      "bytes": 10266173,
+      "sha256": "cf35f6c92a19f59d73dfca9813f93c9a21dbc65c160f55450cc76688828213e9"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_479109f9c008413cbf6f2d69b32de839~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/479109f9.jpg",
+      "bytes": 10956000,
+      "sha256": "52620aab5975c266925322d0f56cdfe71291d7f93232dbe6b36001ddf33151cc"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_d3e10d73d476491da916179b503a326d~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/d3e10d73.jpg",
+      "bytes": 10861309,
+      "sha256": "2b6596508f2402d09e8b0ff61a6988d6b4662eed4a8098973ff0d0f9a2143050"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_9375bc49badc466fb23720b6bb5a44d9~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/9375bc49.jpg",
+      "bytes": 11733611,
+      "sha256": "3338c3dbca4e2b233d04da04fbcfcda6f64908e0be2df560d52593ddc9a14dc2"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_3231f9119909418ab2a25310e94b9f14~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/3231f911.jpg",
+      "bytes": 11217013,
+      "sha256": "93fe7704a11a0ee5100b9a8c7f73b04d7aa6db7913a6e83ff78c619e37be328a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_569af0ab48c84a34b6c8deedd5ac6197~mv2.png",
+      "local": "/media/galleries/norway-open-2024/569af0ab.png",
+      "bytes": 7365453,
+      "sha256": "38c95f37ba5b6b77c15b574e585e9272196f930fe93923c45a7b679e64e2eeae"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_f9f88ef9ada147ac848ea17fd14cd098~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/f9f88ef9.jpg",
+      "bytes": 11072571,
+      "sha256": "ecb88b2a2759e6fb55dcb19dd8ad9415a30fc8c1dc2f626a280a95029942d56b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_f94e3de5d2344a50b7301310cd845c12~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/f94e3de5.jpg",
+      "bytes": 11739396,
+      "sha256": "52a6a5c6e4e39493782f1dec5bdd5345748dfcd47366682b4c154d92a96674de"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_3d04d683bad54f16aa1e06f895290674~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/3d04d683.jpg",
+      "bytes": 12043859,
+      "sha256": "b6e7bf5e00510bc00d4bbf258f1822c041c3ee444adf4273790ef0622dc0274f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_2c657046c4684df9a05aedba6e03819d~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/2c657046.jpg",
+      "bytes": 11546491,
+      "sha256": "c641e64db0b81b57f84b869c314f02a134a8c7d9ed9986f1ef2615146c57ce4c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_59a7b572200845aeb0c28b21c402aefe~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/59a7b572.jpg",
+      "bytes": 10105068,
+      "sha256": "012850eb62fd35808d1092a5a05f5d4a54f3be9757036e310ac585c6bf255891"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_29f4901c57c146a1be99db7f4b83d7bc~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/29f4901c.jpg",
+      "bytes": 11275894,
+      "sha256": "bc38e4a54c275345dd400627b2ed42a72d7ed486dd58c9b6d5b3e4a468ab72b1"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_1358297554a04f949e0b8b5504945e39~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/13582975.jpg",
+      "bytes": 10830098,
+      "sha256": "86596547eb2792f9d3835c82faedcadd64ef3bd2145f42c410f7d36e3632f88a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_c50f9f71f663497b9333d47365f9601a~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/c50f9f71.jpg",
+      "bytes": 10978044,
+      "sha256": "e013e256efe7c258953597e83b23394019abbf1274498d862c9438eed47e642d"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_3d472e91c6c3440ea646dba09d337140~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/3d472e91.jpg",
+      "bytes": 11383550,
+      "sha256": "fc751795eafc9c199b55816f412da7ccd88118deb3cb7501327fbfe4e582025a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_75397e313653406c86685b637f51e5b8~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/75397e31.jpg",
+      "bytes": 11432951,
+      "sha256": "bb25d644e52e1a9878420f68f5d948e13ce657fa30022100aca2bf724e954eaa"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_2c1e04a13bb04811b71805163cf2f25e~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/2c1e04a1.jpg",
+      "bytes": 10901869,
+      "sha256": "17c1f865ddc78a4bb163edbac12ef6f5c4155a5c460e0893348e428ec53c25bb"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_e615340745004e27b8547fc64b2b5fa6~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/e6153407.jpg",
+      "bytes": 11876471,
+      "sha256": "f3e7cd7a7ed64c464883a9b77d5f492f8dcc048a0bb881d5c2d91bf2ce89a80f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_1ad729c874b948fa8ee736b7b268d582~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/1ad729c8.jpg",
+      "bytes": 11693163,
+      "sha256": "12bedf1af7a3ccace2e1fb14e99e8e423f1a0232adb8ab81b2850ff265464977"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_aa13fb2e5df044dea831289702f6173f~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/aa13fb2e.jpg",
+      "bytes": 11889684,
+      "sha256": "87d3ce30428e6bd4625f61de885df92938441816a449f6cfeb2564a8e4b48f81"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_053951d6c41f4ad096a72fbf5a3df342~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/053951d6.jpg",
+      "bytes": 11351448,
+      "sha256": "c16639877dcfe52caadf1bf7de055fda6a66f6659a4246d994d5ad9f746f3bfd"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_e1e87a3c71f6402dacd36369c50aa726~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/e1e87a3c.jpg",
+      "bytes": 11351023,
+      "sha256": "dab0370bd620f6a431549512e04fcdba2c8765d9db438a4c71dd6bc851669e2d"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_27a3b9b2ddd2423c9d42d302fedb55e8~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/27a3b9b2.jpg",
+      "bytes": 11429327,
+      "sha256": "a34b6ec4fad47130a0b02e5067620adfef19d08f83243025efab763f0ff4f3f2"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_a4d8d1bc5a914815b483263e0a2b8b6a~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/a4d8d1bc.jpg",
+      "bytes": 11352484,
+      "sha256": "76a42352d77ccdef118fb4f9a716015b6b97efe003a4ff46ac594a6f1e04cf75"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_4e16be68a93d4f73b088dcdaf2c4fe9b~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/4e16be68.jpg",
+      "bytes": 11544830,
+      "sha256": "e8e0887df72832027426d0d177c3119268552d4cee05bfad175360a48522ff6c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_04628ec4c6324a1a85a50e27bc1a67d1~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/04628ec4.jpg",
+      "bytes": 8901515,
+      "sha256": "7c701e4af114365e32cdaad035f2fa833e7000c562ba8489bb8d2b5c63691a99"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_2daeff6ef5fb4108a0f6fe32c2400d91~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/2daeff6e.jpg",
+      "bytes": 11574658,
+      "sha256": "aad024a2c2451445beb9d65b3b56f264929cf93555277ec0e8721b6a3f444fa0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8a8878a6aaff4f55ad52c33763ea2161~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/8a8878a6.jpg",
+      "bytes": 12013366,
+      "sha256": "b49b4caf4aac511af3329b1832ee9bf4b40527c47c28be82e306ba3eaf8e7345"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_4a0e1a1e51b34849b73bffed80140011~mv2.png",
+      "local": "/media/galleries/norway-open-2024/4a0e1a1e.png",
+      "bytes": 7573842,
+      "sha256": "1bc393aefdbba5a4ffeac5bcacf965349fc79fecf06eb2cda3a4c4c00c52d217"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_7a34e68541b24186adbfa04f15a53d79~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/7a34e685.jpg",
+      "bytes": 11891051,
+      "sha256": "f49ef24330cc19e4db3c6e403082336fda2c92a98809377ada5a5501c4e42256"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_3160ef4cd7b24abc9a388e776c7866c2~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/3160ef4c.jpg",
+      "bytes": 10865389,
+      "sha256": "6e82dd96906ecb412328cd5b65a8e84547e3305125dae3bd4dd3a74e856d9ed8"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_535b045f21bb4067b827bd9d57a4c340~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/535b045f.jpg",
+      "bytes": 11900779,
+      "sha256": "0cf27dc0e22c96e246911b991a6b4118cc32ea45491d0e07ea9f6fb8a4de1003"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_882bb8b887fc4305a49145175d0fdb36~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/882bb8b8.jpg",
+      "bytes": 10771111,
+      "sha256": "eb3790c5d8e8a3cf4152ff2906022c2d8e1128c044ff901f04bca9ec1019bd89"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_afd75738598948cfa0800cb9c4eebdaa~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/afd75738.jpg",
+      "bytes": 10817468,
+      "sha256": "b110a229708697c8aade47c06a8895ee6be069c8599b46cad72e20dfec4f5b30"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_776aeb005af84e88b8c7de9436588962~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/776aeb00.jpg",
+      "bytes": 11205726,
+      "sha256": "fe0c8a1b8e01171fbc9b0132c8d9f526768a5bf6913d19d266cbc9ce5fc77f77"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_84da822743834d608f37d5349b77716d~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/84da8227.jpg",
+      "bytes": 10769880,
+      "sha256": "47d15c9e5a5ef05f8f05fd8882e2bfb9ef124994f631930ea791023c78cacecb"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_564762b201dd4deea2730be43aab9e9e~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/564762b2.jpg",
+      "bytes": 11789779,
+      "sha256": "700b255ca1005fcce95c73fdb30ec6019f1cdf9071ca744e53a05d11915a8eda"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_1f074f0b3ca9407781b4e57b2829e4b4~mv2.jpg",
+      "local": "/media/galleries/norway-open-2024/1f074f0b.jpg",
+      "bytes": 11654285,
+      "sha256": "6e74881ade219ea90c1ed752a5cf8bef8157613b9ab1bf1ffffb786143eb68e8"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_128b83624a7a41c88c514b1472fb66d0~mv2.jpg",
+      "local": "/media/galleries/vm-2023/128b8362.jpg",
+      "bytes": 10470352,
+      "sha256": "68aa628bdc39ed5e0e0911ae8e2067b6c5fab798f08288a3850f47cc2548248b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8a882861378040169ca756f3b38ab3d4~mv2.jpg",
+      "local": "/media/galleries/vm-2023/8a882861.jpg",
+      "bytes": 11184686,
+      "sha256": "65f3064b974eeafb7edee18b66ed1c6d1b65254deaf76c0ff13302316c0d9291"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_f12bb010d4fb47f3b2e7787b015d5711~mv2.jpg",
+      "local": "/media/galleries/vm-2023/f12bb010.jpg",
+      "bytes": 11716287,
+      "sha256": "428ef6647c1646564d5417f38aa1ef7765be761d63140994d3e0784c9d116ef0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8124fd277ec343448ebecb53a462533e~mv2.jpg",
+      "local": "/media/galleries/vm-2023/8124fd27.jpg",
+      "bytes": 10788415,
+      "sha256": "13ca51b18c9eab339fa210ca0187dadcf2918e0038444ef5e8422cef3d599177"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_5c60ce4ad3f04bab968654740d2e065f~mv2.jpg",
+      "local": "/media/galleries/vm-2023/5c60ce4a.jpg",
+      "bytes": 12424683,
+      "sha256": "7ed69a2998297b38c58f6c67a7a4eed5028e4b55259b90e7fa9f46055b7ab4ce"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_e1d49a16ed274e26a0c0a40624ebd88a~mv2.jpg",
+      "local": "/media/galleries/vm-2023/e1d49a16.jpg",
+      "bytes": 11658370,
+      "sha256": "c6d7120e57a34b66fd14a838c58388986448136a62ff106bec7597d589c02db9"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_e6105177e0b346199e70c796440b7684~mv2.jpg",
+      "local": "/media/galleries/vm-2023/e6105177.jpg",
+      "bytes": 12138681,
+      "sha256": "35018059630f98e9fba1fb32f609b727115200b38276613089509ebd89fda988"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_a7fe9206abb244df89d56fda7b6f8a15~mv2.jpg",
+      "local": "/media/galleries/vm-2023/a7fe9206.jpg",
+      "bytes": 10346602,
+      "sha256": "6f270f124d46ce516d1f5f08bee5add158608fad7d99e225bc42c4bcb37fb517"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_f5aac1aa3b5b45ac8d2a059aead67311~mv2.jpg",
+      "local": "/media/galleries/vm-2023/f5aac1aa.jpg",
+      "bytes": 10698182,
+      "sha256": "6a4d230ecf6331b3ebd63255481425d3899c4104017b68a483b291d1d6fb8938"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_41810534ba1a43369ca4a3949889d11a~mv2.jpg",
+      "local": "/media/galleries/vm-2023/41810534.jpg",
+      "bytes": 11460889,
+      "sha256": "409ff3a7cd3ebfd52029666285cfc59e39a5b86dc35d3698421023b7bd01c990"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_2b67d330c1cc474fa823b8453fcbb270~mv2.jpg",
+      "local": "/media/galleries/vm-2023/2b67d330.jpg",
+      "bytes": 12111299,
+      "sha256": "b30c4066fc288e43fd185837e280cc5ef6c546f7305d44ebad2f295da25c113a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8bcd42c7cf134a62ae9dfd0cb7852443~mv2.jpg",
+      "local": "/media/galleries/vm-2023/8bcd42c7.jpg",
+      "bytes": 10836628,
+      "sha256": "e1bda0caae5319bc789385e3edacf358c00ea72f031842ada5b474dab36ec015"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8c8832a27d7241ca81c06a3018329281~mv2.jpg",
+      "local": "/media/galleries/vm-2023/8c8832a2.jpg",
+      "bytes": 10828444,
+      "sha256": "d651d3da203778df5ad1190fc5160b20e2dc07e9e3436ced135c225a3a3f63f2"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_d6e860f6043241029bbbf2700d54596f~mv2.jpg",
+      "local": "/media/galleries/vm-2023/d6e860f6.jpg",
+      "bytes": 11094795,
+      "sha256": "cd92f948ab6acdada075ff812dc8863bff446c89c56e62f2690e97cff5d44e5b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_f66e82d11dca4200b9425c1588ca3b2a~mv2.jpg",
+      "local": "/media/galleries/vm-2023/f66e82d1.jpg",
+      "bytes": 10733796,
+      "sha256": "2d86a75f13fc351c69d26438f626c3b072eab6db0238150dd65c6f67b352e7ab"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_9489d5c3b65f468d9c79d40bfe0c8666~mv2.jpg",
+      "local": "/media/galleries/vm-2023/9489d5c3.jpg",
+      "bytes": 11457804,
+      "sha256": "52a11d89530e4ea74f253b0ba1dff778eadba8bcbd3f7f493ed959c11ad62961"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_6c23f0e559004c7abcd0be3d19a23c6b~mv2.jpg",
+      "local": "/media/galleries/vm-2023/6c23f0e5.jpg",
+      "bytes": 10608392,
+      "sha256": "4b3515945c46bb57a29e700e6dcb5ac246467738461a418a141db9ddc5147c2a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_7435106db62547f7be24ac45e4f4d0fe~mv2.jpg",
+      "local": "/media/galleries/vm-2023/7435106d.jpg",
+      "bytes": 11338488,
+      "sha256": "81c5d3d2757fbb380ab28cf2151eb2a4005187fd03b222348483a0c1a08c5b9d"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_77eddc0313db4a2a9f99cb0d3a39db4d~mv2.jpg",
+      "local": "/media/galleries/vm-2023/77eddc03.jpg",
+      "bytes": 11508603,
+      "sha256": "326344d25bc4d7f0bdad47663333492d32510224fc8dd77c6398c3c123b641d4"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_5ebaadddefe84493a93836f268abd548~mv2.jpg",
+      "local": "/media/galleries/vm-2023/5ebaaddd.jpg",
+      "bytes": 10863241,
+      "sha256": "3b83a4af2eae9a68275f03a9e7ea8aec04b08ed5d7f6152b05ed7d40bb7bc29c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_3ca830837b654b109c860c4b8c0ed700~mv2.jpg",
+      "local": "/media/galleries/vm-2023/3ca83083.jpg",
+      "bytes": 10940193,
+      "sha256": "31a82c57167a9b75e4ada658afb19de3269eb329ba8b99adad595055c91200b4"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_7c65ac2b837447c2b298c589a524195d~mv2.jpg",
+      "local": "/media/galleries/vm-2023/7c65ac2b.jpg",
+      "bytes": 12398986,
+      "sha256": "57605df27fd446e3fdaa739e6b32921528f9750ab8353a02fe114ae2082c9622"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_a6f2a8d065e74fed804d32e41636b913~mv2.jpg",
+      "local": "/media/galleries/vm-2023/a6f2a8d0.jpg",
+      "bytes": 11151521,
+      "sha256": "deccdd526f68872eaf0ea447575f27ce3182467d84efe2782d835bf52f52be0c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_49251745ad6044428eb2e61b6d07fa60~mv2.jpg",
+      "local": "/media/galleries/vm-2023/49251745.jpg",
+      "bytes": 11669235,
+      "sha256": "4fd5d2a9d09e2efbbe0194092647190196a29e27acdaedac9ac4649238765d54"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_2babbafda8b140778a76d5df7db26a6c~mv2.jpg",
+      "local": "/media/galleries/vm-2023/2babbafd.jpg",
+      "bytes": 11543061,
+      "sha256": "4c66d415f6c4ad5dbe040dc27f6bce9d88c0a7cb9b4491dbfc6c060d84140c67"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8da20b0463914c59aaee619c87d2b3ac~mv2.jpg",
+      "local": "/media/galleries/vm-2023/8da20b04.jpg",
+      "bytes": 10385350,
+      "sha256": "36e22774de411782d52d69108d7badac02006bceed89debf831999ff6528e099"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_2ec1c5159e4d4eab98bc9a664b264096~mv2.jpg",
+      "local": "/media/galleries/vm-2023/2ec1c515.jpg",
+      "bytes": 11734282,
+      "sha256": "d820082a1cf141120743024bcb6f121af86c73840a8e71f4dc1de1523b3380af"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_e192a5d37110412287539f2d00788139~mv2.jpg",
+      "local": "/media/galleries/vm-2023/e192a5d3.jpg",
+      "bytes": 12236228,
+      "sha256": "b5d49024a4f5bfa1fced5a8e950585defe4d8d205a933eb5f7e938ea18cdb566"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_ab59f94a9bb24cc9ae6c1daf77633e0f~mv2.jpg",
+      "local": "/media/galleries/vm-2023/ab59f94a.jpg",
+      "bytes": 12146061,
+      "sha256": "caad1510aafa5b9c804850ab8d7b7502d9c50142186683364cc3715d2c60c6c8"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_cc47a2eb062e42c69844776edae081ab~mv2.jpg",
+      "local": "/media/galleries/vm-2023/cc47a2eb.jpg",
+      "bytes": 10919053,
+      "sha256": "73e71b4289ee3d010919ddfee99e6481d6971b4f1cb72f70a254253417ed3b29"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_ec60a668338f4843914d1cab6cf634bd~mv2.jpg",
+      "local": "/media/galleries/vm-2023/ec60a668.jpg",
+      "bytes": 10560754,
+      "sha256": "00bbbc7eeb36bfd871d670e0dbfcb551053c83c98bf78cdeaf245f9a14c1061b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_da4f5a9cdf1c4016a6d41c2eb520e88d~mv2.jpg",
+      "local": "/media/galleries/vm-2023/da4f5a9c.jpg",
+      "bytes": 11813290,
+      "sha256": "7984430beee7fdb34176cb3dc9229243dceb912680f6f530b7559848d2389977"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_3bce32efd8a149388bfe498992c259fc~mv2.jpg",
+      "local": "/media/galleries/vm-2023/3bce32ef.jpg",
+      "bytes": 11034168,
+      "sha256": "54a246d8c98c9fd868fb5a105be3dddc380acceaf7651201d1651569301ba33f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_672e59642c544b3ba5d224a524b65fdc~mv2.jpg",
+      "local": "/media/galleries/vm-2023/672e5964.jpg",
+      "bytes": 11886233,
+      "sha256": "44a3eecb5d9fdf7d16843639db2164cada35195e54c98d41f4baa24e672fc5c0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_12ca6423ca8a43fd8cf484659bf1de6b~mv2.jpg",
+      "local": "/media/galleries/vm-2023/12ca6423.jpg",
+      "bytes": 11521266,
+      "sha256": "ffb8df5c4e891d20736f1820f50364550958878696c6eaa3306bdec3ed47b8e5"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_dc5e51c8a4524e7292c550e9f631e1fc~mv2.jpg",
+      "local": "/media/galleries/vm-2023/dc5e51c8.jpg",
+      "bytes": 10863555,
+      "sha256": "2b2829c854ddade8e0edcd33d285ae2a3d8a63b8155b18e48dc206ee21148a24"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_9006efa744d6422cacb1e7465aedd6bc~mv2.jpg",
+      "local": "/media/galleries/vm-2023/9006efa7.jpg",
+      "bytes": 11449767,
+      "sha256": "97cea984a42d04abb4d17348d2cf0bd87b24266d4c515b79e0d6c69b9933705e"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_cc6df77284564fc2ad3f5def0e29fdea~mv2.jpg",
+      "local": "/media/galleries/vm-2023/cc6df772.jpg",
+      "bytes": 11058767,
+      "sha256": "f7ba1dcffa91728c62a4f431b359f9d676f21b85463f34a31b7e98a3e094cbb9"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_7fd5d0d14ac94374ab44ffce0b2ee1eb~mv2.jpg",
+      "local": "/media/galleries/vm-2023/7fd5d0d1.jpg",
+      "bytes": 11181661,
+      "sha256": "edeff7c766bc2378fa05cbb53a6bdc853cf1c711ff0703ed6790efe0a5a4783b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_36bb9a215563422a81594494396ff05b~mv2.jpg",
+      "local": "/media/galleries/vm-2023/36bb9a21.jpg",
+      "bytes": 11096134,
+      "sha256": "1ecd534eee9d96eb034cc6d177ba2bff5c3019ff6cf67c1807212d9b664399e5"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_bf21ff2e7057478ca1a8c85698db8637~mv2.jpg",
+      "local": "/media/galleries/vm-2023/bf21ff2e.jpg",
+      "bytes": 12027364,
+      "sha256": "e7e974af23ca9e2e3b27cfdd9d743372c4e11a9ba1dc1898381968b316ee7090"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_db3d577545914ab18f68d938dba1e73b~mv2.jpg",
+      "local": "/media/galleries/vm-2023/db3d5775.jpg",
+      "bytes": 10588916,
+      "sha256": "9efd961b25b0f9d2f7dd27f10aa9ad82cbcfb29c3b7791dccfdcafe9d28ebbf1"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_08fb6624fe394e35b0cd9539e7b32e1f~mv2.jpg",
+      "local": "/media/galleries/vm-2023/08fb6624.jpg",
+      "bytes": 11348627,
+      "sha256": "be94bc018f7958e8830e6adaf4a471bae2960d8232cffa7efd4a6157d166abe7"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_080a6489de72402e85073c91e014e2b9~mv2.jpg",
+      "local": "/media/galleries/vm-2023/080a6489.jpg",
+      "bytes": 10326256,
+      "sha256": "c6a39b9e4a54738c1458f8fdd1bea88d8ed399dcccc3ae1d176d37fd478f5073"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_753fcbcf320e466cbff8b56b51b199b0~mv2.jpg",
+      "local": "/media/galleries/vm-2023/753fcbcf.jpg",
+      "bytes": 10809807,
+      "sha256": "a3830c5e9988eff5ae6c936d248f74da5ef41f7132160b50ce0a112cc2ffebca"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_63d955780de24a23971918e087c1221c~mv2.jpg",
+      "local": "/media/galleries/vm-2023/63d95578.jpg",
+      "bytes": 10746120,
+      "sha256": "11ed2374ede776228446ec616f410b219a3b2f85811a88358c352a6630818504"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_35d6fd41e079413188f0e337c09ba47b~mv2.jpg",
+      "local": "/media/galleries/vm-2023/35d6fd41.jpg",
+      "bytes": 11553427,
+      "sha256": "4ba9108f08d3c5c3b1d2e749f218bd8015390a5a1e2ea88085b4eaa8161f07e9"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_e3e1b0004da34c1c9d822fa63b3e50fd~mv2.jpg",
+      "local": "/media/galleries/vm-2023/e3e1b000.jpg",
+      "bytes": 10488139,
+      "sha256": "7a9414895d32d9905fdf6539014e62fc58f8fd3d5eda6d836928acc77a9a9e00"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_1be3a12c4da846e9a72f08a2b83c33c8~mv2.jpg",
+      "local": "/media/galleries/vm-2023/1be3a12c.jpg",
+      "bytes": 12084861,
+      "sha256": "2322eeedd9978ae77b1b9bf2b23c1847a4e62fa1ab0be298d7513b3f6bf64c38"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_9697b37c4ce24e929c8b5cabf3ef9434~mv2.jpg",
+      "local": "/media/galleries/vm-2023/9697b37c.jpg",
+      "bytes": 11363218,
+      "sha256": "601e88297683e0234773ca25f66fae9d643279b0cdbadce541b7071f00f21d9a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_21b90c2d0ec1429182b5682c25f17ee4~mv2.jpg",
+      "local": "/media/galleries/vm-2023/21b90c2d.jpg",
+      "bytes": 11059800,
+      "sha256": "6e939ca1d029aaec58343a08b23520b9ca93154b1cd1d8b66f539ab2493c08b4"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_c494ec2179e24c27a5b43e61bd8f71be~mv2.jpg",
+      "local": "/media/galleries/vm-2023/c494ec21.jpg",
+      "bytes": 10457554,
+      "sha256": "cbc4b2a69374e4340e2cd17baa4cbdec606b4fa3e4756853cc31b068b9ec421c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_b66f840e2c6345f0bea64af7a37c470f~mv2.jpg",
+      "local": "/media/galleries/vm-2023/b66f840e.jpg",
+      "bytes": 10949988,
+      "sha256": "9f7519804018f4baec05c127622bc6a994456937d361762a6be05eb9d2b7aea8"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_87822abcb39e44c7912eb83a6e07a3d6~mv2.jpg",
+      "local": "/media/galleries/vm-2023/87822abc.jpg",
+      "bytes": 11532074,
+      "sha256": "2378dde37be4a949607e83dc71524d247a9131b8b16fc398af78bb004b80d148"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_2fbec5d63f57487db074fbecbc3d6327~mv2.jpg",
+      "local": "/media/galleries/vm-2023/2fbec5d6.jpg",
+      "bytes": 10977967,
+      "sha256": "2a9e9893db6c68297fdde421462079a096c6b18a33c5f75d63325184b769efe2"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_2c75c3f5b2ac48a59e5fa04a7fc5e8b9~mv2.jpg",
+      "local": "/media/galleries/vm-2023/2c75c3f5.jpg",
+      "bytes": 11974036,
+      "sha256": "c30e5fdf134afd169a0c5d91830ca998b59b6410eaa3e0c3d484c009ec8176d0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_d5f694f880b940fe9d1aa3727a060393~mv2.jpg",
+      "local": "/media/galleries/vm-2023/d5f694f8.jpg",
+      "bytes": 12549090,
+      "sha256": "7a9e37c628e6d47a5eac7a56d44153d59bfbf442fd9fdc59af5dddcd154229ba"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_4d61e5c68d944646b7be8af6622af4d6~mv2.jpg",
+      "local": "/media/galleries/vm-2023/4d61e5c6.jpg",
+      "bytes": 11219386,
+      "sha256": "6b19c8e766878edd24de391b6d3caf449e6bac7e3db8fb0bd8930c0a90fb3749"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_c63b24442b4247a0b2e7c832dda89e8f~mv2.jpg",
+      "local": "/media/galleries/vm-2023/c63b2444.jpg",
+      "bytes": 12000052,
+      "sha256": "30fc1bd3337ea595fad68547bac3f61cbf8deeba8764bb5975a73b10bf7e8a9c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8a1a3227cd2b4a26bcb12f068906a644~mv2.jpg",
+      "local": "/media/galleries/vm-2023/8a1a3227.jpg",
+      "bytes": 12022106,
+      "sha256": "4bf782d3bf533d55034e14f141c3f4c991e888e5e448d08ed2cdffde78710ca7"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_92733346b9fb4bb2be170ced6d4c51a7~mv2.jpg",
+      "local": "/media/galleries/vm-2023/92733346.jpg",
+      "bytes": 11107739,
+      "sha256": "b3626a498f6c1bbc131f22237645ff4673cd4f104c68d1758b1668316e37837a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_35b538fd05cc43d79bb0a8ccb26f9416~mv2.jpg",
+      "local": "/media/galleries/vm-2023/35b538fd.jpg",
+      "bytes": 10983232,
+      "sha256": "acc9feedbf9e2719b69c003d5aff57ab1dc8dedfe7d290a7eec2ab7064b74e76"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_2428f923387541c5a5076d4609312b0e~mv2.jpg",
+      "local": "/media/galleries/vm-2023/2428f923.jpg",
+      "bytes": 11536220,
+      "sha256": "96f21baab4dee000cb930064fdf7c658bb693669d3580a2faa6981385ffc55a6"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_0e43d63a0a504024a26d66e1add82f20~mv2.jpg",
+      "local": "/media/galleries/vm-2023/0e43d63a.jpg",
+      "bytes": 11091799,
+      "sha256": "f8f179a800ce9ca8666b2ede81af181ccb1c56f2be644bfa07186a5fbb7462fa"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_ef6298ae388f4b14a26970c898d53afc~mv2.jpg",
+      "local": "/media/galleries/vm-2023/ef6298ae.jpg",
+      "bytes": 11331017,
+      "sha256": "a883d2c5f9f4fbc5bb89c05257430d6a4184ae657361a984b2a434127598e55b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_6f5bb039d9874b9589e8dff009b0e40e~mv2.jpg",
+      "local": "/media/galleries/vm-2023/6f5bb039.jpg",
+      "bytes": 10369046,
+      "sha256": "010abdc6108755b14f593d7c017e2e145ccca63940934fbf5d70a64585a77c30"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_f5aa0bb1e73a4a64939664207bfbc086~mv2.jpg",
+      "local": "/media/galleries/vm-2023/f5aa0bb1.jpg",
+      "bytes": 10573429,
+      "sha256": "6cd0ed4528fbd5024cfdcf996156340e78420c710137d949e6602e8b73a51833"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_9b9050c64b7d4272b657b9c4867ba7ed~mv2.jpg",
+      "local": "/media/galleries/vm-2023/9b9050c6.jpg",
+      "bytes": 11822515,
+      "sha256": "e138c3959998137a4ddaf8945f6a9e20955c25677b18efedf12274a6c99480d4"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_abee417c25e642899c5a92c7ed222e83~mv2.jpg",
+      "local": "/media/galleries/vm-2023/abee417c.jpg",
+      "bytes": 10939839,
+      "sha256": "f05c14cfb95578c3659d428bc8699ca2fbc5ca902cf32746c4f675aea7aeed4a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8a24304e8f814b57a71516d81e1316c4~mv2.jpg",
+      "local": "/media/galleries/vm-2023/8a24304e.jpg",
+      "bytes": 10471706,
+      "sha256": "4663103c1d6c1db6b7a501e2a76360e7d0b214e84ad8ebbb0b33f0e12a6697b0"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_61f12355459940ea9d8e7507382d13d3~mv2.jpg",
+      "local": "/media/galleries/vm-2023/61f12355.jpg",
+      "bytes": 11308095,
+      "sha256": "5555060c07477d1ccde7bdd5f9ec182f0d1deef675bbafa0aa0cf8f05af0613e"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_2e3bc84258ea441bac1488c30b89f7ac~mv2.jpg",
+      "local": "/media/galleries/vm-2023/2e3bc842.jpg",
+      "bytes": 10973493,
+      "sha256": "7351bf6a01c54934102f50ca0c4bd0a5607676e0b570f04dcf80d8d66805288a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_08e8bbce584a4b78b2bd2582494b7932~mv2.jpg",
+      "local": "/media/galleries/vm-2023/08e8bbce.jpg",
+      "bytes": 11162268,
+      "sha256": "a070ce93d789e0d1788532c0a72b98eac76c59beab193585bcdaa315cd150bff"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_45fca829e21b4cb6ab6a2cab2d552a2a~mv2.jpg",
+      "local": "/media/galleries/vm-2023/45fca829.jpg",
+      "bytes": 11614838,
+      "sha256": "63092a584cae986c378a62f3a79d84a1a798e3a4a13bd053a917cb5a8db71d3f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_dfcc99dc243543d2b2f71c5bd266cb9c~mv2.jpg",
+      "local": "/media/galleries/vm-2023/dfcc99dc.jpg",
+      "bytes": 11212120,
+      "sha256": "e920d55bc6a50c6e8b52fa1f136470d1f8840d7326f63a5c927eec915b508afd"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_6eec4ad39d844ab7a5e69070b9758a0d~mv2.jpg",
+      "local": "/media/galleries/vm-2023/6eec4ad3.jpg",
+      "bytes": 11594249,
+      "sha256": "ba63257ab7253be46214d00fed58a0699ede5b523ca0183f09b2c6de808a679f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_37265bf029634eb1bc464aaf97f7cca2~mv2.jpg",
+      "local": "/media/galleries/vm-2023/37265bf0.jpg",
+      "bytes": 10904027,
+      "sha256": "c46489ea28bad0cd19730f95e22acd376d8dd72e3e163258e86276110357e7f6"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_0b74be4dcb944da6a3f5d5fc7fdb7b4e~mv2.jpg",
+      "local": "/media/galleries/vm-2023/0b74be4d.jpg",
+      "bytes": 10860552,
+      "sha256": "9b1b700aa10efbc0f6f9a7fc76ead86b2089ceb4e04ff64d9d0473e055996d31"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_dfa8d1087fea4544ae3bbfa14737a242~mv2.jpg",
+      "local": "/media/galleries/vm-2023/dfa8d108.jpg",
+      "bytes": 10649446,
+      "sha256": "595329e725f9d0cbe613463755d54ec15fa3daf5d3bc9d1c622e10eb66020e63"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_56d5a136ccb249e384f5521f2e2d7467~mv2.jpg",
+      "local": "/media/galleries/vm-2023/56d5a136.jpg",
+      "bytes": 11075536,
+      "sha256": "1e9f05f07836f78c0063ffe9272db574915efa6cd05bd0e09b3b4ea8bf92d673"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_9a234b2bbe464f9da64a1ca73a5c5501~mv2.jpg",
+      "local": "/media/galleries/vm-2023/9a234b2b.jpg",
+      "bytes": 11031447,
+      "sha256": "a580d043f379ffbd34f6970177c44c78da2e924b6bd042adb2ab80b7b7672bdc"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_1e06f180db254ef0a2c1558df81915d7~mv2.jpg",
+      "local": "/media/galleries/vm-2023/1e06f180.jpg",
+      "bytes": 10811989,
+      "sha256": "ab3a48613c0e80ca8c8de07f0d6e01c1a0b9b3e06db5f78e337b421de3996532"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_c4ae933bb86e45b9b9b41bf6ee325418~mv2.jpg",
+      "local": "/media/galleries/vm-2023/c4ae933b.jpg",
+      "bytes": 10802482,
+      "sha256": "f61f9e9aa3e06147f97629aefecc544becd5c6efb7b4066db329cfbd91594175"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_1482d70d740040a1beb41546e1b63a57~mv2.jpg",
+      "local": "/media/galleries/vm-2023/1482d70d.jpg",
+      "bytes": 10974536,
+      "sha256": "47c2aee971f717ff9a624a8c881255658e0b52c5a19447b80dc8dbe4920da118"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_1608dbd229d94141b66a73115a7844e7~mv2.jpg",
+      "local": "/media/galleries/vm-2023/1608dbd2.jpg",
+      "bytes": 11324596,
+      "sha256": "b787d6d966b892249be256578954ed769711c14f65e91cb1f2b6d6a0a61081ca"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_fab12f7c71874888b69e650a700076e9~mv2.jpg",
+      "local": "/media/galleries/vm-2023/fab12f7c.jpg",
+      "bytes": 11997855,
+      "sha256": "fa2c9f701ef1b6ca755065048c4de8893acb6e92a56b54bf938b872ad85f6a2d"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_2c8e50659bd64977863e228f29faadab~mv2.jpg",
+      "local": "/media/galleries/vm-2023/2c8e5065.jpg",
+      "bytes": 11041396,
+      "sha256": "0241c49bf439c5328a57a22660a20fdfcf06e6fed9e1cf5f20ca2f050c948274"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_935360d32bb240819e7f825412bf794f~mv2.jpg",
+      "local": "/media/galleries/vm-2023/935360d3.jpg",
+      "bytes": 10624073,
+      "sha256": "5d53d2991f69f1c0fb46dc754090c28cb0e7f0855482bfbd4980146453af9eae"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_6c764380201940f8a3b96b66beac1bed~mv2.jpg",
+      "local": "/media/galleries/vm-2023/6c764380.jpg",
+      "bytes": 10291840,
+      "sha256": "405f9ea24aee960557c8560b37ad5702ffe10e194f39311f56b0c452a1a19592"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_c2d6196d3c874262af2d9fd8b336a100~mv2.jpg",
+      "local": "/media/galleries/vm-2023/c2d6196d.jpg",
+      "bytes": 11822589,
+      "sha256": "9b96fe41a98fa04ec41f587a88677235d3b8b88919041d9fcefaf347ad77cbfb"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_5da840e1c004444e9a622c15f9eeecc2~mv2.jpg",
+      "local": "/media/galleries/vm-2023/5da840e1.jpg",
+      "bytes": 10549978,
+      "sha256": "1a1b97f4e0662ec21c331b7d01fd5ff283edcd47f8b24075d38da99ea4de467a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_9aeeaa60711f4aa0a743d9484c8fd807~mv2.jpg",
+      "local": "/media/galleries/vm-2023/9aeeaa60.jpg",
+      "bytes": 10669437,
+      "sha256": "af9561ebb0334dc0cc1c1155095ec30bd264cee5a2ffa2585379cdef36b8de7a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8106e969df6948fb8fdb32d468826525~mv2.jpg",
+      "local": "/media/galleries/vm-2023/8106e969.jpg",
+      "bytes": 11253778,
+      "sha256": "8fe7c4cd740e964d15a3303cf139d9129523c90cb6f19c2bbfc99e74e520b926"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_4d9169f79f6f4c539aa85df18eb97805~mv2.jpg",
+      "local": "/media/galleries/vm-2023/4d9169f7.jpg",
+      "bytes": 11937870,
+      "sha256": "79c615ac820b2cf408822c214bb6f4c4b3745a70766cd334256fe7f2e71f95ba"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_d90b321308e9457aba927d3047c80b14~mv2.jpg",
+      "local": "/media/galleries/vm-2023/d90b3213.jpg",
+      "bytes": 11235902,
+      "sha256": "9344588b08a35817647fe37d1c188a8ece13591b404505734537b45b8785ca5e"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_c3937595b0bb46078abb2fc40495d59f~mv2.jpg",
+      "local": "/media/galleries/vm-2023/c3937595.jpg",
+      "bytes": 11816414,
+      "sha256": "6446f0fc74d34fa8c6002ba489b6306cd8aaa755c6e74e304fac40c51ea1f623"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_6d05b70d2d3b41c697a540baea91f816~mv2.jpg",
+      "local": "/media/galleries/vm-2023/6d05b70d.jpg",
+      "bytes": 11100334,
+      "sha256": "0440b7e610f492cdb192ca6c3966be73e8a94c8e2d218fdc503ff7d4ea824419"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_72655f14da254ee283f2ef9ccfe55c02~mv2.jpg",
+      "local": "/media/galleries/vm-2023/72655f14.jpg",
+      "bytes": 11629400,
+      "sha256": "479d57c5af42cb2745b448936add8cc1086aa9b49d5c629772c38f885ab7379c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_78f5dce0f3b8441594f0102368bd8aa2~mv2.jpg",
+      "local": "/media/galleries/vm-2023/78f5dce0.jpg",
+      "bytes": 11953283,
+      "sha256": "c1d91adbf3116301bf0868bb4c963451fa43ede2bef7322378373c8fdb8cfa76"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_c241bd127b3e4bdeb11c06ba77763add~mv2.jpg",
+      "local": "/media/galleries/vm-2023/c241bd12.jpg",
+      "bytes": 11068527,
+      "sha256": "c0d4c59e68c69e17962f4130c0284293ed38fc3529ad0b5be523544f33e87eab"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_1a5bab7670f74c79b8195c65fc2013c5~mv2.jpg",
+      "local": "/media/galleries/vm-2023/1a5bab76.jpg",
+      "bytes": 10574212,
+      "sha256": "3a3efccb155d2f07b309ad25406351f939ab8b788dae1268cc88b66f2eebbe00"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_dbbc7edff4c146b6b3fb1e2bf216fe6e~mv2.jpg",
+      "local": "/media/galleries/vm-2023/dbbc7edf.jpg",
+      "bytes": 10336563,
+      "sha256": "71938b77994ed5a8e5477fc5daedace681d366d35b377dcfa5f2964b27c9e054"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8116278511d7440989dd5b56a6dc4515~mv2.jpg",
+      "local": "/media/galleries/vm-2023/81162785.jpg",
+      "bytes": 11472239,
+      "sha256": "c7c77f3f87a3f6965df98f9eca05bad32860849c56f327704848dfb526d63290"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_98a07d7daecf40eeb4ef623c5c8226a5~mv2.jpg",
+      "local": "/media/galleries/vm-2023/98a07d7d.jpg",
+      "bytes": 11303381,
+      "sha256": "74487cc694dbd1d07ea9b89c60d8209bbdebdbf3da059a66a107f640f103ad99"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_cec6093b89104bebba4703f6412d289b~mv2.jpg",
+      "local": "/media/galleries/vm-2023/cec6093b.jpg",
+      "bytes": 10995329,
+      "sha256": "b5e39d3aafb38a103db83052b8ed0c89773d3997aa3b585151798e5d302b04ef"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_6071b04aa4fd4363b89769bd329f29c2~mv2.jpg",
+      "local": "/media/galleries/vm-2023/6071b04a.jpg",
+      "bytes": 10849342,
+      "sha256": "8a2d6dd01990e044c900b7e82bf618f74c6e987687d6168930f22a4ad4b91957"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_6758cef530404c4a8a9113960ead9f4f~mv2.jpg",
+      "local": "/media/galleries/vm-2023/6758cef5.jpg",
+      "bytes": 12124381,
+      "sha256": "3bc7d559e9db1ae7a47fe2c1349aac8fe07312dcb29a3b388f5382db8a5b5154"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_df9e2e3fd9834c0b9780e9f994c83394~mv2.jpg",
+      "local": "/media/galleries/vm-2023/df9e2e3f.jpg",
+      "bytes": 10394884,
+      "sha256": "fe371dcab314d2b669c2fb6f8a2ad4509b34d54317d72a154423d5b6ee9f5991"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_726d3e3af25a445fa02f6c8572bfddb8~mv2.jpg",
+      "local": "/media/galleries/vm-2023/726d3e3a.jpg",
+      "bytes": 11381125,
+      "sha256": "af8fdbf7f70c3bc024104b0ba642a5f88d70b7ec4c6966981aa55b832831fe68"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_010571b6e9794894b17ff63a5bee736e~mv2.jpg",
+      "local": "/media/galleries/vm-2023/010571b6.jpg",
+      "bytes": 11169134,
+      "sha256": "e8c9efd20ae8032887e83dc3635a7b64756e1d1ced658270d82deaca3a2588b3"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_831895140e974768b73a9130150a1bdb~mv2.jpg",
+      "local": "/media/galleries/vm-2023/83189514.jpg",
+      "bytes": 10376891,
+      "sha256": "b6627ecd500779a0907cd7d6da9391f4442c5e8d7885a09fdbe1cb10e84be347"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8a5cf5bf761f4eb8a6ea2658db978aac~mv2.jpg",
+      "local": "/media/galleries/vm-2023/8a5cf5bf.jpg",
+      "bytes": 11052290,
+      "sha256": "a9a97fa249ed94c536b613f938506a788f32e73f528b881675dce7c7df3c20a9"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_81062213bc134411b8eef61d528024d6~mv2.jpg",
+      "local": "/media/galleries/vm-2023/81062213.jpg",
+      "bytes": 11253102,
+      "sha256": "55b3c7091a83c32e7ca2cd30f6abf94ba4df2bcb05f282eae135de5358e799a2"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_8d0916414c324ad2955a3df93084822f~mv2.jpg",
+      "local": "/media/galleries/vm-2023/8d091641.jpg",
+      "bytes": 11118259,
+      "sha256": "97245730222164d6cf6f9acddb3413ac1f8b47416bba1983b62ba0183ff227e8"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_7992b5922ac4404aaa9942de71cb7feb~mv2.jpg",
+      "local": "/media/galleries/vm-2023/7992b592.jpg",
+      "bytes": 11141970,
+      "sha256": "0bed76d5c085031d9d8d230e8d7739c74cac1f47618e5b61272cac5a37802823"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_963107b581c94c0a9aea0838f05f3a31~mv2.jpg",
+      "local": "/media/galleries/vm-2023/963107b5.jpg",
+      "bytes": 11859206,
+      "sha256": "f708848d2a5fcfa7abf5083aee5719f38d47f17b126e4a57155b0eecc4fbe3b4"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_ac3372a932f641939ffc42c4301910c1~mv2.jpg",
+      "local": "/media/galleries/vm-2023/ac3372a9.jpg",
+      "bytes": 10777374,
+      "sha256": "595d5be016282b0a2ff795690d3e9d75b059327f08e7076819820f669f29082d"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_a2a16672799a44c08ecfd6ee70767ecc~mv2.jpg",
+      "local": "/media/galleries/vm-2023/a2a16672.jpg",
+      "bytes": 10949068,
+      "sha256": "983e62e55cf22bcdd44040c0e002be184badaf761bc57bb677ec7c86b28520ab"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_56af37ad66a24057b35cef6d4f5ff891~mv2.jpg",
+      "local": "/media/galleries/vm-2023/56af37ad.jpg",
+      "bytes": 10622669,
+      "sha256": "a6d9348af1dd5bad246bcaddf43357006b82553ab9f3faaa657ad8519a5bdf7a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_e7482a276ceb43e5a633d0952d13ea47~mv2.jpg",
+      "local": "/media/galleries/vm-2023/e7482a27.jpg",
+      "bytes": 11605665,
+      "sha256": "298f5e8d979ed4d4aa6b59a4b845c22e54689da4c00e60ce5f5ce0b1d2f9375f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_6cfb7fe205c64b5a85b1cbaab2103bfa~mv2.jpg",
+      "local": "/media/galleries/vm-2023/6cfb7fe2.jpg",
+      "bytes": 10756396,
+      "sha256": "8fed82cf994ea0d8be3a26a92b12ff83ce9bd09d5d58ca39418235311ec3fc4a"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_e3bc221ef6d64c249cb1e737aab4472a~mv2.jpg",
+      "local": "/media/galleries/vm-2023/e3bc221e.jpg",
+      "bytes": 11118240,
+      "sha256": "e5d359f996392f36f85337ef2dc36c130e97c625f52c07ab69148785874142a3"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_10276400773d4950aca62f97b076ef3c~mv2.jpg",
+      "local": "/media/galleries/vm-2023/10276400.jpg",
+      "bytes": 11088316,
+      "sha256": "e7ae647a351a62b1d9b0e251dcf79cf05e7719ae727b5610ecdb435ad99a6da5"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_18d51b20310846b18780254ba84e0a3f~mv2.jpg",
+      "local": "/media/galleries/vm-2023/18d51b20.jpg",
+      "bytes": 10911818,
+      "sha256": "b24a419865e7c56b9aca0145ff5074265d4ccd0b5fb6004b9e7ed8a5a43f8d93"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_c173ec975ab54be0bdbd55064527b021~mv2.jpg",
+      "local": "/media/galleries/vm-2023/c173ec97.jpg",
+      "bytes": 10480840,
+      "sha256": "799d4fcd47cb851f0ea6dd4fb7952188ed285657ae5c9a7c5a4fe6139307f063"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_5695541e7f4b489eb5727bf90192ed62~mv2.jpg",
+      "local": "/media/galleries/vm-2023/5695541e.jpg",
+      "bytes": 10579597,
+      "sha256": "b696f485c0ec03b289042359b25619b8836093843f5b30b2540cad9d861eac05"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_97942b957e454dd9a8e0f14842a1e99d~mv2.jpg",
+      "local": "/media/galleries/vm-2023/97942b95.jpg",
+      "bytes": 11174169,
+      "sha256": "c73c7a203a6dc5ef445a783212c6158cb22cd74e4850af28ebc00ec91b25a68f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_79d00e53082f4f4fa8fcc8e06bb073c7~mv2.jpg",
+      "local": "/media/galleries/vm-2023/79d00e53.jpg",
+      "bytes": 12166186,
+      "sha256": "ff56b3e5c5be8ccaf9139f76d32414f25af629cd6386db0bc2f25d56bb495b25"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_a2c6088a48fa4124bfa391feb7dd024b~mv2.jpg",
+      "local": "/media/galleries/vm-2023/a2c6088a.jpg",
+      "bytes": 11662121,
+      "sha256": "31bad438417d3be2873d02c60e0ddef8b146ab07bdc482225faff96e0c8f4109"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_942cb4abb9cf4c0c9bdcfa1286455b09~mv2.jpg",
+      "local": "/media/galleries/vm-2023/942cb4ab.jpg",
+      "bytes": 10902829,
+      "sha256": "7ac7b288b8136664713b7782ca105b375b60bfebfad6637d27c0fd5294937cae"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_f366acf8631a4ba3b96ab891271e1aae~mv2.jpg",
+      "local": "/media/galleries/vm-2023/f366acf8.jpg",
+      "bytes": 10565656,
+      "sha256": "a31fd5c6a50fa6f52f55c5ce7f92685e632cc8e37a7ae3e8d2fe3c205d0cc2a8"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_b3cb380f6f024b9d8c107745bc089d1d~mv2.jpg",
+      "local": "/media/galleries/vm-2023/b3cb380f.jpg",
+      "bytes": 11442688,
+      "sha256": "19d653534b1bcf56006e1f9438d7a8307bd6e51a97db1bf1fc714f4057f69460"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_5917ca273ad1402786574df062498408~mv2.jpg",
+      "local": "/media/galleries/vm-2023/5917ca27.jpg",
+      "bytes": 12230735,
+      "sha256": "f4c3d3ea54dc09b8a8069b9463d60a9dfe5a81cd879543edd46dbe38bc739c2b"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_726cc21af9564c219a0eecd060228a74~mv2.jpg",
+      "local": "/media/galleries/vm-2023/726cc21a.jpg",
+      "bytes": 10667424,
+      "sha256": "4374c9b9fa06949b00b21ebc974417ba7bc2c7d06cea9c3be5d49e4628f47f22"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_c421a9c700a343c18e8a9e0de2602e8e~mv2.jpg",
+      "local": "/media/galleries/vm-2023/c421a9c7.jpg",
+      "bytes": 11650435,
+      "sha256": "2ed4ff32801f23405e4a5dfe68fb9a4383ca73db9ba4107a7cb8f907b9bd8ef6"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_697105d4044d4cb0ac5baeca69cf5fde~mv2.jpg",
+      "local": "/media/galleries/vm-2023/697105d4.jpg",
+      "bytes": 11082103,
+      "sha256": "799cc850ce033f9c2ed4822a97be81e2faaefe6d8bb891d6588ff7d7c4f1562c"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_7bbd7fcc6d394ab08f76c71386db00ff~mv2.jpg",
+      "local": "/media/galleries/vm-2023/7bbd7fcc.jpg",
+      "bytes": 11282730,
+      "sha256": "ee96b8f8615e4d460356883162d462192ffb2db6f4b3c9c0858bde84fdff3756"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_51b99262059a4dd7a955e68804639557~mv2.jpg",
+      "local": "/media/galleries/vm-2023/51b99262.jpg",
+      "bytes": 10796829,
+      "sha256": "28f5705d175b381b75767fefd5ef1a31c927247b0262720016536f8c342accba"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_113f7e7d407e49218fef80c7c085f289~mv2.jpg",
+      "local": "/media/galleries/vm-2023/113f7e7d.jpg",
+      "bytes": 11447826,
+      "sha256": "da62c99bb96d7c033ca44f8aa2590c9b19b51318a9bec6ead38ff9db8471a000"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_1e951599787d41eaa0eee9c6d8b36d93~mv2.jpg",
+      "local": "/media/galleries/vm-2023/1e951599.jpg",
+      "bytes": 10450828,
+      "sha256": "5b5bade805979afec354f843f891feaab9aadf8730313ab52a3794d89d25f766"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_5dd4b618d30b44279909f12b4e39d5fe~mv2.jpg",
+      "local": "/media/galleries/vm-2023/5dd4b618.jpg",
+      "bytes": 11815389,
+      "sha256": "23abaa9ee3464ff6be2c01f2be250d9b04999d1ebab2515b573214d350da8dbf"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_eb4c3079e9e441279d9f5e7bfccdd07b~mv2.jpg",
+      "local": "/media/galleries/vm-2023/eb4c3079.jpg",
+      "bytes": 12166540,
+      "sha256": "be5cd0b5f42dac1eb9870c446c2227c460c8dfa11d9edc7b26f834769025d9ff"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_06c51cd2d68a49829e8e67558be7af83~mv2.jpg",
+      "local": "/media/galleries/vm-2023/06c51cd2.jpg",
+      "bytes": 12033955,
+      "sha256": "5af964d5f880d8b58d8575f890d0bc8f3970dca23fbd12fb8e1856360e64bc7f"
+    },
+    {
+      "remote": "https://static.wixstatic.com/media/3b4118_b1e4ae69bdeb4076a484ca7ce1dd8a65~mv2.jpg",
+      "local": "/media/galleries/vm-2023/b1e4ae69.jpg",
+      "bytes": 10832415,
+      "sha256": "ad37ed0b167e22959dc9f18a81e57097673516a40da2e61a1393e388786616da"
+    }
+  ],
+  "totals": {
+    "urls_processed": 77,
+    "media_files": 516,
+    "media_bytes": 4224632378,
+    "images": 155,
+    "gallery_images": 338,
+    "pdfs": 14,
+    "mp3s": 9
+  },
+  "problems": [
+    {
+      "page": "/turneringer/norway-open-2026",
+      "issue": "form-widget",
+      "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+    },
+    {
+      "page": "/turneringer/norway-open-2026",
+      "issue": "map-embed",
+      "details": "Google Map embed removed (client-rendered, no static equivalent)"
+    },
+    {
+      "page": "/turneringer/duo-nm-2026",
+      "issue": "form-widget",
+      "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+    },
+    {
+      "page": "/turneringer/duo-nm-2026",
+      "issue": "map-embed",
+      "details": "Google Map embed removed (client-rendered, no static equivalent)"
+    },
+    {
+      "page": "/turneringer/norgesmesterskapet-2026-dame",
+      "issue": "form-widget",
+      "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+    },
+    {
+      "page": "/turneringer/norgesmesterskapet-2026-dame",
+      "issue": "map-embed",
+      "details": "Google Map embed removed (client-rendered, no static equivalent)"
+    },
+    {
+      "page": "/turneringer/norgesmesterskapet-2026-veteran",
+      "issue": "form-widget",
+      "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+    },
+    {
+      "page": "/turneringer/norgesmesterskapet-2026-veteran",
+      "issue": "map-embed",
+      "details": "Google Map embed removed (client-rendered, no static equivalent)"
+    },
+    {
+      "page": "/turneringer/norgesmesterskapet-2026-junior",
+      "issue": "form-widget",
+      "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+    },
+    {
+      "page": "/turneringer/norgesmesterskapet-2026-junior",
+      "issue": "map-embed",
+      "details": "Google Map embed removed (client-rendered, no static equivalent)"
+    },
+    {
+      "page": "/turneringer/norgesmesterskapet-2026-u13",
+      "issue": "form-widget",
+      "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+    },
+    {
+      "page": "/turneringer/norgesmesterskapet-2026-u13",
+      "issue": "map-embed",
+      "details": "Google Map embed removed (client-rendered, no static equivalent)"
+    },
+    {
+      "page": "/turneringer/norgesmesterskapet-2026",
+      "issue": "form-widget",
+      "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+    },
+    {
+      "page": "/turneringer/norgesmesterskapet-2026",
+      "issue": "map-embed",
+      "details": "Google Map embed removed (client-rendered, no static equivalent)"
+    },
+    {
+      "page": "/turneringer/trondheim-open-2025",
+      "issue": "form-widget",
+      "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+    },
+    {
+      "page": "/turneringer/trondheim-open-2025",
+      "issue": "map-embed",
+      "details": "Google Map embed removed (client-rendered, no static equivalent)"
+    },
+    {
+      "page": "/turneringer/jæren-open-2025",
+      "issue": "form-widget",
+      "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+    },
+    {
+      "page": "/turneringer/jæren-open-2025",
+      "issue": "map-embed",
+      "details": "Google Map embed removed (client-rendered, no static equivalent)"
+    },
+    {
+      "page": "/turneringer/bergen-open-2025",
+      "issue": "form-widget",
+      "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+    },
+    {
+      "page": "/turneringer/bergen-open-2025",
+      "issue": "map-embed",
+      "details": "Google Map embed removed (client-rendered, no static equivalent)"
+    },
+    {
+      "page": "/turneringer/sudden-death-cup",
+      "issue": "form-widget",
+      "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+    },
+    {
+      "page": "/turneringer/sudden-death-cup",
+      "issue": "map-embed",
+      "details": "Google Map embed removed (client-rendered, no static equivalent)"
+    },
+    {
+      "page": "/turneringer/norway-open-2025",
+      "issue": "form-widget",
+      "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+    },
+    {
+      "page": "/turneringer/norway-open-2025",
+      "issue": "map-embed",
+      "details": "Google Map embed removed (client-rendered, no static equivalent)"
+    },
+    {
+      "page": "/post/norge-med-gull-og-bronse-i-vm-i-umeå",
+      "issue": "video-embed-recovered",
+      "details": "empty SSR video shell replaced with recovered URL: https://youtu.be/s20A_jdG8Ow?t=9669"
+    },
+    {
+      "page": "/om-oss",
+      "issue": "placeholder-social-link",
+      "details": "removed Wix default link: http://www.facebook.com/wix"
+    },
+    {
+      "page": "/om-oss",
+      "issue": "placeholder-social-link",
+      "details": "removed Wix default link: http://www.twitter.com/wix"
+    },
+    {
+      "page": "/om-oss",
+      "issue": "placeholder-social-link",
+      "details": "removed Wix default link: http://www.facebook.com/wix"
+    },
+    {
+      "page": "/om-oss",
+      "issue": "placeholder-social-link",
+      "details": "removed Wix default link: http://www.twitter.com/wix"
+    },
+    {
+      "page": "/lær-bordhockey-kombinasjoner",
+      "issue": "embed-widget",
+      "details": "tricks filter app (121 tricks) flattened to table; structured copy in src/data/tricks.json"
+    },
+    {
+      "page": "/timere",
+      "issue": "audio-widget",
+      "details": "9 Wix audio players replaced by download links to local MP3 files"
+    },
+    {
+      "page": "/kvalifisering-mesterskap",
+      "issue": "embed-widget",
+      "details": "qualification standings app (86 players, 4 categories) flattened to markdown tables; structured copy in src/data/kvalifisering-em26.json"
+    },
+    {
+      "page": "/en/om-oss",
+      "issue": "placeholder-social-link",
+      "details": "removed Wix default link: http://www.facebook.com/wix"
+    },
+    {
+      "page": "/en/om-oss",
+      "issue": "placeholder-social-link",
+      "details": "removed Wix default link: http://www.twitter.com/wix"
+    },
+    {
+      "page": "/en/om-oss",
+      "issue": "placeholder-social-link",
+      "details": "removed Wix default link: http://www.facebook.com/wix"
+    },
+    {
+      "page": "/en/om-oss",
+      "issue": "placeholder-social-link",
+      "details": "removed Wix default link: http://www.twitter.com/wix"
+    },
+    {
+      "page": "/en/lær-bordhockey-kombinasjoner",
+      "issue": "embed-widget",
+      "details": "tricks filter app (121 tricks) flattened to table; structured copy in src/data/tricks.json"
+    },
+    {
+      "page": "/en/timere",
+      "issue": "audio-widget",
+      "details": "9 Wix audio players replaced by download links to local MP3 files"
+    },
+    {
+      "page": "/en/kvalifisering-mesterskap",
+      "issue": "embed-widget",
+      "details": "qualification standings app (86 players, 4 categories) flattened to markdown tables; structured copy in src/data/kvalifisering-em26.json"
+    }
+  ]
+}

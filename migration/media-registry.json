@@ -1,0 +1,714 @@
+{
+  "https://static.wixstatic.com/media/d5a72f_7be43f1590974bf6b669191792b56d48~mv2.jpg": {
+    "local": "/media/images/norway-open-2026-7be43f15.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_717a73c560854f4b875f0195b1ad4ad0~mv2.jpg": {
+    "local": "/media/images/duo-nm-2026-717a73c5.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_6f5c3c827c2242c0a32b25ce5b00f15f~mv2.jpg": {
+    "local": "/media/images/norgesmesterskapet-2026-dame-6f5c3c82.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_62111f861b8942b883ece79fa4f33b5c~mv2.jpg": {
+    "local": "/media/images/norgesmesterskapet-2026-veteran-62111f86.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_e4f1e9aca4b04024bd4406ad017f22f0~mv2.jpg": {
+    "local": "/media/images/norgesmesterskapet-2026-junior-e4f1e9ac.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_09dc4135908c48519db894e70baf84d7~mv2.jpg": {
+    "local": "/media/images/norgesmesterskapet-2026-u13-09dc4135.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_2cf169619d7745879811257805f4ca8b~mv2.jpg": {
+    "local": "/media/images/norgesmesterskapet-2026-2cf16961.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_a02e2af606a5483ca82568a0e2cfd933~mv2.webp": {
+    "local": "/media/images/trondheim-open-2025-a02e2af6.webp",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_bae529530a8140edaef6149d3ca7d5d8~mv2.jpg": {
+    "local": "/media/images/jæren-open-2025-bae52953.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_bb484e0a6786424b81b124442971adfb~mv2.jpg": {
+    "local": "/media/images/bergen-open-2025-bb484e0a.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_24c7773a5bd8403fbfb819466c196804~mv2.jpg": {
+    "local": "/media/images/sudden-death-cup-24c7773a.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_5e6305bb7ea44ff4aa14e09a38f0a012~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-9-5e6305bb.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_4a1f5c65ddce403a9743b4a60d960293~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-2-4a1f5c65.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_e746f904050b4cafa37656dc6d090867~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-5-e746f904.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_8cd209033d7c4af9893f7f36d2f51093~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-11-8cd20903.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_c402f994b0e845229592f7980f856a24~mv2.jpg": {
+    "local": "/media/images/hvem-kan-utfordre-magnus-i-årets-nm-c402f994.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_611be7e948b14b059afca48238684177~mv2.png": {
+    "local": "/media/images/hvem-kan-utfordre-magnus-i-årets-nm-611be7e9.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_21731431bfb84824bfccfef6756f2f62~mv2.jpg": {
+    "local": "/media/images/norge-med-gull-og-bronse-i-vm-i-umeå-21731431.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_ee3db5209464478d8e02b4033d8aa9a7~mv2.jpeg": {
+    "local": "/media/images/norge-med-gull-og-bronse-i-vm-i-umeå-ee3db520.jpeg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_26be8d206d644f0a82c3e9aa39a911af~mv2.jpeg": {
+    "local": "/media/images/norge-med-gull-og-bronse-i-vm-i-umeå-26be8d20.jpeg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_b4eb6ef2ea604b95b2707796b05001d9~mv2.png": {
+    "local": "/media/images/nbhf-s-adventskalender-2024-luke-3-b4eb6ef2.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_86a548a1ec474d75ba7f7ac804fa8609~mv2.webp": {
+    "local": "/media/images/caics-suveren-i-trondheim-open-86a548a1.webp",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_780b4615d59f44abb569137790f68c89~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-22-780b4615.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_4a2aa9fceda14420a6253fc8671b82fe~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-22-4a2aa9fc.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_5b66f4a910b04616bb62be4171dbb6a3~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-16-5b66f4a9.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_3882cbb592344b2dae82466bed81391b~mv2.png": {
+    "local": "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-3882cbb5.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_7cb0ae35684842cbb4b7689ba25f4fa5~mv2.png": {
+    "local": "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-7cb0ae35.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_c9056982f8014143859896ba53529e96~mv2.png": {
+    "local": "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-c9056982.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_a8720ab3c43a46ddb56518dbf766cd94~mv2.png": {
+    "local": "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-a8720ab3.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_0a301454655b440295def693c8a6abdd~mv2.png": {
+    "local": "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-0a301454.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_92f509a9f9a447f2a614637000ba9752~mv2.png": {
+    "local": "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-92f509a9.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_f09fce6dc6c4450785230f0fa3290048~mv2.jpeg": {
+    "local": "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-f09fce6d.jpeg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_d2bfac6c0da941849decf806f2afe0f5~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-6-d2bfac6c.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_4208e02988204e8ab02f8eb8701823ce~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-8-4208e029.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_42c5cb92e5b445ff8536fa7610a84b3c~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-19-42c5cb92.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_680cea35a29b419d8292c7b9bb1dfc55~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-1-680cea35.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_41b7c3f57871400b9d140f0963bccdd1~mv2.webp": {
+    "local": "/media/images/medaljister-fra-jæren-open-2025-41b7c3f5.webp",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_40f1731b92bb4512b91341ac3d04e7b8~mv2.webp": {
+    "local": "/media/images/medaljister-fra-jæren-open-2025-40f1731b.webp",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_9cac0305dcdf44199759379e97ecfed7~mv2.png": {
+    "local": "/media/images/medaljister-fra-jæren-open-2025-9cac0305.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_81d14babae214a71a839a2a43f24e772~mv2.webp": {
+    "local": "/media/images/medaljister-fra-jæren-open-2025-81d14bab.webp",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_940647d818e846bb9259fb7ba9082680~mv2.webp": {
+    "local": "/media/images/medaljister-fra-jæren-open-2025-940647d8.webp",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_7913e3b4805d4622aad72a936063f2b9~mv2.webp": {
+    "local": "/media/images/medaljister-fra-jæren-open-2025-7913e3b4.webp",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_124a8b5a447f4853abaf9063c216e9b5~mv2.webp": {
+    "local": "/media/images/medaljister-fra-jæren-open-2025-124a8b5a.webp",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_0e4f4e50c8004f6793aa7178e21a0760~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-18-0e4f4e50.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_0b27c9baa80c49d2ae522f6e927e435e~mv2.png": {
+    "local": "/media/images/adventskalender-2024-resultater-0b27c9ba.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_3584df1f316f402eb3a24ece59043e0f~mv2.png": {
+    "local": "/media/images/adventskalender-2024-resultater-3584df1f.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_ca8458717e554377b25f9793c85ae32b~mv2.png": {
+    "local": "/media/images/adventskalender-2024-resultater-ca845871.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_67d4e2a69c9947328131d613b2c6d915~mv2.png": {
+    "local": "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_2dfc30126f6e4eb6a7df8b38b9b1542a~mv2.jpg": {
+    "local": "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-2dfc3012.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_adde5d2a757146be81283bee198731d5~mv2.jpeg": {
+    "local": "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-adde5d2a.jpeg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_cbaa7c358dc14e6fb4ac51c2d1a79129~mv2.png": {
+    "local": "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-cbaa7c35.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_d5a957a52a39425b80b64ac1681f9b7f~mv2.png": {
+    "local": "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-d5a957a5.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_ee47d146b0594ee49565b61ccb54428d~mv2.png": {
+    "local": "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-ee47d146.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_373fe9aa90c54382b90bdff72409d5dc~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-17-373fe9aa.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_f4c0e9137b034ab1ad0684bf42f68073~mv2.jpg": {
+    "local": "/media/images/forhåndtips-krohnengen-open-2024-f4c0e913.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_3f97b1f833eb4701a29b70f79e72e11d~mv2.jpg": {
+    "local": "/media/images/forhåndtips-krohnengen-open-2024-3f97b1f8.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_3ba3acebce744ebebc35964e76711de1~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-23-3ba3aceb.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_eb7e567db002402c909d93a3f9604cfa~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-7-eb7e567d.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_4492f2ef7b6148f59496fc7957d82ba4~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-7-4492f2ef.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_ad6956d94c594d129244e9dfb079a2b4~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-4-ad6956d9.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_58730dfad9ca4bb5936d1d0e5855d64c~mv2.jpg": {
+    "local": "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-58730dfa.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_9146858bbc71400da1a59ac37bff64bf~mv2.png": {
+    "local": "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-9146858b.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_7ac8cf6e3b474a03b684ee43dedbb344~mv2.png": {
+    "local": "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-7ac8cf6e.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_8f9b972f186c4bd0a0e28d88ee42585a~mv2.png": {
+    "local": "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-8f9b972f.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_fc5daa5843ac4a1b99bbed42dda1f837~mv2.png": {
+    "local": "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-fc5daa58.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_334d7c5f14654eb09a7f85a6536e1b06~mv2.jpg": {
+    "local": "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-334d7c5f.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_5b8724cf3d5648d9bbaeff592005dbc5~mv2.jpg": {
+    "local": "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-5b8724cf.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_89b40bd7d7fc41e2b4dc3c2cddaf0d65~mv2.jpg": {
+    "local": "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-89b40bd7.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_2035d99c699f4b879c89188656cb9b6c~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-13-2035d99c.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_6284b5c809b343b49f8330800951d048~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-15-6284b5c8.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_fe1e6f26b6e94e9eb304eafa508332f6~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-15-fe1e6f26.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_e9f49fab76ae4fb9a465ce22b085dcbb~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-12-e9f49fab.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_c24271310a844d1b91b89b427e5f83b3~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-21-c2427131.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_71abf4ce0990421c99b4785aac580cd4~mv2.webp": {
+    "local": "/media/images/hvem-vinner-bordhockey-nm-2025-71abf4ce.webp",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_086370ffa4a843b3816c7f0760c6348a~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-24-086370ff.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_be4dea47eff44b8187c4eacee497328e~mv2.jpg": {
+    "local": "/media/images/forhåndstips-jæren-open-2025-be4dea47.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_d7cd0703f6bf42b9a853d47e4095445e~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-20-d7cd0703.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_3d71095dfc4f4e1192c7daa8f621cafd~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-10-3d71095d.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_5cb60c87d0534050ac1613befa1a73b6~mv2.png": {
+    "local": "/media/images/adventskalender-2024-luke-14-5cb60c87.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_2f7a1d7569ae483998323f090a98f3e5~mv2.png": {
+    "local": "/media/images/index-2f7a1d75.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_3ffa36e2422e4c6f8230eccaf7a76bd0~mv2.jpeg": {
+    "local": "/media/images/index-3ffa36e2.jpeg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_345e57fdbb2347ee8878584c83f59e30~mv2.jpg": {
+    "local": "/media/images/index-345e57fd.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_a6a885d6f6cb4569a9678b60bd821d36~mv2.jpg": {
+    "local": "/media/images/index-a6a885d6.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_4cc0ec374ed242cea44413f53cdd0e59~mv2.jpg": {
+    "local": "/media/images/index-4cc0ec37.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_b7d657dfd1fc434f8483032c4f9ca947~mv2.jpg": {
+    "local": "/media/images/index-b7d657df.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_8730af0c432f4c59b87533ebb4724f6f~mv2.jpg": {
+    "local": "/media/images/index-8730af0c.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_d5bf3d3e33bd4355a3e8612d1f9beacf~mv2.jpg": {
+    "local": "/media/images/index-d5bf3d3e.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_18d51b20310846b18780254ba84e0a3f~mv2.jpg": {
+    "local": "/media/images/index-18d51b20.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_82b9f18854814c54b093178773e0053f~mv2.jpg": {
+    "local": "/media/images/index-82b9f188.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_96e217ca1ee548e8b09e559f5f4adc3b~mv2.jpg": {
+    "local": "/media/images/om-oss-96e217ca.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_0f1ae833e55844adb87d2f787550b8f4~mv2.png": {
+    "local": "/media/images/om-oss-0f1ae833.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_b3b94a26720e47f7b3136edbfb2cd3ba~mv2.png": {
+    "local": "/media/images/om-oss-b3b94a26.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_be83385b0db34f0d9f6c1ba2091c835d~mv2.png": {
+    "local": "/media/images/om-oss-be83385b.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_f30dc605fc3d4fe483f01548763b74a4~mv2.png": {
+    "local": "/media/images/om-oss-f30dc605.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_cfcb7027a3e34602a92f99f48ea061d0~mv2.png": {
+    "local": "/media/images/om-oss-cfcb7027.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_15c93f2864b04430b0b1f4abc832dcf2~mv2.jpg": {
+    "local": "/media/images/services-1-15c93f28.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_f5866b836eed4a8e8b3de4da82901dc3~mv2.jpg": {
+    "local": "/media/images/services-1-f5866b83.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_5082764529f841599f4be0d3f13f9809~mv2.jpg": {
+    "local": "/media/images/services-1-50827645.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_699bd3e5d7ea49b984b7df35e129d0f1~mv2.jpg": {
+    "local": "/media/images/lokalligaer-699bd3e5.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_a5c66f5e571b4c5d8c0d99023b7ba86b~mv2.jpg": {
+    "local": "/media/images/lokalligaer-a5c66f5e.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_2e6af9fd83334751b383df3876a29ffe~mv2.png": {
+    "local": "/media/images/trick-nacka-2e6af9fd.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_6dadefbcc3f1448195c7ef1c584065eb~mv2.png": {
+    "local": "/media/images/trick-spjass-6dadefbc.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_92398556367142d8973a08ce846a34ed~mv2.png": {
+    "local": "/media/images/trick-lillhæl-92398556.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_2c0457d474334dd8a4a34c9fc51bed6c~mv2.png": {
+    "local": "/media/images/trick-lillstøvel-2c0457d4.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_e0edae5c132e427a80acb800a26d1375~mv2.png": {
+    "local": "/media/images/trick-omvendspjass-e0edae5c.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_c68b7726872c43d482772bcdfc85a46f~mv2.png": {
+    "local": "/media/images/trick-hjerpe-c68b7726.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_f9523f5cc2c443a09ab3e88afa126ad5~mv2.png": {
+    "local": "/media/images/trick-hjerpefinte-f9523f5c.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_ada0bf2a84894f38aefa3ebd83be91e0~mv2.png": {
+    "local": "/media/images/trick-søren-ada0bf2a.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_748f508259e0418e934c22f71c461088~mv2.png": {
+    "local": "/media/images/trick-sørenfinte-748f5082.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_0b633f173ff0426a8f8e4d9ac42d049a~mv2.png": {
+    "local": "/media/images/trick-senterkiosk-0b633f17.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_7dfe954553604fec887735ddd9a16453~mv2.png": {
+    "local": "/media/images/trick-nackafinte-7dfe9545.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_067aa3e814b243c891b0fdf34c2bb095~mv2.png": {
+    "local": "/media/images/trick-spjassfinte-067aa3e8.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_43746e89e2da4c869af249ec95bf6fbc~mv2.png": {
+    "local": "/media/images/trick-lillstøvelfinte-c-29-43746e89.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_6ba8f29407f44ed8b2f4fd49b6f10787~mv2.png": {
+    "local": "/media/images/trick-omvendspjassfinte-6ba8f294.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_06fd741e2643443a976fcc6a724d3a8d~mv2.png": {
+    "local": "/media/images/trick-senter-ceuleman-06fd741e.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_9e6a38fa51a04d6f839ec1ccff5a0384~mv2.png": {
+    "local": "/media/images/trick-fakie-senter-ceuleman-9e6a38fa.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_142415eb1c9a43ce8375cf08fd9c1488~mv2.png": {
+    "local": "/media/images/trick-horvath-142415eb.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_0d649889879e4e34a0f51753d498d97f~mv2.png": {
+    "local": "/media/images/trick-fakie-horvath-0d649889.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_5e975a0d71544a0f90a7e8bcecc5213c~mv2.png": {
+    "local": "/media/images/trick-spjass-horvath-5e975a0d.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_0e070a3aacb44dc98bf83eeb6d318f91~mv2.png": {
+    "local": "/media/images/trick-veggdyr-0e070a3a.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_e0b159da8419451f93431ae4bef4f8b4~mv2.png": {
+    "local": "/media/images/trick-fakie-veggdyr-e0b159da.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_d68ac5fd2c9e4a81b817a8d64510d261~mv2.png": {
+    "local": "/media/images/trick-agdur-d68ac5fd.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_921a3a7c43f44fb08443bf0bcb890880~mv2.png": {
+    "local": "/media/images/trick-halv-agdur-921a3a7c.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_e9ce4ae38040485c85742677db616b80~mv2.png": {
+    "local": "/media/images/trick-agduro-e9ce4ae3.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_fa614eeadac446a0842c231ee9b906e9~mv2.png": {
+    "local": "/media/images/trick-invers-agduro-fa614eea.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_759c5e3ef342470dae55efbccb5d75af~mv2.png": {
+    "local": "/media/images/trick-invers-halv-agduro-759c5e3e.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_5400f2d43a0346dc9c5ee45cc2b6294a~mv2.png": {
+    "local": "/media/images/trick-fakie-agdur-5400f2d4.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_ae8e3e5d0f044b77962ddf553d77dd4b~mv2.png": {
+    "local": "/media/images/trick-fakie-halv-agdur-ae8e3e5d.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_0d8a87b935ed4426a177e3831c46b288~mv2.png": {
+    "local": "/media/images/trick-fakie-invers-agduro-0d8a87b9.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_8d97565603e849879bc62b1994dfb440~mv2.png": {
+    "local": "/media/images/trick-fakie-invers-halv-agduro-8d975656.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_cec1a26c63f8463da445f3e8b4c59ea7~mv2.png": {
+    "local": "/media/images/trick-holmin-cec1a26c.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_8ed3df7004c2451d89280c281f194476~mv2.png": {
+    "local": "/media/images/trick-holms-8ed3df70.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_0e16faa4c6dd4afdbb5fa7faca935e38~mv2.png": {
+    "local": "/media/images/trick-holms-gretzky-0e16faa4.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_81bdbd16fe6f48e2819186de1182a0eb~mv2.png": {
+    "local": "/media/images/trick-senter-velodrom-81bdbd16.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_9eb56e0463064787b354132759e8b665~mv2.png": {
+    "local": "/media/images/trick-senter-karusell-9eb56e04.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_84e8f8f6e03044bf8c8b04beafe6cea7~mv2.png": {
+    "local": "/media/images/trick-fakie-senter-velodrom-84e8f8f6.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_d46b2d2cc1b24ced904ed05b5aa29b40~mv2.png": {
+    "local": "/media/images/trick-fakie-senter-karusell-d46b2d2c.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_8126d7d8e66f4e4d833e5e46412d1576~mv2.png": {
+    "local": "/media/images/trick-skalpell-8126d7d8.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_64423311c5504ff9ad6a9c2bfcd4df18~mv2.png": {
+    "local": "/media/images/trick-general-reiersen-64423311.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_23db459370264cbaafdc94414ec71e37~mv2.png": {
+    "local": "/media/images/trick-senterkniv-23db4593.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_caf5c8d786984676a1de7499a9e124e7~mv2.png": {
+    "local": "/media/images/trick-senterknivo-caf5c8d7.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_cb88b462355444a083b0ad2efef9f5a6~mv2.png": {
+    "local": "/media/images/trick-rambokniv-cb88b462.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_96970c00a9254bffbc203489e1281d8e~mv2.png": {
+    "local": "/media/images/trick-fakie-senterkniv-96970c00.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_6f13def632a64172b60da54d27278806~mv2.png": {
+    "local": "/media/images/trick-senter-backnacka-6f13def6.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_392cbabda2844c0688e8bbc9182d504a~mv2.png": {
+    "local": "/media/images/trick-invers-kano-392cbabd.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_6edf9a4099174beaba168ae6f6ec6fe5~mv2.png": {
+    "local": "/media/images/trick-fakie-invers-kano-6edf9a40.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_9c4a9212b43445c9af7347e918222d5a~mv2.png": {
+    "local": "/media/images/trick-senter-rokkade-9c4a9212.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_90a380f0f48b4613b8114d98c01e6ac5~mv2.png": {
+    "local": "/media/images/trick-fakie-senter-rokkade-90a380f0.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_2c9bcf71cae447b182c85273de41e02c~mv2.png": {
+    "local": "/media/images/trick-bacalao-2c9bcf71.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_0bbc8f04d4ff4e1888f6a96a43bf8b7f~mv2.png": {
+    "local": "/media/images/trick-newton-0bbc8f04.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_8f62525f02b24a4cae8aa75d462f78fa~mv2.png": {
+    "local": "/media/images/trick-mission-impossible-3-8f62525f.png",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_d3e10d73d476491da916179b503a326d~mv2.jpg": {
+    "local": "/media/images/bilder-d3e10d73.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/3b4118_2428f923387541c5a5076d4609312b0e~mv2.jpg": {
+    "local": "/media/images/bilder-2428f923.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_32ec236c0b454750b8f6967cffb8feec~mv2.jpg": {
+    "local": "/media/images/blog-32ec236c.jpg",
+    "kind": "images"
+  },
+  "https://static.wixstatic.com/media/d5a72f_36a066236683453592707e0bf73ff690%7Emv2.jpg": {
+    "local": "/media/images/blog-36a06623.jpg",
+    "kind": "images"
+  },
+  "https://www.puck.no/_files/ugd/3b4118_de8a8f4380d5438f8f741b21f838ac95.pdf": {
+    "local": "/media/pdf/arsmote-2025.pdf",
+    "kind": "pdf"
+  },
+  "https://www.puck.no/_files/ugd/3b4118_1c802f464cc640f18fd21b6cce4afde5.pdf": {
+    "local": "/media/pdf/arsmote-2022.pdf",
+    "kind": "pdf"
+  },
+  "https://www.puck.no/_files/ugd/3b4118_5ea88c1bf55d417eb3f04beb91f50be4.pdf": {
+    "local": "/media/pdf/arsmote-2019.pdf",
+    "kind": "pdf"
+  },
+  "https://www.puck.no/_files/ugd/3b4118_4fd4aa4009094e49ac370e7aa4f574ea.pdf": {
+    "local": "/media/pdf/arsmote-2016.pdf",
+    "kind": "pdf"
+  },
+  "https://www.puck.no/_files/ugd/3b4118_db2508bee89b4754ab44a82b38f8a97d.pdf": {
+    "local": "/media/pdf/arsmote-2009.pdf",
+    "kind": "pdf"
+  },
+  "https://www.puck.no/_files/ugd/3b4118_db3486d489d741bf97867cce4d60cf04.pdf": {
+    "local": "/media/pdf/arsmote-2024.pdf",
+    "kind": "pdf"
+  },
+  "https://www.puck.no/_files/ugd/3b4118_0d46af2cdb544282b3f8e3e008d74fd6.pdf": {
+    "local": "/media/pdf/arsmote-2021.pdf",
+    "kind": "pdf"
+  },
+  "https://www.puck.no/_files/ugd/3b4118_a2b0ba4cfc224caa9bacc01558846285.pdf": {
+    "local": "/media/pdf/arsmote-2018.pdf",
+    "kind": "pdf"
+  },
+  "https://www.puck.no/_files/ugd/3b4118_34588a5157364bdb8e435b0bcca9ae4e.pdf": {
+    "local": "/media/pdf/arsmote-2015.pdf",
+    "kind": "pdf"
+  },
+  "https://3b411893-7970-432e-a58f-c22166d5ae3a.usrfiles.com/ugd/3b4118_b9f06b23bc0d4ff9b2ea3694e719ee68.pdf": {
+    "local": "/media/pdf/arsmote-2007.pdf",
+    "kind": "pdf"
+  },
+  "https://www.puck.no/_files/ugd/3b4118_70e16d3c2d2e4544855e39671e1c09ef.pdf": {
+    "local": "/media/pdf/arsmote-2023.pdf",
+    "kind": "pdf"
+  },
+  "https://www.puck.no/_files/ugd/3b4118_b6539d40cec54b97b4b812cc8010df83.pdf": {
+    "local": "/media/pdf/arsmote-2020.pdf",
+    "kind": "pdf"
+  },
+  "https://www.puck.no/_files/ugd/3b4118_163de533c0d94894b5e3cbc2b0699547.pdf": {
+    "local": "/media/pdf/arsmote-2017.pdf",
+    "kind": "pdf"
+  },
+  "https://www.puck.no/_files/ugd/3b4118_174cf808e5f7457a9118a1761847281f.pdf": {
+    "local": "/media/pdf/arsmote-2014.pdf",
+    "kind": "pdf"
+  },
+  "https://music.wixstatic.com/mp3/3b4118_af062ace3169460ca3aebd89902eb1c9.mp3": {
+    "local": "/media/audio/technoku.mp3",
+    "kind": "audio"
+  },
+  "https://music.wixstatic.com/mp3/3b4118_9a46b6d045284502b76a441292bdf0e5.mp3": {
+    "local": "/media/audio/is-everybody-ready.mp3",
+    "kind": "audio"
+  },
+  "https://music.wixstatic.com/mp3/3b4118_4ba7af550d664589a1c9fcfc7008c565.mp3": {
+    "local": "/media/audio/we-built-this-city.mp3",
+    "kind": "audio"
+  },
+  "https://music.wixstatic.com/mp3/3b4118_03f567b2d1db45f29a802e500b5c1ea1.mp3": {
+    "local": "/media/audio/cold-as-ice.mp3",
+    "kind": "audio"
+  },
+  "https://music.wixstatic.com/mp3/3b4118_0efcfbb43c894712afd5e81655ae87e4.mp3": {
+    "local": "/media/audio/feel-good-inc.mp3",
+    "kind": "audio"
+  },
+  "https://music.wixstatic.com/mp3/3b4118_ca7948b9ff8046c7bdf1cb18d6c8e72e.mp3": {
+    "local": "/media/audio/africa.mp3",
+    "kind": "audio"
+  },
+  "https://music.wixstatic.com/mp3/3b4118_551f2b1e212741a885035bba5714e13e.mp3": {
+    "local": "/media/audio/joletimer.mp3",
+    "kind": "audio"
+  },
+  "https://music.wixstatic.com/mp3/3b4118_efdfa4471c4c499cb626d5636fee6717.mp3": {
+    "local": "/media/audio/all-i-want-for-christmas.mp3",
+    "kind": "audio"
+  },
+  "https://music.wixstatic.com/mp3/3b4118_fb04f859e5924424ac941616d2be3bc2.mp3": {
+    "local": "/media/audio/st-pucktricks-day.mp3",
+    "kind": "audio"
+  }
+}

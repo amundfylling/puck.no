@@ -1,0 +1,464 @@
+[
+  {
+    "url": "https://www.puck.no/turneringer/norway-open-2026",
+    "outputs": [
+      "src/content/tournaments/norway-open-2026.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/turneringer/duo-nm-2026",
+    "outputs": [
+      "src/content/tournaments/duo-nm-2026.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/turneringer/norgesmesterskapet-2026-dame",
+    "outputs": [
+      "src/content/tournaments/norgesmesterskapet-2026-dame.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/turneringer/norgesmesterskapet-2026-veteran",
+    "outputs": [
+      "src/content/tournaments/norgesmesterskapet-2026-veteran.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/turneringer/norgesmesterskapet-2026-junior",
+    "outputs": [
+      "src/content/tournaments/norgesmesterskapet-2026-junior.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/turneringer/norgesmesterskapet-2026-u13",
+    "outputs": [
+      "src/content/tournaments/norgesmesterskapet-2026-u13.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/turneringer/norgesmesterskapet-2026",
+    "outputs": [
+      "src/content/tournaments/norgesmesterskapet-2026.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/turneringer/trondheim-open-2025",
+    "outputs": [
+      "src/content/tournaments/trondheim-open-2025.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/turneringer/j%C3%A6ren-open-2025",
+    "outputs": [
+      "src/content/tournaments/jæren-open-2025.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/turneringer/bergen-open-2025",
+    "outputs": [
+      "src/content/tournaments/bergen-open-2025.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/turneringer/sudden-death-cup",
+    "outputs": [
+      "src/content/tournaments/sudden-death-cup.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/turneringer/norway-open-2025",
+    "outputs": [
+      "src/content/tournaments/norway-open-2025.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-9",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-9.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-2",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-2.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-5",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-5.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-11",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-11.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/hvem-kan-utfordre-magnus-i-%C3%A5rets-nm",
+    "outputs": [
+      "src/content/posts/hvem-kan-utfordre-magnus-i-årets-nm.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/norge-med-gull-og-bronse-i-vm-i-ume%C3%A5",
+    "outputs": [
+      "src/content/posts/norge-med-gull-og-bronse-i-vm-i-umeå.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/nbhf-s-adventskalender-2024-luke-3",
+    "outputs": [
+      "src/content/posts/nbhf-s-adventskalender-2024-luke-3.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/caics-suveren-i-trondheim-open",
+    "outputs": [
+      "src/content/posts/caics-suveren-i-trondheim-open.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-22",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-22.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-16",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-16.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/nm-2026-dabs-drama-og-10-gull-p%C3%A5-rad",
+    "outputs": [
+      "src/content/posts/nm-2026-dabs-drama-og-10-gull-på-rad.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-6",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-6.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-8",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-8.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-19",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-19.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-1",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-1.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/medaljister-fra-j%C3%A6ren-open-2025",
+    "outputs": [
+      "src/content/posts/medaljister-fra-jæren-open-2025.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-18",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-18.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-resultater",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-resultater.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller",
+    "outputs": [
+      "src/content/posts/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-17",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-17.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/forh%C3%A5ndtips-krohnengen-open-2024",
+    "outputs": [
+      "src/content/posts/forhåndtips-krohnengen-open-2024.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-23",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-23.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-7",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-7.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-4",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-4.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/profetien-p%C3%A5-singsaker-trondheim-open-2026-oppsummert",
+    "outputs": [
+      "src/content/posts/profetien-på-singsaker-trondheim-open-2026-oppsummert.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-13",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-13.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-15",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-15.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-12",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-12.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-21",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-21.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/hvem-vinner-bordhockey-nm-2025",
+    "outputs": [
+      "src/content/posts/hvem-vinner-bordhockey-nm-2025.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-24",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-24.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/forh%C3%A5ndstips-j%C3%A6ren-open-2025",
+    "outputs": [
+      "src/content/posts/forhåndstips-jæren-open-2025.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-20",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-20.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-10",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-10.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/post/adventskalender-2024-luke-14",
+    "outputs": [
+      "src/content/posts/adventskalender-2024-luke-14.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/en/post/norway-open-2025-drama-world-stars-and-cinnamon-buns",
+    "outputs": [
+      "src/content/posts/en/norway-open-2025-drama-world-stars-and-cinnamon-buns.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/en/post/who-will-win-the-norwegian-championship-2025",
+    "outputs": [
+      "src/content/posts/en/who-will-win-the-norwegian-championship-2025.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/",
+    "outputs": [
+      "src/content/pages/index.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/om-oss",
+    "outputs": [
+      "src/content/pages/om-oss.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/services-1",
+    "outputs": [
+      "src/content/pages/services-1.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/lokalligaer",
+    "outputs": [
+      "src/content/pages/lokalligaer.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/l%C3%A6r-bordhockey",
+    "outputs": [
+      "src/content/pages/lær-bordhockey.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/l%C3%A6r-bordhockey-videoer",
+    "outputs": [
+      "src/content/pages/lær-bordhockey-videoer.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/l%C3%A6r-bordhockey-kombinasjoner",
+    "outputs": [
+      "src/content/pages/lær-bordhockey-kombinasjoner.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/turneringer",
+    "outputs": [
+      "src/content/pages/turneringer.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/timere",
+    "outputs": [
+      "src/content/pages/timere.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/ressurser",
+    "outputs": [
+      "src/content/pages/ressurser.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/kvalifisering-mesterskap",
+    "outputs": [
+      "src/content/pages/kvalifisering-mesterskap.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/bilder",
+    "outputs": [
+      "src/content/pages/bilder.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/blog",
+    "outputs": [
+      "src/content/pages/blog.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/%C3%A5rsm%C3%B8ter",
+    "outputs": [
+      "src/content/pages/årsmøter.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/en",
+    "outputs": [
+      "src/content/pages/en/index.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/en/om-oss",
+    "outputs": [
+      "src/content/pages/en/om-oss.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/en/services-1",
+    "outputs": [
+      "src/content/pages/en/services-1.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/en/lokalligaer",
+    "outputs": [
+      "src/content/pages/en/lokalligaer.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/en/l%C3%A6r-bordhockey",
+    "outputs": [
+      "src/content/pages/en/lær-bordhockey.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/en/l%C3%A6r-bordhockey-videoer",
+    "outputs": [
+      "src/content/pages/en/lær-bordhockey-videoer.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/en/l%C3%A6r-bordhockey-kombinasjoner",
+    "outputs": [
+      "src/content/pages/en/lær-bordhockey-kombinasjoner.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/en/turneringer",
+    "outputs": [
+      "src/content/pages/en/turneringer.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/en/timere",
+    "outputs": [
+      "src/content/pages/en/timere.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/en/ressurser",
+    "outputs": [
+      "src/content/pages/en/ressurser.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/en/kvalifisering-mesterskap",
+    "outputs": [
+      "src/content/pages/en/kvalifisering-mesterskap.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/en/bilder",
+    "outputs": [
+      "src/content/pages/en/bilder.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/en/blog",
+    "outputs": [
+      "src/content/pages/en/blog.md"
+    ]
+  },
+  {
+    "url": "https://www.puck.no/en/%C3%A5rsm%C3%B8ter",
+    "outputs": [
+      "src/content/pages/en/årsmøter.md"
+    ]
+  }
+]

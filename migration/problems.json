@@ -1,0 +1,197 @@
+[
+  {
+    "page": "/turneringer/norway-open-2026",
+    "issue": "form-widget",
+    "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+  },
+  {
+    "page": "/turneringer/norway-open-2026",
+    "issue": "map-embed",
+    "details": "Google Map embed removed (client-rendered, no static equivalent)"
+  },
+  {
+    "page": "/turneringer/duo-nm-2026",
+    "issue": "form-widget",
+    "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+  },
+  {
+    "page": "/turneringer/duo-nm-2026",
+    "issue": "map-embed",
+    "details": "Google Map embed removed (client-rendered, no static equivalent)"
+  },
+  {
+    "page": "/turneringer/norgesmesterskapet-2026-dame",
+    "issue": "form-widget",
+    "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+  },
+  {
+    "page": "/turneringer/norgesmesterskapet-2026-dame",
+    "issue": "map-embed",
+    "details": "Google Map embed removed (client-rendered, no static equivalent)"
+  },
+  {
+    "page": "/turneringer/norgesmesterskapet-2026-veteran",
+    "issue": "form-widget",
+    "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+  },
+  {
+    "page": "/turneringer/norgesmesterskapet-2026-veteran",
+    "issue": "map-embed",
+    "details": "Google Map embed removed (client-rendered, no static equivalent)"
+  },
+  {
+    "page": "/turneringer/norgesmesterskapet-2026-junior",
+    "issue": "form-widget",
+    "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+  },
+  {
+    "page": "/turneringer/norgesmesterskapet-2026-junior",
+    "issue": "map-embed",
+    "details": "Google Map embed removed (client-rendered, no static equivalent)"
+  },
+  {
+    "page": "/turneringer/norgesmesterskapet-2026-u13",
+    "issue": "form-widget",
+    "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+  },
+  {
+    "page": "/turneringer/norgesmesterskapet-2026-u13",
+    "issue": "map-embed",
+    "details": "Google Map embed removed (client-rendered, no static equivalent)"
+  },
+  {
+    "page": "/turneringer/norgesmesterskapet-2026",
+    "issue": "form-widget",
+    "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+  },
+  {
+    "page": "/turneringer/norgesmesterskapet-2026",
+    "issue": "map-embed",
+    "details": "Google Map embed removed (client-rendered, no static equivalent)"
+  },
+  {
+    "page": "/turneringer/trondheim-open-2025",
+    "issue": "form-widget",
+    "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+  },
+  {
+    "page": "/turneringer/trondheim-open-2025",
+    "issue": "map-embed",
+    "details": "Google Map embed removed (client-rendered, no static equivalent)"
+  },
+  {
+    "page": "/turneringer/jæren-open-2025",
+    "issue": "form-widget",
+    "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+  },
+  {
+    "page": "/turneringer/jæren-open-2025",
+    "issue": "map-embed",
+    "details": "Google Map embed removed (client-rendered, no static equivalent)"
+  },
+  {
+    "page": "/turneringer/bergen-open-2025",
+    "issue": "form-widget",
+    "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+  },
+  {
+    "page": "/turneringer/bergen-open-2025",
+    "issue": "map-embed",
+    "details": "Google Map embed removed (client-rendered, no static equivalent)"
+  },
+  {
+    "page": "/turneringer/sudden-death-cup",
+    "issue": "form-widget",
+    "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+  },
+  {
+    "page": "/turneringer/sudden-death-cup",
+    "issue": "map-embed",
+    "details": "Google Map embed removed (client-rendered, no static equivalent)"
+  },
+  {
+    "page": "/turneringer/norway-open-2025",
+    "issue": "form-widget",
+    "details": "removed 14 Wix form widget elements (registration/search form needs Phase 2 replacement)"
+  },
+  {
+    "page": "/turneringer/norway-open-2025",
+    "issue": "map-embed",
+    "details": "Google Map embed removed (client-rendered, no static equivalent)"
+  },
+  {
+    "page": "/post/norge-med-gull-og-bronse-i-vm-i-umeå",
+    "issue": "video-embed-recovered",
+    "details": "empty SSR video shell replaced with recovered URL: https://youtu.be/s20A_jdG8Ow?t=9669"
+  },
+  {
+    "page": "/om-oss",
+    "issue": "placeholder-social-link",
+    "details": "removed Wix default link: http://www.facebook.com/wix"
+  },
+  {
+    "page": "/om-oss",
+    "issue": "placeholder-social-link",
+    "details": "removed Wix default link: http://www.twitter.com/wix"
+  },
+  {
+    "page": "/om-oss",
+    "issue": "placeholder-social-link",
+    "details": "removed Wix default link: http://www.facebook.com/wix"
+  },
+  {
+    "page": "/om-oss",
+    "issue": "placeholder-social-link",
+    "details": "removed Wix default link: http://www.twitter.com/wix"
+  },
+  {
+    "page": "/lær-bordhockey-kombinasjoner",
+    "issue": "embed-widget",
+    "details": "tricks filter app (121 tricks) flattened to table; structured copy in src/data/tricks.json"
+  },
+  {
+    "page": "/timere",
+    "issue": "audio-widget",
+    "details": "9 Wix audio players replaced by download links to local MP3 files"
+  },
+  {
+    "page": "/kvalifisering-mesterskap",
+    "issue": "embed-widget",
+    "details": "qualification standings app (86 players, 4 categories) flattened to markdown tables; structured copy in src/data/kvalifisering-em26.json"
+  },
+  {
+    "page": "/en/om-oss",
+    "issue": "placeholder-social-link",
+    "details": "removed Wix default link: http://www.facebook.com/wix"
+  },
+  {
+    "page": "/en/om-oss",
+    "issue": "placeholder-social-link",
+    "details": "removed Wix default link: http://www.twitter.com/wix"
+  },
+  {
+    "page": "/en/om-oss",
+    "issue": "placeholder-social-link",
+    "details": "removed Wix default link: http://www.facebook.com/wix"
+  },
+  {
+    "page": "/en/om-oss",
+    "issue": "placeholder-social-link",
+    "details": "removed Wix default link: http://www.twitter.com/wix"
+  },
+  {
+    "page": "/en/lær-bordhockey-kombinasjoner",
+    "issue": "embed-widget",
+    "details": "tricks filter app (121 tricks) flattened to table; structured copy in src/data/tricks.json"
+  },
+  {
+    "page": "/en/timere",
+    "issue": "audio-widget",
+    "details": "9 Wix audio players replaced by download links to local MP3 files"
+  },
+  {
+    "page": "/en/kvalifisering-mesterskap",
+    "issue": "embed-widget",
+    "details": "qualification standings app (86 players, 4 categories) flattened to markdown tables; structured copy in src/data/kvalifisering-em26.json"
+  }
+]

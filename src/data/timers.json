@@ -1,0 +1,47 @@
+[
+  {
+    "title": "Technoku",
+    "file": "/media/audio/technoku.mp3",
+    "duration_hint": "05:38"
+  },
+  {
+    "title": "Is everybody ready?",
+    "file": "/media/audio/is-everybody-ready.mp3",
+    "duration_hint": "05:38"
+  },
+  {
+    "title": "We built this city",
+    "file": "/media/audio/we-built-this-city.mp3",
+    "duration_hint": "05:37"
+  },
+  {
+    "title": "Cold as ice",
+    "file": "/media/audio/cold-as-ice.mp3",
+    "duration_hint": "05:39"
+  },
+  {
+    "title": "Feel Good Inc",
+    "file": "/media/audio/feel-good-inc.mp3",
+    "duration_hint": "05:38"
+  },
+  {
+    "title": "Africa",
+    "file": "/media/audio/africa.mp3",
+    "duration_hint": "05:35"
+  },
+  {
+    "title": "Joletimer",
+    "file": "/media/audio/joletimer.mp3",
+    "duration_hint": "05:43"
+  },
+  {
+    "title": "All I Want for Christmas",
+    "file": "/media/audio/all-i-want-for-christmas.mp3",
+    "duration_hint": "05:31"
+  },
+  {
+    "title": "St. Pucktrick's Day",
+    "file": "/media/audio/st-pucktricks-day.mp3",
+    "duration_hint": "05:33"
+  }
+]

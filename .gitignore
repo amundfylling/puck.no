@@ -1,0 +1,6 @@
+node_modules
+dist
+migration/raw
+.dev.vars
+.DS_Store
+.playwright-mcp

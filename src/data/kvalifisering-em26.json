@@ -1,0 +1,3331 @@
+{
+  "updated": "Oppdatert 24/05/2026",
+  "categories": [
+    {
+      "name": "Åpen",
+      "players": [
+        {
+          "rank": "1",
+          "name": "Magnus Klippen",
+          "status": "Deltar ikke",
+          "points": "5498",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "2.",
+              "Poeng": "785",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "1.",
+              "Poeng": "707",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "1.",
+              "Poeng": "688",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "4.",
+              "Poeng": "669",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "1.",
+              "Poeng": "625",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "1.",
+              "Poeng": "625",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "1.",
+              "Poeng": "615",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Swedish Masters 2025",
+              "Posisjon": "10.",
+              "Poeng": "784",
+              "Type": "ITHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "5498",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "2",
+          "name": "Daniel Nygard",
+          "status": "Kvalifisert",
+          "points": "4861",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "5.",
+              "Poeng": "663",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "3.",
+              "Poeng": "604",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "7.",
+              "Poeng": "587",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "2.",
+              "Poeng": "565",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "3.",
+              "Poeng": "510",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Swedish Masters 2026",
+              "Posisjon": "16.",
+              "Poeng": "771",
+              "Type": "ITHF"
+            },
+            {
+              "Turnering": "Birch City Classic 2025",
+              "Posisjon": "3.",
+              "Poeng": "581",
+              "Type": "ITHF"
+            },
+            {
+              "Turnering": "Incukalns THC Challenge 2025",
+              "Posisjon": "51.",
+              "Poeng": "580",
+              "Type": "ITHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "4861",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "3",
+          "name": "Amund Risa Fylling",
+          "status": "Kvalifisert",
+          "points": "4816",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "3.",
+              "Poeng": "606",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "7.",
+              "Poeng": "602",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Trondheim Open 2026",
+              "Posisjon": "1.",
+              "Poeng": "600",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "2.",
+              "Poeng": "565",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "14.",
+              "Poeng": "488",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Czech Open 2026",
+              "Posisjon": "25.",
+              "Poeng": "662",
+              "Type": "ITHF"
+            },
+            {
+              "Turnering": "Tallinn Cup 2025",
+              "Posisjon": "26.",
+              "Poeng": "650",
+              "Type": "ITHF"
+            },
+            {
+              "Turnering": "Incukalns THC Challenge 2025",
+              "Posisjon": "33.",
+              "Poeng": "643",
+              "Type": "ITHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "4816",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "4",
+          "name": "Andreas Fjermestad",
+          "status": "Kvalifisert",
+          "points": "4458",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "2.",
+              "Poeng": "645",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "3.",
+              "Poeng": "606",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "8.",
+              "Poeng": "582",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "2.",
+              "Poeng": "564",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "2.",
+              "Poeng": "557",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "3.",
+              "Poeng": "493",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Incukalns THC Challenge 2025",
+              "Posisjon": "56.",
+              "Poeng": "543",
+              "Type": "ITHF"
+            },
+            {
+              "Turnering": "Birch City Classic 2025",
+              "Posisjon": "15.",
+              "Poeng": "468",
+              "Type": "ITHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "4458",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "5",
+          "name": "Vegard Klippen",
+          "status": "Deltar ikke",
+          "points": "3704",
+          "tournaments": "7/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "2.",
+              "Poeng": "653",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "3.",
+              "Poeng": "604",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "8.",
+              "Poeng": "570",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "3.",
+              "Poeng": "510",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "3.",
+              "Poeng": "494",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "14.",
+              "Poeng": "454",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "6.",
+              "Poeng": "419",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "3704",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "6",
+          "name": "Arne Hetlelid",
+          "status": "Deltar ikke",
+          "points": "3612",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "13.",
+              "Poeng": "502",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "3.",
+              "Poeng": "493",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Trondheim Open 2026",
+              "Posisjon": "3.",
+              "Poeng": "489",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026 Veterans",
+              "Posisjon": "3.",
+              "Poeng": "475",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "5.",
+              "Poeng": "456",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "11.",
+              "Poeng": "433",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "6.",
+              "Poeng": "422",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "12.",
+              "Poeng": "342",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "3612",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "7",
+          "name": "Trond Ove Gangsoy",
+          "status": "Kvalifisert",
+          "points": "3310",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Veterans",
+              "Posisjon": "2.",
+              "Poeng": "550",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "16.",
+              "Poeng": "471",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "8.",
+              "Poeng": "463",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "7.",
+              "Poeng": "404",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "7.",
+              "Poeng": "381",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Trondheim Open 2026",
+              "Posisjon": "6.",
+              "Poeng": "377",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Trondheim Open 2025",
+              "Posisjon": "6.",
+              "Poeng": "350",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "14.",
+              "Poeng": "314",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "3310",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "8",
+          "name": "Benjamin Nygard",
+          "status": "Kvalifisert",
+          "points": "3210",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "2.",
+              "Poeng": "550",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "7.",
+              "Poeng": "493",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "21.",
+              "Poeng": "385",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "6.",
+              "Poeng": "358",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "18.",
+              "Poeng": "350",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "11.",
+              "Poeng": "286",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Swedish Masters 2026",
+              "Posisjon": "108.",
+              "Poeng": "426",
+              "Type": "ITHF"
+            },
+            {
+              "Turnering": "Birch City Classic 2025",
+              "Posisjon": "25.",
+              "Poeng": "362",
+              "Type": "ITHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "3210",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "9",
+          "name": "Arne Johannes Holmin",
+          "status": "Kvalifisert",
+          "points": "2833",
+          "tournaments": "7/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Veterans",
+              "Posisjon": "1.",
+              "Poeng": "600",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "6.",
+              "Poeng": "526",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "3.",
+              "Poeng": "506",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "9.",
+              "Poeng": "457",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Trondheim Open 2026",
+              "Posisjon": "7.",
+              "Poeng": "300",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "26.",
+              "Poeng": "244",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "11.",
+              "Poeng": "200",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "2833",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "10",
+          "name": "Ane Skadsem",
+          "status": "Kvalifisert",
+          "points": "2706",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Women",
+              "Posisjon": "1.",
+              "Poeng": "600",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "3.",
+              "Poeng": "475",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "13.",
+              "Poeng": "377",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "21.",
+              "Poeng": "296",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "12.",
+              "Poeng": "256",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "15.",
+              "Poeng": "242",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "27.",
+              "Poeng": "202",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Birch City Classic 2025",
+              "Posisjon": "36.",
+              "Poeng": "258",
+              "Type": "ITHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "2706",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "11",
+          "name": "Sinus Moberg",
+          "status": "Deltar ikke",
+          "points": "2631",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "1.",
+              "Poeng": "600",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "9.",
+              "Poeng": "423",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "7.",
+              "Poeng": "362",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "8.",
+              "Poeng": "355",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "19.",
+              "Poeng": "325",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "9.",
+              "Poeng": "255",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "28.",
+              "Poeng": "171",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "17.",
+              "Poeng": "140",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "2631",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "12",
+          "name": "Kristin Fjermestad",
+          "status": "Kvalifisert",
+          "points": "1886",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Women",
+              "Posisjon": "2.",
+              "Poeng": "550",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "4.",
+              "Poeng": "450",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "10.",
+              "Poeng": "210",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "13.",
+              "Poeng": "180",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "15.",
+              "Poeng": "160",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "18.",
+              "Poeng": "130",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "19.",
+              "Poeng": "120",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "30.",
+              "Poeng": "86",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "1886",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "13",
+          "name": "Frode Hagerup",
+          "status": "Deltar ikke",
+          "points": "1883",
+          "tournaments": "4/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "6.",
+              "Poeng": "607",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "11.",
+              "Poeng": "526",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026 Veterans",
+              "Posisjon": "4.",
+              "Poeng": "450",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "8.",
+              "Poeng": "300",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "1883",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "14",
+          "name": "Oystein Klippen",
+          "status": "Kvalifisert",
+          "points": "1678",
+          "tournaments": "3/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "6.",
+              "Poeng": "625",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "5.",
+              "Poeng": "561",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "7.",
+              "Poeng": "492",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "1678",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "15",
+          "name": "Kjartan Moberg",
+          "status": "Deltar ikke",
+          "points": "1657",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Veterans",
+              "Posisjon": "5.",
+              "Poeng": "400",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "13.",
+              "Poeng": "317",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "23.",
+              "Poeng": "230",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "12.",
+              "Poeng": "190",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "14.",
+              "Poeng": "170",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "14.",
+              "Poeng": "170",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "18.",
+              "Poeng": "130",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "31.",
+              "Poeng": "50",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "1657",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "16",
+          "name": "Gustav Bradland",
+          "status": "Kvalifisert",
+          "points": "1638",
+          "tournaments": "4/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "12.",
+              "Poeng": "505",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Trondheim Open 2025",
+              "Posisjon": "3.",
+              "Poeng": "475",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "10.",
+              "Poeng": "398",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Trondheim Open 2026",
+              "Posisjon": "8.",
+              "Poeng": "260",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "1638",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "17",
+          "name": "Yngve Aasheim",
+          "status": "",
+          "points": "1555",
+          "tournaments": "3/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Trondheim Open 2025",
+              "Posisjon": "2.",
+              "Poeng": "550",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "6.",
+              "Poeng": "516",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Trondheim Open 2026",
+              "Posisjon": "3.",
+              "Poeng": "489",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "1555",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "18",
+          "name": "Sondre Efteland Johansen",
+          "status": "",
+          "points": "1288",
+          "tournaments": "4/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "20.",
+              "Poeng": "406",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "17.",
+              "Poeng": "372",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "14.",
+              "Poeng": "280",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "9.",
+              "Poeng": "230",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "1288",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "19",
+          "name": "Hans Christian Lonne",
+          "status": "",
+          "points": "1158",
+          "tournaments": "3/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "10.",
+              "Poeng": "448",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "8.",
+              "Poeng": "381",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "9.",
+              "Poeng": "329",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "1158",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "20",
+          "name": "Oline Holmin Brunvoll",
+          "status": "",
+          "points": "975",
+          "tournaments": "5/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Women",
+              "Posisjon": "3.",
+              "Poeng": "475",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "17.",
+              "Poeng": "140",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "17.",
+              "Poeng": "140",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "19.",
+              "Poeng": "120",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "21.",
+              "Poeng": "100",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "975",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "21",
+          "name": "Mona Gangsoy",
+          "status": "",
+          "points": "955",
+          "tournaments": "5/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Women",
+              "Posisjon": "5.",
+              "Poeng": "400",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "13.",
+              "Poeng": "203",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "15.",
+              "Poeng": "160",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "20.",
+              "Poeng": "110",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "24.",
+              "Poeng": "82",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "955",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "22",
+          "name": "Linnea Gangsoy",
+          "status": "",
+          "points": "884",
+          "tournaments": "5/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Women",
+              "Posisjon": "6.",
+              "Poeng": "350",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "13.",
+              "Poeng": "180",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "16.",
+              "Poeng": "150",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "20.",
+              "Poeng": "110",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "22.",
+              "Poeng": "94",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "884",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "23",
+          "name": "Anne Grethe Gangsoy",
+          "status": "",
+          "points": "843",
+          "tournaments": "4/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "9.",
+              "Poeng": "292",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "15.",
+              "Poeng": "248",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "16.",
+              "Poeng": "203",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "21.",
+              "Poeng": "100",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "843",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "24",
+          "name": "Jonas Bolstad",
+          "status": "",
+          "points": "704",
+          "tournaments": "3/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "6.",
+              "Poeng": "350",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "12.",
+              "Poeng": "190",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "17.",
+              "Poeng": "164",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "704",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "25",
+          "name": "Ivar Stadheim",
+          "status": "",
+          "points": "654",
+          "tournaments": "3/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "5.",
+              "Poeng": "400",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "15.",
+              "Poeng": "160",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "22.",
+              "Poeng": "94",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "654",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "26",
+          "name": "Julia Carina Gangsoy",
+          "status": "",
+          "points": "646",
+          "tournaments": "3/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Women",
+              "Posisjon": "4.",
+              "Poeng": "450",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "19.",
+              "Poeng": "120",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "25.",
+              "Poeng": "76",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "646",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "27",
+          "name": "Thorbjorn F. Hestvaag",
+          "status": "",
+          "points": "631",
+          "tournaments": "2/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "7.",
+              "Poeng": "326",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "24.",
+              "Poeng": "305",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "631",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "28",
+          "name": "Andreas Roren",
+          "status": "",
+          "points": "554",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "5.",
+              "Poeng": "554",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "554",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "29",
+          "name": "Espen Moe",
+          "status": "",
+          "points": "550",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Trondheim Open 2026",
+              "Posisjon": "2.",
+              "Poeng": "550",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "550",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "30",
+          "name": "Rikard Oddane",
+          "status": "",
+          "points": "543",
+          "tournaments": "2/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Czech Open 2026",
+              "Posisjon": "110.",
+              "Poeng": "275",
+              "Type": "ITHF"
+            },
+            {
+              "Turnering": "Tallinn Cup 2025",
+              "Posisjon": "107.",
+              "Poeng": "268",
+              "Type": "ITHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "543",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "31",
+          "name": "Nicolas Trae",
+          "status": "",
+          "points": "442",
+          "tournaments": "3/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "9.",
+              "Poeng": "230",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "15.",
+              "Poeng": "160",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "29.",
+              "Poeng": "52",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "442",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "32",
+          "name": "Vegard Flatoy",
+          "status": "",
+          "points": "422",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "6.",
+              "Poeng": "422",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "422",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "33",
+          "name": "Ruben Nesse Haland",
+          "status": "",
+          "points": "400",
+          "tournaments": "2/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "7.",
+              "Poeng": "300",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "21.",
+              "Poeng": "100",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "400",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "34",
+          "name": "Sondre Schulze Stapnes",
+          "status": "",
+          "points": "330",
+          "tournaments": "2/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "8.",
+              "Poeng": "260",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "26.",
+              "Poeng": "70",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "330",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "35",
+          "name": "Hakon Hugdahl Larsen",
+          "status": "",
+          "points": "300",
+          "tournaments": "2/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "14.",
+              "Poeng": "170",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "18.",
+              "Poeng": "130",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "300",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "36",
+          "name": "Emil Bjondal Lonne",
+          "status": "",
+          "points": "274",
+          "tournaments": "2/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "10.",
+              "Poeng": "210",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "27.",
+              "Poeng": "64",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "274",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "37",
+          "name": "Kanutte Holmin Brunvoll",
+          "status": "",
+          "points": "270",
+          "tournaments": "2/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "16.",
+              "Poeng": "150",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "19.",
+              "Poeng": "120",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "270",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "38",
+          "name": "Einar Stadheim",
+          "status": "",
+          "points": "238",
+          "tournaments": "2/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "16.",
+              "Poeng": "150",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "23.",
+              "Poeng": "88",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "238",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "39",
+          "name": "Morten Aarflot",
+          "status": "",
+          "points": "230",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Trondheim Open 2026",
+              "Posisjon": "9.",
+              "Poeng": "230",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "230",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "40",
+          "name": "Jonas Fjelde Larsen",
+          "status": "",
+          "points": "210",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "10.",
+              "Poeng": "210",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "210",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "41",
+          "name": "Simen Stolsnes",
+          "status": "",
+          "points": "190",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "12.",
+              "Poeng": "190",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "190",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "42",
+          "name": "Anders Helle",
+          "status": "",
+          "points": "170",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "14.",
+              "Poeng": "170",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "170",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "43",
+          "name": "Gudmund Hagerup Roken",
+          "status": "",
+          "points": "150",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "16.",
+              "Poeng": "150",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "150",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "44",
+          "name": "Torbjorn Taksdal",
+          "status": "",
+          "points": "140",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "17.",
+              "Poeng": "140",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "140",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "45",
+          "name": "Vincent Refshus Hagerup",
+          "status": "Deltar ikke",
+          "points": "140",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "17.",
+              "Poeng": "140",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "140",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "46",
+          "name": "Isla Tufteland",
+          "status": "",
+          "points": "130",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "18.",
+              "Poeng": "130",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "130",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "47",
+          "name": "Judith Taksdal",
+          "status": "",
+          "points": "130",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "18.",
+              "Poeng": "130",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "130",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "48",
+          "name": "Markus Kvingedal",
+          "status": "",
+          "points": "110",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "20.",
+              "Poeng": "110",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "110",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "49",
+          "name": "Tomas Hoven Skauge",
+          "status": "",
+          "points": "110",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "20.",
+              "Poeng": "110",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "110",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "50",
+          "name": "Ada Falch",
+          "status": "",
+          "points": "100",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "21.",
+              "Poeng": "100",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "100",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "51",
+          "name": "Johan Kvingedal",
+          "status": "",
+          "points": "94",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "22.",
+              "Poeng": "94",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "94",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "52",
+          "name": "Karl Satre",
+          "status": "",
+          "points": "88",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "23.",
+              "Poeng": "88",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "88",
+              "Type": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dame",
+      "players": [
+        {
+          "rank": "1",
+          "name": "Ane Skadsem",
+          "status": "Kvalifisert",
+          "points": "2706",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Women",
+              "Posisjon": "1.",
+              "Poeng": "600",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "3.",
+              "Poeng": "475",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "13.",
+              "Poeng": "377",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "21.",
+              "Poeng": "296",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "12.",
+              "Poeng": "256",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "15.",
+              "Poeng": "242",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "27.",
+              "Poeng": "202",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Birch City Classic 2025",
+              "Posisjon": "36.",
+              "Poeng": "258",
+              "Type": "ITHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "2706",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "2",
+          "name": "Kristin Fjermestad",
+          "status": "Kvalifisert",
+          "points": "1886",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Women",
+              "Posisjon": "2.",
+              "Poeng": "550",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "4.",
+              "Poeng": "450",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "10.",
+              "Poeng": "210",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "13.",
+              "Poeng": "180",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "15.",
+              "Poeng": "160",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "18.",
+              "Poeng": "130",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "19.",
+              "Poeng": "120",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "30.",
+              "Poeng": "86",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "1886",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "3",
+          "name": "Mona Gangsoy",
+          "status": "Kvalifisert",
+          "points": "977",
+          "tournaments": "6/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Women",
+              "Posisjon": "5.",
+              "Poeng": "400",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "13.",
+              "Poeng": "203",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "15.",
+              "Poeng": "160",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "20.",
+              "Poeng": "110",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "24.",
+              "Poeng": "82",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025 Women",
+              "Posisjon": "5.",
+              "Poeng": "22",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "977",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "4",
+          "name": "Oline Holmin Brunvoll",
+          "status": "Kvalifisert",
+          "points": "976",
+          "tournaments": "6/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Women",
+              "Posisjon": "3.",
+              "Poeng": "475",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "17.",
+              "Poeng": "140",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "17.",
+              "Poeng": "140",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "19.",
+              "Poeng": "120",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "21.",
+              "Poeng": "100",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025 Women",
+              "Posisjon": "6.",
+              "Poeng": "1",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "976",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "5",
+          "name": "Anne Grethe Gangsoy",
+          "status": "Kvalifisert",
+          "points": "951",
+          "tournaments": "5/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "9.",
+              "Poeng": "292",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "15.",
+              "Poeng": "248",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "16.",
+              "Poeng": "203",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025 Women",
+              "Posisjon": "2.",
+              "Poeng": "108",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "21.",
+              "Poeng": "100",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "951",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "6",
+          "name": "Linnea Gangsoy",
+          "status": "",
+          "points": "925",
+          "tournaments": "6/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Women",
+              "Posisjon": "6.",
+              "Poeng": "350",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "13.",
+              "Poeng": "180",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "16.",
+              "Poeng": "150",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "20.",
+              "Poeng": "110",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "22.",
+              "Poeng": "94",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025 Women",
+              "Posisjon": "4.",
+              "Poeng": "41",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "925",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "7",
+          "name": "Julia Carina Gangsoy",
+          "status": "",
+          "points": "646",
+          "tournaments": "3/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Women",
+              "Posisjon": "4.",
+              "Poeng": "450",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "19.",
+              "Poeng": "120",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "25.",
+              "Poeng": "76",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "646",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "8",
+          "name": "Kanutte Holmin Brunvoll",
+          "status": "",
+          "points": "270",
+          "tournaments": "2/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "16.",
+              "Poeng": "150",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "19.",
+              "Poeng": "120",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "270",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "9",
+          "name": "Isla Tufteland",
+          "status": "",
+          "points": "130",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "18.",
+              "Poeng": "130",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "130",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "10",
+          "name": "Ada Falch",
+          "status": "",
+          "points": "100",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "21.",
+              "Poeng": "100",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "100",
+              "Type": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Junior",
+      "players": [
+        {
+          "rank": "1",
+          "name": "Benjamin Nygard",
+          "status": "Kvalifisert",
+          "points": "3221",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "2.",
+              "Poeng": "550",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "7.",
+              "Poeng": "493",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "21.",
+              "Poeng": "385",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "6.",
+              "Poeng": "358",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "18.",
+              "Poeng": "350",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025 Juniors",
+              "Posisjon": "1.",
+              "Poeng": "297",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Swedish Masters 2026",
+              "Posisjon": "108.",
+              "Poeng": "426",
+              "Type": "ITHF"
+            },
+            {
+              "Turnering": "Birch City Classic 2025",
+              "Posisjon": "25.",
+              "Poeng": "362",
+              "Type": "ITHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "3221",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "2",
+          "name": "Ane Skadsem",
+          "status": "Kvalifisert",
+          "points": "2706",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Women",
+              "Posisjon": "1.",
+              "Poeng": "600",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "3.",
+              "Poeng": "475",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "13.",
+              "Poeng": "377",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "21.",
+              "Poeng": "296",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "12.",
+              "Poeng": "256",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "15.",
+              "Poeng": "242",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "27.",
+              "Poeng": "202",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Birch City Classic 2025",
+              "Posisjon": "36.",
+              "Poeng": "258",
+              "Type": "ITHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "2706",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "3",
+          "name": "Sinus Moberg",
+          "status": "Deltar ikke",
+          "points": "2631",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "1.",
+              "Poeng": "600",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "9.",
+              "Poeng": "423",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "7.",
+              "Poeng": "362",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "8.",
+              "Poeng": "355",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "19.",
+              "Poeng": "325",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "9.",
+              "Poeng": "255",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "28.",
+              "Poeng": "171",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "17.",
+              "Poeng": "140",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "2631",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "4",
+          "name": "Kristin Fjermestad",
+          "status": "Kvalifisert",
+          "points": "1886",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Women",
+              "Posisjon": "2.",
+              "Poeng": "550",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "4.",
+              "Poeng": "450",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "10.",
+              "Poeng": "210",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "13.",
+              "Poeng": "180",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "15.",
+              "Poeng": "160",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "18.",
+              "Poeng": "130",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "19.",
+              "Poeng": "120",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "30.",
+              "Poeng": "86",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "1886",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "5",
+          "name": "Mona Gangsoy",
+          "status": "Kvalifisert",
+          "points": "985",
+          "tournaments": "6/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Women",
+              "Posisjon": "5.",
+              "Poeng": "400",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "13.",
+              "Poeng": "203",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "15.",
+              "Poeng": "160",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "20.",
+              "Poeng": "110",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "24.",
+              "Poeng": "82",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025 Juniors",
+              "Posisjon": "5.",
+              "Poeng": "30",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "985",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "6",
+          "name": "Oline Holmin Brunvoll",
+          "status": "Kvalifisert",
+          "points": "975",
+          "tournaments": "5/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Women",
+              "Posisjon": "3.",
+              "Poeng": "475",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "17.",
+              "Poeng": "140",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "17.",
+              "Poeng": "140",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "19.",
+              "Poeng": "120",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "21.",
+              "Poeng": "100",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "975",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "7",
+          "name": "Linnea Gangsoy",
+          "status": "",
+          "points": "899",
+          "tournaments": "6/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Women",
+              "Posisjon": "6.",
+              "Poeng": "350",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "13.",
+              "Poeng": "180",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "16.",
+              "Poeng": "150",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "20.",
+              "Poeng": "110",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "22.",
+              "Poeng": "94",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025 Juniors",
+              "Posisjon": "6.",
+              "Poeng": "15",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "899",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "8",
+          "name": "Jonas Bolstad",
+          "status": "",
+          "points": "704",
+          "tournaments": "3/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "6.",
+              "Poeng": "350",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "12.",
+              "Poeng": "190",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "17.",
+              "Poeng": "164",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "704",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "9",
+          "name": "Ivar Stadheim",
+          "status": "",
+          "points": "654",
+          "tournaments": "3/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "5.",
+              "Poeng": "400",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "15.",
+              "Poeng": "160",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "22.",
+              "Poeng": "94",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "654",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "10",
+          "name": "Julia Carina Gangsoy",
+          "status": "",
+          "points": "647",
+          "tournaments": "4/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Women",
+              "Posisjon": "4.",
+              "Poeng": "450",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "19.",
+              "Poeng": "120",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "25.",
+              "Poeng": "76",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025 Juniors",
+              "Posisjon": "7.",
+              "Poeng": "1",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "647",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "11",
+          "name": "Nicolas Trae",
+          "status": "",
+          "points": "442",
+          "tournaments": "3/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "9.",
+              "Poeng": "230",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "15.",
+              "Poeng": "160",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "29.",
+              "Poeng": "52",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "442",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "12",
+          "name": "Ruben Nesse Haland",
+          "status": "",
+          "points": "400",
+          "tournaments": "2/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "7.",
+              "Poeng": "300",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "21.",
+              "Poeng": "100",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "400",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "13",
+          "name": "Sondre Schulze Stapnes",
+          "status": "",
+          "points": "330",
+          "tournaments": "2/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Juniors",
+              "Posisjon": "8.",
+              "Poeng": "260",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "26.",
+              "Poeng": "70",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "330",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "14",
+          "name": "Hakon Hugdahl Larsen",
+          "status": "",
+          "points": "300",
+          "tournaments": "2/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "14.",
+              "Poeng": "170",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "18.",
+              "Poeng": "130",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "300",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "15",
+          "name": "Kanutte Holmin Brunvoll",
+          "status": "",
+          "points": "270",
+          "tournaments": "2/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "16.",
+              "Poeng": "150",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "19.",
+              "Poeng": "120",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "270",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "16",
+          "name": "Jonas Fjelde Larsen",
+          "status": "",
+          "points": "210",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "10.",
+              "Poeng": "210",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "210",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "17",
+          "name": "Isla Tufteland",
+          "status": "",
+          "points": "130",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "18.",
+              "Poeng": "130",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "130",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "18",
+          "name": "Tomas Hoven Skauge",
+          "status": "",
+          "points": "110",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "20.",
+              "Poeng": "110",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "110",
+              "Type": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Veteran",
+      "players": [
+        {
+          "rank": "1",
+          "name": "Arne Hetlelid",
+          "status": "Deltar ikke",
+          "points": "3667",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "13.",
+              "Poeng": "502",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "3.",
+              "Poeng": "493",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Trondheim Open 2026",
+              "Posisjon": "3.",
+              "Poeng": "489",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026 Veterans",
+              "Posisjon": "3.",
+              "Poeng": "475",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "5.",
+              "Poeng": "456",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "11.",
+              "Poeng": "433",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "6.",
+              "Poeng": "422",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025 Veterans",
+              "Posisjon": "3.",
+              "Poeng": "397",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "3667",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "2",
+          "name": "Arne Johannes Holmin",
+          "status": "Kvalifisert",
+          "points": "3037",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Veterans",
+              "Posisjon": "1.",
+              "Poeng": "600",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "6.",
+              "Poeng": "526",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "3.",
+              "Poeng": "506",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "9.",
+              "Poeng": "457",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Trondheim Open 2026",
+              "Posisjon": "7.",
+              "Poeng": "300",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "26.",
+              "Poeng": "244",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025 Veterans",
+              "Posisjon": "5.",
+              "Poeng": "204",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2024",
+              "Posisjon": "11.",
+              "Poeng": "200",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "3037",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "3",
+          "name": "Yngve Aasheim",
+          "status": "Kvalifisert",
+          "points": "2048",
+          "tournaments": "4/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Trondheim Open 2025",
+              "Posisjon": "2.",
+              "Poeng": "550",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "6.",
+              "Poeng": "516",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025 Veterans",
+              "Posisjon": "1.",
+              "Poeng": "493",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Trondheim Open 2026",
+              "Posisjon": "3.",
+              "Poeng": "489",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "2048",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "4",
+          "name": "Kjartan Moberg",
+          "status": "Deltar ikke",
+          "points": "1657",
+          "tournaments": "8/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2026 Veterans",
+              "Posisjon": "5.",
+              "Poeng": "400",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2026",
+              "Posisjon": "13.",
+              "Poeng": "317",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2025",
+              "Posisjon": "23.",
+              "Poeng": "230",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2025",
+              "Posisjon": "12.",
+              "Poeng": "190",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Jaren Open 2026",
+              "Posisjon": "14.",
+              "Poeng": "170",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Krohnengen Open 2025",
+              "Posisjon": "14.",
+              "Poeng": "170",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norwegian Championships 2025",
+              "Posisjon": "18.",
+              "Poeng": "130",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Norway Open 2024",
+              "Posisjon": "31.",
+              "Poeng": "50",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "1657",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "5",
+          "name": "Espen Moe",
+          "status": "Kvalifisert",
+          "points": "550",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Trondheim Open 2026",
+              "Posisjon": "2.",
+              "Poeng": "550",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "550",
+              "Type": ""
+            }
+          ]
+        },
+        {
+          "rank": "6",
+          "name": "Trond Selseng",
+          "status": "Kvalifisert",
+          "points": "308",
+          "tournaments": "1/8 turneringer",
+          "results": [
+            {
+              "Turnering": "Norwegian Championships 2025 Veterans",
+              "Posisjon": "4.",
+              "Poeng": "308",
+              "Type": "NBHF"
+            },
+            {
+              "Turnering": "Sum",
+              "Posisjon": "",
+              "Poeng": "308",
+              "Type": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
