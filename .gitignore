@@ -9,3 +9,4 @@ migration/raw
 .wrangler
 participants export wix.csv
 public/ranking.json
+media-originals/
