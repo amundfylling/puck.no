@@ -48,13 +48,16 @@ cp .dev.vars.example .dev.vars     # Cloudflare's public always-pass TEST keys
 cp .dev.vars.example .env          # or just the PUBLIC_ line
 npm run build
 
-# one-time local database setup:
-npx wrangler d1 migrations apply DB --local
+# one-time local database setup (database_name from wrangler.toml is "puck-no" —
+# always use that name, NOT the binding name "DB", and do NOT pass --d1 to
+# pages dev: both mistakes silently create a second, empty local database
+# and every API call fails with 500 "no such table: registrations"):
+npx wrangler d1 migrations apply puck-no --local
 node scripts/seed-d1.mjs > /tmp/seed.sql
-npx wrangler d1 execute DB --local --file=/tmp/seed.sql
+npx wrangler d1 execute puck-no --local --file=/tmp/seed.sql
 
-# serve static site + functions + local D1:
-npx wrangler pages dev dist --d1 DB --local
+# serve static site + functions + local D1 (bindings come from wrangler.toml):
+npx wrangler pages dev dist --local
 ```
 
 ### Seeded data (the 135 pre-migration registrations)
