@@ -22,6 +22,12 @@ bilingual: Norwegian (default, at `/...`) and English (at `/en/...`).
   Cloudflare Worker (GitHub OAuth) — deployment is Phase 5 (LAUNCH.md).
   CMS saves commit directly to `main` (publish_mode: simple); developers
   still use pull requests.
+- **Phase 5 (docs done, launch pending):** `LAUNCH.md` is the full
+  Norwegian runbook — deploy to the free `puck-no.pages.dev` domain first,
+  verify everything, then cut `puck.no` over. Repo niceties: MIT `LICENSE`,
+  Dependabot, PR previews. If local originals are ever lost, re-fetch them
+  from the (still live) Wix CDN with `node migration/restore-originals.mjs`
+  (verifies sha256 against `migration/manifest.json`).
 
 ## Toolchain
 

@@ -55,18 +55,28 @@ async function optimize(src, dest, maxWidth) {
 }
 
 const jobs = [];
-for await (const src of walk(SRC)) {
-  const rel = path.relative(SRC, src); // e.g. images/foo.jpg or galleries/slug/foo.jpg
-  const ext = path.extname(src).toLowerCase();
-  if (!['.jpg', '.jpeg', '.png', '.webp'].includes(ext)) continue;
-  const dest = path.join(OUT, rel);
-  if (rel.startsWith('galleries' + path.sep)) {
-    const dir = path.dirname(dest);
-    jobs.push(() => optimize(src, path.join(dir, 'thumbs', path.basename(dest)), 600));
-    jobs.push(() => optimize(src, dest, 1600));
-  } else {
-    jobs.push(() => optimize(src, dest, 1600));
+try {
+  for await (const src of walk(SRC)) {
+    const rel = path.relative(SRC, src); // e.g. images/foo.jpg or galleries/slug/foo.jpg
+    const ext = path.extname(src).toLowerCase();
+    if (!['.jpg', '.jpeg', '.png', '.webp'].includes(ext)) continue;
+    const dest = path.join(OUT, rel);
+    if (rel.startsWith('galleries' + path.sep)) {
+      const dir = path.dirname(dest);
+      jobs.push(() => optimize(src, path.join(dir, 'thumbs', path.basename(dest)), 600));
+      jobs.push(() => optimize(src, dest, 1600));
+    } else {
+      jobs.push(() => optimize(src, dest, 1600));
+    }
   }
+} catch (err) {
+  if (err.code === 'ENOENT') {
+    // No originals (fresh clone / originals kept off-git). The committed
+    // web variants in public/media are used as-is — nothing to do.
+    console.log('optimize-media: media-originals/ mangler — bruker committede varianter i public/media (ingenting å gjøre)');
+    process.exit(0);
+  }
+  throw err;
 }
 
 let done = 0, skipped = 0, failed = 0;

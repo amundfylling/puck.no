@@ -1,0 +1,23 @@
+# Dependabot — hold npm-avhengigheter oppdaterte (ukentlig, mot main som PR)
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '06:00'
+    open-pull-requests-limit: 5
+    labels: [dependencies]
+  - package-ecosystem: npm
+    directory: /migration
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 3
+    labels: [dependencies]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 3
+    labels: [ci]

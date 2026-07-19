@@ -115,3 +115,17 @@ tournament, type (player/team) and a timestamp.
    `wrangler.toml`, apply migrations + seed with `--remote`.
 4. Set `TURNSTILE_SECRET_KEY` (Pages env var / secret).
 5. Cloudflare Access policy for `/admin/*` and `/api/admin/*`; set `ACCESS_TEAM_NAME`.
+
+## Repository & workflow
+
+- **Branch protection (recommended):** GitHub → Settings → Branches → add
+  rule for `main`: require a pull request before merging (1 approval is
+  enough for a small team) and require status checks if CI is added later.
+  Note: the Sveltia CMS commits directly to `main` for board members — keep
+  the rule but allow the CMS/GitHub-app actor, or leave protection off until
+  multiple developers are active (documented decision: CMS needs direct
+  commits, see `publish_mode: simple` in `public/admin/config.yml`).
+- **Pull requests get free preview deployments** on Cloudflare Pages
+  (`https://<branch>.<project>.pages.dev`) — use them to review changes.
+- **Dependabot** is configured (`.github/dependabot.yml`): weekly npm PRs.
+- **License:** MIT (see `LICENSE`).
