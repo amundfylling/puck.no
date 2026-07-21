@@ -7,6 +7,8 @@ categories: []
 cover: "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.png"
 description: "It was a bright and sunny Saturday, August 23rd, when 29 players from Norway, Latvia, Sweden, and the Czech Republic gathered at Frøyland Elementary School for an international tournament. Whether the Czechs had slept well at Hotel Fjermestad is unknown, but they brought energy from morning until night."
 ---
+*This article was translated by AI. The original article is written in Norwegian.*
+
 It was a bright and sunny Saturday, August 23rd, when 29 players from Norway, Latvia, Sweden, and the Czech Republic gathered at Frøyland Elementary School for an international tournament. Whether the Czechs had slept well at Hotel Fjermestad is unknown, but they brought energy from morning until night. While it was a pleasure to welcome international stars like Edgars Caics and Eddie Nilsson, the organizers had hoped for more traveling Norwegian players than just D. Nygård, Ø. Klippen, and Brådland.
 
 After a preliminary round with few surprises, and with political discussions and pizza for lunch, the real tournament finally got underway.
@@ -54,5 +56,3 @@ When the goals were forgotten, we had to improvise. The solution was a Coke can 
 A big thank you to the organizers for a great and professional tournament!
 
 The next tournament is Bergen Open, November 15. [Click here](/turneringer/bergen-open-2025) to register.
-
-Note: The original article is written in Norwegian. The translation is partially done using artificial intelligence.

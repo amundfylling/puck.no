@@ -7,6 +7,8 @@ categories: []
 cover: "/media/images/hvem-vinner-bordhockey-nm-2025-71abf4ce.webp"
 description: "The big highlight of the year in Norwegian table hockey is just around the corner. Daniel Nygård and Øystein Klippen deliver their predictions."
 ---
+*This article was translated by AI. The original article is written in Norwegian.*
+
 **The big highlight of the year in Norwegian table hockey is just around the corner. On Saturday, March 29, the Norwegian Table Hockey Championship will be held in Bergen. Daniel Nygård has teamed up with his previous teacher Øystein Klippen to find the answer to how it all ends.**
 
 Foto montage of Norwegian Championship 2025

@@ -23,8 +23,6 @@ const l = {
   allNews: t(lang, 'allNews'),
   aboutHeading: lang === 'en' ? 'About the Norwegian Table Hockey Association' : 'Om Norges Bordhockeyforbund',
   readMore: t(lang, 'readMore'),
-  statTournaments: lang === 'en' ? 'tournaments a year' : 'turneringer i året',
-  statLeagues: lang === 'en' ? 'local leagues' : 'lokalligaer',
 };
 ---
 
@@ -38,18 +36,6 @@ const l = {
         <a href={pagePath('lokalligaer', lang)} class="btn-outline">{l.leagues}</a>
         <a href={pagePath('turneringer', lang)} class="btn-outline">{l.tournaments}</a>
       </div>
-      <dl class="mt-8 flex gap-10 border-t border-slate-300/70 pt-5">
-        <div>
-          <dt class="sr-only">{l.statTournaments}</dt>
-          <dd class="text-3xl font-extrabold text-brand">5</dd>
-          <dd class="text-sm text-slate-600">{l.statTournaments}</dd>
-        </div>
-        <div>
-          <dt class="sr-only">{l.statLeagues}</dt>
-          <dd class="text-3xl font-extrabold text-brand">2</dd>
-          <dd class="text-sm text-slate-600">{l.statLeagues}</dd>
-        </div>
-      </dl>
     </div>
     <img
       src="/media/images/index-2f7a1d75.png"
