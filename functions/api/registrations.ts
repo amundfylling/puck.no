@@ -16,6 +16,10 @@
  * and country/WR stay NULL. Contact info (email/phone) is stored once per
  * registration — for teams, for the team as a whole.
  *
+ * Duplicates are rejected per tournament on player_id for ranked players
+ * (one ITHF id per person, regardless of email) and on lower(email) for
+ * everyone else (partial unique indexes in migrations/0002_player_id.sql).
+ *
  * Responses: 201 created · 400 validation (Norwegian messages) ·
  * 403 Turnstile failed · 409 duplicate · 502 ranking unavailable ·
  * 405 other methods. All queries are parameterised.
@@ -176,6 +180,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   let name: string;
   let country: string | null = null;
   let wr: number | null = null;
+  let playerId: number | null = null;
 
   if (body.type === 'team') {
     const ids = Array.isArray(body.playerIds)
@@ -214,6 +219,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       name = player.name;
       country = player.nation || null;
       wr = player.rank;
+      playerId = id;
     } else {
       name = (body.name as string).trim();
     }
@@ -224,10 +230,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
   try {
     const result = await context.env.DB.prepare(
-      `INSERT INTO registrations (tournament_slug, type, name, country, email, phone, world_ranking)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO registrations (tournament_slug, type, name, country, email, phone, world_ranking, player_id)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
     )
-      .bind(body.tournament_slug as string, body.type as string, name, country, email, phone, wr)
+      .bind(body.tournament_slug as string, body.type as string, name, country, email, phone, wr, playerId)
       .run();
     return json({ ok: true, id: result.meta.last_row_id }, 201);
   } catch (err) {
