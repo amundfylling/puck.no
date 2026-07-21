@@ -99,6 +99,11 @@ export const ui = {
   past: { no: 'Tidligere', en: 'Past' },
   upcomingTournaments: { no: 'Kommende turneringer', en: 'Upcoming tournaments' },
   pastTournaments: { no: 'Tidligere turneringer', en: 'Past tournaments' },
+  noUpcomingTournaments: {
+    no: 'Ingen kommende turneringer akkurat nå.',
+    en: 'No upcoming tournaments right now.',
+  },
+  location: { no: 'Sted', en: 'Location' },
   registeredPlayers: { no: 'Påmeldte spillere', en: 'Registered players' },
   name: { no: 'Navn', en: 'Name' },
   country: { no: 'Land', en: 'Country' },

@@ -15,7 +15,9 @@ const docs = [...documents].sort((a, b) => b.year - a.year);
     docs.map((doc) => (
       <li class="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
         <div>
-          <p class="font-semibold text-navy">{doc.title}</p>
+          <p class="font-semibold text-navy">
+          {lang === 'en' ? `Annual meeting minutes ${doc.year}` : doc.title}
+        </p>
           <p class="text-sm text-slate-500">{doc.year}</p>
         </div>
         <a href={doc.file} target="_blank" rel="noopener" class="btn-outline !px-3 !py-1.5 text-sm">

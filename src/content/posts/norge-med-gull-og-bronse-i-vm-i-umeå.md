@@ -25,7 +25,9 @@ Yngve på pallen sammen med Truls Månsson (venstre) og Igor Saveljev (høyre)
 
 Yngve Aasheim tok **Norges eneste gull** i superveteran-klassen og gjentok dermed triumfen fra 2019. Med sin unike spillestil imponerte han både kommentatorene og seerne, og leverte en finale det vil bli snakket om lenge. Finalen kan sees her (fra 2:41:10):
 
-[https://youtu.be/s20A\_jdG8Ow?t=9669](https://youtu.be/s20A_jdG8Ow?t=9669)
+<div class="video-embed">
+  <iframe src="https://www.youtube-nocookie.com/embed/s20A_jdG8Ow?start=9669" title="Finalen i superveteran-klassen" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 
 ## Individuelle plasseringer i åpen klasse:
 

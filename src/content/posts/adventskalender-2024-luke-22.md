@@ -5,9 +5,8 @@ lang: "no"
 pubDate: "2024-12-22T09:00:13.772Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-22-780b4615.png"
-description: "Det var den tidligere bergensligaspilleren Anders Lægland Ellingsen som skjulte seg bak luke 21. Dermed ser sammenlagttabellen slik ut:Hvem befinner seg bak dagens luke?1. Hva er/var din favoritt kombinasjon eller triks? Latvia skudd i lengste smaker som snop.2. Hva er din favorittlunsj på en bordhockeyturnering? Grilla burger uten ost.3. Hvilken turnering liker/likte du best å reise til?NM fordi da kan jeg delta i flere klasser.4. Hva er ditt beste bordhockey øyeblikk? Da jeg slo Magnus 6-5.5."
+description: "Det var den tidligere bergensligaspilleren Anders Lægland Ellingsen som skjulte seg bak luke 21. Dermed ser sammenlagttabellen slik ut:Hvem befinner seg bak dagens luke?"
 ---
-![](/media/images/adventskalender-2024-luke-22-780b4615.png)
 
 Det var den tidligere bergensligaspilleren Anders Lægland Ellingsen som skjulte seg bak luke 21. Dermed ser sammenlagttabellen slik ut:
 

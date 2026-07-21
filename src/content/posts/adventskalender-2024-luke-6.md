@@ -5,9 +5,8 @@ lang: "no"
 pubDate: "2024-12-06T09:00:07.498Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-6-d2bfac6c.png"
-description: "Vi bevegde oss tilbake til Jæren, og riktig svar var Juvelvegens beste spiller; Daniel Nygård. Hvilken bordhockeyspiller skjuler seg bak luke 6?1. Hva er/var din favoritt kombinasjon eller triks? Høyreskyffel på nedsiden av motstanderens venstreback. 2. Hva er din favorittlunsj på en bordhockeyturnering? Liker når det er en organisert lunsj i spillelokalet. Pizza, farsa eller hamburgere fungerer bra. 3. Hvilken turnering liker/likte du best å reise til?Mange gode turneringer på Jæren. Likevel no"
+description: "Vi bevegde oss tilbake til Jæren, og riktig svar var Juvelvegens beste spiller; Daniel Nygård. Hvilken bordhockeyspiller skjuler seg bak luke 6?"
 ---
-![](/media/images/adventskalender-2024-luke-6-d2bfac6c.png)
 
 Vi bevegde oss tilbake til Jæren, og riktig svar var Juvelvegens beste spiller; Daniel Nygård. Hvilken bordhockeyspiller skjuler seg bak luke 6?
 

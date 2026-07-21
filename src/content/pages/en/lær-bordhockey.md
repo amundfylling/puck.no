@@ -1,20 +1,20 @@
 ---
-title: "PLAY TABLE HOCKEY"
+title: "Learn table hockey"
 slug: "lær-bordhockey"
 lang: "en"
 description: null
-seoTitle: "PLAY TABLE HOCKEY | Bordhockeyforbundet"
+seoTitle: "Learn table hockey | Bordhockeyforbundet"
 menuOrder: 3
 ---
 
-## Do you live in Bergen or the Stavanger area?
+## Have you never played table hockey before?
 
-We have active local leagues that play table hockey weekly in both Bergen and Kvernaland. Players of all ages and skill levels are welcome to participate!
+Brent Plast Bordhockeyklubb has made a video series that covers the fundamentals of table hockey. This will definitely kickstart your table hockey career!
 
-[Join a local league](/en/lokalligaer)
+[Videos](/en/lær-bordhockey-videoer)
 
-## Do you live in Bergen or the Stavanger area?
+## Do you want to learn a new combination?
 
-We have active local leagues that play table hockey weekly in both Bergen and Kvernaland. Players of all ages and skill levels are welcome to participate!
+Here we have tried to gather all known combinations with descriptions and names. Feel free to suggest combinations that are missing!
 
-[Join a local league](/en/lokalligaer)
+[Combinations](/en/lær-bordhockey-kombinasjoner)

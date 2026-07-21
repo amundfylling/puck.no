@@ -1,9 +1,9 @@
 ---
-title: "NYHETER"
+title: "NEWS"
 slug: "blog"
 lang: "en"
-description: "Siste nytt fra bordhockeynorge! Her kan man lese seg opp på kommende eller ferdigspilte turneringer og annet spennende innhold."
-seoTitle: "NYHETER | Bordhockeyforbundet"
+description: "The latest news from Norwegian table hockey! Read up on upcoming and completed tournaments and other exciting content."
+seoTitle: "NEWS | Bordhockeyforbundet"
 menuOrder: 5
 ---
 ![122d22ef-0433-4179-809c-cd7616b47e0a\_edited.jpg](/media/images/blog-32ec236c.jpg)
@@ -44,14 +44,14 @@ Sep 6, 20254 min read
 
 ](/en/post/who-will-win-the-norwegian-championship-2025)
 
-Årets store høydepunkt i norsk bordhockey er rett rundt hjørnet. Daniel Nygård og Øystein Klippen leverer sitt forhåndstips.
+The big highlight of the year in Norwegian table hockey is just around the corner. Daniel Nygård and Øystein Klippen deliver their predictions.
 
 [
 
-![Writer: Styret](/media/images/blog-36a06623.jpg)
+![Writer: The Board](/media/images/blog-36a06623.jpg)
 
 ](/en/members-area/aa3957e8-9e4b-40e5-8f56-1b4a13f30ec5/profile)
 
-[Styret](/en/members-area/aa3957e8-9e4b-40e5-8f56-1b4a13f30ec5/profile)
+[The Board](/en/members-area/aa3957e8-9e4b-40e5-8f56-1b4a13f30ec5/profile)
 
 Jun 16, 20252 min read

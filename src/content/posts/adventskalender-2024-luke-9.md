@@ -5,9 +5,8 @@ lang: "no"
 pubDate: "2024-12-09T09:00:14.995Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-9-5e6305bb.png"
-description: "Bak luke 8 fant vi Norges beste kvinnelige bordhockeyspiller - nemlig Anne Grethe Gangsøy. Mange gjettet Øyvind Rønne, som vant NM i 2006.  Som «senterfinta» påpekte, var det ikke nødvendigvis Øyvind Rønne som var riktig svar. I tillegg deltok ikke Anne Grethe i åpen klasse i VM i Moskva 2007. Dermed ble det en vanskelig luke, og ingen fikk riktig svar. Heldigvis er vi enda ikke halvveis til julaften, så det kommer mange nye muligheter! Hvem skjuler seg bak luke 9?1. Hva er/var din favoritt komb"
+description: "Bak luke 8 fant vi Norges beste kvinnelige bordhockeyspiller - nemlig Anne Grethe Gangsøy. Mange gjettet Øyvind Rønne, som vant NM i 2006.  Som «senterfinta» påpekte, var det ikke nødvendigvis Øyvind Rønne som var riktig svar. I tillegg deltok ikke Anne Grethe i åpen klasse i VM i Moskva 2007. Dermed ble det en vanskelig luke, og ingen fikk riktig svar. Heldigvis er vi enda ikke halvveis til julaften, så det kommer mange nye muligheter! Hvem skjuler seg bak luke 9?"
 ---
-![](/media/images/adventskalender-2024-luke-9-5e6305bb.png)
 
 Bak luke 8 fant vi Norges beste kvinnelige bordhockeyspiller - nemlig Anne Grethe Gangsøy. Mange gjettet Øyvind Rønne, som vant NM i 2006. Som «senterfinta» påpekte, var det ikke nødvendigvis Øyvind Rønne som var riktig svar. I tillegg deltok ikke Anne Grethe i åpen klasse i VM i Moskva 2007. Dermed ble det en vanskelig luke, og ingen fikk riktig svar.
 

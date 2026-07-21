@@ -55,7 +55,7 @@ body {
   @apply mt-10 mb-4 text-3xl font-bold text-navy;
 }
 .rich-text h2 {
-  @apply mt-10 mb-3 text-2xl font-bold text-navy;
+  @apply mt-10 mb-3 clear-both text-2xl font-bold text-navy;
 }
 .rich-text h3 {
   @apply mt-8 mb-2 text-xl font-bold text-navy;
@@ -68,7 +68,7 @@ body {
 .rich-text p {
   @apply my-4 leading-relaxed;
 }
-.rich-text a {
+.rich-text a:not(.btn-primary):not(.btn-outline) {
   @apply text-brand underline underline-offset-2 hover:text-brand-dark;
 }
 .rich-text ul {
@@ -82,6 +82,63 @@ body {
 }
 .rich-text img {
   @apply my-6 h-auto max-w-full rounded-lg;
+}
+.rich-text .video-embed {
+  @apply my-6 aspect-video overflow-hidden rounded-lg shadow-md;
+}
+.rich-text .video-embed iframe {
+  @apply h-full w-full border-0;
+}
+.rich-text img.league-photo {
+  @apply mx-auto my-4 w-full max-w-xs sm:float-right sm:mb-4 sm:ml-6;
+}
+.rich-text .image-row {
+  @apply my-6 grid grid-cols-1 gap-4 sm:grid-cols-3;
+}
+.rich-text .image-row img {
+  @apply my-0 w-full;
+}
+.rich-text .board-grid {
+  @apply my-8 grid gap-6 sm:grid-cols-2;
+}
+.rich-text .board-member {
+  @apply flex items-start gap-4 rounded-lg border border-slate-200 bg-white p-4 shadow-sm;
+}
+.rich-text .board-member img {
+  @apply my-0 h-24 w-24 shrink-0 rounded-full object-cover;
+}
+.rich-text .board-member h3 {
+  @apply m-0 text-lg font-bold text-navy;
+}
+.rich-text .board-member p {
+  @apply my-1 text-sm;
+}
+.rich-text .board-member .board-role {
+  @apply mt-0 font-semibold text-brand;
+}
+.rich-text .hub-grid {
+  @apply my-8 grid gap-6 sm:grid-cols-3;
+}
+.rich-text .hub-card {
+  @apply flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md;
+}
+.rich-text .hub-card img {
+  @apply my-0 aspect-video w-full object-cover;
+}
+.rich-text .hub-card .hub-body {
+  @apply flex flex-1 flex-col p-5;
+}
+.rich-text .hub-card h3 {
+  @apply m-0 text-xl font-bold text-navy;
+}
+.rich-text .hub-card .hub-lead {
+  @apply mt-1 mb-0 text-sm font-semibold text-slate-700;
+}
+.rich-text .hub-card .hub-text {
+  @apply mt-2 mb-0 flex-1 text-sm leading-relaxed text-slate-600;
+}
+.rich-text .hub-card .btn-primary {
+  @apply mt-4 self-start no-underline;
 }
 .rich-text blockquote {
   @apply my-6 border-l-4 border-brand bg-ice px-4 py-2 italic;
@@ -107,4 +164,18 @@ body {
 }
 .rich-text strong {
   @apply font-semibold text-slate-900;
+}
+/* Tournament pages: the banner photo is rendered by the hero, not the body. */
+.rich-text.hide-first-image > p:first-child:has(> img:only-child) {
+  @apply hidden;
+}
+/* Tournament pages: schedule rows as a timetable. */
+.tournament-body h1:is(#tidsskjema, #schedule) {
+  @apply mt-10 text-2xl;
+}
+.tournament-body h1:is(#tidsskjema, #schedule) ~ p:has(> strong:first-child) {
+  @apply my-0 flex items-baseline gap-3 border-b border-slate-100 py-2;
+}
+.tournament-body h1:is(#tidsskjema, #schedule) ~ p > strong:first-child {
+  @apply w-14 shrink-0 font-mono text-sm font-bold text-brand;
 }

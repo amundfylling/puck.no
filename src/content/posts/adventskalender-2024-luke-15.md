@@ -5,9 +5,8 @@ lang: "no"
 pubDate: "2024-12-15T09:00:09.502Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-15-6284b5c8.png"
-description: "Bak luke 14 fant vi Andreas Fjermestad. Topp 10 sammenlagt ser dermed slik ut etter 14 luker:Hvem skjuler seg bak dagens luke?1. Hva er/var din favoritt kombinasjon eller triks? Kjedelig å si, men må gå for spjass fordi det var den som avgjorde resultatene.2. Hva er din favorittlunsj på en bordhockeyturnering? Jim sine hjemmesmurte baguetter. De holdt et nivå man ikke har sett før eller siden.3. Hvilken turnering liker/likte du best å reise til?Kvernaland Open.4. Hva er ditt beste bordhockey øye"
+description: "Bak luke 14 fant vi Andreas Fjermestad. Topp 10 sammenlagt ser dermed slik ut etter 14 luker:Hvem skjuler seg bak dagens luke?"
 ---
-![](/media/images/adventskalender-2024-luke-15-6284b5c8.png)
 
 Bak luke 14 fant vi Andreas Fjermestad. Topp 10 sammenlagt ser dermed slik ut etter 14 luker:
 

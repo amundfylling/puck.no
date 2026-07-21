@@ -9,8 +9,6 @@ description: "Se bildene av medaljistene fra Jæren Open 2025."
 ---
 Jæren Open er over for denne gang og alle pokaler og medaljer er utdelt. Vi gratulerer alle vinnerne! Fullstendige resultater fra turneringen finner du [her](https://th.sportscorpion.com/eng/tournament/id/6804/).
 
-![](/media/images/medaljister-fra-jæren-open-2025-41b7c3f5.webp)
-
 Pallen i A: 1. Magnus Klippen, 2. Amund Risa Fylling, 3. Daniel Nygård og Vegard Klippen
 
 ![](/media/images/medaljister-fra-jæren-open-2025-40f1731b.webp)
@@ -39,4 +37,6 @@ Beste veteran: Arne Hetlelid
 
 PS: Neste bordhockeyturnering på programmet er Trondheim Open som spilles lørdag den 22. februar.
 
-[https://youtu.be/NJodblRBv6Y](https://youtu.be/NJodblRBv6Y)
+<div class="video-embed">
+  <iframe src="https://www.youtube-nocookie.com/embed/NJodblRBv6Y" title="Video fra Jæren Open 2025" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>

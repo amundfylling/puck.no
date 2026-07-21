@@ -5,9 +5,8 @@ lang: "no"
 pubDate: "2024-12-11T09:00:13.339Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-11-8cd20903.png"
-description: "Bak luke 10 fant vi bordhockeylegenden Tore Lie. På sitt beste var han rangert nr. 7 i verden, og med sine 34 gull i NBHF-turneringer leder han fortsatt over Magnus Klippen på medaljestatistikken. Vi beveger oss videre til luke 11.1. Hva er/var din favoritt kombinasjon eller triks? Jon spesial. Spesielt om eg klare å lura backen heil opp i sporet og scora i fra spiss vinkel.2. Hva er din favorittlunsj på en bordhockeyturnering? Medbrakt Byggrynslunsj fra Fjordland og sjokomelk. Alt for å sleppa"
+description: "Bak luke 10 fant vi bordhockeylegenden Tore Lie. På sitt beste var han rangert nr. 7 i verden, og med sine 34 gull i NBHF-turneringer leder han fortsatt over Magnus Klippen på medaljestatistikken. Vi beveger oss videre til luke 11."
 ---
-![](/media/images/adventskalender-2024-luke-11-8cd20903.png)
 
 Bak luke 10 fant vi bordhockeylegenden Tore Lie. På sitt beste var han rangert nr. 7 i verden, og med sine 34 gull i NBHF-turneringer leder han fortsatt over Magnus Klippen på medaljestatistikken. Vi beveger oss videre til luke 11.
 

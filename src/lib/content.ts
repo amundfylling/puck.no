@@ -39,15 +39,42 @@ export interface TournamentView {
   entry: Tournament;
   status: 'upcoming' | 'past';
   date: Date | null;
+  image: string | null;
+  /** Display name — English mirror's name when lang=en and a mirror exists. */
+  name: string;
+}
+
+/** First body image of a tournament page (the banner photo), if any. */
+export function tournamentImage(t: Tournament): string | null {
+  return t.body?.match(/!\[[^\]]*\]\((\/media\/[^)\s]+)\)/)?.[1] ?? null;
+}
+
+/** English mirror (src/content/tournaments/en/) for a Norwegian tournament. */
+export async function getTournamentMirror(entry: Tournament): Promise<Tournament | undefined> {
+  const en = await getCollection(
+    'tournaments',
+    (t) => t.data.lang === 'en' && t.data.slug === entry.data.slug,
+  );
+  return en[0];
 }
 
 /** All tournaments: upcoming first (soonest first), then past (newest first). */
-export async function getTournamentsSorted(now: Date = new Date()): Promise<TournamentView[]> {
-  const all = await getCollection('tournaments');
+export async function getTournamentsSorted(
+  now: Date = new Date(),
+  lang: Lang = 'no',
+): Promise<TournamentView[]> {
+  const all = await getCollection('tournaments', (t) => t.data.lang === 'no');
+  let enNames = new Map<string, string>();
+  if (lang === 'en') {
+    const mirrors = await getCollection('tournaments', (t) => t.data.lang === 'en');
+    enNames = new Map(mirrors.map((t) => [t.data.slug, t.data.name]));
+  }
   const views = all.map((entry) => ({
     entry,
     status: tournamentStatus(entry, now),
     date: parseNoDate(entry.data.date),
+    image: tournamentImage(entry),
+    name: enNames.get(entry.data.slug) ?? entry.data.name,
   }));
   const upcoming = views
     .filter((v) => v.status === 'upcoming')

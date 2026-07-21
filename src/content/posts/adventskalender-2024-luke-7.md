@@ -4,10 +4,9 @@ slug: "adventskalender-2024-luke-7"
 lang: "no"
 pubDate: "2024-12-07T09:02:00.000Z"
 categories: ["Adventskalender 2024"]
-cover: "/media/images/adventskalender-2024-luke-6-d2bfac6c.png"
-description: "De fleste svarte riktig på gårsdagens luke - nemlig Kjempa frå Spjelkavik: Trond Ove Gangsøy. Sammenlagttabellen ser dermed slik ut:Hvilken bordhockeyspiller skjuler seg bak luke 7?1. Hva er/var din favoritt kombinasjon eller triks? Vet ikke om noen andre som gjør dette, og jeg har heller ikke scoret veldig mye på det, men når det sitter er det smooth så det holder: fifflareinnspill fra høyreving til senter. Seiersmålet mot Yngve første gang jeg vant veteran-NM.2. Hva er din favorittlunsj på en"
+cover: "/media/images/adventskalender-2024-luke-7-eb7e567d.png"
+description: "De fleste svarte riktig på gårsdagens luke - nemlig Kjempa frå Spjelkavik: Trond Ove Gangsøy. Sammenlagttabellen ser dermed slik ut:Hvilken bordhockeyspiller skjuler seg bak luke 7?"
 ---
-![](/media/images/adventskalender-2024-luke-7-eb7e567d.png)
 
 De fleste svarte riktig på gårsdagens luke - nemlig Kjempa frå Spjelkavik: Trond Ove Gangsøy. Sammenlagttabellen ser dermed slik ut:
 

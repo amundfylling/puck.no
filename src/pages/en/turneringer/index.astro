@@ -4,7 +4,7 @@ import TournamentList from '../../../components/TournamentList.astro';
 import { getTournamentsSorted } from '../../../lib/content';
 import { seoForPath } from '../../../lib/seo';
 
-const views = await getTournamentsSorted();
+const views = await getTournamentsSorted(new Date(), 'en');
 const seo = seoForPath('/en/turneringer');
 ---
 

@@ -7,7 +7,6 @@ categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-2-4a1f5c65.png"
 description: "Bak luke 1 gjemte Kjetil Sagen seg. Hvem skjuler seg bak luke 2?"
 ---
-![](/media/images/adventskalender-2024-luke-2-4a1f5c65.png)
 
 Bak luke 1 gjemte Kjetil Sagen seg. Hvem skjuler seg bak luke 2?
 

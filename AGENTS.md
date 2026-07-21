@@ -55,8 +55,9 @@ src/
       en/                # static pages, English
     posts/               # blog posts, Norwegian
       en/                # blog posts, English
-    tournaments/         # tournament pages (Norwegian slugs; body text is
-                         # intentionally verbatim, often English)
+    tournaments/         # tournament pages, Norwegian (Norwegian slugs; body
+                         # text is intentionally verbatim, often English)
+      en/                # tournament pages, English (`lang: "en"` frontmatter)
   data/                  # structured JSON (unchanged from Phase 1, see below)
   layouts/BaseLayout.astro  # <head> (SEO/OG/hreflang/JSON-LD), header, footer
   components/            # Header, Footer, HomePage, BlogIndex, PostCard,
@@ -104,8 +105,8 @@ dist/                    # build output (git-ignored)
 
 ## Routing
 
-- Norwegian at root, English mirror under `/en/` (tournament and gallery
-  detail pages exist only in Norwegian).
+- Norwegian at root, English mirror under `/en/` (gallery detail pages
+  exist only in Norwegian).
 - `/services-1` was renamed to `/spill-bordhockey` (301 in `_redirects`,
   `renamedPages` in `src/lib/i18n.ts` maps the slug).
 - Blog: `/blog` + `/blog/<n>` (10 posts/page), `/blog/categories/<cat>`.
@@ -191,13 +192,18 @@ for hreflang + the language switcher).
 
 Create `src/content/tournaments/<slug>.md` with the tournament frontmatter
 above; status is computed from `date` at build time. Body: description,
-playing system, prices, `# Tidsskjema` schedule. For a team tournament set
+playing system, prices, `# Tidsskjema` schedule. Also create the English
+mirror `src/content/tournaments/en/<slug>.md` (`lang: "en"`, same `slug` and
+`date`; translated body with a `# Schedule` heading) — it renders at
+`/en/turneringer/<slug>` and supplies the English name on `/en/turneringer`
+and the English home page. For a team tournament set
 `teamMin`/`teamMax` (e.g. `2`/`2` for Duo-NM); leave both null for an
 individual tournament. Participant lists flow from registrations (Wix
 export / live D1): `scripts/seed-d1.mjs` regenerates
 `src/data/registrations-snapshot.json` (public fields only) for the static
 build; the page hydrates live from the API. The slug + team rules reach the
-API automatically via `scripts/gen-tournament-config.mjs` (prebuild);
+API automatically via `scripts/gen-tournament-config.mjs` (prebuild — reads
+only the top-level Norwegian files);
 add the tournament's Wix name to `TOURNAMENT_MAP` in
 `scripts/seed-d1.mjs` when seeding from an export. Upcoming tournaments get
 the live registration form (`RegistrationForm.astro`).

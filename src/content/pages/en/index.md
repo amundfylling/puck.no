@@ -1,9 +1,9 @@
 ---
-title: "Norges Bordhockeyforbund"
+title: "Norwegian Table Hockey Association"
 slug: "index"
 lang: "en"
-description: "Norges Bordhockeyforbund (NBHF) har arrangert bordhockeyturneringer i Norge siden 1994. Forbundet arbeider for å fremme bordhockeysporten gjennom å organisere turneringer, støtte lokalligaer og gjøre sporten mer tilgjengelig for alle som ønsker å delta."
-seoTitle: "Norges Bordhockeyforbund"
+description: "The Norwegian Table Hockey Association (NTHF) has organized table hockey tournaments in Norway since 1994. The association works to promote table hockey by organizing tournaments, supporting local leagues and making the sport more accessible to everyone who wants to participate."
+seoTitle: "Norwegian Table Hockey Association"
 menuOrder: 0
 ---
 ![122d22ef-0433-4179-809c-cd7616b47e0a.png](/media/images/index-2f7a1d75.png)
@@ -52,11 +52,11 @@ Sep 6, 20254 min read
 
 [
 
-![Writer: Styret](/media/images/blog-36a06623.jpg)
+![Writer: The Board](/media/images/blog-36a06623.jpg)
 
 ](/en/members-area/aa3957e8-9e4b-40e5-8f56-1b4a13f30ec5/profile)
 
-[Styret](/en/members-area/aa3957e8-9e4b-40e5-8f56-1b4a13f30ec5/profile)
+[The Board](/en/members-area/aa3957e8-9e4b-40e5-8f56-1b4a13f30ec5/profile)
 
 Jun 16, 20252 min read
 
@@ -68,7 +68,7 @@ Jun 16, 20252 min read
 
 #1 Magnus Klippen
 
-Verdensranking: 29
+World ranking: 29
 
 ](https://stiga.trefik.cz/ithf/ranking/player.aspx?id=660648)
 
@@ -78,7 +78,7 @@ Verdensranking: 29
 
 #2 Daniel Nygard
 
-Verdensranking: 70
+World ranking: 70
 
 ](https://stiga.trefik.cz/ithf/ranking/player.aspx?id=668143)
 
@@ -88,7 +88,7 @@ Verdensranking: 70
 
 #3 Andreas Fjermestad
 
-Verdensranking: 74
+World ranking: 74
 
 ](https://stiga.trefik.cz/ithf/ranking/player.aspx?id=660870)
 
@@ -98,7 +98,7 @@ Verdensranking: 74
 
 #4 Amund Risa Fylling
 
-Verdensranking: 83
+World ranking: 83
 
 ](https://stiga.trefik.cz/ithf/ranking/player.aspx?id=660869)
 
@@ -108,7 +108,7 @@ Verdensranking: 83
 
 #5 Yngve Aasheim
 
-Verdensranking: 120
+World ranking: 120
 
 ](https://stiga.trefik.cz/ithf/ranking/player.aspx?id=220035)
 
@@ -118,7 +118,7 @@ Verdensranking: 120
 
 #6 Vegard Klippen
 
-Verdensranking: 137
+World ranking: 137
 
 ](https://stiga.trefik.cz/ithf/ranking/player.aspx?id=659341)
 
@@ -130,6 +130,6 @@ Verdensranking: 137
 
 ## About the Norwegian Table Hockey Association
 
-The Norwegian Table Hockey Association (NBHF) has organized table hockey tournaments in Norway since 1991. The association works to promote the sport of table hockey by organizing tournaments, supporting local leagues and making the sport more accessible to everyone who wants to participate.
+The Norwegian Table Hockey Association (NTHF) has organized table hockey tournaments in Norway since 1991. The association works to promote the sport of table hockey by organizing tournaments, supporting local leagues and making the sport more accessible to everyone who wants to participate.
 
 [Read more](/en/om-oss)

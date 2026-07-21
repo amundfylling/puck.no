@@ -7,7 +7,6 @@ categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-4-ad6956d9.png"
 description: "Farsekongen Frode Hagerup Jr. var bak luke 3. Hvilken bordhockeyspiller befinner seg bak luke 4?"
 ---
-![](/media/images/adventskalender-2024-luke-4-ad6956d9.png)
 
 Farsekongen Frode Hagerup Jr. var bak luke 3. Hvilken bordhockeyspiller befinner seg bak luke 4?
 

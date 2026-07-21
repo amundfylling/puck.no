@@ -9,9 +9,7 @@ description: "Om en knapp uke er det igjen tid for Krohnengen Open i Bergen. I d
 ---
 **Om en knapp uke er det igjen tid for Krohnengen Open i Bergen. I den anledning tar Daniel Nygård og Øystein Klippen en titt i spåkula for å gi oss sine profetier. Du kan levere ditt eget tips i kommentarfeltet under artikkelen.**
 
-![Daniel Nygård (th.) spiller mot Ane Skadsem under Krohnengenn Open 2023](/media/images/forhåndtips-krohnengen-open-2024-f4c0e913.jpg)
-
-Daniel Nygård (t.h.) spiller mot Ane Skadsem under Krohnengenn Open 2023. Foto: Ewoud van Veen
+Daniel Nygård (t.h.) spiller mot Ane Skadsem under Krohnengen Open 2023. Foto: Ewoud van Veen
 
 **Daniel Nygård sin spådom**
 
@@ -122,6 +120,4 @@ Er Daniel og Øystein helt på bærtur? Lever ditt eget tips i kommentarfeltet u
 
 Krohnengen Open 2024
 
-19\. oktober 2024, 09:00–19:00Bergenhus
-
-Registrer deg nå
+19\. oktober 2024, 09:00–19:00, Bergenhus

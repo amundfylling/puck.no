@@ -5,7 +5,7 @@ lang: "no"
 pubDate: "2025-09-06T09:45:20.267Z"
 categories: []
 cover: "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.png"
-description: "Det var strålende sol lørdag 23. august da 29 spillere fra Norge, Latvia, Sverige og Tsjekkia var klare for internasjonal turnering på Frøyland barneskole. Om tsjekkerne hadde sovet godt på Hotell Fjermestad vites ikke, men de leverte energi fra morgen til kveld. Selv om det var gledelig å ha utenlandske verdensstjerner som Edgars Caics og Eddie Nilsson på besøk, savnet arrangøren flere tilreisende norske spillere enn D. Nygård, Ø. Klippen og Brådland.Etter et grunnspill uten store overraskelser"
+description: "Det var strålende sol lørdag 23. august da 29 spillere fra Norge, Latvia, Sverige og Tsjekkia var klare for internasjonal turnering på Frøyland barneskole. Om tsjekkerne hadde sovet godt på Hotell Fjermestad vites ikke, men de leverte energi fra morgen til kveld. Selv om det var gledelig å ha utenlandske verdensstjerner som Edgars Caics og Eddie Nilsson på besøk, savnet arrangøren flere tilreisende norske spillere enn D. Nygård, Ø. Klippen og Brådland."
 ---
 Det var strålende sol lørdag 23. august da 29 spillere fra Norge, Latvia, Sverige og Tsjekkia var klare for internasjonal turnering på Frøyland barneskole. Om tsjekkerne hadde sovet godt på Hotell Fjermestad vites ikke, men de leverte energi fra morgen til kveld. Selv om det var gledelig å ha utenlandske verdensstjerner som Edgars Caics og Eddie Nilsson på besøk, savnet arrangøren flere tilreisende norske spillere enn D. Nygård, Ø. Klippen og Brådland.
 
@@ -31,8 +31,6 @@ I semifinalen viste mellomste Klippen høyt internasjonalt nivå da han slo ut N
 
 Dessverre for nordmenn og nøytrale tilskuere viste Caics hvorfor han er tidligere verdens- og europamester: Han vant komfortabelt over M. Klippen. En litt skuffet Nilsson måtte ta til takke med bronsemedaljen.
 
-![Pallen fra Norway Open 2025. Fra venstre: Magnus Klippen, Edgars Caics og Eddie Nilsson](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.png)
-
 Pallen fra Norway Open 2025. Fra venstre: Magnus Klippen, Edgars Caics og Eddie Nilsson
 
 Banketten ble feiret på Hotell Fjermestad. Her var det planlagt thaimat og shottecup, men deltakerne fikk oppleve mye mer. Det ble blant annet knyttet vennskapsbånd mellom storklubbene Brent Plast og SHC Cheb, med utveksling av klubbmerch fra Temu.
@@ -43,11 +41,11 @@ Stemningen var god mellom SHC Cheb og Brent Plast BHK.
 
 Dagen derpå tok Fylling med seg en gjeng og et bordhockeybrett til Preikestolen for den berømte Pulpit Rock Sudden Death Tournament (pun intended). Hvor stor fiasko det var å glemme mål i bilen vil bli diskutert når neste Hjemåspucken skal deles ut.
 
-![](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-cbaa7c35.png)
-
-![](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-d5a957a5.png)
-
-![](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-ee47d146.png)
+<div class="image-row">
+  <img src="/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-cbaa7c35.png" alt="Bordhockey på Preikestolen" loading="lazy">
+  <img src="/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-d5a957a5.png" alt="Bordhockey på Preikestolen" loading="lazy">
+  <img src="/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-ee47d146.png" alt="Colaboks som mål på Preikestolen" loading="lazy">
+</div>
 
 Da målene var glemt, måtte vi improvisere. Løsningen ble en colaboks som mål.
 

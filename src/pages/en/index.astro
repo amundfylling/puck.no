@@ -9,7 +9,7 @@ const entry = await getEntry('pages', 'en/index');
 if (!entry) throw new Error('pages/en/index not found');
 const seo = seoForPath('/en');
 const posts = (await getPosts('en')).slice(0, 3);
-const next = (await getTournamentsSorted()).find((v) => v.status === 'upcoming') ?? null;
+const next = (await getTournamentsSorted(new Date(), 'en')).find((v) => v.status === 'upcoming') ?? null;
 
 const jsonLd = {
   '@context': 'https://schema.org',

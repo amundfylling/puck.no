@@ -5,9 +5,8 @@ lang: "no"
 pubDate: "2024-12-21T08:00:07.081Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-21-c2427131.png"
-description: "Bak luke 20 befant Geir Hjemås seg, som samtlige svarte. Hvem finner vi bak luke 21?1. Hva er/var din favoritt kombinasjon eller triks? Huske ikke ka trikset hete, men å countre med shuffle mellom de to i forsvar va voldsomt effektivt - gjerne hjelp mæ med navngivinga her, lure på om det het rokade?2. Hva er din favorittlunsj på en bordhockeyturnering? Baguett - men var alltids misunnelig på Holmins pakker med lefser.3. Hvilken turnering liker/likte du best å reise til?Ble ikke så mye reising me"
+description: "Bak luke 20 befant Geir Hjemås seg, som samtlige svarte. Hvem finner vi bak luke 21?"
 ---
-![](/media/images/adventskalender-2024-luke-21-c2427131.png)
 
 Bak luke 20 befant Geir Hjemås seg, som samtlige svarte. Hvem finner vi bak luke 21?
 

@@ -1,9 +1,9 @@
 ---
-title: "Bildegallerier"
+title: "Image galleries"
 slug: "bilder"
 lang: "en"
 description: null
-seoTitle: "Bildegallerier | Bordhockeyforbundet"
+seoTitle: "Image galleries | Bordhockeyforbundet"
 menuOrder: 9
 ---
 # Image galleries
@@ -16,9 +16,9 @@ menuOrder: 9
 
 ## Norway Open 2025
 
-Bilder fra Norway Open på Kvernaland i 2025.
+Photos from Norway Open at Kvernaland in 2025.
 
-[Les mer](/en/bilder/norway-open-2025)
+[Read more](/en/bilder/norway-open-2025)
 
 [
 
@@ -28,9 +28,9 @@ Bilder fra Norway Open på Kvernaland i 2025.
 
 ## Norway Open 2024
 
-Bilder fra Norway Open på Kvernaland i 2024.
+Photos from Norway Open at Kvernaland in 2024.
 
-[Les mer](/en/bilder/norway-open-2024)
+[Read more](/en/bilder/norway-open-2024)
 
 [
 
@@ -40,6 +40,6 @@ Bilder fra Norway Open på Kvernaland i 2024.
 
 ## VM 2023
 
-Bilder fra VM på Bryne i 2023.
+Photos from the World Championship at Bryne in 2023.
 
-[Les mer](/en/bilder/vm-2023)
+[Read more](/en/bilder/vm-2023)

@@ -5,7 +5,7 @@ lang: "en"
 pubDate: "2025-09-06T10:01:34.775Z"
 categories: []
 cover: "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.png"
-description: "It was a bright and sunny Saturday, August 23rd, when 29 players from Norway, Latvia, Sweden, and the Czech Republic gathered at Frøyland Elementary School for an international tournament. Whether the Czechs had slept well at Hotel Fjermestad is unknown, but they brought energy from morning until night. While it was a pleasure to welcome international stars like Edgars Caics and Eddie Nilsson, the organizers had hoped for more traveling Norwegian players than just D. Nygård, Ø. Klippen, and Bråd"
+description: "It was a bright and sunny Saturday, August 23rd, when 29 players from Norway, Latvia, Sweden, and the Czech Republic gathered at Frøyland Elementary School for an international tournament. Whether the Czechs had slept well at Hotel Fjermestad is unknown, but they brought energy from morning until night."
 ---
 It was a bright and sunny Saturday, August 23rd, when 29 players from Norway, Latvia, Sweden, and the Czech Republic gathered at Frøyland Elementary School for an international tournament. Whether the Czechs had slept well at Hotel Fjermestad is unknown, but they brought energy from morning until night. While it was a pleasure to welcome international stars like Edgars Caics and Eddie Nilsson, the organizers had hoped for more traveling Norwegian players than just D. Nygård, Ø. Klippen, and Brådland.
 
@@ -33,8 +33,6 @@ In the semi-finals, the mid-ranked Klippen showed true international class when 
 
 Unfortunately for the Norwegians and neutral spectators, Caics showed why he is a former world and European champion. He defeated M. Klippen in convincing way, while a slightly disappointed Nilsson had to settle for the bronze medal.
 
-![Top 3 in Norway Open 2025. From left: Magnus Klippen, Edgars Caics and Eddie Nilsson](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.png)
-
 Top 3 in Norway Open 2025. From left: Magnus Klippen, Edgars Caics and Eddie Nilsson
 
 The banquet was celebrated at "Hotel Fjermestad". Thai food and a shot cup were planned here, but the participants got to experience much more. Among other things, friendships were forged between the major clubs Brent Plast and SHC Cheb, with an exchange of club merch from Temu.
@@ -45,11 +43,11 @@ Good vibes between SHC Cheb and Brent Plast BHK at the banquet.
 
 The next day, Fylling took a bunch of people and a table hockey board to the Pulpit Rock for the famous Pulpit Rock Sudden Death Tournament (pun intended). How big of a failure it was to forget the goal in the car will be discussed when the next "Hjemåspucken" is handed out.
 
-![](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-cbaa7c35.png)
-
-![](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-d5a957a5.png)
-
-![](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-ee47d146.png)
+<div class="image-row">
+  <img src="/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-cbaa7c35.png" alt="Table hockey on Pulpit Rock" loading="lazy">
+  <img src="/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-d5a957a5.png" alt="Table hockey on Pulpit Rock" loading="lazy">
+  <img src="/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-ee47d146.png" alt="A Coke can used as a goal on Pulpit Rock" loading="lazy">
+</div>
 
 When the goals were forgotten, we had to improvise. The solution was a Coke can as a goal.
 

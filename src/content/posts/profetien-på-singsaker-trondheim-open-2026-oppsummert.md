@@ -15,7 +15,7 @@ I utgangspunktet var det et svært jevnt felt som stilte til start denne lørdag
 
 Grunnspillet inneholdt også et gledelig gjensyn med Morten Aarflot. Til tross for noen år borte fra brettet, leverte han venstreskyfler som aldri før og tok blant annet en storskalp da han slo Nygård 1-0 på brett 1 i runde 1. Nygård selv hevder riktig nok at han scoret 4 mål den kampen (3 utsprett og ett selvmål), men vi tar ingenting bort fra Aarflots prestasjon.
 
-Bildet under viser hvordan grunnspillet endte. Bergensligaspillerne Arne Johannes Holmin og Trond Ove Gangsøy må nevnes spesielt, ettersom deres grunnpillkamper inneholdt 6 mål i snitt. 
+Bildet under viser hvordan grunnspillet endte. Bergensligaspillerne Arne Johannes Holmin og Trond Ove Gangsøy må nevnes spesielt, ettersom deres grunnspillkamper inneholdt 6 mål i snitt. 
 
 ![](/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-9146858b.png)
 
@@ -39,7 +39,7 @@ Semifinale mellom Espen Moe og Arne Hetlelid. I bakgrunnen kan man se den berøm
 
 Tradisjon(?) tro ble nok en bankett feiret på en indisk restaurant. Amund delte bord med en lettere deppa gjeng som akkurat hadde gått glipp av pallen. Dermed ble middagssamtalen raskt til en nostalgisk gjennomgang av historiske bordhockeynederlag, mentale kollapser og andre traumatiske hendelser. Heldigvis kom Espen Moe etter hvert for å heve stemningen, og for å sikre seg en Gangsøyquizseier. Moe var tydeligvis ikke mett etter cupgullet og turneringssølvet.
 
-Undertegnede vil på vegne av arrangøren takke alle som deltok for en flott dag med bordhockey! Etter turneringen har undertegnede fått opplæring i edwaldskyffler og senterfinter, og vil derfor ønske dere alle lykke til i NM! Dere trenger det.
+Undertegnede vil på vegne av arrangøren takke alle som deltok for en flott dag med bordhockey! Etter turneringen har undertegnede fått opplæring i edwallskyffler og senterfinter, og vil derfor ønske dere alle lykke til i NM! Dere trenger det.
 
 ![Trondheim Open 2026 pall. F.v Espen Moe, Amund Risa Fylling, Yngve Aasheim og Arne Hetlelid](/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-5b8724cf.jpg)
 

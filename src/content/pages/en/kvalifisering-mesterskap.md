@@ -1,20 +1,20 @@
 ---
-title: "VM Kvalik"
+title: "Euro 2026 Qualification"
 slug: "kvalifisering-mesterskap"
 lang: "en"
 description: null
-seoTitle: "VM Kvalik | Bordhockeyforbundet"
+seoTitle: "Euro 2026 Qualification | Bordhockeyforbundet"
 menuOrder: 8
 ---
-## World Cup Qualification 2025 in Umeå, Sweden
+## European Championship Qualification 2026
 
-Oppdatert 24/05/2026
+Updated 24/05/2026
 
-## Åpen
+## Open
 
-### 1. Magnus Klippen — Deltar ikke (Poeng: 5498, 8/8 turneringer)
+### 1. Magnus Klippen — Not participating (Points: 5498, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norway Open 2025 | 2. | 785 | NBHF |
 | Norwegian Championships 2026 | 1. | 707 | NBHF |
@@ -26,9 +26,9 @@ Oppdatert 24/05/2026
 | Swedish Masters 2025 | 10. | 784 | ITHF |
 | Sum |  | 5498 |  |
 
-### 2. Daniel Nygard — Kvalifisert (Poeng: 4861, 8/8 turneringer)
+### 2. Daniel Nygard — Qualified (Points: 4861, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norway Open 2025 | 5. | 663 | NBHF |
 | Norwegian Championships 2026 | 3. | 604 | NBHF |
@@ -40,9 +40,9 @@ Oppdatert 24/05/2026
 | Incukalns THC Challenge 2025 | 51. | 580 | ITHF |
 | Sum |  | 4861 |  |
 
-### 3. Amund Risa Fylling — Kvalifisert (Poeng: 4816, 8/8 turneringer)
+### 3. Amund Risa Fylling — Qualified (Points: 4816, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2025 | 3. | 606 | NBHF |
 | Norway Open 2025 | 7. | 602 | NBHF |
@@ -54,9 +54,9 @@ Oppdatert 24/05/2026
 | Incukalns THC Challenge 2025 | 33. | 643 | ITHF |
 | Sum |  | 4816 |  |
 
-### 4. Andreas Fjermestad — Kvalifisert (Poeng: 4458, 8/8 turneringer)
+### 4. Andreas Fjermestad — Qualified (Points: 4458, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 | 2. | 645 | NBHF |
 | Norwegian Championships 2025 | 3. | 606 | NBHF |
@@ -68,9 +68,9 @@ Oppdatert 24/05/2026
 | Birch City Classic 2025 | 15. | 468 | ITHF |
 | Sum |  | 4458 |  |
 
-### 5. Vegard Klippen — Deltar ikke (Poeng: 3704, 7/8 turneringer)
+### 5. Vegard Klippen — Not participating (Points: 3704, 7/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2025 | 2. | 653 | NBHF |
 | Norwegian Championships 2026 | 3. | 604 | NBHF |
@@ -81,9 +81,9 @@ Oppdatert 24/05/2026
 | Krohnengen Open 2024 | 6. | 419 | NBHF |
 | Sum |  | 3704 |  |
 
-### 6. Arne Hetlelid — Deltar ikke (Poeng: 3612, 8/8 turneringer)
+### 6. Arne Hetlelid — Not participating (Points: 3612, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norway Open 2024 | 13. | 502 | NBHF |
 | Krohnengen Open 2024 | 3. | 493 | NBHF |
@@ -95,9 +95,9 @@ Oppdatert 24/05/2026
 | Norwegian Championships 2026 | 12. | 342 | NBHF |
 | Sum |  | 3612 |  |
 
-### 7. Trond Ove Gangsoy — Kvalifisert (Poeng: 3310, 8/8 turneringer)
+### 7. Trond Ove Gangsoy — Qualified (Points: 3310, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Veterans | 2. | 550 | NBHF |
 | Norway Open 2024 | 16. | 471 | NBHF |
@@ -109,9 +109,9 @@ Oppdatert 24/05/2026
 | Norwegian Championships 2025 | 14. | 314 | NBHF |
 | Sum |  | 3310 |  |
 
-### 8. Benjamin Nygard — Kvalifisert (Poeng: 3210, 8/8 turneringer)
+### 8. Benjamin Nygard — Qualified (Points: 3210, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Juniors | 2. | 550 | NBHF |
 | Norwegian Championships 2026 | 7. | 493 | NBHF |
@@ -123,9 +123,9 @@ Oppdatert 24/05/2026
 | Birch City Classic 2025 | 25. | 362 | ITHF |
 | Sum |  | 3210 |  |
 
-### 9. Arne Johannes Holmin — Kvalifisert (Poeng: 2833, 7/8 turneringer)
+### 9. Arne Johannes Holmin — Qualified (Points: 2833, 7/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Veterans | 1. | 600 | NBHF |
 | Norwegian Championships 2026 | 6. | 526 | NBHF |
@@ -136,9 +136,9 @@ Oppdatert 24/05/2026
 | Krohnengen Open 2024 | 11. | 200 | NBHF |
 | Sum |  | 2833 |  |
 
-### 10. Ane Skadsem — Kvalifisert (Poeng: 2706, 8/8 turneringer)
+### 10. Ane Skadsem — Qualified (Points: 2706, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Women | 1. | 600 | NBHF |
 | Norwegian Championships 2026 Juniors | 3. | 475 | NBHF |
@@ -150,9 +150,9 @@ Oppdatert 24/05/2026
 | Birch City Classic 2025 | 36. | 258 | ITHF |
 | Sum |  | 2706 |  |
 
-### 11. Sinus Moberg — Deltar ikke (Poeng: 2631, 8/8 turneringer)
+### 11. Sinus Moberg — Not participating (Points: 2631, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Juniors | 1. | 600 | NBHF |
 | Norwegian Championships 2026 | 9. | 423 | NBHF |
@@ -164,9 +164,9 @@ Oppdatert 24/05/2026
 | Norwegian Championships 2025 | 17. | 140 | NBHF |
 | Sum |  | 2631 |  |
 
-### 12. Kristin Fjermestad — Kvalifisert (Poeng: 1886, 8/8 turneringer)
+### 12. Kristin Fjermestad — Qualified (Points: 1886, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Women | 2. | 550 | NBHF |
 | Norwegian Championships 2026 Juniors | 4. | 450 | NBHF |
@@ -178,9 +178,9 @@ Oppdatert 24/05/2026
 | Norway Open 2024 | 30. | 86 | NBHF |
 | Sum |  | 1886 |  |
 
-### 13. Frode Hagerup — Deltar ikke (Poeng: 1883, 4/8 turneringer)
+### 13. Frode Hagerup — Not participating (Points: 1883, 4/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norway Open 2024 | 6. | 607 | NBHF |
 | Norway Open 2025 | 11. | 526 | NBHF |
@@ -188,18 +188,18 @@ Oppdatert 24/05/2026
 | Jaren Open 2025 | 8. | 300 | NBHF |
 | Sum |  | 1883 |  |
 
-### 14. Oystein Klippen — Kvalifisert (Poeng: 1678, 3/8 turneringer)
+### 14. Oystein Klippen — Qualified (Points: 1678, 3/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norway Open 2025 | 6. | 625 | NBHF |
 | Norwegian Championships 2026 | 5. | 561 | NBHF |
 | Norwegian Championships 2025 | 7. | 492 | NBHF |
 | Sum |  | 1678 |  |
 
-### 15. Kjartan Moberg — Deltar ikke (Poeng: 1657, 8/8 turneringer)
+### 15. Kjartan Moberg — Not participating (Points: 1657, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Veterans | 5. | 400 | NBHF |
 | Norwegian Championships 2026 | 13. | 317 | NBHF |
@@ -211,9 +211,9 @@ Oppdatert 24/05/2026
 | Norway Open 2024 | 31. | 50 | NBHF |
 | Sum |  | 1657 |  |
 
-### 16. Gustav Bradland — Kvalifisert (Poeng: 1638, 4/8 turneringer)
+### 16. Gustav Bradland — Qualified (Points: 1638, 4/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norway Open 2025 | 12. | 505 | NBHF |
 | Trondheim Open 2025 | 3. | 475 | NBHF |
@@ -221,18 +221,18 @@ Oppdatert 24/05/2026
 | Trondheim Open 2026 | 8. | 260 | NBHF |
 | Sum |  | 1638 |  |
 
-### 17. Yngve Aasheim —  (Poeng: 1555, 3/8 turneringer)
+### 17. Yngve Aasheim — (Points: 1555, 3/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Trondheim Open 2025 | 2. | 550 | NBHF |
 | Norwegian Championships 2025 | 6. | 516 | NBHF |
 | Trondheim Open 2026 | 3. | 489 | NBHF |
 | Sum |  | 1555 |  |
 
-### 18. Sondre Efteland Johansen —  (Poeng: 1288, 4/8 turneringer)
+### 18. Sondre Efteland Johansen — (Points: 1288, 4/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norway Open 2024 | 20. | 406 | NBHF |
 | Norway Open 2025 | 17. | 372 | NBHF |
@@ -240,18 +240,18 @@ Oppdatert 24/05/2026
 | Jaren Open 2025 | 9. | 230 | NBHF |
 | Sum |  | 1288 |  |
 
-### 19. Hans Christian Lonne —  (Poeng: 1158, 3/8 turneringer)
+### 19. Hans Christian Lonne — (Points: 1158, 3/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2025 | 10. | 448 | NBHF |
 | Krohnengen Open 2024 | 8. | 381 | NBHF |
 | Krohnengen Open 2025 | 9. | 329 | NBHF |
 | Sum |  | 1158 |  |
 
-### 20. Oline Holmin Brunvoll —  (Poeng: 975, 5/8 turneringer)
+### 20. Oline Holmin Brunvoll — (Points: 975, 5/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Women | 3. | 475 | NBHF |
 | Krohnengen Open 2025 | 17. | 140 | NBHF |
@@ -260,9 +260,9 @@ Oppdatert 24/05/2026
 | Norwegian Championships 2025 | 21. | 100 | NBHF |
 | Sum |  | 975 |  |
 
-### 21. Mona Gangsoy —  (Poeng: 955, 5/8 turneringer)
+### 21. Mona Gangsoy — (Points: 955, 5/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Women | 5. | 400 | NBHF |
 | Krohnengen Open 2025 | 13. | 203 | NBHF |
@@ -271,9 +271,9 @@ Oppdatert 24/05/2026
 | Norwegian Championships 2026 | 24. | 82 | NBHF |
 | Sum |  | 955 |  |
 
-### 22. Linnea Gangsoy —  (Poeng: 884, 5/8 turneringer)
+### 22. Linnea Gangsoy — (Points: 884, 5/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Women | 6. | 350 | NBHF |
 | Krohnengen Open 2024 | 13. | 180 | NBHF |
@@ -282,9 +282,9 @@ Oppdatert 24/05/2026
 | Norwegian Championships 2025 | 22. | 94 | NBHF |
 | Sum |  | 884 |  |
 
-### 23. Anne Grethe Gangsoy —  (Poeng: 843, 4/8 turneringer)
+### 23. Anne Grethe Gangsoy — (Points: 843, 4/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2024 | 9. | 292 | NBHF |
 | Norwegian Championships 2025 | 15. | 248 | NBHF |
@@ -292,230 +292,230 @@ Oppdatert 24/05/2026
 | Krohnengen Open 2025 | 21. | 100 | NBHF |
 | Sum |  | 843 |  |
 
-### 24. Jonas Bolstad —  (Poeng: 704, 3/8 turneringer)
+### 24. Jonas Bolstad — (Points: 704, 3/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Juniors | 6. | 350 | NBHF |
 | Jaren Open 2026 | 12. | 190 | NBHF |
 | Norwegian Championships 2026 | 17. | 164 | NBHF |
 | Sum |  | 704 |  |
 
-### 25. Ivar Stadheim —  (Poeng: 654, 3/8 turneringer)
+### 25. Ivar Stadheim — (Points: 654, 3/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Juniors | 5. | 400 | NBHF |
 | Jaren Open 2026 | 15. | 160 | NBHF |
 | Norwegian Championships 2026 | 22. | 94 | NBHF |
 | Sum |  | 654 |  |
 
-### 26. Julia Carina Gangsoy —  (Poeng: 646, 3/8 turneringer)
+### 26. Julia Carina Gangsoy — (Points: 646, 3/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Women | 4. | 450 | NBHF |
 | Krohnengen Open 2024 | 19. | 120 | NBHF |
 | Norwegian Championships 2026 | 25. | 76 | NBHF |
 | Sum |  | 646 |  |
 
-### 27. Thorbjorn F. Hestvaag —  (Poeng: 631, 2/8 turneringer)
+### 27. Thorbjorn F. Hestvaag — (Points: 631, 2/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Jaren Open 2026 | 7. | 326 | NBHF |
 | Norway Open 2024 | 24. | 305 | NBHF |
 | Sum |  | 631 |  |
 
-### 28. Andreas Roren —  (Poeng: 554, 1/8 turneringer)
+### 28. Andreas Roren — (Points: 554, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2025 | 5. | 554 | NBHF |
 | Sum |  | 554 |  |
 
-### 29. Espen Moe —  (Poeng: 550, 1/8 turneringer)
+### 29. Espen Moe — (Points: 550, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Trondheim Open 2026 | 2. | 550 | NBHF |
 | Sum |  | 550 |  |
 
-### 30. Rikard Oddane —  (Poeng: 543, 2/8 turneringer)
+### 30. Rikard Oddane — (Points: 543, 2/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Czech Open 2026 | 110. | 275 | ITHF |
 | Tallinn Cup 2025 | 107. | 268 | ITHF |
 | Sum |  | 543 |  |
 
-### 31. Nicolas Trae —  (Poeng: 442, 3/8 turneringer)
+### 31. Nicolas Trae — (Points: 442, 3/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Juniors | 9. | 230 | NBHF |
 | Jaren Open 2025 | 15. | 160 | NBHF |
 | Norway Open 2025 | 29. | 52 | NBHF |
 | Sum |  | 442 |  |
 
-### 32. Vegard Flatoy —  (Poeng: 422, 1/8 turneringer)
+### 32. Vegard Flatoy — (Points: 422, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2025 | 6. | 422 | NBHF |
 | Sum |  | 422 |  |
 
-### 33. Ruben Nesse Haland —  (Poeng: 400, 2/8 turneringer)
+### 33. Ruben Nesse Haland — (Points: 400, 2/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Juniors | 7. | 300 | NBHF |
 | Norwegian Championships 2026 | 21. | 100 | NBHF |
 | Sum |  | 400 |  |
 
-### 34. Sondre Schulze Stapnes —  (Poeng: 330, 2/8 turneringer)
+### 34. Sondre Schulze Stapnes — (Points: 330, 2/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Juniors | 8. | 260 | NBHF |
 | Norwegian Championships 2026 | 26. | 70 | NBHF |
 | Sum |  | 330 |  |
 
-### 35. Hakon Hugdahl Larsen —  (Poeng: 300, 2/8 turneringer)
+### 35. Hakon Hugdahl Larsen — (Points: 300, 2/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2024 | 14. | 170 | NBHF |
 | Krohnengen Open 2025 | 18. | 130 | NBHF |
 | Sum |  | 300 |  |
 
-### 36. Emil Bjondal Lonne —  (Poeng: 274, 2/8 turneringer)
+### 36. Emil Bjondal Lonne — (Points: 274, 2/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Juniors | 10. | 210 | NBHF |
 | Norwegian Championships 2026 | 27. | 64 | NBHF |
 | Sum |  | 274 |  |
 
-### 37. Kanutte Holmin Brunvoll —  (Poeng: 270, 2/8 turneringer)
+### 37. Kanutte Holmin Brunvoll — (Points: 270, 2/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2024 | 16. | 150 | NBHF |
 | Krohnengen Open 2025 | 19. | 120 | NBHF |
 | Sum |  | 270 |  |
 
-### 38. Einar Stadheim —  (Poeng: 238, 2/8 turneringer)
+### 38. Einar Stadheim — (Points: 238, 2/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Jaren Open 2026 | 16. | 150 | NBHF |
 | Norwegian Championships 2026 | 23. | 88 | NBHF |
 | Sum |  | 238 |  |
 
-### 39. Morten Aarflot —  (Poeng: 230, 1/8 turneringer)
+### 39. Morten Aarflot — (Points: 230, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Trondheim Open 2026 | 9. | 230 | NBHF |
 | Sum |  | 230 |  |
 
-### 40. Jonas Fjelde Larsen —  (Poeng: 210, 1/8 turneringer)
+### 40. Jonas Fjelde Larsen — (Points: 210, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Jaren Open 2026 | 10. | 210 | NBHF |
 | Sum |  | 210 |  |
 
-### 41. Simen Stolsnes —  (Poeng: 190, 1/8 turneringer)
+### 41. Simen Stolsnes — (Points: 190, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2024 | 12. | 190 | NBHF |
 | Sum |  | 190 |  |
 
-### 42. Anders Helle —  (Poeng: 170, 1/8 turneringer)
+### 42. Anders Helle — (Points: 170, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Jaren Open 2025 | 14. | 170 | NBHF |
 | Sum |  | 170 |  |
 
-### 43. Gudmund Hagerup Roken —  (Poeng: 150, 1/8 turneringer)
+### 43. Gudmund Hagerup Roken — (Points: 150, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Jaren Open 2025 | 16. | 150 | NBHF |
 | Sum |  | 150 |  |
 
-### 44. Torbjorn Taksdal —  (Poeng: 140, 1/8 turneringer)
+### 44. Torbjorn Taksdal — (Points: 140, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Jaren Open 2026 | 17. | 140 | NBHF |
 | Sum |  | 140 |  |
 
-### 45. Vincent Refshus Hagerup — Deltar ikke (Poeng: 140, 1/8 turneringer)
+### 45. Vincent Refshus Hagerup — Not participating (Points: 140, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Jaren Open 2025 | 17. | 140 | NBHF |
 | Sum |  | 140 |  |
 
-### 46. Isla Tufteland —  (Poeng: 130, 1/8 turneringer)
+### 46. Isla Tufteland — (Points: 130, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2024 | 18. | 130 | NBHF |
 | Sum |  | 130 |  |
 
-### 47. Judith Taksdal —  (Poeng: 130, 1/8 turneringer)
+### 47. Judith Taksdal — (Points: 130, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Jaren Open 2026 | 18. | 130 | NBHF |
 | Sum |  | 130 |  |
 
-### 48. Markus Kvingedal —  (Poeng: 110, 1/8 turneringer)
+### 48. Markus Kvingedal — (Points: 110, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2024 | 20. | 110 | NBHF |
 | Sum |  | 110 |  |
 
-### 49. Tomas Hoven Skauge —  (Poeng: 110, 1/8 turneringer)
+### 49. Tomas Hoven Skauge — (Points: 110, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2025 | 20. | 110 | NBHF |
 | Sum |  | 110 |  |
 
-### 50. Ada Falch —  (Poeng: 100, 1/8 turneringer)
+### 50. Ada Falch — (Points: 100, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2024 | 21. | 100 | NBHF |
 | Sum |  | 100 |  |
 
-### 51. Johan Kvingedal —  (Poeng: 94, 1/8 turneringer)
+### 51. Johan Kvingedal — (Points: 94, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2024 | 22. | 94 | NBHF |
 | Sum |  | 94 |  |
 
-### 52. Karl Satre —  (Poeng: 88, 1/8 turneringer)
+### 52. Karl Satre — (Points: 88, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2024 | 23. | 88 | NBHF |
 | Sum |  | 88 |  |
 
-## Dame
+## Women
 
-### 1. Ane Skadsem — Kvalifisert (Poeng: 2706, 8/8 turneringer)
+### 1. Ane Skadsem — Qualified (Points: 2706, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Women | 1. | 600 | NBHF |
 | Norwegian Championships 2026 Juniors | 3. | 475 | NBHF |
@@ -527,9 +527,9 @@ Oppdatert 24/05/2026
 | Birch City Classic 2025 | 36. | 258 | ITHF |
 | Sum |  | 2706 |  |
 
-### 2. Kristin Fjermestad — Kvalifisert (Poeng: 1886, 8/8 turneringer)
+### 2. Kristin Fjermestad — Qualified (Points: 1886, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Women | 2. | 550 | NBHF |
 | Norwegian Championships 2026 Juniors | 4. | 450 | NBHF |
@@ -541,9 +541,9 @@ Oppdatert 24/05/2026
 | Norway Open 2024 | 30. | 86 | NBHF |
 | Sum |  | 1886 |  |
 
-### 3. Mona Gangsoy — Kvalifisert (Poeng: 977, 6/8 turneringer)
+### 3. Mona Gangsoy — Qualified (Points: 977, 6/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Women | 5. | 400 | NBHF |
 | Krohnengen Open 2025 | 13. | 203 | NBHF |
@@ -553,9 +553,9 @@ Oppdatert 24/05/2026
 | Norwegian Championships 2025 Women | 5. | 22 | NBHF |
 | Sum |  | 977 |  |
 
-### 4. Oline Holmin Brunvoll — Kvalifisert (Poeng: 976, 6/8 turneringer)
+### 4. Oline Holmin Brunvoll — Qualified (Points: 976, 6/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Women | 3. | 475 | NBHF |
 | Krohnengen Open 2025 | 17. | 140 | NBHF |
@@ -565,9 +565,9 @@ Oppdatert 24/05/2026
 | Norwegian Championships 2025 Women | 6. | 1 | NBHF |
 | Sum |  | 976 |  |
 
-### 5. Anne Grethe Gangsoy — Kvalifisert (Poeng: 951, 5/8 turneringer)
+### 5. Anne Grethe Gangsoy — Qualified (Points: 951, 5/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2024 | 9. | 292 | NBHF |
 | Norwegian Championships 2025 | 15. | 248 | NBHF |
@@ -576,9 +576,9 @@ Oppdatert 24/05/2026
 | Krohnengen Open 2025 | 21. | 100 | NBHF |
 | Sum |  | 951 |  |
 
-### 6. Linnea Gangsoy —  (Poeng: 925, 6/8 turneringer)
+### 6. Linnea Gangsoy — (Points: 925, 6/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Women | 6. | 350 | NBHF |
 | Krohnengen Open 2024 | 13. | 180 | NBHF |
@@ -588,42 +588,42 @@ Oppdatert 24/05/2026
 | Norwegian Championships 2025 Women | 4. | 41 | NBHF |
 | Sum |  | 925 |  |
 
-### 7. Julia Carina Gangsoy —  (Poeng: 646, 3/8 turneringer)
+### 7. Julia Carina Gangsoy — (Points: 646, 3/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Women | 4. | 450 | NBHF |
 | Krohnengen Open 2024 | 19. | 120 | NBHF |
 | Norwegian Championships 2026 | 25. | 76 | NBHF |
 | Sum |  | 646 |  |
 
-### 8. Kanutte Holmin Brunvoll —  (Poeng: 270, 2/8 turneringer)
+### 8. Kanutte Holmin Brunvoll — (Points: 270, 2/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2024 | 16. | 150 | NBHF |
 | Krohnengen Open 2025 | 19. | 120 | NBHF |
 | Sum |  | 270 |  |
 
-### 9. Isla Tufteland —  (Poeng: 130, 1/8 turneringer)
+### 9. Isla Tufteland — (Points: 130, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2024 | 18. | 130 | NBHF |
 | Sum |  | 130 |  |
 
-### 10. Ada Falch —  (Poeng: 100, 1/8 turneringer)
+### 10. Ada Falch — (Points: 100, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2024 | 21. | 100 | NBHF |
 | Sum |  | 100 |  |
 
 ## Junior
 
-### 1. Benjamin Nygard — Kvalifisert (Poeng: 3221, 8/8 turneringer)
+### 1. Benjamin Nygard — Qualified (Points: 3221, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Juniors | 2. | 550 | NBHF |
 | Norwegian Championships 2026 | 7. | 493 | NBHF |
@@ -635,9 +635,9 @@ Oppdatert 24/05/2026
 | Birch City Classic 2025 | 25. | 362 | ITHF |
 | Sum |  | 3221 |  |
 
-### 2. Ane Skadsem — Kvalifisert (Poeng: 2706, 8/8 turneringer)
+### 2. Ane Skadsem — Qualified (Points: 2706, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Women | 1. | 600 | NBHF |
 | Norwegian Championships 2026 Juniors | 3. | 475 | NBHF |
@@ -649,9 +649,9 @@ Oppdatert 24/05/2026
 | Birch City Classic 2025 | 36. | 258 | ITHF |
 | Sum |  | 2706 |  |
 
-### 3. Sinus Moberg — Deltar ikke (Poeng: 2631, 8/8 turneringer)
+### 3. Sinus Moberg — Not participating (Points: 2631, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Juniors | 1. | 600 | NBHF |
 | Norwegian Championships 2026 | 9. | 423 | NBHF |
@@ -663,9 +663,9 @@ Oppdatert 24/05/2026
 | Norwegian Championships 2025 | 17. | 140 | NBHF |
 | Sum |  | 2631 |  |
 
-### 4. Kristin Fjermestad — Kvalifisert (Poeng: 1886, 8/8 turneringer)
+### 4. Kristin Fjermestad — Qualified (Points: 1886, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Women | 2. | 550 | NBHF |
 | Norwegian Championships 2026 Juniors | 4. | 450 | NBHF |
@@ -677,9 +677,9 @@ Oppdatert 24/05/2026
 | Norway Open 2024 | 30. | 86 | NBHF |
 | Sum |  | 1886 |  |
 
-### 5. Mona Gangsoy — Kvalifisert (Poeng: 985, 6/8 turneringer)
+### 5. Mona Gangsoy — Qualified (Points: 985, 6/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Women | 5. | 400 | NBHF |
 | Krohnengen Open 2025 | 13. | 203 | NBHF |
@@ -689,9 +689,9 @@ Oppdatert 24/05/2026
 | Norwegian Championships 2025 Juniors | 5. | 30 | NBHF |
 | Sum |  | 985 |  |
 
-### 6. Oline Holmin Brunvoll — Kvalifisert (Poeng: 975, 5/8 turneringer)
+### 6. Oline Holmin Brunvoll — Qualified (Points: 975, 5/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Women | 3. | 475 | NBHF |
 | Krohnengen Open 2025 | 17. | 140 | NBHF |
@@ -700,9 +700,9 @@ Oppdatert 24/05/2026
 | Norwegian Championships 2025 | 21. | 100 | NBHF |
 | Sum |  | 975 |  |
 
-### 7. Linnea Gangsoy —  (Poeng: 899, 6/8 turneringer)
+### 7. Linnea Gangsoy — (Points: 899, 6/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Women | 6. | 350 | NBHF |
 | Krohnengen Open 2024 | 13. | 180 | NBHF |
@@ -712,27 +712,27 @@ Oppdatert 24/05/2026
 | Norwegian Championships 2025 Juniors | 6. | 15 | NBHF |
 | Sum |  | 899 |  |
 
-### 8. Jonas Bolstad —  (Poeng: 704, 3/8 turneringer)
+### 8. Jonas Bolstad — (Points: 704, 3/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Juniors | 6. | 350 | NBHF |
 | Jaren Open 2026 | 12. | 190 | NBHF |
 | Norwegian Championships 2026 | 17. | 164 | NBHF |
 | Sum |  | 704 |  |
 
-### 9. Ivar Stadheim —  (Poeng: 654, 3/8 turneringer)
+### 9. Ivar Stadheim — (Points: 654, 3/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Juniors | 5. | 400 | NBHF |
 | Jaren Open 2026 | 15. | 160 | NBHF |
 | Norwegian Championships 2026 | 22. | 94 | NBHF |
 | Sum |  | 654 |  |
 
-### 10. Julia Carina Gangsoy —  (Poeng: 647, 4/8 turneringer)
+### 10. Julia Carina Gangsoy — (Points: 647, 4/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Women | 4. | 450 | NBHF |
 | Krohnengen Open 2024 | 19. | 120 | NBHF |
@@ -740,73 +740,73 @@ Oppdatert 24/05/2026
 | Norwegian Championships 2025 Juniors | 7. | 1 | NBHF |
 | Sum |  | 647 |  |
 
-### 11. Nicolas Trae —  (Poeng: 442, 3/8 turneringer)
+### 11. Nicolas Trae — (Points: 442, 3/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Juniors | 9. | 230 | NBHF |
 | Jaren Open 2025 | 15. | 160 | NBHF |
 | Norway Open 2025 | 29. | 52 | NBHF |
 | Sum |  | 442 |  |
 
-### 12. Ruben Nesse Haland —  (Poeng: 400, 2/8 turneringer)
+### 12. Ruben Nesse Haland — (Points: 400, 2/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Juniors | 7. | 300 | NBHF |
 | Norwegian Championships 2026 | 21. | 100 | NBHF |
 | Sum |  | 400 |  |
 
-### 13. Sondre Schulze Stapnes —  (Poeng: 330, 2/8 turneringer)
+### 13. Sondre Schulze Stapnes — (Points: 330, 2/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Juniors | 8. | 260 | NBHF |
 | Norwegian Championships 2026 | 26. | 70 | NBHF |
 | Sum |  | 330 |  |
 
-### 14. Hakon Hugdahl Larsen —  (Poeng: 300, 2/8 turneringer)
+### 14. Hakon Hugdahl Larsen — (Points: 300, 2/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2024 | 14. | 170 | NBHF |
 | Krohnengen Open 2025 | 18. | 130 | NBHF |
 | Sum |  | 300 |  |
 
-### 15. Kanutte Holmin Brunvoll —  (Poeng: 270, 2/8 turneringer)
+### 15. Kanutte Holmin Brunvoll — (Points: 270, 2/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2024 | 16. | 150 | NBHF |
 | Krohnengen Open 2025 | 19. | 120 | NBHF |
 | Sum |  | 270 |  |
 
-### 16. Jonas Fjelde Larsen —  (Poeng: 210, 1/8 turneringer)
+### 16. Jonas Fjelde Larsen — (Points: 210, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Jaren Open 2026 | 10. | 210 | NBHF |
 | Sum |  | 210 |  |
 
-### 17. Isla Tufteland —  (Poeng: 130, 1/8 turneringer)
+### 17. Isla Tufteland — (Points: 130, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2024 | 18. | 130 | NBHF |
 | Sum |  | 130 |  |
 
-### 18. Tomas Hoven Skauge —  (Poeng: 110, 1/8 turneringer)
+### 18. Tomas Hoven Skauge — (Points: 110, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Krohnengen Open 2025 | 20. | 110 | NBHF |
 | Sum |  | 110 |  |
 
 ## Veteran
 
-### 1. Arne Hetlelid — Deltar ikke (Poeng: 3667, 8/8 turneringer)
+### 1. Arne Hetlelid — Not participating (Points: 3667, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norway Open 2024 | 13. | 502 | NBHF |
 | Krohnengen Open 2024 | 3. | 493 | NBHF |
@@ -818,9 +818,9 @@ Oppdatert 24/05/2026
 | Norwegian Championships 2025 Veterans | 3. | 397 | NBHF |
 | Sum |  | 3667 |  |
 
-### 2. Arne Johannes Holmin — Kvalifisert (Poeng: 3037, 8/8 turneringer)
+### 2. Arne Johannes Holmin — Qualified (Points: 3037, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Veterans | 1. | 600 | NBHF |
 | Norwegian Championships 2026 | 6. | 526 | NBHF |
@@ -832,9 +832,9 @@ Oppdatert 24/05/2026
 | Krohnengen Open 2024 | 11. | 200 | NBHF |
 | Sum |  | 3037 |  |
 
-### 3. Yngve Aasheim — Kvalifisert (Poeng: 2048, 4/8 turneringer)
+### 3. Yngve Aasheim — Qualified (Points: 2048, 4/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Trondheim Open 2025 | 2. | 550 | NBHF |
 | Norwegian Championships 2025 | 6. | 516 | NBHF |
@@ -842,9 +842,9 @@ Oppdatert 24/05/2026
 | Trondheim Open 2026 | 3. | 489 | NBHF |
 | Sum |  | 2048 |  |
 
-### 4. Kjartan Moberg — Deltar ikke (Poeng: 1657, 8/8 turneringer)
+### 4. Kjartan Moberg — Not participating (Points: 1657, 8/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2026 Veterans | 5. | 400 | NBHF |
 | Norwegian Championships 2026 | 13. | 317 | NBHF |
@@ -856,16 +856,16 @@ Oppdatert 24/05/2026
 | Norway Open 2024 | 31. | 50 | NBHF |
 | Sum |  | 1657 |  |
 
-### 5. Espen Moe — Kvalifisert (Poeng: 550, 1/8 turneringer)
+### 5. Espen Moe — Qualified (Points: 550, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Trondheim Open 2026 | 2. | 550 | NBHF |
 | Sum |  | 550 |  |
 
-### 6. Trond Selseng — Kvalifisert (Poeng: 308, 1/8 turneringer)
+### 6. Trond Selseng — Qualified (Points: 308, 1/8 tournaments)
 
-| Turnering | Posisjon | Poeng | Type |
+| Tournament | Position | Points | Type |
 | --- | --- | --- | --- |
 | Norwegian Championships 2025 Veterans | 4. | 308 | NBHF |
 | Sum |  | 308 |  |

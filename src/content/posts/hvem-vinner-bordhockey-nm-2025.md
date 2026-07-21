@@ -9,9 +9,7 @@ description: "Årets store høydepunkt i norsk bordhockey er rett rundt hjørnet
 ---
 **Årets store høydepunkt i norsk bordhockey er rett rundt hjørnet. Lørdag 29. mars arrangeres norgesmesterskapet i bordhockey i Bergen. Daniel Nygård har slått seg sammen med sin gamle læremester Øystein Klippen for å finne fasiten på hvordan det hele ender.**
 
-![Fotomontasje: Bordhocey-NM 2025 i Bergen](/media/images/hvem-vinner-bordhockey-nm-2025-71abf4ce.webp)
-
-Fotomontasje: Bordhocey-NM 2025 i Bergen
+Fotomontasje: Bordhockey-NM 2025 i Bergen
 
 **14\. Andreas Fjermestad**
 

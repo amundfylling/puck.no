@@ -5,9 +5,8 @@ lang: "no"
 pubDate: "2024-12-05T09:00:12.093Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-5-e746f904.png"
-description: "Endelig fikk vi litt variasjon i svarene, og det korrekte svaret var en trønder bosatt på Østlandet: Hallvard Einer Sægrov. Hvilken bordhockeyspiller skjuler seg bak luke 5?1. Hva er/var din favoritt kombinasjon eller triks? Stillestående direkteskudd fra venstreving i nærmeste kryss, spesielt på brett med livestream og kamera på venstre side av brettet. Euforisk.2. Hva er din favorittlunsj på en bordhockeyturnering? All mat som tilbys under turnering, der man slipper å ta den kalde turen til bu"
+description: "Endelig fikk vi litt variasjon i svarene, og det korrekte svaret var en trønder bosatt på Østlandet: Hallvard Einer Sægrov. Hvilken bordhockeyspiller skjuler seg bak luke 5?"
 ---
-![](/media/images/adventskalender-2024-luke-5-e746f904.png)
 
 Endelig fikk vi litt variasjon i svarene, og det korrekte svaret var en trønder bosatt på Østlandet: Hallvard Einer Sægrov. Hvilken bordhockeyspiller skjuler seg bak luke 5?
 

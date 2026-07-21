@@ -9,8 +9,6 @@ description: "Jærligaens ledestjerne Andreas Fjermestad har studert påmeldings
 ---
 **I morgen braker det løs med norsk bordhockey igjen og den høytidelige Jæren Open. Jærligaens ledestjerne Andreas Fjermestad har i den anledning studert påmeldingslisten og gjort seg opp en mening om lørdagens utfall.**
 
-![Fra Jæren Open 2018. I forgrunnen spiller Andreas Fjermestad (t.h.) mot Espen Moe.](/media/images/forhåndstips-jæren-open-2025-be4dea47.jpg)
-
 Fra Jæren Open 2018. I forgrunnen spiller Andreas Fjermestad (t.h.) mot Espen Moe.
 
 **8\. Sinus Moberg**

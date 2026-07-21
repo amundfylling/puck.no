@@ -9,12 +9,13 @@ const { lang } = Astro.props;
 const year = new Date().getFullYear();
 const flatLinks = navItems(lang).flatMap((i) => (i.children ? [i, ...i.children] : [i]));
 const orgName = lang === 'en' ? 'Norwegian Table Hockey Association' : 'Norges Bordhockeyforbund';
+const shortName = lang === 'en' ? 'NTHF' : 'NBHF';
 ---
 
 <footer class="mt-16 bg-navy text-white">
   <div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-3">
     <div>
-      <p class="text-lg font-extrabold">NBHF</p>
+      <p class="text-lg font-extrabold">{shortName}</p>
       <p class="mt-1 text-sm text-slate-300">{orgName}</p>
       <p class="mt-4 text-sm">
         <span class="font-semibold">{t(lang, 'footerContact')}:</span>

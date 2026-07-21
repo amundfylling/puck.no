@@ -5,9 +5,8 @@ lang: "no"
 pubDate: "2024-12-18T09:00:13.684Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-18-0e4f4e50.png"
-description: "Undertegnede måtte jo selvsagt slenge seg med i kalenderen. Det var altså Amund Risa Fylling som skjulte seg bak luke 17. Hvem befinner seg bak dagens luke?1. Hva er/var din favoritt kombinasjon eller triks? Direktestøt frå høgreback på vill puck.2. Hva er din favorittlunsj på en bordhockeyturnering? Hot dog.3. Hvilken turnering liker/likte du best å reise til?Lambertseter Open. Ærverdig lokale. Kort veg til kjøpesenter.4. Hva er ditt beste bordhockey øyeblikk? Første Bergensligaseier. Etter ell"
+description: "Undertegnede måtte jo selvsagt slenge seg med i kalenderen. Det var altså Amund Risa Fylling som skjulte seg bak luke 17. Hvem befinner seg bak dagens luke?"
 ---
-![](/media/images/adventskalender-2024-luke-18-0e4f4e50.png)
 
 Undertegnede måtte jo selvsagt slenge seg med i kalenderen. Det var altså Amund Risa Fylling som skjulte seg bak luke 17. Hvem befinner seg bak dagens luke?
 

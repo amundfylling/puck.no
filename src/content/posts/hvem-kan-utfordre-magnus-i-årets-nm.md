@@ -23,4 +23,6 @@ Svaret får vi på lørdag. Magnus er vanskelig å slå, men hvis noen skal klar
 
 **Se NM live på Brent Plast BHK sin YouTube-kanal fra lørdag klokken 09:30.**
 
-[https://youtu.be/FzR6xVgFqp8](https://youtu.be/FzR6xVgFqp8)
+<div class="video-embed">
+  <iframe src="https://www.youtube-nocookie.com/embed/FzR6xVgFqp8" title="NM 2026 direkte" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>

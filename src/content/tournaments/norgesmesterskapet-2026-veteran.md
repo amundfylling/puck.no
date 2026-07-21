@@ -9,7 +9,7 @@ status: "upcoming"
 ---
 ![NM 2026 - Veteran](/media/images/norgesmesterskapet-2026-veteran-62111f86.jpg)
 
-Velkommen til Junior-NM i bordhockey i Kvernhallen på Frøyland Skule! Turneringen er for spillere født 1981 eller tidligere.
+Velkommen til Veteran-NM i bordhockey i Kvernhallen på Frøyland Skule! Turneringen er for spillere født 1981 eller tidligere.
 
 # Tidsskjema
 

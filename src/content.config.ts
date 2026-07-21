@@ -32,10 +32,11 @@ const posts = defineCollection({
 });
 
 const tournaments = defineCollection({
-  loader: glob({ pattern: '*.md', base: './src/content/tournaments', generateId: byPath }),
+  loader: glob({ pattern: '**/*.md', base: './src/content/tournaments', generateId: byPath }),
   schema: z.object({
     name: z.string(),
     slug: z.string(),
+    lang: z.enum(['no', 'en']).default('no'),
     /** Display date, Norwegian text (e.g. "5. september 2026"). */
     date: z.string(),
     location: z.string().nullable(),
