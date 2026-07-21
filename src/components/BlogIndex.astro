@@ -46,8 +46,11 @@ const pageUrl = (n: number) => (n === 1 ? `${prefix}/blog` : `${prefix}/blog/${n
     </ul>
   </nav>
 
-  <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-    {posts.map((post, i) => <PostCard post={post} lang={lang} eager={page === 1 && i < 3} />)}
+  <div class="mt-8 space-y-6">
+    {page === 1 && posts.length > 0 && <PostCard post={posts[0]} lang={lang} eager featured />}
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {posts.slice(page === 1 ? 1 : 0).map((post, i) => <PostCard post={post} lang={lang} eager={page === 1 && i < 2} />)}
+    </div>
   </div>
 
   {

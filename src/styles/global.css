@@ -6,18 +6,50 @@
   --color-navy: #0e2a57;
   --color-navy-dark: #0a1f42;
   --color-ice: #f4f7fb;
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Geist", ui-sans-serif, system-ui, sans-serif;
 }
 
 /* ---------- base ---------- */
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
-  @apply bg-white text-slate-800 antialiased;
-  font-family:
-    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
+  @apply bg-white font-body text-slate-800 antialiased;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hero-reveal {
+  animation: hero-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-reveal-delay {
+  animation-delay: 0.12s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-reveal,
+  .hero-reveal-delay {
+    animation: none;
+  }
 }
 
 :focus-visible {
@@ -138,7 +170,10 @@ body {
   @apply mt-2 mb-0 flex-1 text-sm leading-relaxed text-slate-600;
 }
 .rich-text .hub-card .btn-primary {
-  @apply mt-4 self-start no-underline;
+  @apply mt-4 self-start whitespace-nowrap no-underline;
+}
+.rich-text .hub-card .btn-outline {
+  @apply mt-4 self-start !border whitespace-nowrap no-underline;
 }
 .rich-text blockquote {
   @apply my-6 border-l-4 border-brand bg-ice px-4 py-2 italic;
@@ -148,6 +183,7 @@ body {
 }
 .rich-text table {
   @apply my-6 w-full border-collapse text-sm;
+  font-variant-numeric: tabular-nums;
 }
 .rich-text th,
 .rich-text td {

@@ -23,26 +23,40 @@ const l = {
   allNews: t(lang, 'allNews'),
   aboutHeading: lang === 'en' ? 'About the Norwegian Table Hockey Association' : 'Om Norges Bordhockeyforbund',
   readMore: t(lang, 'readMore'),
+  statTournaments: lang === 'en' ? 'tournaments a year' : 'turneringer i året',
+  statLeagues: lang === 'en' ? 'local leagues' : 'lokalligaer',
 };
 ---
 
 <section class="border-b border-slate-200 bg-ice">
   <div class="mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 md:grid-cols-2">
-    <div>
-      <h1 class="text-3xl font-extrabold text-navy sm:text-4xl">{entry.data.title}</h1>
+    <div class="hero-reveal">
+      <h1 class="text-4xl font-extrabold leading-tight text-navy sm:text-5xl">{entry.data.title}</h1>
       {entry.data.description && <p class="mt-4 text-lg leading-relaxed text-slate-700">{entry.data.description}</p>}
       <div class="mt-6 flex flex-wrap gap-3">
         <a href={pagePath('services-1', lang)} class="btn-primary">{l.play}</a>
         <a href={pagePath('lokalligaer', lang)} class="btn-outline">{l.leagues}</a>
         <a href={pagePath('turneringer', lang)} class="btn-outline">{l.tournaments}</a>
       </div>
+      <dl class="mt-8 flex gap-10 border-t border-slate-300/70 pt-5">
+        <div>
+          <dt class="sr-only">{l.statTournaments}</dt>
+          <dd class="text-3xl font-extrabold text-brand">5</dd>
+          <dd class="text-sm text-slate-600">{l.statTournaments}</dd>
+        </div>
+        <div>
+          <dt class="sr-only">{l.statLeagues}</dt>
+          <dd class="text-3xl font-extrabold text-brand">2</dd>
+          <dd class="text-sm text-slate-600">{l.statLeagues}</dd>
+        </div>
+      </dl>
     </div>
     <img
       src="/media/images/index-2f7a1d75.png"
       alt={l.heroAlt}
       width="1600"
       height="782"
-      class="w-full rounded-lg shadow-md"
+      class="hero-reveal hero-reveal-delay w-full rounded-xl shadow-lg ring-1 ring-slate-900/10"
       loading="eager"
       fetchpriority="high"
     />

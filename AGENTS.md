@@ -72,7 +72,9 @@ src/
                          # (seo.json lookup), rss.ts, timere.ts, galleries.ts
   pages/                 # routes — see "Routing" below (+ /admin/pameldinger)
   styles/global.css      # Tailwind import, @theme tokens (brand red/navy),
-                         # .rich-text styles for rendered markdown
+                         # font pairing (Bricolage Grotesque display + Geist
+                         # body, via Google Fonts in BaseLayout), .rich-text
+                         # styles for rendered markdown, hub/board/card styles
 functions/               # Cloudflare Pages Functions (TypeScript):
   api/registrations.ts            # POST register player/team (Turnstile)
   api/tournaments/[slug]/players.ts  # GET public participant list

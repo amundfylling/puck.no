@@ -29,13 +29,17 @@ const seo = seoForPath(path);
   noUrl={path.replace(/^\/en/, '')}
   enUrl={path}
 >
+  <div class="border-b border-slate-200 bg-ice">
+    <div class="mx-auto max-w-4xl px-4 py-10">
+      <h1 class="text-3xl font-extrabold text-navy sm:text-4xl">{entry.data.title}</h1>
+    </div>
+  </div>
   <article class="mx-auto max-w-4xl px-4 py-10">
-    <h1 class="text-3xl font-extrabold text-navy">{entry.data.title}</h1>
     {
       entry.data.slug === 'årsmøter' ? (
         <Arsmoter lang="en" />
       ) : (
-        <div class="rich-text mt-6 flow-root">
+        <div class="rich-text flow-root">
           <Content />
         </div>
       )

@@ -20,12 +20,12 @@ async function* walk(dir) {
   }
 }
 
-const ATTR = /(?:href|src|srcset|poster)\s*=\s*"([^"]*)"/g;
+const ATTR = /(href|src|srcset|poster)\s*=\s*"([^"]*)"/g;
 
 function* urlsOf(html) {
   for (const m of html.matchAll(ATTR)) {
-    const raw = m[1];
-    if (raw.includes(',')) {
+    const [, attr, raw] = m;
+    if (attr === 'srcset' && raw.includes(',')) {
       // srcset: "url 600w, url 1600w"
       for (const part of raw.split(',')) {
         const u = part.trim().split(/\s+/)[0];
