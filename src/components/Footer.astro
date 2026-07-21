@@ -7,58 +7,101 @@ interface Props {
 
 const { lang } = Astro.props;
 const year = new Date().getFullYear();
-const flatLinks = navItems(lang).flatMap((i) => (i.children ? [i, ...i.children] : [i]));
+const items = navItems(lang);
+const groups = items.filter((i) => i.children);
+const singles = items.filter((i) => !i.children);
+const home = lang === 'en' ? '/en' : '/';
 const orgName = lang === 'en' ? 'Norwegian Table Hockey Association' : 'Norges Bordhockeyforbund';
 const shortName = lang === 'en' ? 'NTHF' : 'NBHF';
 ---
 
 <footer class="mt-16 bg-navy text-white">
-  <div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-3">
+  <div
+    class="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr]"
+  >
     <div>
-      <p class="text-lg font-extrabold">{shortName}</p>
-      <p class="mt-1 text-sm text-slate-300">{orgName}</p>
+      <a href={home} class="flex items-center gap-3 no-underline" aria-label={`${shortName} – ${orgName}`}>
+        <img
+          src="/media/images/nbhf-logo.png"
+          alt=""
+          width="40"
+          height="40"
+          class="h-10 w-10 rounded bg-white p-0.5"
+        />
+        <span class="leading-tight">
+          <span class="block text-lg font-extrabold">{shortName}</span>
+          <span class="block text-xs text-slate-300">{orgName}</span>
+        </span>
+      </a>
       <p class="mt-4 text-sm">
         <span class="font-semibold">{t(lang, 'footerContact')}:</span>
-        <a href="mailto:amund.fylling@puck.no" class="ml-1 text-slate-200 underline underline-offset-2 hover:text-white"
+        <a
+          href="mailto:amund.fylling@puck.no"
+          class="ml-1 text-slate-200 underline underline-offset-2 hover:text-white"
           >amund.fylling@puck.no</a
         >
       </p>
     </div>
-    <nav aria-label={t(lang, 'menuLabel')}>
-      <ul class="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+
+    {
+      groups.map((group) => (
+        <nav aria-label={group.label}>
+          <p class="text-xs font-bold uppercase tracking-wider">
+            <a href={group.href} class="text-slate-400 no-underline hover:text-white">
+              {group.label}
+            </a>
+          </p>
+          <ul class="mt-3 space-y-1.5 text-sm">
+            {group.children!.map((child) => (
+              <li>
+                <a
+                  href={child.href}
+                  {...(child.external ? { target: '_blank', rel: 'noopener' } : {})}
+                  class="text-slate-300 no-underline hover:text-white hover:underline"
+                >
+                  {child.label}
+                  {child.external && <span class="sr-only"> ({t(lang, 'opensInNewTab')})</span>}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ))
+    }
+
+    <nav aria-label={t(lang, 'shortcuts')}>
+      <p class="text-xs font-bold uppercase tracking-wider text-slate-400">
+        {t(lang, 'shortcuts')}
+      </p>
+      <ul class="mt-3 space-y-1.5 text-sm">
         {
-          flatLinks.map((item) => (
+          singles.map((item) => (
             <li>
-              <a
-                href={item.href}
-                {...(item.external ? { target: '_blank', rel: 'noopener' } : {})}
-                class="text-slate-300 no-underline hover:text-white hover:underline"
-              >
+              <a href={item.href} class="text-slate-300 no-underline hover:text-white hover:underline">
                 {item.label}
               </a>
             </li>
           ))
         }
+        <li>
+          <a
+            href={lang === 'en' ? '/en/blog-feed.xml' : '/blog-feed.xml'}
+            class="text-slate-300 no-underline hover:text-white hover:underline">RSS</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://www.ithf.info/stiga/ithf/ithf.asp"
+            target="_blank"
+            rel="noopener"
+            class="text-slate-300 no-underline hover:text-white hover:underline"
+            >ITHF<span class="sr-only"> ({t(lang, 'opensInNewTab')})</span></a
+          >
+        </li>
       </ul>
     </nav>
-    <div class="text-sm text-slate-300">
-      <p>
-        <a
-          href={lang === 'en' ? '/en/blog-feed.xml' : '/blog-feed.xml'}
-          class="text-slate-300 no-underline hover:text-white hover:underline">RSS</a
-        >
-      </p>
-      <p class="mt-2">
-        <a
-          href="https://www.ithf.info/stiga/ithf/ithf.asp"
-          target="_blank"
-          rel="noopener"
-          class="text-slate-300 no-underline hover:text-white hover:underline">ITHF</a
-        >
-      </p>
-    </div>
   </div>
   <div class="border-t border-white/10">
-    <p class="mx-auto max-w-6xl px-4 py-4 text-xs text-slate-400">© {year} Norges Bordhockeyforbund</p>
+    <p class="mx-auto max-w-6xl px-4 py-4 text-xs text-slate-400">© {year} {orgName}</p>
   </div>
 </footer>

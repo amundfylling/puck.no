@@ -130,6 +130,7 @@ export const ui = {
   photoOf: { no: 'Bilde', en: 'Image' },
   of: { no: 'av', en: 'of' },
   footerContact: { no: 'Kontakt', en: 'Contact' },
+  shortcuts: { no: 'Snarveier', en: 'Shortcuts' },
   schedule: { no: 'Tidsskjema', en: 'Schedule' },
   date: { no: 'Dato', en: 'Date' },
   prices: { no: 'Priser', en: 'Prices' },
