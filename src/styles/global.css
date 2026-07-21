@@ -151,6 +151,16 @@ h4 {
 .rich-text .hub-grid {
   @apply my-8 grid gap-6 sm:grid-cols-3;
 }
+.rich-text .league-grid {
+  @apply my-8 grid gap-6 sm:grid-cols-2;
+}
+.rich-text .hub-card .hub-actions {
+  @apply mt-4 flex flex-wrap gap-2;
+}
+.rich-text .hub-card .hub-actions .btn-primary,
+.rich-text .hub-card .hub-actions .btn-outline {
+  @apply mt-0;
+}
 .rich-text .hub-card {
   @apply flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md;
 }
