@@ -2,6 +2,11 @@ name = "puck-no"
 pages_build_output_dir = "dist"
 compatibility_date = "2025-03-01"
 
+# Turnstile site key (public, safe in git). Secret key is set separately:
+#   echo "<secret>" | npx wrangler pages secret put TURNSTILE_SECRET_KEY --project-name puck-no
+[vars]
+PUBLIC_TURNSTILE_SITE_KEY = "0x4AAAAAAD6w9UHtQbh0G61b"
+
 # D1 database for tournament registrations (Phase 3).
 # The placeholder database_id works for LOCAL development (wrangler d1 ... --local
 # and wrangler pages dev --local). Before deploying, create the real database with
