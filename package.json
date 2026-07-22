@@ -25,7 +25,7 @@
     "@astrojs/markdown-satteri": "^0.3.4",
     "@cloudflare/workers-types": "^5.20260718.1",
     "marked": "^18.0.6",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
     "wrangler": "^4.112.0"
   }
 }
