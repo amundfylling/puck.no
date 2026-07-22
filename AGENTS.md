@@ -77,6 +77,8 @@ src/
                          # in BaseLayout), .rich-text
                          # styles for rendered markdown, hub/board/card styles
 functions/               # Cloudflare Pages Functions (TypeScript):
+  _middleware.ts                    # serves /404.html (no) or /en/404/ (en)
+                                    # with a real 404 status on misses
   api/registrations.ts            # POST register player/team (Turnstile)
   api/tournaments/[slug]/players.ts  # GET public participant list
   api/admin/registrations.csv.ts  # GET full CSV export (Access-protected)
