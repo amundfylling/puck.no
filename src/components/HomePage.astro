@@ -1,4 +1,6 @@
 ---
+import { Picture } from 'astro:assets';
+import heroImg from '../assets/images/hero.png';
 import { pagePath, t, type Lang } from '../lib/i18n';
 import type { Page, Post, TournamentView } from '../lib/content';
 import PostCard from './PostCard.astro';
@@ -37,11 +39,12 @@ const l = {
         <a href={pagePath('turneringer', lang)} class="btn-outline">{l.tournaments}</a>
       </div>
     </div>
-    <img
-      src="/media/images/index-2f7a1d75.png"
+    <Picture
+      src={heroImg}
+      formats={['avif', 'webp']}
+      widths={[480, 800, 1200, 1600]}
+      sizes="(min-width: 768px) 50vw, calc(100vw - 2rem)"
       alt={l.heroAlt}
-      width="1600"
-      height="782"
       class="hero-reveal hero-reveal-delay w-full rounded-xl shadow-lg ring-1 ring-slate-900/10"
       loading="eager"
       fetchpriority="high"

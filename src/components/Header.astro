@@ -10,7 +10,7 @@ interface Props {
 
 const { lang, currentPath, noUrl, enUrl } = Astro.props;
 const items = navItems(lang);
-const home = lang === 'en' ? '/en' : '/';
+const home = lang === 'en' ? '/en/' : '/';
 const orgName = lang === 'en' ? 'Norwegian Table Hockey Association' : 'Norges Bordhockeyforbund';
 const shortName = lang === 'en' ? 'NTHF' : 'NBHF';
 
@@ -45,7 +45,7 @@ const isActive = (href: string) =>
           <li aria-hidden="true" class="text-slate-300">|</li>
           <li>
             <a
-              href={enUrl ?? '/en'}
+              href={enUrl ?? '/en/'}
               hreflang="en"
               aria-current={lang === 'en' ? 'true' : undefined}
               class:list={[

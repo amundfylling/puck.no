@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import '@fontsource-variable/bricolage-grotesque/opsz.css';
+import '@fontsource-variable/geist';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CloudflareAnalytics from '../components/CloudflareAnalytics.astro';
@@ -37,7 +39,11 @@ const {
 
 const site = Astro.site ?? new URL('https://www.puck.no');
 const abs = (path: string) => new URL(path, site).href;
-const canonical = abs(canonicalPath);
+// All page URLs use the trailing-slash form Cloudflare Pages serves.
+const slash = (path: string) => (path === '/' || path.endsWith('/') ? path : `${path}/`);
+const canonical = abs(slash(canonicalPath));
+const noUrlSlash = noUrl ? slash(noUrl) : null;
+const enUrlSlash = enUrl ? slash(enUrl) : null;
 const ogImageAbs = ogImage ? abs(ogImage) : abs('/media/images/index-2f7a1d75.png');
 const desc = description || undefined;
 const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
@@ -54,12 +60,6 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&amp;family=Geist:wght@300..700&amp;display=swap"
-      rel="stylesheet"
-    />
     <link
       rel="alternate"
       type="application/rss+xml"
@@ -74,14 +74,14 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <meta property="og:image" content={ogImageAbs} />
     <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'nb_NO'} />
     <meta name="twitter:card" content="summary_large_image" />
-    {noUrl && <link rel="alternate" hreflang="no" href={abs(noUrl)} />}
-    {enUrl && <link rel="alternate" hreflang="en" href={abs(enUrl)} />}
-    {noUrl && <link rel="alternate" hreflang="x-default" href={abs(noUrl)} />}
+    {noUrlSlash && <link rel="alternate" hreflang="no" href={abs(noUrlSlash)} />}
+    {enUrlSlash && <link rel="alternate" hreflang="en" href={abs(enUrlSlash)} />}
+    {noUrlSlash && <link rel="alternate" hreflang="x-default" href={abs(noUrlSlash)} />}
     {ld.map((obj) => <script is:inline type="application/ld+json" set:html={JSON.stringify(obj)} />)}
   </head>
   <body class="flex min-h-screen flex-col">
     <a href="#innhold" class="skip-link">{t(lang, 'skipLink')}</a>
-    <Header lang={lang} currentPath={canonicalPath} noUrl={noUrl} enUrl={enUrl} />
+    <Header lang={lang} currentPath={slash(canonicalPath)} noUrl={noUrlSlash} enUrl={enUrlSlash} />
     <main id="innhold" class="flex-1">
       <slot />
     </main>

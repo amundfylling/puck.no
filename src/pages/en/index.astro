@@ -2,6 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HomePage from '../../components/HomePage.astro';
 import { getEntry } from 'astro:content';
+import { getImage } from 'astro:assets';
+import heroImg from '../../assets/images/hero.png';
 import { getPosts, getTournamentsSorted } from '../../lib/content';
 import { seoForPath } from '../../lib/seo';
 
@@ -11,12 +13,15 @@ const seo = seoForPath('/en');
 const posts = (await getPosts('en')).slice(0, 3);
 const next = (await getTournamentsSorted(new Date(), 'en')).find((v) => v.status === 'upcoming') ?? null;
 
+// Dedicated 1200x630 og:image (cropped from the hero) for the front page.
+const og = await getImage({ src: heroImg, width: 1200, height: 630, fit: 'cover', format: 'jpg' });
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SportsOrganization',
   name: 'Norges Bordhockeyforbund',
   alternateName: 'NBHF',
-  url: 'https://www.puck.no/en',
+  url: 'https://www.puck.no/en/',
   logo: 'https://www.puck.no/favicon.png',
   sport: 'Table hockey',
   email: 'amund.fylling@puck.no',
@@ -31,6 +36,7 @@ const jsonLd = {
   canonicalPath="/en"
   noUrl="/"
   enUrl="/en"
+  ogImage={og.src}
   jsonLd={jsonLd}
 >
   <HomePage lang="en" entry={entry} posts={posts} next={next} />

@@ -46,7 +46,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SportsEvent',
   name: entry.data.name,
-  url: `https://www.puck.no${path}`,
+  url: `https://www.puck.no${path}/`,
   ...(date && { startDate: date.toISOString().slice(0, 10) }),
   eventStatus:
     status === 'past' ? 'https://schema.org/EventCompleted' : 'https://schema.org/EventScheduled',
@@ -58,7 +58,7 @@ const jsonLd = {
   organizer: {
     '@type': 'SportsOrganization',
     name: 'Norwegian Table Hockey Association',
-    url: 'https://www.puck.no/en',
+    url: 'https://www.puck.no/en/',
   },
 };
 ---
@@ -74,7 +74,7 @@ const jsonLd = {
 >
   <article class="mx-auto max-w-4xl px-4 py-10">
     <p class="text-sm">
-      <a href="/en/turneringer" class="font-semibold text-brand no-underline hover:underline"
+      <a href="/en/turneringer/" class="font-semibold text-brand no-underline hover:underline"
         >&larr; {t('en', 'tournaments')}</a
       >
     </p>

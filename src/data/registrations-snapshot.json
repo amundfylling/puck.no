@@ -1,5 +1,5 @@
 {
- "snapshot_date": "2026-07-21",
+ "snapshot_date": "2026-07-22",
  "tournaments": {
   "norgesmesterskapet-2026-dame": [
    {
@@ -171,6 +171,153 @@
    {
     "name": "Sondre Efteland Johansen, Sinus Moberg",
     "country": "NOR"
+   }
+  ],
+  "norway-open-2025": [
+   {
+    "name": "Edgars Caics",
+    "country": "LAT",
+    "world_ranking": "3"
+   },
+   {
+    "name": "Eddie Nilsson",
+    "country": "SWE",
+    "world_ranking": "4"
+   },
+   {
+    "name": "Magnus Klippen",
+    "country": "NOR",
+    "world_ranking": "16"
+   },
+   {
+    "name": "Edzus Kaneps",
+    "country": "LAT",
+    "world_ranking": "28"
+   },
+   {
+    "name": "Gints Lasmanis",
+    "country": "LAT",
+    "world_ranking": "32"
+   },
+   {
+    "name": "Andreas Fjermestad",
+    "country": "NOR",
+    "world_ranking": "68"
+   },
+   {
+    "name": "Vegard Klippen",
+    "country": "NOR",
+    "world_ranking": "70"
+   },
+   {
+    "name": "Amund Risa Fylling",
+    "country": "NOR",
+    "world_ranking": "85"
+   },
+   {
+    "name": "Oystein Klippen",
+    "country": "NOR",
+    "world_ranking": "100"
+   },
+   {
+    "name": "Daniel Nygard",
+    "country": "NOR",
+    "world_ranking": "101"
+   },
+   {
+    "name": "James-John Forsberg",
+    "country": "SWE",
+    "world_ranking": "102"
+   },
+   {
+    "name": "Frode Hagerup",
+    "country": "NOR",
+    "world_ranking": "137"
+   },
+   {
+    "name": "Tomas Bucek",
+    "country": "CZE",
+    "world_ranking": "145"
+   },
+   {
+    "name": "Miloslav Kubica",
+    "country": "CZE",
+    "world_ranking": "184"
+   },
+   {
+    "name": "Lars Ulfvensjo",
+    "country": "SWE",
+    "world_ranking": "242"
+   },
+   {
+    "name": "Gustav Bradland",
+    "country": "NOR",
+    "world_ranking": "258"
+   },
+   {
+    "name": "Benjamin Nygard",
+    "country": "NOR",
+    "world_ranking": "276"
+   },
+   {
+    "name": "Sondre Efteland Johansen",
+    "country": "NOR",
+    "world_ranking": "404"
+   },
+   {
+    "name": "Sinus Moberg",
+    "country": "NOR",
+    "world_ranking": "433"
+   },
+   {
+    "name": "Michal Masika",
+    "country": "CZE",
+    "world_ranking": "452"
+   },
+   {
+    "name": "Ane Skadsem",
+    "country": "NOR",
+    "world_ranking": "483"
+   },
+   {
+    "name": "Ondrej Gruncl",
+    "country": "CZE",
+    "world_ranking": "500"
+   },
+   {
+    "name": "Robert Forsberg",
+    "country": "SWE",
+    "world_ranking": "547"
+   },
+   {
+    "name": "Josef Gruncl",
+    "country": "CZE",
+    "world_ranking": "634"
+   },
+   {
+    "name": "Kristin Fjermestad",
+    "country": "NOR",
+    "world_ranking": "721"
+   },
+   {
+    "name": "Kjartan Moberg",
+    "country": "NOR",
+    "world_ranking": "986"
+   },
+   {
+    "name": "Anna-Maria Israelsson",
+    "country": "SWE",
+    "world_ranking": "1719"
+   },
+   {
+    "name": "Julia Forsberg",
+    "country": "SWE",
+    "world_ranking": "1941"
+   },
+   {
+    "name": "Nicolas Trae",
+    "country": "NOR",
+    "world_ranking": "2270"
    }
   ],
   "norgesmesterskapet-2026-u13": [

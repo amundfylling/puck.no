@@ -44,8 +44,7 @@ const TOURNAMENT_MAP = {
   'Bergen Open 2025': 'bergen-open-2025',
   'Sudden Death Cup at Preikestolen': 'sudden-death-cup',
   'Sudden Death Cup at Pulpit Rock': 'sudden-death-cup', // English alias, same 2025 event
-  // 'Norway Open 2025' intentionally unmapped: the page was removed in Phase 2
-  // (it duplicated norway-open-2026 content). Rows are skipped + reported.
+  'Norway Open 2025': 'norway-open-2025',
 };
 
 const TEAM_SLUGS = new Set(['duo-nm-2026']);

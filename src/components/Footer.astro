@@ -10,7 +10,7 @@ const year = new Date().getFullYear();
 const items = navItems(lang);
 const groups = items.filter((i) => i.children);
 const singles = items.filter((i) => !i.children);
-const home = lang === 'en' ? '/en' : '/';
+const home = lang === 'en' ? '/en/' : '/';
 const orgName = lang === 'en' ? 'Norwegian Table Hockey Association' : 'Norges Bordhockeyforbund';
 const shortName = lang === 'en' ? 'NTHF' : 'NBHF';
 ---

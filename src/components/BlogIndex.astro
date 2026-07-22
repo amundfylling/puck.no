@@ -14,7 +14,7 @@ interface Props {
 
 const { lang, entry, posts, page, pageCount, categories } = Astro.props;
 const prefix = lang === 'en' ? '/en' : '';
-const pageUrl = (n: number) => (n === 1 ? `${prefix}/blog` : `${prefix}/blog/${n}`);
+const pageUrl = (n: number) => (n === 1 ? `${prefix}/blog/` : `${prefix}/blog/${n}/`);
 ---
 
 <section class="mx-auto max-w-6xl px-4 py-10">
@@ -25,7 +25,7 @@ const pageUrl = (n: number) => (n === 1 ? `${prefix}/blog` : `${prefix}/blog/${n
     <ul class="flex flex-wrap gap-2">
       <li>
         <a
-          href={`${prefix}/blog`}
+          href={`${prefix}/blog/`}
           aria-current="page"
           class="rounded-full bg-navy px-3 py-1.5 text-sm font-semibold text-white no-underline"
           >{t(lang, 'allPosts')}</a
@@ -35,7 +35,7 @@ const pageUrl = (n: number) => (n === 1 ? `${prefix}/blog` : `${prefix}/blog/${n
         categories.map((cat) => (
           <li>
             <a
-              href={`${prefix}/blog/categories/${categorySlug(cat)}`}
+              href={`${prefix}/blog/categories/${categorySlug(cat)}/`}
               class="rounded-full bg-ice px-3 py-1.5 text-sm font-semibold text-navy no-underline hover:bg-navy hover:text-white"
             >
               {cat}

@@ -8,7 +8,7 @@ export interface NavItem {
 }
 
 /** Main navigation, mirroring the old Wix site structure. */
-export function navItems(lang: Lang): NavItem[] {
+function buildNavItems(lang: Lang): NavItem[] {
   const p = (path: string) => (lang === 'en' ? `/en${path}` : path);
   if (lang === 'en') {
     return [
@@ -82,6 +82,21 @@ export function navItems(lang: Lang): NavItem[] {
       ],
     },
   ];
+}
+
+// All internal links use the trailing-slash form Cloudflare Pages serves.
+const slashNav = (item: NavItem): NavItem => ({
+  ...item,
+  href:
+    item.external || item.href === '/' || item.href.endsWith('/')
+      ? item.href
+      : `${item.href}/`,
+  ...(item.children ? { children: item.children.map(slashNav) } : {}),
+});
+
+/** Main navigation, mirroring the old Wix site structure. */
+export function navItems(lang: Lang): NavItem[] {
+  return buildNavItems(lang).map(slashNav);
 }
 
 /** UI strings (chrome, not content). */
@@ -201,6 +216,6 @@ export const renamedPages: Record<string, string> = {
 /** Route path for a static page slug in a given language. */
 export function pagePath(slug: string, lang: Lang): string {
   const s = renamedPages[slug] ?? slug;
-  if (s === 'index') return lang === 'en' ? '/en' : '/';
-  return lang === 'en' ? `/en/${s}` : `/${s}`;
+  if (s === 'index') return lang === 'en' ? '/en/' : '/';
+  return lang === 'en' ? `/en/${s}/` : `/${s}/`;
 }

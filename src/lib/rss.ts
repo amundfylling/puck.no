@@ -51,7 +51,7 @@ export function buildFeed(posts: Post[], lang: Lang): string {
   const feedPath = `${prefix}/blog-feed.xml`;
   const items = posts
     .map((post) => {
-      const url = `${SITE}${prefix}/post/${post.data.slug}`;
+      const url = `${SITE}${prefix}/post/${post.data.slug}/`;
       const cats = post.data.categories.map((c) => `<category>${escapeXml(c)}</category>`).join('');
       return `<item>
 <title>${escapeXml(post.data.title)}</title>
@@ -70,7 +70,7 @@ ${post.data.cover ? enclosure(post.data.cover) : ''}
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
 <title>${lang === 'en' ? 'NBHF news' : 'NYHETER | Bordhockeyforbundet'}</title>
-<link>${SITE}${prefix}/blog</link>
+<link>${SITE}${prefix}/blog/</link>
 <description>${
     lang === 'en'
       ? 'Latest news from Norwegian table hockey'

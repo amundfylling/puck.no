@@ -25,8 +25,8 @@ const ATTR = /(href|src|srcset|poster)\s*=\s*"([^"]*)"/g;
 function* urlsOf(html) {
   for (const m of html.matchAll(ATTR)) {
     const [, attr, raw] = m;
-    if (attr === 'srcset' && raw.includes(',')) {
-      // srcset: "url 600w, url 1600w"
+    if (attr === 'srcset') {
+      // srcset: "url 600w, url 1600w" — or a single "url 400w" candidate.
       for (const part of raw.split(',')) {
         const u = part.trim().split(/\s+/)[0];
         if (u) yield u;

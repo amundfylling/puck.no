@@ -2,16 +2,16 @@
 /**
  * GET /api/admin/registrations.csv?slug=… — full export incl. email/phone.
  *
- * Protected at the platform level by Cloudflare Access (see README.md).
- * Defensive check anyway: when ACCESS_TEAM_NAME is configured, the
- * Cf-Access-Authenticated-User-Email header must be present, else 401.
+ * Protected two ways (belt and braces):
+ *  1. Application-level: the Cf-Access-Authenticated-User-Email header must be
+ *     present (Cloudflare Access adds it after a successful login), else 403.
+ *  2. Platform-level: Cloudflare Access in front of /api/admin/* (LAUNCH.md).
  * CSV is quoted and starts with a BOM so Excel shows Norwegian characters.
  */
 import { KNOWN_SLUGS } from '../../lib/tournaments';
 
 interface Env {
   DB: D1Database;
-  ACCESS_TEAM_NAME?: string;
 }
 
 function json(data: unknown, status = 200): Response {
@@ -24,8 +24,8 @@ function json(data: unknown, status = 200): Response {
 const csvField = (v: unknown): string => `"${String(v ?? '').replaceAll('"', '""')}"`;
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
-  if (context.env.ACCESS_TEAM_NAME && !context.request.headers.get('Cf-Access-Authenticated-User-Email')) {
-    return json({ error: 'Ikke autorisert.' }, 401);
+  if (!context.request.headers.get('Cf-Access-Authenticated-User-Email')) {
+    return json({ error: 'Ikke tilgang.' }, 403);
   }
   const slug = new URL(context.request.url).searchParams.get('slug') ?? '';
   if (!KNOWN_SLUGS.has(slug)) {

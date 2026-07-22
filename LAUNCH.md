@@ -125,23 +125,42 @@ beskrevet, men bruk pages.dev-domenet):
 ## A6. Beskytt admin-sidene (Cloudflare Access)
 
 CSV-eksporten inneholder e-poster og telefonnummer og må ikke være åpen.
+Dette er **to uavhengige sperrer** (belte og bukseseler):
+
+1. **I koden (allerede på plass):** `/api/admin/*` svarer `403 Ikke tilgang.`
+   med mindre Cloudflare Access har logget brukeren inn (headeren
+   `Cf-Access-Authenticated-User-Email`). Siden `/admin/pameldinger` henter
+   all data via det API-et, og er `noindex`.
+2. **Cloudflare Access (settes opp her):** en innloggingsside FORAN både
+   `/admin/*` og `/api/admin/*`, slik at uvedkommende aldri når koden.
+
+**⚠️ VIKTIG: Dette steget må være fullført FØR DNS-bytte i steg B** — ellers
+ligger personopplysninger åpent på www.puck.no.
+
+Slik setter du opp Cloudflare Access:
 
 1. I dashbordet: **Zero Trust** (venstremeny). Første gang: velg team-navn
    (f.eks. `nbhf`) — det gir `nbhf.cloudflareaccess.com`.
 2. **Access** → **Applications** → **Add an application** → **Self-hosted**:
    - **Application name:** `puck.no admin`
    - **Subdomain + Domain:** `puck-no.pages.dev`
-   - **Path:** `admin` *(legg også til en tilsvarende app med path
-     `api/admin`, eller bruk én app med begge paths)*
-   - **Policy:** *Emails* — legg inn e-postadressene til styremedlemmene
-     (f.eks. `amund.fylling@puck.no`).
-3. I Pages-prosjektet: **Settings** → **Variables and Secrets** →
-   `ACCESS_TEAM_NAME` = `nbhf.cloudflareaccess.com` (ditt team-navn).
-4. Test: åpne https://puck-no.pages.dev/admin/pameldinger i et privat
-   vindu → du skal få en Cloudflare-innloggingsside der du skriver
-   e-posten din og får en engangskode på mail. Etter innlogging: trykk
-   **Last ned CSV** på en turnering → sjekk at filen åpnes i Excel/Numbers
-   og har alle kolonner.
+   - **Path:** legg til BEGGE disse stiene i samme applikasjon:
+     - `admin` (dekker `/admin` og `/admin/*`)
+     - `api/admin` (dekker `/api/admin/*`)
+   - **Policy (Allow):** velg *Emails* og legg inn e-postadressene til
+     styremedlemmene som skal ha tilgang (f.eks. `amund.fylling@puck.no`).
+   - **Login-metoder:** bruk standarden *One-time PIN* — styret skriver
+     e-postadressen sin og får en engangskode på mail. Ingen passord.
+3. Test i et **privat vindu**:
+   - https://puck-no.pages.dev/admin/pameldinger → skal vise
+     Cloudflare-innloggingssiden (engangskode på mail).
+   - https://puck-no.pages.dev/api/admin/registrations.csv?slug=norway-open-2026
+     UTEN innlogging → skal gi **403 Ikke tilgang.** (appen-sperren).
+   - Etter innlogging: trykk **Last ned CSV** på en turnering → sjekk at
+     filen åpnes i Excel/Numbers og har alle kolonner.
+4. **Før DNS-bytte (steg B):** legg `www.puck.no` (og `puck.no`) til som
+   domain i samme applikasjon — se steg B3 — og verifiser at sperren virker
+   på www-domenet FØR du peker DNS om.
 
 ## A7. (Valgfritt) Web Analytics
 
@@ -149,7 +168,9 @@ CSV-eksporten inneholder e-poster og telefonnummer og må ikke være åpen.
    hostname `puck-no.pages.dev`. Kopier **JS-snippet token**.
 2. Pages → **Settings** → **Variables and Secrets** →
    `PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN` = token → retry deployment.
-3. Ingen informasjonskapsler, ingen banner nødvendig.
+3. Utvid CSP-en i `public/_headers` med `https://static.cloudflareinsights.com`
+   i `script-src` og `connect-src` (beacon-scriptet ellers blokkert).
+4. Ingen informasjonskapsler, ingen banner nødvendig.
 
 ## A8. Akseptansetest på pages.dev (sjekkliste)
 
@@ -161,8 +182,8 @@ CSV-eksporten inneholder e-poster og telefonnummer og må ikke være åpen.
       se den live etter noen minutter (og endre tilbake).
 - [ ] Admin-CSV bak Access (A6).
 - [ ] Gamle URL-er: `https://puck-no.pages.dev/services-1` skal gi 301 til
-      `/spill-bordhockey`; `/turneringer/norway-open-2025` →
-      `/turneringer/norway-open-2026`.
+      `/spill-bordhockey/`; `/turneringer/norway-open-2025` skal gi 200 med
+      eget 2025-innhold (deltakerliste fra 2025).
 - [ ] RSS: `https://puck-no.pages.dev/blog-feed.xml` åpnes som XML.
 - [ ] Sjekk på mobil (eller smalt vindu): meny, skjema, galleri.
 
@@ -227,11 +248,27 @@ Wix-siden urørt.
 
 Gjenta hele A8-sjekklisten på https://www.puck.no. I tillegg:
 
-- [ ] `curl -I https://www.puck.no/services-1` → `301` til `/spill-bordhockey`
+- [ ] `curl -I https://www.puck.no/services-1` → `301` til `/spill-bordhockey/`
 - [ ] `https://puck.no` (uten www) omdirigerer til www (eller motsatt)
 - [ ] RSS valid: https://validator.w3.org/feed/ → lim inn
       `https://www.puck.no/blog-feed.xml`
 - [ ] Påmelding ende-til-ende med ekte Turnstile (ikke testnøkler)
+
+### Merk: puck-no.pages.dev er et midlertidig domene
+
+`puck-no.pages.dev` er kun for testperioden. Når www.puck.no er bekreftet
+stabilt bør det gratis pages.dev-domenet **skrås av eller begrenses**, slik
+at bare www.puck.no serverer siden (ellers kan søkemotorer indeksere
+duplikatinnhold, og besøkende kan havne på det gamle domenet):
+
+1. **Workers & Pages** → **puck-no** → **Settings** → **Domains & Routes**.
+2. Under **pages.dev domain**: velg **Disable** (eller hold musepekeren over
+   domenet og deaktiver det).
+3. Alternativt: behold domenet aktivt, men legg en Cloudflare Access-policy
+   foran `puck-no.pages.dev/*` (samme oppsett som i A6) slik at bare styret
+   når det — praktisk for fremtidige forhåndsvisninger.
+4. Verifiser etterpå: `curl -I https://puck-no.pages.dev/` skal IKKE gi 200
+   med nettsiden.
 
 ## B6. Rulle tilbake ved problemer
 
@@ -268,7 +305,6 @@ Gjenta hele A8-sjekklisten på https://www.puck.no. I tillegg:
 | `PUBLIC_TURNSTILE_SITE_KEY` | Pages (bygg) | plaintext | Turnstile-widget i skjema |
 | `TURNSTILE_SECRET_KEY` | Pages (runtime) | secret | Verifisering i API |
 | `PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN` | Pages (bygg) | plaintext | Web Analytics (valgfritt) |
-| `ACCESS_TEAM_NAME` | Pages (runtime) | plaintext | Ekstra sjekk på CSV-endepunkt |
 | `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` | sveltia-cms-auth worker | text/secret | CMS-innlogging |
 | `ALLOWED_DOMAINS` | sveltia-cms-auth worker | text | Hvilke domener CMS kan kjøre på |
 

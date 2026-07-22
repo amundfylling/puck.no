@@ -6,8 +6,8 @@
   --color-navy: #0e2a57;
   --color-navy-dark: #0a1f42;
   --color-ice: #f4f7fb;
-  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
 }
 
 /* ---------- base ---------- */
@@ -138,6 +138,9 @@ h4 {
 }
 .rich-text .board-member img {
   @apply my-0 h-24 w-24 shrink-0 rounded-full object-cover;
+}
+.rich-text .board-member picture {
+  display: contents;
 }
 .rich-text .board-member h3 {
   @apply m-0 text-lg font-bold text-navy;

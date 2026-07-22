@@ -54,6 +54,22 @@ async function optimize(src, dest, maxWidth) {
   return 'done';
 }
 
+// Extra modern-format variants for the om-oss board photos. Markdown content
+// cannot use Astro's <Image>/<Picture>, so the <picture> markup in
+// src/content/pages/om-oss.md (and en/om-oss.md) references these generated
+// variants directly; the optimized PNG stays as the fallback.
+const EXTRA_VARIANTS = { pattern: /^om-oss-.+\.png$/, widths: [400], formats: ['avif', 'webp'] };
+
+async function variant(src, dest, width, format) {
+  if (await fresh(dest, src)) return 'skip';
+  await fs.mkdir(path.dirname(dest), { recursive: true });
+  const img = sharp(src).rotate().resize({ width, withoutEnlargement: true });
+  if (format === 'avif') img.avif({ quality: 60 });
+  else img.webp({ quality: 80 });
+  await img.toFile(dest);
+  return 'done';
+}
+
 const jobs = [];
 try {
   for await (const src of walk(SRC)) {
@@ -67,6 +83,14 @@ try {
       jobs.push(() => optimize(src, dest, 1600));
     } else {
       jobs.push(() => optimize(src, dest, 1600));
+      if (EXTRA_VARIANTS.pattern.test(path.basename(src))) {
+        const base = path.basename(src, ext);
+        for (const w of EXTRA_VARIANTS.widths) {
+          for (const f of EXTRA_VARIANTS.formats) {
+            jobs.push(() => variant(src, path.join(path.dirname(dest), `${base}-${w}.${f}`), w, f));
+          }
+        }
+      }
     }
   }
 } catch (err) {

@@ -14,7 +14,7 @@ interface Props {
 }
 
 const { post, lang, eager = false, featured = false } = Astro.props;
-const href = `${lang === 'en' ? '/en' : ''}/post/${post.data.slug}`;
+const href = `${lang === 'en' ? '/en' : ''}/post/${post.data.slug}/`;
 ---
 
 {
@@ -45,7 +45,7 @@ const href = `${lang === 'en' ? '/en' : ''}/post/${post.data.slug}`;
             {post.data.categories.map((cat) => (
               <li>
                 <a
-                  href={`${lang === 'en' ? '/en' : ''}/blog/categories/${categorySlug(cat)}`}
+                  href={`${lang === 'en' ? '/en' : ''}/blog/categories/${categorySlug(cat)}/`}
                   class="rounded-full bg-ice px-2.5 py-0.5 text-xs font-semibold text-navy no-underline hover:bg-navy hover:text-white"
                 >
                   {cat}
@@ -81,7 +81,7 @@ const href = `${lang === 'en' ? '/en' : ''}/post/${post.data.slug}`;
             {post.data.categories.map((cat) => (
               <li>
                 <a
-                  href={`${lang === 'en' ? '/en' : ''}/blog/categories/${categorySlug(cat)}`}
+                  href={`${lang === 'en' ? '/en' : ''}/blog/categories/${categorySlug(cat)}/`}
                   class="rounded-full bg-ice px-2.5 py-0.5 text-xs font-semibold text-navy no-underline hover:bg-navy hover:text-white"
                 >
                   {cat}
