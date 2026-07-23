@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { satteri } from '@astrojs/markdown-satteri';
+import { satteriRehypeTricks } from "./src/plugins/rehype-tricks.mjs";
 
 /**
  * Sätteri hast plugin: give internal links in rendered markdown the
@@ -55,7 +56,7 @@ export default defineConfig({
   trailingSlash: 'always',
   integrations: [sitemap()],
   markdown: {
-    processor: satteri({ hastPlugins: [trailingSlashLinks] }),
+    processor: satteri({ hastPlugins: [trailingSlashLinks, satteriRehypeTricks] }),
   },
   vite: {
     plugins: [tailwindcss()],

@@ -22,6 +22,7 @@
   "type": "module",
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
+    "@astrojs/markdown-remark": "^7.2.1",
     "@astrojs/markdown-satteri": "^0.3.4",
     "@cloudflare/workers-types": "^5.20260718.1",
     "marked": "^18.0.6",
