@@ -2,7 +2,7 @@
 name: "Trondheim Open 2026"
 slug: "trondheim-open-2025"
 date: "7. mars 2026"
-location: null
+location: "Singsaker Skole"
 prices: "300 kr for seniorspillere; 150 kr for juniorspillere; Gratis for spillere under 13 år; Gratis for spillere i sin første sesong"
 playingSystem: null
 status: "past"

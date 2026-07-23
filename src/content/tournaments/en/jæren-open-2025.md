@@ -3,7 +3,7 @@ name: "Jæren Open 2026"
 slug: "jæren-open-2025"
 lang: "en"
 date: "17. januar 2026"
-location: null
+location: "Kvernhallen, Kvernaland"
 prices: "NOK 300 for senior players; NOK 150 for junior players; Free for players under 13; Free for players in their first season"
 playingSystem: null
 status: "past"

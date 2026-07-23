@@ -3,7 +3,7 @@ name: "NM 2026 - Women"
 slug: "norgesmesterskapet-2026-dame"
 lang: "en"
 date: "2. mai 2026"
-location: null
+location: "Kvernhallen, Frøyland Skule"
 prices: null
 playingSystem: null
 status: "upcoming"

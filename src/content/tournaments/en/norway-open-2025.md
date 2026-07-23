@@ -3,7 +3,7 @@ name: "Norway Open 2025"
 slug: "norway-open-2025"
 lang: "en"
 date: "23. august 2025"
-location: null
+location: "Kvernaland"
 prices: "Senior players: 300 NOK; Foreigner: 200 NOK; Junior: 150 NOK; Under 13: Free"
 playingSystem: "Group stage with two groups. Top 8 from each group will go through to final groups. The rest will play in division 1.; Note: points taken in the group stage will count in both final group and division 1.; 1/8 play off in final groups, best of 7.; Quarterfinals play off in division 1, best of 5."
 status: "past"

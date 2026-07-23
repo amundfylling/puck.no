@@ -2,7 +2,7 @@
 name: "Sudden Death Cup at Preikestolen"
 slug: "sudden-death-cup"
 date: "24. august 2025"
-location: null
+location: "Preikestolen"
 prices: null
 playingSystem: null
 status: "past"

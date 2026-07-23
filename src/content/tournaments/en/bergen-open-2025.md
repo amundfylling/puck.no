@@ -3,7 +3,7 @@ name: "Bergen Open 2025"
 slug: "bergen-open-2025"
 lang: "en"
 date: "15. november 2025"
-location: null
+location: "Krohnengen Skule"
 prices: "NOK 300 for senior players; NOK 150 for junior players; Free for players under 13"
 playingSystem: null
 status: "past"
