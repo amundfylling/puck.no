@@ -1,0 +1,44 @@
+# Norges Bordhockeyforbund (NBHF)
+
+> Det norske bordhockeyforbundet — offisiell nettside. NBHF arrangerer bordhockeyturneringer i Norge, støtter lokalligaer i Bergen og på Jæren, og arbeider for å gjøre sporten tilgjengelig for alle. Norge har vært medlem av det internasjonale forbundet ITHF siden 2005.
+>
+> The Norwegian Table Hockey Federation — official website. Main content is in Norwegian (bokmål); most pages have an English version under /en/.
+
+Kontakt / contact: amund.fylling@puck.no
+
+## Sider
+
+- [Hjem](https://www.puck.no/): Forside med siste nyheter og neste turnering
+- [Spill bordhockey](https://www.puck.no/spill-bordhockey/): Veien inn i bordhockeymiljøet
+- [Lokalligaer](https://www.puck.no/lokalligaer/): Bergensligaen og Jærligaen, kontakt og påmelding
+- [Lær bordhockey](https://www.puck.no/lær-bordhockey/): Teknikk- og taktikkressurser
+- [Lær bordhockey – kombinasjoner](https://www.puck.no/lær-bordhockey-kombinasjoner/): Over 200 navngitte triks med vanskelighetsgrad
+- [Om oss](https://www.puck.no/om-oss/): Om forbundet, styret og kontakt
+
+## Turneringer
+
+- [Turneringer (oversikt)](https://www.puck.no/turneringer/): Kommende og tidligere turneringer
+- [Norway Open 2026](https://www.puck.no/turneringer/norway-open-2026/): World Tour-turnering 5. september 2026 i Sandnes, med påmelding og live deltakerliste
+- [Norgesmesterskapet 2026](https://www.puck.no/turneringer/norgesmesterskapet-2026/): NM med klasser for dame, veteran, junior, U13 og duo
+- [Kvalifisering EM26](https://www.puck.no/kvalifisering-mesterskap/): Norsk kvalifisering til EM 2026
+
+## Nyheter
+
+- [Nyheter](https://www.puck.no/blog/): Turneringsreferater, forhåndstips og mer
+- [RSS-feed](https://www.puck.no/blog-feed.xml): RSS 2.0 (norsk)
+- [RSS feed (EN)](https://www.puck.no/en/blog-feed.xml): RSS 2.0 (English)
+
+## Ressurser
+
+- [Timere](https://www.puck.no/timere/): Kampklokker (lydfiler) — 5-minutters kamper med musikk og signaler
+- [Verdensranking ITHF](https://stiga.trefik.cz/ithf/ranking/index.aspx): Offisiell verdensranking (ekstern)
+- [English pages](https://www.puck.no/en/): English version of the site
+
+## Offentlig API
+
+- `GET https://www.puck.no/api/tournaments/{slug}/players` — JSON over påmeldte spillere. Kun offentlige felter: name, country, world_ranking. Ingen autentisering. Eksempel: /api/tournaments/norway-open-2026/players
+
+## Optional
+
+- [Bilder](https://www.puck.no/bilder/): Bildegallerier fra turneringer
+- [Referat fra årsmøter](https://www.puck.no/årsmøter/): Årsmøtereferater (PDF)
