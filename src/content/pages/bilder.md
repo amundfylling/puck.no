@@ -10,7 +10,7 @@ menuOrder: 9
 
 [
 
-![Norway Open 2025](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.png)
+![Norway Open 2025](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.webp)
 
 ](/bilder/norway-open-2025)
 
@@ -22,7 +22,7 @@ Bilder fra Norway Open på Kvernaland i 2025.
 
 [
 
-![Norway Open 2024](/media/images/bilder-d3e10d73.jpg)
+![Norway Open 2024](/media/images/bilder-d3e10d73.webp)
 
 ](/bilder/norway-open-2024)
 

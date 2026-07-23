@@ -7,7 +7,7 @@ prices: null
 playingSystem: null
 status: "upcoming"
 ---
-![NM 2026 - Junior](/media/images/norgesmesterskapet-2026-junior-e4f1e9ac.jpg)
+![NM 2026 - Junior](/media/images/norgesmesterskapet-2026-junior-e4f1e9ac.webp)
 
 Velkommen til Junior-NM i bordhockey i Kvernhallen på Frøyland Skule! Turneringen er for spillere født 2008 eller senere.
 

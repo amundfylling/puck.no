@@ -7,7 +7,7 @@ prices: "400 kr for seniorspillere; 200 kr for juniorspillere; Gratis for spille
 playingSystem: null
 status: "upcoming"
 ---
-![NM 2026 - Åpen klasse](/media/images/norgesmesterskapet-2026-2cf16961.jpg)
+![NM 2026 - Åpen klasse](/media/images/norgesmesterskapet-2026-2cf16961.webp)
 
 Velkommen til Norgesmesterskapet i bordhockey i Kvernhallen på Frøyland Skule!
 

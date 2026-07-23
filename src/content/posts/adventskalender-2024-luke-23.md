@@ -4,7 +4,7 @@ slug: "adventskalender-2024-luke-23"
 lang: "no"
 pubDate: "2024-12-23T09:03:58.099Z"
 categories: ["Adventskalender 2024"]
-cover: "/media/images/adventskalender-2024-luke-23-3ba3aceb.png"
+cover: "/media/images/adventskalender-2024-luke-23-3ba3aceb.webp"
 description: "Verdens beste 8-åring, Sinus Moberg, skjulte seg bak gårsdagens luke. To luker gjenstår, hvem skjuler seg bak den 23. luken?"
 ---
 

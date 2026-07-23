@@ -8,7 +8,7 @@ prices: null
 playingSystem: null
 status: "upcoming"
 ---
-![NM 2026 - Women](/media/images/norgesmesterskapet-2026-dame-6f5c3c82.jpg)
+![NM 2026 - Women](/media/images/norgesmesterskapet-2026-dame-6f5c3c82.webp)
 
 Welcome to the Women's Norwegian Championship in table hockey in Kvernhallen at Frøyland Skule!
 

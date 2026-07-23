@@ -8,7 +8,7 @@ prices: "NOK 300 for senior players; NOK 150 for junior players; Free for player
 playingSystem: null
 status: "past"
 ---
-![Bergen Open 2025](/media/images/bergen-open-2025-bb484e0a.jpg)
+![Bergen Open 2025](/media/images/bergen-open-2025-bb484e0a.webp)
 
 Welcome to Bergen Open 2025 at Krohnengen Skule!
 

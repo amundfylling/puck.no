@@ -4,7 +4,7 @@ slug: "adventskalender-2024-luke-18"
 lang: "no"
 pubDate: "2024-12-18T09:00:13.684Z"
 categories: ["Adventskalender 2024"]
-cover: "/media/images/adventskalender-2024-luke-18-0e4f4e50.png"
+cover: "/media/images/adventskalender-2024-luke-18-0e4f4e50.webp"
 description: "Undertegnede måtte jo selvsagt slenge seg med i kalenderen. Det var altså Amund Risa Fylling som skjulte seg bak luke 17. Hvem befinner seg bak dagens luke?"
 ---
 

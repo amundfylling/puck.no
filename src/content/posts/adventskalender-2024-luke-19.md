@@ -4,7 +4,7 @@ slug: "adventskalender-2024-luke-19"
 lang: "no"
 pubDate: "2024-12-19T09:00:18.184Z"
 categories: ["Adventskalender 2024"]
-cover: "/media/images/adventskalender-2024-luke-19-42c5cb92.png"
+cover: "/media/images/adventskalender-2024-luke-19-42c5cb92.webp"
 description: "Bak luke 18 fant vi tidligere Malta-boer, festivalarrangør og redaktør Vegard Flatøy. Hvem skjuler seg bak dagens luke?"
 ---
 

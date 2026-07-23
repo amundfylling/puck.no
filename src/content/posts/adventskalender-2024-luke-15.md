@@ -4,7 +4,7 @@ slug: "adventskalender-2024-luke-15"
 lang: "no"
 pubDate: "2024-12-15T09:00:09.502Z"
 categories: ["Adventskalender 2024"]
-cover: "/media/images/adventskalender-2024-luke-15-6284b5c8.png"
+cover: "/media/images/adventskalender-2024-luke-15-6284b5c8.webp"
 description: "Bak luke 14 fant vi Andreas Fjermestad. Topp 10 sammenlagt ser dermed slik ut etter 14 luker:Hvem skjuler seg bak dagens luke?"
 ---
 

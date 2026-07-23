@@ -4,7 +4,7 @@ slug: "nm-2026-dabs-drama-and-10-titles-in-a-row"
 lang: "en"
 pubDate: "2026-05-07T15:29:05.204Z"
 categories: ["Tournament report"]
-cover: "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-3882cbb5.png"
+cover: "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-3882cbb5.webp"
 description: "The May bank holiday weekend finally brought the Norwegian Championship: 28 hopeful players, 26 trophies, one dab celebration, and a tenth straight gold for Magnus Klippen. A tournament report from Kvernhallen."
 ---
 
@@ -72,7 +72,7 @@ The nightmare continued for Brådland, who in the next game faced me and Fylling
 
 In the veteran class, the start of the tournament was delayed for a while, so the schedule was pretty tight. Holmin fought his way all the way to the final, but with a bus leaving in an hour, and a 30-minute drive to get there, the most important battle would be against the clock. With organisers skipping breaks between games, and Holmin's brilliant play, it looked like he would make it comfortably. He led 2-0 in games, and 5-4 during the final music. In this final music he tries, among other things, a goalie goal, and had several passes to Gangsøy's players. It went as expected. We had to go all the way to a fifth deciding game before the final was done, and Holmin could run out of the venue. I recommend all Jæren juniors to watch this final, because I believe it alone can romanticise Norwegian table hockey.
 
-![](/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-f09fce6d.jpeg)
+![](/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-f09fce6d.webp)
 
 *Sinus Moberg took the win in the junior NM. Benjamin Nygård took silver and Ane Skadsem bronze.*
 

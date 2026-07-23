@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-10"
 lang: "en"
 pubDate: "2024-12-10T09:00:39.018Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-10-3d71095d.png"
+cover: "/media/images/adventskalender-2024-luke-10-3d71095d.webp"
 description: "Behind door 9 was the eldest Klippen brother, Vegard Klippen. Who is hiding behind door 10?"
 ---
 

@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-18"
 lang: "en"
 pubDate: "2024-12-18T09:00:13.684Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-18-0e4f4e50.png"
+cover: "/media/images/adventskalender-2024-luke-18-0e4f4e50.webp"
 description: "The author simply had to jump on the calendar bandwagon. Amund Risa Fylling was hiding behind door 17 — but who is behind today's door?"
 ---
 

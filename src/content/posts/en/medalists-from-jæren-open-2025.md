@@ -17,7 +17,7 @@ The podium in A: 1. Magnus Klippen, 2. Amund Risa Fylling, 3. Daniel Nygård and
 
 The podium in B: 1. Sondre Efteland Johansen, 2. Kristin Fjermestad, 3. Benjamin Nygård
 
-![](/media/images/medaljister-fra-jæren-open-2025-9cac0305.png)
+![](/media/images/medaljister-fra-jæren-open-2025-9cac0305.webp)
 
 The podium in C: 1. Nicolas Træe, 2. Gudmund Hagerup Røken, 3. Vincent Refshus Hagerup.
 

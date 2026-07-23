@@ -4,7 +4,7 @@ slug: "forhåndstips-jæren-open-2025"
 lang: "no"
 pubDate: "2025-01-17T14:07:09.514Z"
 categories: ["Forhåndstips"]
-cover: "/media/images/forhåndstips-jæren-open-2025-be4dea47.jpg"
+cover: "/media/images/forhåndstips-jæren-open-2025-be4dea47.webp"
 description: "Jærligaens ledestjerne Andreas Fjermestad har studert påmeldingslisten og gjort seg opp en mening om lørdagens utfall."
 ---
 **I morgen braker det løs med norsk bordhockey igjen og den høytidelige Jæren Open. Jærligaens ledestjerne Andreas Fjermestad har i den anledning studert påmeldingslisten og gjort seg opp en mening om lørdagens utfall.**

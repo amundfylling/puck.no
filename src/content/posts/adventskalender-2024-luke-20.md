@@ -4,7 +4,7 @@ slug: "adventskalender-2024-luke-20"
 lang: "no"
 pubDate: "2024-12-20T09:00:19.872Z"
 categories: ["Adventskalender 2024"]
-cover: "/media/images/adventskalender-2024-luke-20-d7cd0703.png"
+cover: "/media/images/adventskalender-2024-luke-20-d7cd0703.webp"
 description: "Pål Bakken skjulte seg bak gårsdagens luke. Vi nærmer oss julaften med stormskritt, men vi har heldigvis noen godbiter igjen. Hvem finner vi bak luke 20?"
 ---
 

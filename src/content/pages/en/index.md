@@ -6,7 +6,7 @@ description: "The Norwegian Table Hockey Association (NTHF) has organized table 
 seoTitle: "Norwegian Table Hockey Association"
 menuOrder: 0
 ---
-![122d22ef-0433-4179-809c-cd7616b47e0a.png](/media/images/index-2f7a1d75.png)
+![122d22ef-0433-4179-809c-cd7616b47e0a.png](/media/images/index-2f7a1d75.webp)
 
 # Join a local league
 
@@ -16,7 +16,7 @@ We have local leagues in Bergen and Jæren. It's free to join.
 
 # Upcoming events
 
-![](/media/images/norway-open-2026-7be43f15.jpg)
+![](/media/images/norway-open-2026-7be43f15.webp)
 
 Norway Open 2026
 
@@ -24,7 +24,7 @@ Sep 5, 2026
 
 ## Latest news
 
-![Norway Open 2025: Drama, world stars and cinnamon buns](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.png)
+![Norway Open 2025: Drama, world stars and cinnamon buns](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.webp)
 
 [
 
@@ -64,7 +64,7 @@ Jun 16, 20252 min read
 
 [
 
-![](/media/images/index-4cc0ec37.jpg)
+![](/media/images/index-4cc0ec37.webp)
 
 #1 Magnus Klippen
 
@@ -74,7 +74,7 @@ World ranking: 29
 
 [
 
-![](/media/images/index-b7d657df.jpg)
+![](/media/images/index-b7d657df.webp)
 
 #2 Daniel Nygard
 
@@ -84,7 +84,7 @@ World ranking: 70
 
 [
 
-![](/media/images/index-8730af0c.jpg)
+![](/media/images/index-8730af0c.webp)
 
 #3 Andreas Fjermestad
 
@@ -114,7 +114,7 @@ World ranking: 120
 
 [
 
-![](/media/images/index-82b9f188.jpg)
+![](/media/images/index-82b9f188.webp)
 
 #6 Vegard Klippen
 
@@ -124,9 +124,9 @@ World ranking: 137
 
 [Go to the world ranking](https://stiga.trefik.cz/ithf/ranking/ranking.aspx)
 
-![122d22ef-0433-4179-809c-cd7616b47e0a.png](/media/images/index-2f7a1d75.png)
+![122d22ef-0433-4179-809c-cd7616b47e0a.png](/media/images/index-2f7a1d75.webp)
 
-![](/media/images/index-a6a885d6.jpg)
+![](/media/images/index-a6a885d6.webp)
 
 ## About the Norwegian Table Hockey Association
 

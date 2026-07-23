@@ -19,7 +19,7 @@ Siste nytt fra bordhockeynorge
 
 Søk
 
-![NM 2026: Dabs, drama og 10 gull på rad](/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-3882cbb5.png)
+![NM 2026: Dabs, drama og 10 gull på rad](/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-3882cbb5.webp)
 
 [
 
@@ -73,7 +73,7 @@ Den 7. mars vendte bordhockeynorges oppmerksomhet tilbake til Trondheim og Sings
 
 14\. mars3 min lesing
 
-![Norway Open 2025: Dramatikk, verdensstjerner og kanelboller](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.png)
+![Norway Open 2025: Dramatikk, verdensstjerner og kanelboller](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.webp)
 
 [
 

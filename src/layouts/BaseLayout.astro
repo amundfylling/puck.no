@@ -44,7 +44,7 @@ const slash = (path: string) => (path === '/' || path.endsWith('/') ? path : `${
 const canonical = abs(slash(canonicalPath));
 const noUrlSlash = noUrl ? slash(noUrl) : null;
 const enUrlSlash = enUrl ? slash(enUrl) : null;
-const ogImageAbs = ogImage ? abs(ogImage) : abs('/media/images/index-2f7a1d75.png');
+const ogImageAbs = ogImage ? abs(ogImage) : abs('/media/images/index-2f7a1d75.webp');
 const desc = description || undefined;
 const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---

@@ -8,7 +8,7 @@ prices: "NOK 400 for senior players; NOK 200 for junior players; Free for player
 playingSystem: null
 status: "upcoming"
 ---
-![NM 2026 - Open class](/media/images/norgesmesterskapet-2026-2cf16961.jpg)
+![NM 2026 - Open class](/media/images/norgesmesterskapet-2026-2cf16961.webp)
 
 Welcome to the Norwegian Table Hockey Championship in Kvernhallen at Frøyland Skule!
 

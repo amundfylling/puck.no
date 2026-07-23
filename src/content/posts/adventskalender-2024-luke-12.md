@@ -4,7 +4,7 @@ slug: "adventskalender-2024-luke-12"
 lang: "no"
 pubDate: "2024-12-12T09:00:25.582Z"
 categories: ["Adventskalender 2024"]
-cover: "/media/images/adventskalender-2024-luke-12-e9f49fab.png"
+cover: "/media/images/adventskalender-2024-luke-12-e9f49fab.webp"
 description: "Henning Tvedten skjulte seg bak den 11. luken. Det betyr at vi er halvveis til jul, og klare for å finne ut hvilken spiller som skjuler seg bak luke 12."
 ---
 

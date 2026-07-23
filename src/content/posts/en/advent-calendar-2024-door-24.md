@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-24"
 lang: "en"
 pubDate: "2024-12-24T09:00:10.456Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-24-086370ff.png"
+cover: "/media/images/adventskalender-2024-luke-24-086370ff.webp"
 description: "Christmas Eve is finally here, and the last door is ready to be opened! Bjarte Tjessem was hiding behind yesterday's door — the only player (as far as I know) to win the cup and finish last in the same weekend. Who is hiding behind the final door?"
 ---
 

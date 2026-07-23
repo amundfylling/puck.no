@@ -8,7 +8,7 @@ prices: null
 playingSystem: null
 status: "upcoming"
 ---
-![NM 2026 - Veteran](/media/images/norgesmesterskapet-2026-veteran-62111f86.jpg)
+![NM 2026 - Veteran](/media/images/norgesmesterskapet-2026-veteran-62111f86.webp)
 
 Welcome to the Veteran Norwegian Championship in table hockey in Kvernhallen at Frøyland Skule! The tournament is for players born in 1981 or earlier.
 

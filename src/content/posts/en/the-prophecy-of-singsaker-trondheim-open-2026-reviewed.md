@@ -43,11 +43,11 @@ True to tradition(?) another banquet was celebrated at an Indian restaurant. Amu
 
 The undersigned would like to thank everyone who participated for a great day of table hockey on behalf of the organizer! After the tournament, the undersigned has received training in Edwall shovels and center feints, and would therefore like to wish you all good luck in the Norwegian Championship! You will need it.
 
-![Trondheim Open 2026 podium. From left: Espen Moe, Amund Risa Fylling, Yngve Aasheim and Arne Hetlelid](/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-5b8724cf.jpg)
+![Trondheim Open 2026 podium. From left: Espen Moe, Amund Risa Fylling, Yngve Aasheim and Arne Hetlelid](/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-5b8724cf.webp)
 
 Trondheim Open 2026 podium. From left: Espen Moe, Amund Risa Fylling, Yngve Aasheim and Arne Hetlelid
 
-![Disappointed Bergen league players gaze at the podium during the prize ceremony.](/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-89b40bd7.jpg)
+![Disappointed Bergen league players gaze at the podium during the prize ceremony.](/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-89b40bd7.webp)
 
 Disappointed Bergen league players gaze at the podium during the prize ceremony.
 

@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-16"
 lang: "en"
 pubDate: "2024-12-16T09:00:07.478Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-16-5b66f4a9.png"
+cover: "/media/images/adventskalender-2024-luke-16-5b66f4a9.webp"
 description: "Geir Tonny (GT) Brovold was hiding behind door 15. Who is hiding behind today's door?"
 ---
 

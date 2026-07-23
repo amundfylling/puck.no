@@ -4,7 +4,7 @@ slug: "forhåndtips-krohnengen-open-2024"
 lang: "no"
 pubDate: "2024-10-11T18:22:59.091Z"
 categories: ["Forhåndstips"]
-cover: "/media/images/forhåndtips-krohnengen-open-2024-f4c0e913.jpg"
+cover: "/media/images/forhåndtips-krohnengen-open-2024-f4c0e913.webp"
 description: "Om en knapp uke er det igjen tid for Krohnengen Open i Bergen. I den anledning tar Daniel Nygård og Øystein Klippen en titt i spåkula for å gi oss sine profetier. Du kan levere ditt eget tips i kommentarfeltet under artikkelen.Daniel Nygård sin spådomForventet resultattavle i Krohnengen Open 2024, signert Daniel Nygård:8. Benjamin NygårdEtter et mellomspill der flere forventede toppspillere taper poeng i alle retninger, karrer Benjamin Nygård seg noe overraskende opp til en sluttspillplassering."
 ---
 **Om en knapp uke er det igjen tid for Krohnengen Open i Bergen. I den anledning tar Daniel Nygård og Øystein Klippen en titt i spåkula for å gi oss sine profetier. Du kan levere ditt eget tips i kommentarfeltet under artikkelen.**
@@ -53,7 +53,7 @@ Bruker mesteparten av tiden på å klage over hvor lite søvn han fikk (Magnus s
 
 > "Med heilmjølkbart og et raskt spel finner endelig Holmin ut løsningen på hvordan vinne flere bordhockeykamper". **– Daniel Nygård**
 
-![Øystein Klippen (t.v.) mot Magnus Klippen i kvartfinalen av Krohnengen Open 2023.](/media/images/forhåndtips-krohnengen-open-2024-3f97b1f8.jpg)
+![Øystein Klippen (t.v.) mot Magnus Klippen i kvartfinalen av Krohnengen Open 2023.](/media/images/forhåndtips-krohnengen-open-2024-3f97b1f8.webp)
 
 Øystein Klippen (t.v.) mot Magnus Klippen i kvartfinalen av Krohnengen Open 2023. Foto: Ewoud van Veen.
 

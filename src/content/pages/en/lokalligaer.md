@@ -11,7 +11,7 @@ There are active communities in Bergen and on Jæren. Get in touch if you are in
 
 <div class="league-grid">
   <div class="hub-card">
-    <img src="/media/images/lokalligaer-699bd3e5.jpg" alt="Play in the Bergen league" loading="lazy">
+    <img src="/media/images/lokalligaer-699bd3e5.webp" alt="Play in the Bergen league" loading="lazy">
     <div class="hub-body">
       <h3>The Bergen League</h3>
       <p class="hub-text">Join the Facebook group through the following link and/or contact Arne Johannes Holmin on tel. <a href="tel:+4799578035">99578035</a></p>

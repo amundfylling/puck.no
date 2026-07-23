@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-6"
 lang: "en"
 pubDate: "2024-12-06T09:00:07.498Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-6-d2bfac6c.png"
+cover: "/media/images/adventskalender-2024-luke-6-d2bfac6c.webp"
 description: "We headed back to Jæren, where the correct answer was Juvelvegen's finest player: Daniel Nygård. Which table hockey player is hiding behind door 6?"
 ---
 

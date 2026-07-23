@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-21"
 lang: "en"
 pubDate: "2024-12-21T08:00:07.081Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-21-c2427131.png"
+cover: "/media/images/adventskalender-2024-luke-21-c2427131.webp"
 description: "Everyone guessed Geir Hjemås behind door 20. Now it's time to reveal who's hiding behind door 21."
 ---
 

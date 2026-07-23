@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-5"
 lang: "en"
 pubDate: "2024-12-05T09:00:12.093Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-5-e746f904.png"
+cover: "/media/images/adventskalender-2024-luke-5-e746f904.webp"
 description: "Finally some variation in the answers — the correct answer was a Trønder living in Eastern Norway: Hallvard Einer Sægrov. Which table hockey player is hiding behind door 5?"
 ---
 

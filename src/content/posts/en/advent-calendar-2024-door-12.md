@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-12"
 lang: "en"
 pubDate: "2024-12-12T09:00:25.582Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-12-e9f49fab.png"
+cover: "/media/images/adventskalender-2024-luke-12-e9f49fab.webp"
 description: "Henning Tvedten was hiding behind door 11. That means we are halfway to Christmas and ready to find out which player is hiding behind door 12."
 ---
 

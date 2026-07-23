@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-results"
 lang: "en"
 pubDate: "2024-12-25T17:49:12.194Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-resultater-0b27c9ba.png"
+cover: "/media/images/adventskalender-2024-resultater-0b27c9ba.webp"
 description: "Jørn Moldvær was hiding behind the final door of the year, bringing this year's calendar to a close. Congratulations to Daniel Nygård, who takes home a table hockey game after racking up no fewer than 11 two-pointers!"
 ---
 
@@ -12,7 +12,7 @@ description: "Jørn Moldvær was hiding behind the final door of the year, bring
 
 It was Jørn Moldvær who was hiding behind the final door of the year. With that, this year's calendar is over, and the podium looks like this:
 
-![](/media/images/adventskalender-2024-resultater-3584df1f.png)
+![](/media/images/adventskalender-2024-resultater-3584df1f.webp)
 
 Congratulations to Daniel Nygård, who wins a table hockey game! Daniel ran away with no fewer than 11 two-pointers in this year's advent calendar. The other winners of individual doors are listed below and can claim free products at the kiosk during Jæren Open on 18 January 2025.
 

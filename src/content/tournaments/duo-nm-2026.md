@@ -9,7 +9,7 @@ status: "upcoming"
 teamMin: 2
 teamMax: 2
 ---
-![Duo-NM 2026](/media/images/duo-nm-2026-717a73c5.jpg)
+![Duo-NM 2026](/media/images/duo-nm-2026-717a73c5.webp)
 
 For første gang i historien arrangeres Duo-NM. I duo-NM spiller man to spillere på hvert lag.
 

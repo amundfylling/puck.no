@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-7"
 lang: "en"
 pubDate: "2024-12-07T09:02:00.000Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-7-eb7e567d.png"
+cover: "/media/images/adventskalender-2024-luke-7-eb7e567d.webp"
 description: "Most people guessed yesterday's door correctly. But which table hockey player is hiding behind door 7?"
 ---
 

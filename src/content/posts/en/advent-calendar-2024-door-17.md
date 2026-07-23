@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-17"
 lang: "en"
 pubDate: "2024-12-17T09:00:20.624Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-17-373fe9aa.png"
+cover: "/media/images/adventskalender-2024-luke-17-373fe9aa.webp"
 description: "Behind door 16 we found Magnus Klippen. Who is hiding behind today's door?"
 ---
 

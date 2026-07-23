@@ -6,7 +6,7 @@ description: "Norges Bordhockeyforbund (NBHF) har arrangert bordhockeyturneringe
 seoTitle: "Norges Bordhockeyforbund"
 menuOrder: 0
 ---
-![122d22ef-0433-4179-809c-cd7616b47e0a.png](/media/images/index-2f7a1d75.png)
+![122d22ef-0433-4179-809c-cd7616b47e0a.png](/media/images/index-2f7a1d75.webp)
 
 # Bli med i en lokalliga
 
@@ -16,7 +16,7 @@ Vi har lokalligaer i Bergen og på Jæren. Det er gratis og uforpliktende å sta
 
 # Kommende arrangementer
 
-![](/media/images/norway-open-2026-7be43f15.jpg)
+![](/media/images/norway-open-2026-7be43f15.webp)
 
 Norway Open 2026
 
@@ -24,7 +24,7 @@ Norway Open 2026
 
 ## Siste nytt
 
-![NM 2026: Dabs, drama og 10 gull på rad](/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-3882cbb5.png)
+![NM 2026: Dabs, drama og 10 gull på rad](/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-3882cbb5.webp)
 
 [
 
@@ -76,7 +76,7 @@ Norway Open 2026
 
 [
 
-![](/media/images/index-4cc0ec37.jpg)
+![](/media/images/index-4cc0ec37.webp)
 
 #1 Magnus Klippen
 
@@ -86,7 +86,7 @@ Verdensranking: 29
 
 [
 
-![](/media/images/index-b7d657df.jpg)
+![](/media/images/index-b7d657df.webp)
 
 #2 Daniel Nygard
 
@@ -96,7 +96,7 @@ Verdensranking: 70
 
 [
 
-![](/media/images/index-8730af0c.jpg)
+![](/media/images/index-8730af0c.webp)
 
 #3 Andreas Fjermestad
 
@@ -126,7 +126,7 @@ Verdensranking: 120
 
 [
 
-![](/media/images/index-82b9f188.jpg)
+![](/media/images/index-82b9f188.webp)
 
 #6 Vegard Klippen
 
@@ -136,9 +136,9 @@ Verdensranking: 137
 
 [Se hele verdensrankingen](https://stiga.trefik.cz/ithf/ranking/ranking.aspx)
 
-![122d22ef-0433-4179-809c-cd7616b47e0a.png](/media/images/index-2f7a1d75.png)
+![122d22ef-0433-4179-809c-cd7616b47e0a.png](/media/images/index-2f7a1d75.webp)
 
-![](/media/images/index-a6a885d6.jpg)
+![](/media/images/index-a6a885d6.webp)
 
 ## Om Norges Bordhockeyforbund
 

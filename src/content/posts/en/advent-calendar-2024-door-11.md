@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-11"
 lang: "en"
 pubDate: "2024-12-11T09:00:13.339Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-11-8cd20903.png"
+cover: "/media/images/adventskalender-2024-luke-11-8cd20903.webp"
 description: "Behind door 11, a table hockey veteran in broad dialect talks the Jon spesial, Byggrynslunsj and chocolate milk, NM road trips with a quiz in the car, and a 09:30 wake-up for a 10:00 start."
 ---
 

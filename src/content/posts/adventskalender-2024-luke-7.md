@@ -4,7 +4,7 @@ slug: "adventskalender-2024-luke-7"
 lang: "no"
 pubDate: "2024-12-07T09:02:00.000Z"
 categories: ["Adventskalender 2024"]
-cover: "/media/images/adventskalender-2024-luke-7-eb7e567d.png"
+cover: "/media/images/adventskalender-2024-luke-7-eb7e567d.webp"
 description: "De fleste svarte riktig på gårsdagens luke - nemlig Kjempa frå Spjelkavik: Trond Ove Gangsøy. Sammenlagttabellen ser dermed slik ut:Hvilken bordhockeyspiller skjuler seg bak luke 7?"
 ---
 

@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-14"
 lang: "en"
 pubDate: "2024-12-14T09:00:09.791Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-14-5cb60c87.png"
+cover: "/media/images/adventskalender-2024-luke-14-5cb60c87.webp"
 description: "Behind door 13 we found Arne Mahatma Solberg. Who is hiding behind today's door?"
 ---
 

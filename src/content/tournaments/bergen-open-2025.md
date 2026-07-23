@@ -7,7 +7,7 @@ prices: "300 kr for seniorspillere; 150 kr for juniorspillere; Gratis for spille
 playingSystem: null
 status: "past"
 ---
-![Bergen Open 2025](/media/images/bergen-open-2025-bb484e0a.jpg)
+![Bergen Open 2025](/media/images/bergen-open-2025-bb484e0a.webp)
 
 Velkommen til Bergen Open 2025 på Krohnengen Skule!
 

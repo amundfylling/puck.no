@@ -4,7 +4,7 @@ slug: "predictions-jæren-open-2025"
 lang: "en"
 pubDate: "2025-01-17T14:07:09.514Z"
 categories: ["Predictions"]
-cover: "/media/images/forhåndstips-jæren-open-2025-be4dea47.jpg"
+cover: "/media/images/forhåndstips-jæren-open-2025-be4dea47.webp"
 description: "Jærligaen's leading star Andreas Fjermestad has studied the entry list and formed his own opinion about how Saturday's Jæren Open 2025 will play out."
 ---
 *This article was translated by AI. The original article is written in Norwegian.*

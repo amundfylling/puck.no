@@ -4,7 +4,7 @@ slug: "adventskalender-2024-luke-1"
 lang: "no"
 pubDate: "2024-12-01T09:00:07.031Z"
 categories: ["Adventskalender 2024"]
-cover: "/media/images/adventskalender-2024-luke-1-680cea35.png"
+cover: "/media/images/adventskalender-2024-luke-1-680cea35.webp"
 description: "Årets julekalender er i gang! Hver dag frem mot jul vil vi stille en bordhockeyspiller de samme fem spørsmålene. Klarer du å gjette hvem spilleren er? Kommenter svaret ditt i kommentarfeltet. Den første som gjetter riktig får 2 poeng, mens alle andre som svarer riktig får 1 poeng. Dagens førsteplass vinner en valgfri vare fra kiosken under Jæren Open, og sammenlagtvinneren gjennom hele desember stikker av med et bordhockeybrett!"
 ---
 

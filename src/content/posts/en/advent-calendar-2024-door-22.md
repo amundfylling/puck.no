@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-22"
 lang: "en"
 pubDate: "2024-12-22T09:00:13.772Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-22-780b4615.png"
+cover: "/media/images/adventskalender-2024-luke-22-780b4615.webp"
 description: "Former Bergen league player Anders Lægland Ellingsen was hiding behind door 21. But who is behind today's door?"
 ---
 

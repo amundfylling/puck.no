@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-19"
 lang: "en"
 pubDate: "2024-12-19T09:00:18.184Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-19-42c5cb92.png"
+cover: "/media/images/adventskalender-2024-luke-19-42c5cb92.webp"
 description: "Behind door 18 we found former Malta resident, festival organizer and editor Vegard Flatøy. Who is hiding behind today's door?"
 ---
 

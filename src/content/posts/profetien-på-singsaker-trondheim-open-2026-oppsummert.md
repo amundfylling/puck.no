@@ -41,11 +41,11 @@ Tradisjon(?) tro ble nok en bankett feiret på en indisk restaurant. Amund delte
 
 Undertegnede vil på vegne av arrangøren takke alle som deltok for en flott dag med bordhockey! Etter turneringen har undertegnede fått opplæring i edwallskyffler og senterfinter, og vil derfor ønske dere alle lykke til i NM! Dere trenger det.
 
-![Trondheim Open 2026 pall. F.v Espen Moe, Amund Risa Fylling, Yngve Aasheim og Arne Hetlelid](/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-5b8724cf.jpg)
+![Trondheim Open 2026 pall. F.v Espen Moe, Amund Risa Fylling, Yngve Aasheim og Arne Hetlelid](/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-5b8724cf.webp)
 
 Trondheim Open 2026 pall. F.v Espen Moe, Amund Risa Fylling, Yngve Aasheim og Arne Hetlelid
 
-![Skuffede bergensligaspillere betrakter pallen under premieutdelingen.](/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-89b40bd7.jpg)
+![Skuffede bergensligaspillere betrakter pallen under premieutdelingen.](/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-89b40bd7.webp)
 
 Skuffede bergensligaspillere betrakter pallen under premieutdelingen.
 

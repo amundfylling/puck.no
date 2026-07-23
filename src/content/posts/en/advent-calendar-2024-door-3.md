@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-3"
 lang: "en"
 pubDate: "2024-12-03T09:00:15.283Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/nbhf-s-adventskalender-2024-luke-3-b4eb6ef2.png"
+cover: "/media/images/nbhf-s-adventskalender-2024-luke-3-b4eb6ef2.webp"
 description: "Arne Johannes Holmin was hiding behind door 2, though many guessed another Sunnmøre man, Andreas Røren. Who is lurking behind door 3?"
 ---
 

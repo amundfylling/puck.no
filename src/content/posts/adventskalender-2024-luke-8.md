@@ -4,7 +4,7 @@ slug: "adventskalender-2024-luke-8"
 lang: "no"
 pubDate: "2024-12-08T08:05:00.000Z"
 categories: ["Adventskalender 2024"]
-cover: "/media/images/adventskalender-2024-luke-8-4208e029.png"
+cover: "/media/images/adventskalender-2024-luke-8-4208e029.webp"
 description: "Bak luke 7 skjulte Espen Moe seg. Hvem skjuler seg bak luke 8?"
 ---
 

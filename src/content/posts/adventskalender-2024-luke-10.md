@@ -4,7 +4,7 @@ slug: "adventskalender-2024-luke-10"
 lang: "no"
 pubDate: "2024-12-10T09:00:39.018Z"
 categories: ["Adventskalender 2024"]
-cover: "/media/images/adventskalender-2024-luke-10-3d71095d.png"
+cover: "/media/images/adventskalender-2024-luke-10-3d71095d.webp"
 description: "Bak luke 9 befant eldstebror Klippen - Vegard Klippen. Hvem skjuler seg bak luke 10?"
 ---
 

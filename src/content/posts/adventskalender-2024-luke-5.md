@@ -4,7 +4,7 @@ slug: "adventskalender-2024-luke-5"
 lang: "no"
 pubDate: "2024-12-05T09:00:12.093Z"
 categories: ["Adventskalender 2024"]
-cover: "/media/images/adventskalender-2024-luke-5-e746f904.png"
+cover: "/media/images/adventskalender-2024-luke-5-e746f904.webp"
 description: "Endelig fikk vi litt variasjon i svarene, og det korrekte svaret var en trønder bosatt på Østlandet: Hallvard Einer Sægrov. Hvilken bordhockeyspiller skjuler seg bak luke 5?"
 ---
 

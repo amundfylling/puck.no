@@ -4,7 +4,7 @@ slug: "norway-open-2025-drama-world-stars-and-cinnamon-buns"
 lang: "en"
 pubDate: "2025-09-06T10:01:34.775Z"
 categories: []
-cover: "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.png"
+cover: "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.webp"
 description: "It was a bright and sunny Saturday, August 23rd, when 29 players from Norway, Latvia, Sweden, and the Czech Republic gathered at Frøyland Elementary School for an international tournament. Whether the Czechs had slept well at Hotel Fjermestad is unknown, but they brought energy from morning until night."
 ---
 *This article was translated by AI. The original article is written in Norwegian.*
@@ -17,7 +17,7 @@ The second division was convincingly won by Benjamin Nygård, while only a singl
 
 Sinus secured 3rd place and delivered one of the tournament’s most memorable moments when he celebrated a 7–0 goal in the first bronze match so loudly that the entire venue took notice.
 
-![Top three in the second division. From left: Benjamin Nygård, Sondre Efteland Johansen and Sinus Moberg](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-2dfc3012.jpg)
+![Top three in the second division. From left: Benjamin Nygård, Sondre Efteland Johansen and Sinus Moberg](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-2dfc3012.webp)
 
 Top three in the second division. From left: Benjamin Nygård, Sondre Efteland Johansen and Sinus Moberg
 
@@ -39,16 +39,16 @@ Top 3 in Norway Open 2025. From left: Magnus Klippen, Edgars Caics and Eddie Nil
 
 The banquet was celebrated at "Hotel Fjermestad". Thai food and a shot cup were planned here, but the participants got to experience much more. Among other things, friendships were forged between the major clubs Brent Plast and SHC Cheb, with an exchange of club merch from Temu.
 
-![Good vibes between SHC Cheb and Brent Plast BHK at the banquet.](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-adde5d2a.jpeg)
+![Good vibes between SHC Cheb and Brent Plast BHK at the banquet.](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-adde5d2a.webp)
 
 Good vibes between SHC Cheb and Brent Plast BHK at the banquet.
 
 The next day, Fylling took a bunch of people and a table hockey board to the Pulpit Rock for the famous Pulpit Rock Sudden Death Tournament (pun intended). How big of a failure it was to forget the goal in the car will be discussed when the next "Hjemåspucken" is handed out.
 
 <div class="image-row">
-  <img src="/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-cbaa7c35.png" alt="Table hockey on Pulpit Rock" loading="lazy">
-  <img src="/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-d5a957a5.png" alt="Table hockey on Pulpit Rock" loading="lazy">
-  <img src="/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-ee47d146.png" alt="A Coke can used as a goal on Pulpit Rock" loading="lazy">
+  <img src="/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-cbaa7c35.webp" alt="Table hockey on Pulpit Rock" loading="lazy">
+  <img src="/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-d5a957a5.webp" alt="Table hockey on Pulpit Rock" loading="lazy">
+  <img src="/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-ee47d146.webp" alt="A Coke can used as a goal on Pulpit Rock" loading="lazy">
 </div>
 
 When the goals were forgotten, we had to improvise. The solution was a Coke can as a goal.

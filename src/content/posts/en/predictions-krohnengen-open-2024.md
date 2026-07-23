@@ -4,7 +4,7 @@ slug: "predictions-krohnengen-open-2024"
 lang: "en"
 pubDate: "2024-10-11T18:22:59.091Z"
 categories: ["Predictions"]
-cover: "/media/images/forhåndtips-krohnengen-open-2024-f4c0e913.jpg"
+cover: "/media/images/forhåndtips-krohnengen-open-2024-f4c0e913.webp"
 description: "In just under a week, it is once again time for Krohnengen Open in Bergen. Daniel Nygård and Øystein Klippen gaze into the crystal ball and deliver their prophecies."
 ---
 *This article was translated by AI. The original article is written in Norwegian.*
@@ -55,7 +55,7 @@ Spends most of his time complaining about how little sleep he got (Magnus, who s
 
 > "With nothing but whole milk and a fast game, Holmin finally figures out the solution to winning more table hockey matches". **– Daniel Nygård**
 
-![Øystein Klippen (l.) against Magnus Klippen in the quarterfinal of Krohnengen Open 2023.](/media/images/forhåndtips-krohnengen-open-2024-3f97b1f8.jpg)
+![Øystein Klippen (l.) against Magnus Klippen in the quarterfinal of Krohnengen Open 2023.](/media/images/forhåndtips-krohnengen-open-2024-3f97b1f8.webp)
 
 Øystein Klippen (l.) against Magnus Klippen in the quarterfinal of Krohnengen Open 2023. Photo: Ewoud van Veen.
 

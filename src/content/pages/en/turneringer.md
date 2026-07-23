@@ -8,7 +8,7 @@ menuOrder: 4
 ---
 # Tournaments
 
-![Image-empty-state.png](/media/images/norway-open-2026-7be43f15.jpg)
+![Image-empty-state.png](/media/images/norway-open-2026-7be43f15.webp)
 
 ## Norway Open 2026
 

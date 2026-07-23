@@ -11,7 +11,7 @@ Bli en del av bordhockeymiljøet
 
 <div class="hub-grid">
   <div class="hub-card">
-    <img src="/media/images/services-1-15c93f28.jpg" alt="Spill i lokalligaen" loading="lazy">
+    <img src="/media/images/services-1-15c93f28.webp" alt="Spill i lokalligaen" loading="lazy">
     <div class="hub-body">
       <h3>Lokalligaer</h3>
       <p class="hub-lead">Bor du i Bergen eller Stavanger-området?</p>
@@ -20,7 +20,7 @@ Bli en del av bordhockeymiljøet
     </div>
   </div>
   <div class="hub-card">
-    <img src="/media/images/services-1-f5866b83.jpg" alt="Bordhockeytrening" loading="lazy">
+    <img src="/media/images/services-1-f5866b83.webp" alt="Bordhockeytrening" loading="lazy">
     <div class="hub-body">
       <h3>Lær bordhockey</h3>
       <p class="hub-lead">Ønsker du å bli bedre i bordhockey?</p>
@@ -29,7 +29,7 @@ Bli en del av bordhockeymiljøet
     </div>
   </div>
   <div class="hub-card">
-    <img src="/media/images/services-1-50827645.jpg" alt="Bordhockeyturnering" loading="lazy">
+    <img src="/media/images/services-1-50827645.webp" alt="Bordhockeyturnering" loading="lazy">
     <div class="hub-body">
       <h3>Turneringer</h3>
       <p class="hub-lead">Er du klar til å ta det neste steget?</p>

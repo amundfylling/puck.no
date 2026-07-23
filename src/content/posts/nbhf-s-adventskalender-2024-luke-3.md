@@ -4,7 +4,7 @@ slug: "nbhf-s-adventskalender-2024-luke-3"
 lang: "no"
 pubDate: "2024-12-03T09:00:15.283Z"
 categories: ["Adventskalender 2024"]
-cover: "/media/images/nbhf-s-adventskalender-2024-luke-3-b4eb6ef2.png"
+cover: "/media/images/nbhf-s-adventskalender-2024-luke-3-b4eb6ef2.webp"
 description: "Bak luke 2 gjemte Arne Johannes Holmin seg. Mange gjettet en annen sunnmøring, nemlig Andreas Røren. Hvem skjuler seg bak luke 3?"
 ---
 

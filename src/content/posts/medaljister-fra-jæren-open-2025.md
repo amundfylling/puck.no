@@ -15,7 +15,7 @@ Pallen i A: 1. Magnus Klippen, 2. Amund Risa Fylling, 3. Daniel Nygård og Vegar
 
 Pallen i B: 1. Sondre Efteland Johansen, 2. Kristin Fjermestad, 3. Benjamin Nygård
 
-![](/media/images/medaljister-fra-jæren-open-2025-9cac0305.png)
+![](/media/images/medaljister-fra-jæren-open-2025-9cac0305.webp)
 
 Pallen i C: 1. Nicolas Træe, 2. Gudmund Hagerup Røken, 3. Vincent Refshus Hagerup.
 

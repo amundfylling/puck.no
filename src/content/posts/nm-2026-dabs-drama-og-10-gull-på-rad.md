@@ -4,7 +4,7 @@ slug: "nm-2026-dabs-drama-og-10-gull-på-rad"
 lang: "no"
 pubDate: "2026-05-07T15:29:05.204Z"
 categories: ["Turneringsreferat"]
-cover: "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-3882cbb5.png"
+cover: "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-3882cbb5.webp"
 description: "I langhelgen 1. Mai var det endelig duket for NM. 28 spente deltakere inntok Kvernhallen for å kjempe om de 26 pokalene som skulle deles ut i ulike klasser. Undertegnede ble dratt inn i NM-bobla litt tidligere enn først beregnet, da jeg ble ringt på Facetime av Andreas Fjermestad for å overvære cup-trekningen. «Vi tenkte først å trekke cupen uten livestream, men vi kom på at du er den eneste som hadde brydd deg, så vi ringte deg bare direkte heller."
 ---
 
@@ -70,7 +70,7 @@ Marerittet fortsatte for Brådland, som i neste kamp møtte meg og Fylling. På 
 
 I veteranklassen ble starten på turneringen forsinket en stund, så tidsskjemaet var ganske tight. Holmin kjempet seg hele veien til finalen, men med en buss som skulle gå om en time, og med 30 minutter å kjøre dit, skulle den viktigste kampen bli mot klokka. Med arrangører som hoppet over pauser mellom kamper, og Holmins storspill så det ut som at han skulle rekke det greit. Han ledet 2-0 i kamper, og 5-4 i sluttmusikken. I denne sluttmusikken prøver han seg blant annet på keepermål, og hadde flere pasninger til Gangsøy sine spillere. Det gikk som forventet. Vi måtte helt til femte avgjørende kamp før finalen var ferdig, og Holmin kunne løpe ut av spillelokalet. Jeg anbefaler alle jærjuniorer å se denne finalen, for jeg tror den ene og alene kan romantisere norsk bordhockey.
 
-![](/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-f09fce6d.jpeg)
+![](/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-f09fce6d.webp)
 
 *Sinus Moberg gikk av med seieren i junior-NM. Benjamin Nygård tok sølv og Ane Skadsem bronse.*
 

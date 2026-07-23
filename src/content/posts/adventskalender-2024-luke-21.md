@@ -4,7 +4,7 @@ slug: "adventskalender-2024-luke-21"
 lang: "no"
 pubDate: "2024-12-21T08:00:07.081Z"
 categories: ["Adventskalender 2024"]
-cover: "/media/images/adventskalender-2024-luke-21-c2427131.png"
+cover: "/media/images/adventskalender-2024-luke-21-c2427131.webp"
 description: "Bak luke 20 befant Geir Hjemås seg, som samtlige svarte. Hvem finner vi bak luke 21?"
 ---
 

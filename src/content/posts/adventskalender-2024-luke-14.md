@@ -4,7 +4,7 @@ slug: "adventskalender-2024-luke-14"
 lang: "no"
 pubDate: "2024-12-14T09:00:09.791Z"
 categories: ["Adventskalender 2024"]
-cover: "/media/images/adventskalender-2024-luke-14-5cb60c87.png"
+cover: "/media/images/adventskalender-2024-luke-14-5cb60c87.webp"
 description: "Bak luke 13 fant vi Arne Mahatma Solberg. Hvem er bak dagens luke?"
 ---
 

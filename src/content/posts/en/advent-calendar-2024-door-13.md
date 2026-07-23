@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-13"
 lang: "en"
 pubDate: "2024-12-13T09:00:24.417Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-13-2035d99c.png"
+cover: "/media/images/adventskalender-2024-luke-13-2035d99c.webp"
 description: "Behind door 12 was the eternal youngster Yngve Aasheim, four-time Norwegian champion. How many can crack today's door?"
 ---
 

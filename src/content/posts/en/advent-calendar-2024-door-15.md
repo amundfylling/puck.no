@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-15"
 lang: "en"
 pubDate: "2024-12-15T09:00:09.502Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-15-6284b5c8.png"
+cover: "/media/images/adventskalender-2024-luke-15-6284b5c8.webp"
 description: "Behind door 14 we found Andreas Fjermestad. Who is hiding behind today's door?"
 ---
 

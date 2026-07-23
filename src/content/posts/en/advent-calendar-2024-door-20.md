@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-20"
 lang: "en"
 pubDate: "2024-12-20T09:00:19.872Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-20-d7cd0703.png"
+cover: "/media/images/adventskalender-2024-luke-20-d7cd0703.webp"
 description: "Pål Bakken was hiding behind yesterday's door. Christmas Eve is approaching at breakneck speed, but luckily we still have some treats left. Who do we find behind door 20?"
 ---
 

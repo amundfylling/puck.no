@@ -4,7 +4,7 @@ slug: "adventskalender-2024-luke-6"
 lang: "no"
 pubDate: "2024-12-06T09:00:07.498Z"
 categories: ["Adventskalender 2024"]
-cover: "/media/images/adventskalender-2024-luke-6-d2bfac6c.png"
+cover: "/media/images/adventskalender-2024-luke-6-d2bfac6c.webp"
 description: "Vi bevegde oss tilbake til Jæren, og riktig svar var Juvelvegens beste spiller; Daniel Nygård. Hvilken bordhockeyspiller skjuler seg bak luke 6?"
 ---
 

@@ -16,7 +16,7 @@ Latest news from Norwegian table hockey
 
 Search
 
-![Norway Open 2025: Drama, world stars and cinnamon buns](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.png)
+![Norway Open 2025: Drama, world stars and cinnamon buns](/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.webp)
 
 [
 

@@ -4,7 +4,7 @@ slug: "adventskalender-2024-luke-22"
 lang: "no"
 pubDate: "2024-12-22T09:00:13.772Z"
 categories: ["Adventskalender 2024"]
-cover: "/media/images/adventskalender-2024-luke-22-780b4615.png"
+cover: "/media/images/adventskalender-2024-luke-22-780b4615.webp"
 description: "Det var den tidligere bergensligaspilleren Anders Lægland Ellingsen som skjulte seg bak luke 21. Dermed ser sammenlagttabellen slik ut:Hvem befinner seg bak dagens luke?"
 ---
 

@@ -7,7 +7,7 @@ prices: null
 playingSystem: null
 status: "upcoming"
 ---
-![NM 2026 - Dame](/media/images/norgesmesterskapet-2026-dame-6f5c3c82.jpg)
+![NM 2026 - Dame](/media/images/norgesmesterskapet-2026-dame-6f5c3c82.webp)
 
 Velkommen til Dame-NM i bordhockey i Kvernhallen på Frøyland Skule!
 

@@ -6,7 +6,7 @@ description: "The Norwegian Table Hockey Association (NTHF) has organized table 
 seoTitle: "ABOUT US | Bordhockeyforbundet"
 menuOrder: 10
 ---
-![\_DSC0002(1)\_edited.jpg](/media/images/om-oss-96e217ca.jpg)
+![\_DSC0002(1)\_edited.jpg](/media/images/om-oss-96e217ca.webp)
 
 ## The Norwegian Table Hockey Association
 
@@ -31,7 +31,7 @@ The Norwegian Table Hockey Association (NTHF) has organized table hockey tournam
     <picture>
       <source type="image/avif" srcset="/media/images/om-oss-b3b94a26-400.avif 400w" sizes="96px">
       <source type="image/webp" srcset="/media/images/om-oss-b3b94a26-400.webp 400w" sizes="96px">
-      <img src="/media/images/om-oss-b3b94a26.png" alt="Daniel Nygård" loading="lazy" width="96" height="96">
+      <img src="/media/images/om-oss-b3b94a26.webp" alt="Daniel Nygård" loading="lazy" width="96" height="96">
     </picture>
     <div>
       <h3>Daniel Nygård</h3>
@@ -43,7 +43,7 @@ The Norwegian Table Hockey Association (NTHF) has organized table hockey tournam
     <picture>
       <source type="image/avif" srcset="/media/images/om-oss-be83385b-400.avif 400w" sizes="96px">
       <source type="image/webp" srcset="/media/images/om-oss-be83385b-400.webp 400w" sizes="96px">
-      <img src="/media/images/om-oss-be83385b.png" alt="Arne Johannes Holmin" loading="lazy" width="96" height="96">
+      <img src="/media/images/om-oss-be83385b.webp" alt="Arne Johannes Holmin" loading="lazy" width="96" height="96">
     </picture>
     <div>
       <h3>Arne Johannes Holmin</h3>
@@ -55,7 +55,7 @@ The Norwegian Table Hockey Association (NTHF) has organized table hockey tournam
     <picture>
       <source type="image/avif" srcset="/media/images/om-oss-f30dc605-400.avif 400w" sizes="96px">
       <source type="image/webp" srcset="/media/images/om-oss-f30dc605-400.webp 400w" sizes="96px">
-      <img src="/media/images/om-oss-f30dc605.png" alt="Andreas Fjermestad" loading="lazy" width="96" height="96">
+      <img src="/media/images/om-oss-f30dc605.webp" alt="Andreas Fjermestad" loading="lazy" width="96" height="96">
     </picture>
     <div>
       <h3>Andreas Fjermestad</h3>
@@ -67,7 +67,7 @@ The Norwegian Table Hockey Association (NTHF) has organized table hockey tournam
     <picture>
       <source type="image/avif" srcset="/media/images/om-oss-cfcb7027-400.avif 400w" sizes="96px">
       <source type="image/webp" srcset="/media/images/om-oss-cfcb7027-400.webp 400w" sizes="96px">
-      <img src="/media/images/om-oss-cfcb7027.png" alt="Magnus Klippen" loading="lazy" width="96" height="96">
+      <img src="/media/images/om-oss-cfcb7027.webp" alt="Magnus Klippen" loading="lazy" width="96" height="96">
     </picture>
     <div>
       <h3>Magnus Klippen</h3>

@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-23"
 lang: "en"
 pubDate: "2024-12-23T09:03:58.099Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-23-3ba3aceb.png"
+cover: "/media/images/adventskalender-2024-luke-23-3ba3aceb.webp"
 description: "The world's best 8-year-old, Sinus Moberg, was hiding behind yesterday's door. Two doors remain, so who is hiding behind door number 23?"
 ---
 

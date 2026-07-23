@@ -8,7 +8,7 @@ prices: null
 playingSystem: null
 status: "upcoming"
 ---
-![NM 2026 - U13](/media/images/norgesmesterskapet-2026-u13-09dc4135.jpg)
+![NM 2026 - U13](/media/images/norgesmesterskapet-2026-u13-09dc4135.webp)
 
 Welcome to the U13 Norwegian Championship in table hockey in Kvernhallen at Frøyland Skule! The tournament is for players born in 2013 or later.
 

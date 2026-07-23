@@ -4,7 +4,7 @@ slug: "adventskalender-2024-luke-17"
 lang: "no"
 pubDate: "2024-12-17T09:00:20.624Z"
 categories: ["Adventskalender 2024"]
-cover: "/media/images/adventskalender-2024-luke-17-373fe9aa.png"
+cover: "/media/images/adventskalender-2024-luke-17-373fe9aa.webp"
 description: "Bak luke 16 fant vi Magnus Klippen. Hvem skjuler seg bak dagens luke?"
 ---
 

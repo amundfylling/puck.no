@@ -11,7 +11,7 @@ Become part of the table hockey community
 
 <div class="hub-grid">
   <div class="hub-card">
-    <img src="/media/images/services-1-15c93f28.jpg" alt="Play in a local league" loading="lazy">
+    <img src="/media/images/services-1-15c93f28.webp" alt="Play in a local league" loading="lazy">
     <div class="hub-body">
       <h3>Local leagues</h3>
       <p class="hub-lead">Do you live in Bergen or the Stavanger area?</p>
@@ -20,7 +20,7 @@ Become part of the table hockey community
     </div>
   </div>
   <div class="hub-card">
-    <img src="/media/images/services-1-f5866b83.jpg" alt="Table hockey practice" loading="lazy">
+    <img src="/media/images/services-1-f5866b83.webp" alt="Table hockey practice" loading="lazy">
     <div class="hub-body">
       <h3>Learn table hockey</h3>
       <p class="hub-lead">Do you want to get better at table hockey?</p>
@@ -29,7 +29,7 @@ Become part of the table hockey community
     </div>
   </div>
   <div class="hub-card">
-    <img src="/media/images/services-1-50827645.jpg" alt="Table hockey tournament" loading="lazy">
+    <img src="/media/images/services-1-50827645.webp" alt="Table hockey tournament" loading="lazy">
     <div class="hub-body">
       <h3>Tournaments</h3>
       <p class="hub-lead">Are you ready to take the next step?</p>

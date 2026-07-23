@@ -8,7 +8,7 @@ prices: "NOK 300 for senior players; NOK 150 for junior players; Free for player
 playingSystem: null
 status: "past"
 ---
-![Jæren Open 2026](/media/images/jæren-open-2025-bae52953.jpg)
+![Jæren Open 2026](/media/images/jæren-open-2025-bae52953.webp)
 
 Welcome to Jæren Open 2025 in Kvernhallen at Kvernaland!
 

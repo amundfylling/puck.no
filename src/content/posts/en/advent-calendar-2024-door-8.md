@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-8"
 lang: "en"
 pubDate: "2024-12-08T08:05:00.000Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-8-4208e029.png"
+cover: "/media/images/adventskalender-2024-luke-8-4208e029.webp"
 description: "Espen Moe was hiding behind door 7. Who is hiding behind door 8?"
 ---
 

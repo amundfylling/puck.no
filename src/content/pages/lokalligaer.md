@@ -11,7 +11,7 @@ Det er aktive miljøer i Bergen og på Jæren. Ta kontakt dersom du er interesse
 
 <div class="league-grid">
   <div class="hub-card">
-    <img src="/media/images/lokalligaer-699bd3e5.jpg" alt="Spill i Bergensligaen" loading="lazy">
+    <img src="/media/images/lokalligaer-699bd3e5.webp" alt="Spill i Bergensligaen" loading="lazy">
     <div class="hub-body">
       <h3>Bergensligaen</h3>
       <p class="hub-text">Meld deg inn i Facebookgruppe gjennom følgende link og/eller ta kontakt med Arne Johannes Holmin på tlf <a href="tel:+4799578035">99578035</a></p>

@@ -7,7 +7,7 @@ prices: null
 playingSystem: null
 status: "upcoming"
 ---
-![NM 2026 - U13](/media/images/norgesmesterskapet-2026-u13-09dc4135.jpg)
+![NM 2026 - U13](/media/images/norgesmesterskapet-2026-u13-09dc4135.webp)
 
 Velkommen til U13-NM i bordhockey i Kvernhallen på Frøyland Skule! Turneringen er for spillere født 2013 eller senere.
 

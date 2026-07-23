@@ -8,7 +8,7 @@ prices: null
 playingSystem: null
 status: "upcoming"
 ---
-![NM 2026 - Junior](/media/images/norgesmesterskapet-2026-junior-e4f1e9ac.jpg)
+![NM 2026 - Junior](/media/images/norgesmesterskapet-2026-junior-e4f1e9ac.webp)
 
 Welcome to the Junior Norwegian Championship in table hockey in Kvernhallen at Frøyland Skule! The tournament is for players born in 2008 or later.
 

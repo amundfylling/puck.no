@@ -4,7 +4,7 @@ slug: "advent-calendar-2024-door-9"
 lang: "en"
 pubDate: "2024-12-09T09:00:14.995Z"
 categories: ["Advent calendar 2024"]
-cover: "/media/images/adventskalender-2024-luke-9-5e6305bb.png"
+cover: "/media/images/adventskalender-2024-luke-9-5e6305bb.webp"
 description: "Behind door 8 we found Norway's best female table hockey player, Anne Grethe Gangsøy, and nobody guessed correctly. Who is hiding behind door 9?"
 ---
 
