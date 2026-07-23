@@ -44,7 +44,7 @@ const slash = (path: string) => (path === '/' || path.endsWith('/') ? path : `${
 const canonical = abs(slash(canonicalPath));
 const noUrlSlash = noUrl ? slash(noUrl) : null;
 const enUrlSlash = enUrl ? slash(enUrl) : null;
-const ogImageAbs = ogImage ? abs(ogImage) : abs('/media/images/index-2f7a1d75.webp');
+const ogImageAbs = ogImage && !ogImage.includes('_astro') ? abs(ogImage) : abs('/media/images/og-default.jpg');
 const desc = description || undefined;
 const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
@@ -74,6 +74,7 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <meta property="og:image" content={ogImageAbs} />
     <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'nb_NO'} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImageAbs} />
     {noUrlSlash && <link rel="alternate" hreflang="no" href={abs(noUrlSlash)} />}
     {enUrlSlash && <link rel="alternate" hreflang="en" href={abs(enUrlSlash)} />}
     {noUrlSlash && <link rel="alternate" hreflang="x-default" href={abs(noUrlSlash)} />}
