@@ -42,11 +42,13 @@ const jsonLd = {
   ...(date && { startDate: date.toISOString().slice(0, 10) }),
   eventStatus:
     status === 'past' ? 'https://schema.org/EventCompleted' : 'https://schema.org/EventScheduled',
-  location: {
-    '@type': 'Place',
-    name: entry.data.location ?? 'Norway',
-    address: { '@type': 'PostalAddress', addressCountry: 'NO' },
-  },
+  ...(entry.data.location && {
+    location: {
+      '@type': 'Place',
+      name: entry.data.location,
+      address: { '@type': 'PostalAddress', addressCountry: 'NO' },
+    },
+  }),
   organizer: {
     '@type': 'SportsOrganization',
     name: 'Norwegian Table Hockey Association',
