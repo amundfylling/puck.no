@@ -2,7 +2,7 @@
 name: "Bergen Open 2025"
 slug: "bergen-open-2025"
 date: "15. november 2025"
-location: "Krohnengen Skule"
+location: "Krohnengen skole, Bergen"
 prices: "300 kr for seniorspillere; 150 kr for juniorspillere; Gratis for spillere under 13 år"
 playingSystem: null
 status: "past"

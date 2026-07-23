@@ -2,7 +2,7 @@
 name: "NM 2026 - U13"
 slug: "norgesmesterskapet-2026-u13"
 date: "1. mai 2026"
-location: "Kvernhallen, Frøyland Skule"
+location: "Kvernhallen, Kvernaland"
 prices: null
 playingSystem: null
 status: "upcoming"

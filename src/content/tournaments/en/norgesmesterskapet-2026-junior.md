@@ -3,7 +3,7 @@ name: "NM 2026 - Junior"
 slug: "norgesmesterskapet-2026-junior"
 lang: "en"
 date: "3. mai 2026"
-location: "Kvernhallen, Frøyland Skule"
+location: "Kvernhallen, Kvernaland"
 prices: null
 playingSystem: null
 status: "upcoming"

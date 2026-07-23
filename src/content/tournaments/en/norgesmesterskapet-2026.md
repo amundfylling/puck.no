@@ -3,7 +3,7 @@ name: "NM 2026 - Open class"
 slug: "norgesmesterskapet-2026"
 lang: "en"
 date: "2. mai 2026"
-location: "Kvernhallen, Frøyland Skule"
+location: "Kvernhallen, Kvernaland"
 prices: "NOK 400 for senior players; NOK 200 for junior players; Free for players under 13; Free for players in their first season"
 playingSystem: null
 status: "upcoming"

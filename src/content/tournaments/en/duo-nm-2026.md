@@ -3,7 +3,7 @@ name: "Duo-NM 2026"
 slug: "duo-nm-2026"
 lang: "en"
 date: "3. mai 2026"
-location: null
+location: "Kvernhallen, Kvernaland"
 prices: null
 playingSystem: null
 status: "upcoming"
