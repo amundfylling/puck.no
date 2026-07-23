@@ -239,3 +239,21 @@ Put the original in `media-originals/images/` (or
 `src/data/galleries.json`), reference it as `/media/images/<file>` (or
 `/media/galleries/<slug>/<file>`), then run `npm run build` — the optimizer
 emits the web variants.
+
+## Design rules (tournament redesign 2026-07)
+
+1. No shadowed rounded cards as content containers. Structure with whitespace,
+   thin dividers (border-slate-200) and typography instead.
+2. Never overlap a card on top of an image with negative margins (the -mt-8
+   pattern is banned).
+3. No gradient overlays, no text or buttons on top of photos. Photos stand
+   alone, full width, quiet.
+4. Every fact appears exactly once per page. The same date must not show up
+   in three places.
+5. No uppercase gray micro-labels inside shadowed boxes. Structured facts
+   live in ONE fact table.
+6. One accent color (brand red) = links and ONE primary action per page.
+   Status is a small colored dot + text, never a pill.
+7. Use existing button classes (btn-primary / btn-outline). Max one
+   btn-primary per page.
+

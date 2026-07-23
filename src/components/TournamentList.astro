@@ -20,13 +20,14 @@ const past = views.filter((v) => v.status === 'past');
     <h2 class="text-xl font-bold text-navy">{t(lang, 'upcomingTournaments')}</h2>
     <span class="text-sm text-slate-500">({upcoming.length})</span>
   </div>
-  <div class="mt-4 space-y-3">
+  <div class="mt-4">
     {
       upcoming.length > 0 ? (
-        <>
-          <TournamentCard view={upcoming[0]} lang={lang} featured />
-          {upcoming.slice(1).map((view) => <TournamentCard view={view} lang={lang} />)}
-        </>
+        <div class="space-y-4">
+          {upcoming.map((view) => (
+            <TournamentCard view={view} lang={lang} featured />
+          ))}
+        </div>
       ) : (
         <p class="rounded-lg border border-dashed border-slate-300 p-4 text-sm text-slate-500">
           {t(lang, 'noUpcomingTournaments')}
@@ -39,7 +40,9 @@ const past = views.filter((v) => v.status === 'past');
     <h2 class="text-xl font-bold text-navy">{t(lang, 'pastTournaments')}</h2>
     <span class="text-sm text-slate-500">({past.length})</span>
   </div>
-  <div class="mt-4 space-y-3">
-    {past.map((view) => <TournamentCard view={view} lang={lang} />)}
+  <div class="mt-4 divide-y divide-slate-200 border-y border-slate-200">
+    {past.map((view) => (
+      <TournamentCard view={view} lang={lang} />
+    ))}
   </div>
 </section>

@@ -11,100 +11,52 @@ interface Props {
 }
 
 const { view, lang, featured = false } = Astro.props;
-const { entry, status, date, image } = view;
+const { entry, status, image } = view;
 const href = lang === 'en' ? `/en/turneringer/${entry.data.slug}/` : `/turneringer/${entry.data.slug}/`;
-const locale = lang === 'en' ? 'en-GB' : 'nb-NO';
-const day = date ? new Intl.DateTimeFormat(locale, { day: 'numeric' }).format(date) : null;
-const month = date ? new Intl.DateTimeFormat(locale, { month: 'short' }).format(date) : null;
 const dateLabel = formatNoDate(entry.data.date, lang);
 ---
 
 {
   featured ? (
-    <a
-      href={href}
-      class="group relative block overflow-hidden rounded-2xl bg-navy no-underline shadow-md"
-    >
+    <a href={href} class="group mt-4 grid gap-4 no-underline sm:grid-cols-[16rem_1fr] sm:gap-6">
       {image && (
         <img
           src={image}
           alt=""
           loading="lazy"
-          class="h-60 w-full object-cover transition-transform duration-300 group-hover:scale-105 sm:h-72"
+          class="aspect-video w-full rounded-lg object-cover"
         />
       )}
-      <div class="absolute inset-0 bg-gradient-to-t from-navy via-navy/50 to-transparent" />
-      <span class="absolute right-4 top-4 rounded-full bg-white px-4 py-2 text-sm font-bold text-brand shadow">
-        {t(lang, 'viewTournament')} &rarr;
-      </span>
-      <div class="absolute inset-x-0 bottom-0 p-5 sm:p-6">
-        <span class="rounded-full bg-brand px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
-          {t(lang, status)}
-        </span>
-        <h3 class="mt-2 text-2xl font-extrabold text-white sm:text-3xl">{view.name}</h3>
-        <p class="mt-1 text-sm font-semibold text-white/85">
+      <div class="flex flex-col justify-center">
+        <h3 class="text-xl font-bold text-navy group-hover:underline">{view.name}</h3>
+        <p class="mt-1 flex items-center gap-2 text-sm text-slate-600">
+          <span
+            class:list={[
+              'h-2 w-2 rounded-full',
+              status === 'upcoming' ? 'bg-green-500' : 'bg-slate-400',
+            ]}
+            aria-hidden="true"
+          />
           {dateLabel}
-          {entry.data.location && ` · ${entry.data.location}`}
         </p>
+        <p class="mt-2 text-sm font-semibold text-brand">{t(lang, 'viewTournament')} &rarr;</p>
       </div>
     </a>
   ) : (
-    <a
-      href={href}
-      class="group flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-3 pr-4 no-underline shadow-sm transition-shadow hover:shadow-md"
-    >
-      {image ? (
-        <div class="relative h-20 w-28 shrink-0 overflow-hidden rounded-lg sm:h-24 sm:w-36">
-          <img
-            src={image}
-            alt=""
-            loading="lazy"
-            class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-          {date && (
-            <span class="absolute bottom-1 left-1 rounded-md bg-white/95 px-1.5 py-0.5 text-[11px] font-bold uppercase text-navy shadow-sm">
-              {day} {month}
-            </span>
-          )}
-        </div>
-      ) : (
-        date && (
-          <div
-            class:list={[
-              'flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded-lg text-white',
-              status === 'upcoming' ? 'bg-brand' : 'bg-slate-400',
-            ]}
-          >
-            <span class="text-xl font-extrabold leading-none">{day}</span>
-            <span class="mt-0.5 text-xs font-semibold uppercase tracking-wide">{month}</span>
-          </div>
-        )
+    <a href={href} class="group flex items-center gap-4 py-3 no-underline hover:bg-ice/50">
+      {image && (
+        <img
+          src={image}
+          alt=""
+          loading="lazy"
+          class="h-12 w-16 shrink-0 rounded object-cover"
+        />
       )}
-      <div class="min-w-0 flex-1">
-        <h3 class="text-lg font-bold text-navy group-hover:text-brand">{view.name}</h3>
-        <p class="mt-0.5 text-sm text-slate-600">
-          {dateLabel}
-          {entry.data.location && ` · ${entry.data.location}`}
-        </p>
+      <div class="min-w-0 grow">
+        <p class="truncate font-semibold text-navy group-hover:underline">{view.name}</p>
+        <p class="text-sm text-slate-500">{dateLabel}</p>
       </div>
-      <span
-        class:list={[
-          'shrink-0 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide',
-          status === 'upcoming' ? 'bg-brand text-white' : 'bg-slate-200 text-slate-600',
-        ]}
-      >
-        {t(lang, status)}
-      </span>
-      <svg
-        class="h-5 w-5 shrink-0 text-slate-300 transition-colors group-hover:text-brand"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        aria-hidden="true"
-      >
-        <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
-      </svg>
+      <span aria-hidden="true" class="text-slate-400 group-hover:text-navy">&rarr;</span>
     </a>
   )
 }

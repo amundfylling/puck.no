@@ -228,3 +228,7 @@ h4 {
 .tournament-body h1:is(#tidsskjema, #schedule) ~ p > strong:first-child {
   @apply w-14 shrink-0 font-mono text-sm font-bold text-brand;
 }
+.tournament-body p > strong:first-child {
+  display: inline-block;
+  min-width: 3.5rem;
+}

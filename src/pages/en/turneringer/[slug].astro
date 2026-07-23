@@ -33,14 +33,6 @@ const players =
     (p) => p.name && p.name.toLowerCase() !== 'name',
   ) ?? [];
 const priceList = entry.data.prices?.split(';').map((s) => s.trim()).filter(Boolean) ?? [];
-const systemList =
-  entry.data.playingSystem?.split(';').map((s) => s.trim()).filter(Boolean) ?? [];
-const facts: { label: string; lines: string[] }[] = [
-  { label: t('en', 'date'), lines: [formatNoDate(entry.data.date, 'en')] },
-  ...(entry.data.location ? [{ label: t('en', 'location'), lines: [entry.data.location] }] : []),
-  ...(priceList.length ? [{ label: t('en', 'prices'), lines: priceList }] : []),
-  ...(systemList.length ? [{ label: t('en', 'playingSystem'), lines: systemList }] : []),
-];
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -79,92 +71,89 @@ const jsonLd = {
       >
     </p>
 
-    <header class="relative mt-4 overflow-hidden rounded-2xl bg-navy">
-      {
-        hero && (
-          <img
-            src={hero}
-            alt={entry.data.name}
-            class="absolute inset-0 h-full w-full object-cover"
-          />
-        )
-      }
-      {hero && <div class="absolute inset-0 bg-gradient-to-t from-navy via-navy/55 to-navy/10" />}
-      <div class="relative flex min-h-56 flex-col justify-end p-6 sm:min-h-72 sm:p-8">
-        <div>
+    <header class="mt-4 border-b border-slate-200 pb-6">
+      <h1 class="text-3xl font-extrabold text-navy sm:text-4xl">{entry.data.name}</h1>
+      <p class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-600">
+        <span class="inline-flex items-center gap-1.5 font-semibold text-navy">
           <span
             class:list={[
-              'rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide',
-              status === 'upcoming' ? 'bg-brand text-white' : 'bg-white/85 text-slate-600',
-            ]}>{t('en', status)}</span
-          >
-        </div>
-        <h1 class="mt-3 text-3xl font-extrabold text-white sm:text-4xl">{entry.data.name}</h1>
-        <p class="mt-1 text-sm font-semibold text-white/85 sm:text-base">
-          {formatNoDate(entry.data.date, 'en')}{entry.data.location && ` · ${entry.data.location}`}
-        </p>
-      </div>
-      {
-        status === 'upcoming' && (
-          <a
-            href="#registration"
-            class="absolute bottom-6 right-6 hidden rounded-full bg-white px-5 py-2.5 text-sm font-bold text-brand no-underline shadow-lg hover:bg-ice sm:inline-block"
-          >
-            {t('en', 'registerPlayer')}
-          </a>
-        )
-      }
+              'h-2 w-2 rounded-full',
+              status === 'upcoming' ? 'bg-green-500' : 'bg-slate-400',
+            ]}
+            aria-hidden="true"></span>
+          {t('en', status)}
+        </span>
+        <span aria-hidden="true">·</span>
+        <time>{formatNoDate(entry.data.date, 'en')}</time>
+        {
+          entry.data.location && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>{entry.data.location}</span>
+            </>
+          )
+        }
+      </p>
     </header>
 
-    <div class="relative z-10 mx-2 -mt-8 grid gap-3 sm:mx-4 sm:grid-cols-2">
-      {
-        facts.map((fact) => (
-          <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-md">
-            <p class="text-xs font-bold uppercase tracking-wide text-slate-500">{fact.label}</p>
-            {fact.lines.length === 1 ? (
-              <p class="mt-1 font-semibold text-navy">{fact.lines[0]}</p>
-            ) : (
-              <ul class="mt-1 space-y-0.5 text-sm font-semibold text-navy">
-                {fact.lines.map((line) => (
-                  <li>{line}</li>
-                ))}
-              </ul>
-            )}
+    {
+      hero && (
+        <figure class="mt-6">
+          <img src={hero} alt={entry.data.name} class="aspect-[21/9] w-full rounded-lg object-cover" />
+        </figure>
+      )
+    }
+
+    <div class="mt-8 grid gap-10 lg:grid-cols-[1fr_20rem]">
+      <div class:list={['rich-text tournament-body order-2 lg:order-1', hero && 'hide-first-image']}>
+        <Content />
+      </div>
+
+      <aside class="order-1 h-fit rounded-lg border border-slate-200 bg-white lg:order-2">
+        <h2 class="border-b border-slate-200 px-5 py-3 text-xs font-bold uppercase tracking-wide text-slate-500">
+          Facts
+        </h2>
+        <dl class="px-5 text-sm">
+          <div class="flex justify-between gap-4 border-b border-slate-100 py-3">
+            <dt class="text-slate-500">{t('en', 'date')}</dt>
+            <dd class="text-right font-semibold text-navy">{formatNoDate(entry.data.date, 'en')}</dd>
           </div>
-        ))
-      }
-    </div>
-
-    <nav aria-label={entry.data.name} class="mt-4 flex flex-wrap gap-2 text-sm font-semibold">
-      <a
-        href="#schedule"
-        class="rounded-full bg-ice px-3 py-1.5 text-navy no-underline hover:bg-navy hover:text-white"
-        >{t('en', 'schedule')}</a
-      >
-      {
-        status === 'upcoming' && (
-          <a
-            href="#registration"
-            class="rounded-full bg-ice px-3 py-1.5 text-navy no-underline hover:bg-navy hover:text-white"
-          >
-            {t('en', 'registerPlayer')}
-          </a>
-        )
-      }
-      <a
-        href="#participants"
-        class="rounded-full bg-ice px-3 py-1.5 text-navy no-underline hover:bg-navy hover:text-white"
-        >{t('en', 'registeredPlayers')}</a
-      >
-    </nav>
-
-    <div class:list={['rich-text tournament-body mt-6', hero && 'hide-first-image']}>
-      <Content />
+          {
+            entry.data.location && (
+              <div class="flex justify-between gap-4 border-b border-slate-100 py-3">
+                <dt class="text-slate-500">{t('en', 'location')}</dt>
+                <dd class="text-right font-semibold text-navy">{entry.data.location}</dd>
+              </div>
+            )
+          }
+          {
+            priceList.length > 0 && (
+              <div class="py-3">
+                <dt class="text-slate-500">{t('en', 'prices')}</dt>
+                <dd class="mt-1 space-y-0.5 font-semibold text-navy">
+                  {priceList.map((price) => (
+                    <div>{price}</div>
+                  ))}
+                </dd>
+              </div>
+            )
+          }
+        </dl>
+        {
+          status === 'upcoming' && (
+            <div class="border-t border-slate-200 p-5">
+              <a href="#registration" class="btn-primary block text-center no-underline">
+                {t('en', 'registerPlayer')}
+              </a>
+            </div>
+          )
+        }
+      </aside>
     </div>
 
     {
       status === 'upcoming' && (
-        <div id="registration" class="scroll-mt-6">
+        <div id="registration" class="my-10 rounded-lg border border-slate-200 bg-white p-6 scroll-mt-6">
           <RegistrationForm lang="en" slug={entry.data.slug} teamMin={entry.data.teamMin} teamMax={entry.data.teamMax} />
         </div>
       )
