@@ -97,7 +97,11 @@ collections:
         name: date
         widget: string
         hint: 'Norsk datoformat, f.eks. «5. september 2026» eller «1.–3. mai 2026». Styrer om turneringen vises som kommende.'
-      - { label: Sted, name: location, widget: string, required: false }
+      - label: Sted
+        name: location
+        widget: string
+        required: false
+        hint: 'La stå tom hvis arena ikke er kunngjort'
       - { label: Priser, name: prices, widget: text, required: false }
       - { label: Spillsystem, name: playingSystem, widget: text, required: false }
       - label: Status
