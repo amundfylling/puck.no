@@ -79,6 +79,7 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     {enUrlSlash && <link rel="alternate" hreflang="en" href={abs(enUrlSlash)} />}
     {noUrlSlash && <link rel="alternate" hreflang="x-default" href={abs(noUrlSlash)} />}
     {ld.map((obj) => <script is:inline type="application/ld+json" set:html={JSON.stringify(obj)} />)}
+    {slash(canonicalPath).includes('kombinasjoner') && <script defer src="/js/tricks.js" />}
   </head>
   <body class="flex min-h-screen flex-col">
     <a href="#innhold" class="skip-link">{t(lang, 'skipLink')}</a>
