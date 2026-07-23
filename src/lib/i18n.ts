@@ -118,7 +118,7 @@ export const ui = {
     no: 'Ingen kommende turneringer akkurat nå.',
     en: 'No upcoming tournaments right now.',
   },
-  location: { no: 'Sted', en: 'Location' },
+  location: { no: 'Sted', en: 'Venue' },
   registeredPlayers: { no: 'Påmeldte spillere', en: 'Registered players' },
   name: { no: 'Navn', en: 'Name' },
   country: { no: 'Land', en: 'Country' },
