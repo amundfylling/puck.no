@@ -1,6 +1,7 @@
 ---
 import { t, type Lang } from '../lib/i18n';
-import type { TournamentView } from '../lib/content';
+import { groupByParent, type TournamentView } from '../lib/content';
+import { formatNoDate } from '../lib/dates';
 import TournamentCard from './TournamentCard.astro';
 
 interface Props {
@@ -11,6 +12,10 @@ interface Props {
 const { lang, views } = Astro.props;
 const upcoming = views.filter((v) => v.status === 'upcoming');
 const past = views.filter((v) => v.status === 'past');
+
+const allSlugs = new Set(views.map((v) => v.entry.data.slug));
+const upcomingFamilies = groupByParent(upcoming, allSlugs);
+const pastFamilies = groupByParent(past, allSlugs);
 ---
 
 <section class="mx-auto max-w-4xl px-4 py-10">
@@ -22,10 +27,26 @@ const past = views.filter((v) => v.status === 'past');
   </div>
   <div class="mt-4">
     {
-      upcoming.length > 0 ? (
+      upcomingFamilies.length > 0 ? (
         <div class="space-y-4">
-          {upcoming.map((view) => (
-            <TournamentCard view={view} lang={lang} featured />
+          {upcomingFamilies.map((family) => (
+            <div>
+              <TournamentCard view={family.main} lang={lang} featured />
+              {family.children.map((item) => (
+                <a
+                  href={lang === 'en' ? `/en/turneringer/${item.entry.data.slug}/` : `/turneringer/${item.entry.data.slug}/`}
+                  class="group flex items-baseline gap-3 border-b border-slate-100 py-2 pl-4 no-underline last:border-b-0 hover:bg-ice/50"
+                >
+                  <span class="grow text-[15px] text-navy">
+                    <span class="mr-1.5 text-slate-400" aria-hidden="true">↳</span>
+                    <span class="group-hover:underline">{item.name}</span>
+                  </span>
+                  <span class="shrink-0 text-[13px] tabular-nums text-slate-500">
+                    {formatNoDate(item.entry.data.date, lang)}
+                  </span>
+                </a>
+              ))}
+            </div>
           ))}
         </div>
       ) : (
@@ -41,8 +62,24 @@ const past = views.filter((v) => v.status === 'past');
     <span class="text-sm text-slate-500">({past.length})</span>
   </div>
   <div class="mt-4 divide-y divide-slate-200 border-y border-slate-200">
-    {past.map((view) => (
-      <TournamentCard view={view} lang={lang} />
+    {pastFamilies.map((family) => (
+      <div>
+        <TournamentCard view={family.main} lang={lang} />
+        {family.children.map((item) => (
+          <a
+            href={lang === 'en' ? `/en/turneringer/${item.entry.data.slug}/` : `/turneringer/${item.entry.data.slug}/`}
+            class="group flex items-baseline gap-3 border-b border-slate-100 py-2 pl-20 no-underline last:border-b-0 hover:bg-ice/50"
+          >
+            <span class="grow text-[15px] text-navy">
+              <span class="mr-1.5 text-slate-400" aria-hidden="true">↳</span>
+              <span class="group-hover:underline">{item.name}</span>
+            </span>
+            <span class="shrink-0 text-[13px] tabular-nums text-slate-500">
+              {formatNoDate(item.entry.data.date, lang)}
+            </span>
+          </a>
+        ))}
+      </div>
     ))}
   </div>
 </section>
