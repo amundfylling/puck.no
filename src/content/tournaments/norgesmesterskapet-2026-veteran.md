@@ -3,6 +3,7 @@ name: "NM 2026 - Veteran"
 slug: "norgesmesterskapet-2026-veteran"
 date: "3. mai 2026"
 location: "Kvernhallen, Kvernaland"
+parent: "norgesmesterskapet-2026"
 prices: null
 playingSystem: null
 status: "upcoming"

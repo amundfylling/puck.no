@@ -4,6 +4,7 @@ slug: "duo-nm-2026"
 lang: "en"
 date: "3. mai 2026"
 location: "Kvernhallen, Kvernaland"
+parent: "norgesmesterskapet-2026"
 prices: null
 playingSystem: null
 status: "upcoming"
