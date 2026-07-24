@@ -120,8 +120,8 @@
       btn.setAttribute('aria-pressed', chip.id === 'all' ? 'true' : 'false');
       btn.className =
         chip.id === 'all'
-          ? 'px-2.5 py-1 text-xs font-medium rounded-full bg-red-600 text-white transition-colors cursor-pointer'
-          : 'px-2.5 py-1 text-xs font-medium rounded-full bg-slate-200 text-slate-700 hover:bg-slate-300 transition-colors cursor-pointer';
+          ? 'inline-flex items-center min-h-[44px] px-2.5 py-1 text-xs font-medium rounded-full bg-red-600 text-white transition-colors cursor-pointer'
+          : 'inline-flex items-center min-h-[44px] px-2.5 py-1 text-xs font-medium rounded-full bg-slate-200 text-slate-700 hover:bg-slate-300 transition-colors cursor-pointer';
 
       btn.addEventListener('click', () => {
         currentChip = chip.id;
@@ -129,8 +129,8 @@
           const isSelected = chips[idx].id === currentChip;
           b.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
           b.className = isSelected
-            ? 'px-2.5 py-1 text-xs font-medium rounded-full bg-red-600 text-white transition-colors cursor-pointer'
-            : 'px-2.5 py-1 text-xs font-medium rounded-full bg-slate-200 text-slate-700 hover:bg-slate-300 transition-colors cursor-pointer';
+            ? 'inline-flex items-center min-h-[44px] px-2.5 py-1 text-xs font-medium rounded-full bg-red-600 text-white transition-colors cursor-pointer'
+            : 'inline-flex items-center min-h-[44px] px-2.5 py-1 text-xs font-medium rounded-full bg-slate-200 text-slate-700 hover:bg-slate-300 transition-colors cursor-pointer';
         });
         filterRows();
       });

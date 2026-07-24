@@ -27,7 +27,7 @@ const path = `/blog/categories/${Astro.params.category}`;
 >
   <section class="mx-auto max-w-6xl px-4 py-10">
     <p class="text-sm">
-      <a href="/blog/" class="font-semibold text-brand no-underline hover:underline">&larr; {t('no', 'backToBlog')}</a>
+      <a href="/blog/" class="inline-flex items-center min-h-[44px] font-semibold text-brand no-underline hover:underline">&larr; {t('no', 'backToBlog')}</a>
     </p>
     <h1 class="mt-4 text-3xl font-extrabold text-navy">{category}</h1>
     <p class="mt-1 text-sm text-slate-500">{t('no', 'categories')}</p>

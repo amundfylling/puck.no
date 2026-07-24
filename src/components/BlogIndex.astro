@@ -27,7 +27,7 @@ const pageUrl = (n: number) => (n === 1 ? `${prefix}/blog/` : `${prefix}/blog/${
         <a
           href={`${prefix}/blog/`}
           aria-current="page"
-          class="rounded-full bg-navy px-3 py-1.5 text-sm font-semibold text-white no-underline"
+          class="inline-flex min-h-[44px] items-center rounded-full bg-navy px-3 py-1.5 text-sm font-semibold text-white no-underline"
           >{t(lang, 'allPosts')}</a
         >
       </li>
@@ -36,7 +36,7 @@ const pageUrl = (n: number) => (n === 1 ? `${prefix}/blog/` : `${prefix}/blog/${
           <li>
             <a
               href={`${prefix}/blog/categories/${categorySlug(cat)}/`}
-              class="rounded-full bg-ice px-3 py-1.5 text-sm font-semibold text-navy no-underline hover:bg-navy hover:text-white"
+              class="inline-flex min-h-[44px] items-center rounded-full bg-ice px-3 py-1.5 text-sm font-semibold text-navy no-underline hover:bg-navy hover:text-white"
             >
               {cat}
             </a>

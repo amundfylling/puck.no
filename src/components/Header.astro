@@ -37,7 +37,7 @@ const isActive = (href: string) =>
               hreflang="no"
               aria-current={lang === 'no' ? 'true' : undefined}
               class:list={[
-                'rounded px-2 py-1 no-underline',
+                'inline-flex items-center min-h-[44px] rounded px-3 no-underline',
                 lang === 'no' ? 'bg-navy text-white' : 'text-navy hover:bg-ice',
               ]}>NO</a
             >
@@ -49,7 +49,7 @@ const isActive = (href: string) =>
               hreflang="en"
               aria-current={lang === 'en' ? 'true' : undefined}
               class:list={[
-                'rounded px-2 py-1 no-underline',
+                'inline-flex items-center min-h-[44px] rounded px-3 no-underline',
                 lang === 'en' ? 'bg-navy text-white' : 'text-navy hover:bg-ice',
               ]}>EN</a
             >
@@ -64,7 +64,7 @@ const isActive = (href: string) =>
         aria-label={t(lang, 'openMenu')}
         data-open-label={t(lang, 'openMenu')}
         data-close-label={t(lang, 'closeMenu')}
-        class="rounded p-2 text-navy hover:bg-ice md:hidden"
+        class="flex h-11 w-11 items-center justify-center rounded text-navy hover:bg-ice md:hidden"
       >
         <svg data-icon-open width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"></path>
@@ -84,7 +84,7 @@ const isActive = (href: string) =>
                 href={item.href}
                 aria-current={isActive(item.href) ? 'page' : undefined}
                 class:list={[
-                  'block rounded px-3 py-2 text-sm font-semibold no-underline',
+                  'flex min-h-[44px] items-center rounded px-3 py-2 text-sm font-semibold no-underline',
                   isActive(item.href) ? 'text-brand' : 'text-navy hover:bg-ice hover:text-brand',
                 ]}
               >
@@ -104,7 +104,7 @@ const isActive = (href: string) =>
                         aria-current={!child.external && isActive(child.href) ? 'page' : undefined}
                         {...(child.external ? { target: '_blank', rel: 'noopener' } : {})}
                         class:list={[
-                          'block rounded px-3 py-1.5 text-sm no-underline md:rounded-none',
+                          'flex min-h-[44px] items-center rounded px-3 py-1.5 text-sm no-underline md:rounded-none',
                           !child.external && isActive(child.href)
                             ? 'font-semibold text-brand'
                             : 'text-slate-700 hover:bg-ice hover:text-brand',
