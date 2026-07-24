@@ -75,8 +75,8 @@ const jsonLd = {
 
     <header class="mt-4 border-b border-slate-200 pb-6">
       <h1 class="text-3xl font-extrabold text-navy sm:text-4xl">{entry.data.name}</h1>
-      <p class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-600">
-        <span class="inline-flex items-center gap-1.5 font-semibold text-navy">
+      <p class="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-600">
+        <span class="inline-flex items-center gap-1.5 font-semibold text-navy whitespace-nowrap">
           <span
             class:list={[
               'h-2 w-2 rounded-full',
@@ -85,14 +85,16 @@ const jsonLd = {
             aria-hidden="true"></span>
           {t('en', status)}
         </span>
-        <span aria-hidden="true">·</span>
-        <time>{formatNoDate(entry.data.date, 'en')}</time>
+        <span class="whitespace-nowrap">
+          <span aria-hidden="true" class="mr-2">·</span>
+          <time>{formatNoDate(entry.data.date, 'en')}</time>
+        </span>
         {
           entry.data.location && (
-            <>
-              <span aria-hidden="true">·</span>
+            <span class="whitespace-nowrap">
+              <span aria-hidden="true" class="mr-2">·</span>
               <span>{entry.data.location}</span>
-            </>
+            </span>
           )
         }
       </p>
