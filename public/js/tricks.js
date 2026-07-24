@@ -45,6 +45,7 @@
 
     // Sticky table headers for mobile
     trickTables.forEach((table) => {
+      table.classList.add('tricks-table');
       const thead = table.querySelector('thead');
       if (thead) {
         thead.classList.add('sticky', 'top-14', 'z-10', 'bg-slate-50', 'shadow-xs');
