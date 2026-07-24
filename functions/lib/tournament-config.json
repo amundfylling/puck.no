@@ -43,6 +43,14 @@
   "teamMin": null,
   "teamMax": null
  },
+ "test-individuell-2026": {
+  "teamMin": null,
+  "teamMax": null
+ },
+ "test-lagturnering-2026": {
+  "teamMin": 2,
+  "teamMax": 3
+ },
  "trondheim-open-2025": {
   "teamMin": null,
   "teamMax": null
