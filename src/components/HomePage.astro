@@ -3,6 +3,7 @@ import { Picture } from 'astro:assets';
 import heroImg from '../assets/images/hero.png';
 import { pagePath, t, type Lang } from '../lib/i18n';
 import type { Page, Post, TournamentView } from '../lib/content';
+import { formatNoDate } from '../lib/dates';
 import PostCard from './PostCard.astro';
 import TournamentCard from './TournamentCard.astro';
 
@@ -11,9 +12,10 @@ interface Props {
   entry: Page;
   posts: Post[];
   next: TournamentView | null;
+  rest?: TournamentView[];
 }
 
-const { lang, entry, posts, next } = Astro.props;
+const { lang, entry, posts, next, rest = [] } = Astro.props;
 
 // Labels below are verbatim from src/content/pages/index.md (and en/index.md).
 const l = {
@@ -53,23 +55,45 @@ const l = {
   </div>
 </section>
 
-{
-  next && (
-    <section aria-labelledby="next-tournament" class="mx-auto max-w-6xl px-4 pt-10">
-      <div class="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 id="next-tournament" class="text-2xl font-bold text-navy">
-          {t(lang, 'nextTournament')}
-        </h2>
-        <a href={pagePath('turneringer', lang)} class="text-sm font-semibold text-brand no-underline hover:underline">
-          {l.allTournaments}
-        </a>
-      </div>
-      <div class="mt-4">
-        <TournamentCard view={next} lang={lang} featured />
-      </div>
-    </section>
-  )
-}
+<section aria-labelledby="terminliste" class="mx-auto max-w-6xl px-4 pt-10">
+  <div class="flex flex-wrap items-baseline justify-between gap-2">
+    <h2 id="terminliste" class="text-2xl font-bold text-navy">
+      {t(lang, 'nextTournament')}
+    </h2>
+    <a href={pagePath('turneringer', lang)} class="text-sm font-semibold text-brand no-underline hover:underline">
+      {l.allTournaments}
+    </a>
+  </div>
+  {
+    next ? (
+      <>
+        <div class="mt-4">
+          <TournamentCard view={next} lang={lang} featured />
+        </div>
+        {rest.length > 0 && (
+          <div class="mt-4 border-t border-slate-200">
+            {rest.map((item) => (
+              <a
+                href={lang === 'en' ? `/en/turneringer/${item.entry.data.slug}/` : `/turneringer/${item.entry.data.slug}/`}
+                class="group flex flex-wrap items-baseline gap-x-2 border-b border-slate-100 py-2.5 no-underline last:border-b-0 hover:bg-ice/50 sm:flex-nowrap sm:gap-x-3"
+              >
+                <span class="h-2 w-2 shrink-0 self-center rounded-full bg-green-500 sm:order-1" aria-hidden="true"></span>
+                <span class="font-semibold text-navy group-hover:underline sm:order-3 sm:grow">{item.name}</span>
+                <span class="w-full sm:hidden" aria-hidden="true"></span>
+                <span class="ml-4 text-[13px] text-slate-500 sm:order-2 sm:ml-0 sm:w-36 sm:shrink-0 sm:whitespace-nowrap sm:text-sm sm:text-slate-600 sm:tabular-nums">{formatNoDate(item.entry.data.date, lang)}</span>
+                {item.entry.data.location && (
+                  <span class="text-[13px] text-slate-500 before:mx-1 before:text-slate-300 before:content-['·'] sm:order-4 sm:text-sm sm:before:content-none">{item.entry.data.location}</span>
+                )}
+              </a>
+            ))}
+          </div>
+        )}
+      </>
+    ) : (
+      <p class="mt-4 text-sm text-slate-500">{t(lang, 'noUpcomingTournaments')}</p>
+    )
+  }
+</section>
 
 <section aria-labelledby="latest-news" class="mx-auto max-w-6xl px-4 pt-10">
   <div class="flex flex-wrap items-baseline justify-between gap-2">
