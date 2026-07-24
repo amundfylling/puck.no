@@ -155,9 +155,7 @@ const jsonLd = {
 
     {
       status === 'upcoming' && (
-        <div id="registration" class="my-10 rounded-lg border border-slate-200 bg-white p-6 scroll-mt-6">
-          <RegistrationForm lang="en" slug={entry.data.slug} teamMin={entry.data.teamMin} teamMax={entry.data.teamMax} />
-        </div>
+        <RegistrationForm lang="en" slug={entry.data.slug} teamMin={entry.data.teamMin} teamMax={entry.data.teamMax} />
       )
     }
 
