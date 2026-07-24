@@ -119,6 +119,8 @@ export const ui = {
     en: 'No upcoming tournaments announced yet.',
   },
   location: { no: 'Sted', en: 'Venue' },
+  partOf: { no: 'Del av', en: 'Part of' },
+  classes: { no: 'Klasser', en: 'Classes' },
   registeredPlayers: { no: 'Påmeldte spillere', en: 'Registered players' },
   name: { no: 'Navn', en: 'Name' },
   country: { no: 'Land', en: 'Country' },

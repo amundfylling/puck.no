@@ -89,3 +89,79 @@ export async function getTournamentsSorted(
 export async function getPages(lang: Lang): Promise<Page[]> {
   return getCollection('pages', (p) => p.data.lang === lang);
 }
+
+export interface TournamentFamily<T extends { entry: Tournament; date: Date | null }> {
+  main: T;
+  children: T[];
+}
+
+/**
+ * Group tournament items by family (main tournament + children sub-tournaments).
+ * Input: sorted array of tournament items (e.g. TournamentView[]).
+ * Output: Array<{ main: Item, children: Item[] }>.
+ */
+export function groupByParent<T extends { entry: Tournament; date: Date | null }>(
+  list: T[],
+  allSlugs?: Set<string> | string[],
+): TournamentFamily<T>[] {
+  const fullSlugSet = allSlugs ? new Set(allSlugs) : null;
+  const listMap = new Map<string, T>();
+  for (const item of list) {
+    listMap.set(item.entry.data.slug, item);
+  }
+
+  const familyMap = new Map<string, TournamentFamily<T>>();
+  const result: TournamentFamily<T>[] = [];
+
+  // First pass: identify mains and initialize families
+  for (const item of list) {
+    const parentSlug = item.entry.data.parent;
+    let isChild = false;
+
+    if (parentSlug) {
+      const parentInList = listMap.get(parentSlug);
+      if (parentInList) {
+        if (parentInList.entry.data.parent) {
+          console.warn(
+            `Tournament "${item.entry.data.slug}" has parent "${parentSlug}" which is also a child tournament (two-level nesting). Treating as main.`,
+          );
+        } else {
+          isChild = true;
+        }
+      } else {
+        if (fullSlugSet && !fullSlugSet.has(parentSlug)) {
+          console.warn(
+            `Tournament "${item.entry.data.slug}" references unknown parent "${parentSlug}". Treating as main.`,
+          );
+        }
+      }
+    }
+
+    if (!isChild) {
+      const family: TournamentFamily<T> = { main: item, children: [] };
+      familyMap.set(item.entry.data.slug, family);
+      result.push(family);
+    }
+  }
+
+  // Second pass: attach children to their main's family
+  for (const item of list) {
+    const parentSlug = item.entry.data.parent;
+    if (!parentSlug) continue;
+
+    const parentInList = listMap.get(parentSlug);
+    if (parentInList && !parentInList.entry.data.parent) {
+      const family = familyMap.get(parentSlug);
+      if (family) {
+        family.children.push(item);
+      }
+    }
+  }
+
+  // Sort children by date ascending
+  for (const family of result) {
+    family.children.sort((a, b) => (a.date?.getTime() ?? 0) - (b.date?.getTime() ?? 0));
+  }
+
+  return result;
+}

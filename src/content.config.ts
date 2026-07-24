@@ -40,6 +40,7 @@ const tournaments = defineCollection({
     /** Display date, Norwegian text (e.g. "5. september 2026"). */
     date: z.string(),
     location: z.string().nullable(),
+    parent: z.string().optional(),
     prices: z.string().nullable(),
     playingSystem: z.string().nullable(),
     /** Frontmatter hint — computed status (date vs build date) wins, see lib/tournaments.ts. */
