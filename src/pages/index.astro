@@ -11,7 +11,9 @@ const entry = await getEntry('pages', 'index');
 if (!entry) throw new Error('pages/index not found');
 const seo = seoForPath('/');
 const posts = (await getPosts('no')).slice(0, 3);
-const next = (await getTournamentsSorted()).find((v) => v.status === 'upcoming') ?? null;
+const upcoming = (await getTournamentsSorted()).filter((v) => v.status === 'upcoming');
+const next = upcoming[0] ?? null;
+const rest = upcoming.slice(1);
 
 // Dedicated 1200x630 og:image (cropped from the hero) for the front page.
 const og = await getImage({ src: heroImg, width: 1200, height: 630, fit: 'cover', format: 'jpg' });
@@ -39,5 +41,5 @@ const jsonLd = {
   ogImage={og.src}
   jsonLd={jsonLd}
 >
-  <HomePage lang="no" entry={entry} posts={posts} next={next} />
+  <HomePage lang="no" entry={entry} posts={posts} next={next} rest={rest} />
 </BaseLayout>
