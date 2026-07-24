@@ -186,12 +186,47 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   let country: string | null = null;
   let wr: number | null = null;
   let playerId: number | null = null;
+  let playerIdsJson: string | null = null;
 
   if (body.type === 'team') {
     const ids = Array.isArray(body.playerIds)
       ? body.playerIds.map(asId).filter((v): v is number => v != null)
       : null;
     if (ids) {
+      if (new Set(ids).size !== ids.length) {
+        return json({ error: 'En spiller kan ikke velges flere ganger i samme lag.' }, 400);
+      }
+
+      // Check if any of the player IDs are already registered for this tournament
+      const { results: existingRegs } = await context.env.DB.prepare(
+        `SELECT player_id, player_ids FROM registrations WHERE tournament_slug = ?`,
+      )
+        .bind(body.tournament_slug as string)
+        .all();
+
+      const existingPlayerIds = new Set<number>();
+      for (const row of existingRegs) {
+        if (row.player_id != null) {
+          existingPlayerIds.add(Number(row.player_id));
+        }
+        if (row.player_ids && typeof row.player_ids === 'string') {
+          try {
+            const parsed = JSON.parse(row.player_ids);
+            if (Array.isArray(parsed)) {
+              for (const pid of parsed) {
+                if (Number.isInteger(Number(pid))) existingPlayerIds.add(Number(pid));
+              }
+            }
+          } catch {}
+        }
+      }
+
+      for (const pid of ids) {
+        if (existingPlayerIds.has(pid)) {
+          return json({ error: 'En av spillerne er allerede registrert i denne turneringen!' }, 409);
+        }
+      }
+
       let ranking: Map<number, RankedPlayer>;
       try {
         ranking = await fetchRanking();
@@ -204,8 +239,14 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         return json({ error: 'Spilleren ble ikke funnet på verdensrankingen.' }, 400);
       }
       name = resolved.map((p) => p!.name).join(' / ');
+      playerIdsJson = JSON.stringify(ids);
     } else {
-      name = (body.names as string[]).map((n) => n.trim()).join(' / ');
+      const names = (body.names as string[]).map((n) => n.trim());
+      const lowerNames = names.map((n) => n.toLowerCase());
+      if (new Set(lowerNames).size !== lowerNames.length) {
+        return json({ error: 'En spiller kan ikke føres opp flere ganger i samme lag.' }, 400);
+      }
+      name = names.join(' / ');
     }
   } else {
     const id = asId(body.playerId);
@@ -235,10 +276,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
   try {
     const result = await context.env.DB.prepare(
-      `INSERT INTO registrations (tournament_slug, type, name, country, email, phone, world_ranking, player_id)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO registrations (tournament_slug, type, name, country, email, phone, world_ranking, player_id, player_ids)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
-      .bind(body.tournament_slug as string, body.type as string, name, country, email, phone, wr, playerId)
+      .bind(body.tournament_slug as string, body.type as string, name, country, email, phone, wr, playerId, playerIdsJson)
       .run();
     return json({ ok: true, id: result.meta.last_row_id }, 201);
   } catch (err) {
