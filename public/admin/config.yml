@@ -1,12 +1,11 @@
 # Sveltia CMS-konfigurasjon for puck.no
 # Backend: GitHub via sveltia-cms-auth Cloudflare Worker (ingen Netlify).
-# MERK: `repo` og `base_url` fylles inn med reelle verdier ved lansering
-# (se LAUNCH.md). Innlogging krever GitHub OAuth-app (se REDIGERING.md).
+# Innlogging krever GitHub OAuth-app (se REDIGERING.md / LAUNCH.md steg A5).
 backend:
   name: github
   repo: amundfylling/puck.no
   branch: main
-  base_url: https://sveltia-auth.puck.no # Cloudflare Worker (sveltia-cms-auth)
+  base_url: https://sveltia-cms-auth.amund-fylling.workers.dev # Cloudflare Worker (sveltia-cms-auth)
   auth_endpoint: /auth
 
 site_url: https://www.puck.no
