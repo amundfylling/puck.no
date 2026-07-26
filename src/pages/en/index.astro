@@ -4,7 +4,7 @@ import HomePage from '../../components/HomePage.astro';
 import { getEntry } from 'astro:content';
 import { getImage } from 'astro:assets';
 import heroImg from '../../assets/images/hero.png';
-import { getPosts, getTournamentsSorted } from '../../lib/content';
+import { getPosts, getTournamentsSorted, groupByParent } from '../../lib/content';
 import { seoForPath } from '../../lib/seo';
 
 const entry = await getEntry('pages', 'en/index');
@@ -12,8 +12,13 @@ if (!entry) throw new Error('pages/en/index not found');
 const seo = seoForPath('/en');
 const posts = (await getPosts('en')).slice(0, 3);
 const upcoming = (await getTournamentsSorted(new Date(), 'en')).filter((v) => v.status === 'upcoming');
-const next = upcoming[0] ?? null;
-const rest = upcoming.slice(1);
+const families = groupByParent(upcoming);
+const [first, ...otherFamilies] = families;
+const next = first?.main ?? null;
+const rest = [
+  ...(first?.children ?? []).map((item) => ({ ...item, isChild: true })),
+  ...otherFamilies.flatMap((f) => [f.main, ...f.children.map((item) => ({ ...item, isChild: true }))]),
+];
 
 // Dedicated 1200x630 og:image (cropped from the hero) for the front page.
 const og = await getImage({ src: heroImg, width: 1200, height: 630, fit: 'cover', format: 'jpg' });
