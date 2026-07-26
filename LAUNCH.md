@@ -121,6 +121,8 @@ beskrevet, men bruk pages.dev-domenet):
    → godkjenn → du skal se CMS-et med Nyheter, Turneringer osv.
    - Styremedlemmer må ha GitHub-konto og være lagt til som **collaborators**
      på repoet (GitHub → repo → **Settings** → **Collaborators** → invite).
+   - Blank side? Sjekk at den avslappede CSP-en for `/admin/*` ligger i
+     `public/_headers` (den skal være der allerede).
 
 ## A6. Beskytt admin-sidene (Cloudflare Access)
 

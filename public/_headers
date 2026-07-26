@@ -10,3 +10,10 @@
   X-Frame-Options: DENY
   Content-Security-Policy: default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com https://www.youtube-nocookie.com https://www.youtube.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'
   ! Access-Control-Allow-Origin
+
+# Relaxed CSP for the Sveltia CMS admin UI only — it loads its bundle from
+# unpkg (also version checks + PDF.js/Prism from there), calls the GitHub API,
+# the OAuth worker, and Google Fonts (per sveltiacms.app/docs/security).
+# All other headers above (HSTS, nosniff, ...) still apply to /admin/*.
+/admin/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' blob: data: https://unpkg.com https://api.github.com https://sveltia-cms-auth.amund-fylling.workers.dev; frame-src blob:; frame-ancestors 'self'; base-uri 'self'; form-action 'self'
