@@ -34,6 +34,14 @@ const players =
   ) ?? [];
 const priceList = entry.data.prices?.split(';').map((s) => s.trim()).filter(Boolean) ?? [];
 
+const allTournaments = await getCollection('tournaments', (t) => t.data.lang === 'no');
+const parentEntry = entry.data.parent
+  ? allTournaments.find((t) => t.data.slug === entry.data.parent)
+  : null;
+const childrenEntries = allTournaments
+  .filter((t) => t.data.parent === entry.data.slug)
+  .sort((a, b) => (parseNoDate(a.data.date)?.getTime() ?? 0) - (parseNoDate(b.data.date)?.getTime() ?? 0));
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SportsEvent',
@@ -54,6 +62,20 @@ const jsonLd = {
     name: 'Norges Bordhockeyforbund',
     url: 'https://www.puck.no/',
   },
+  ...(parentEntry && {
+    superEvent: {
+      '@type': 'SportsEvent',
+      name: parentEntry.data.name,
+      url: `https://www.puck.no/turneringer/${parentEntry.data.slug}/`,
+    },
+  }),
+  ...(childrenEntries.length > 0 && {
+    subEvent: childrenEntries.map((child) => ({
+      '@type': 'SportsEvent',
+      name: child.data.name,
+      url: `https://www.puck.no/turneringer/${child.data.slug}/`,
+    })),
+  }),
 };
 ---
 
@@ -110,6 +132,34 @@ const jsonLd = {
 
     <div class="mt-8 grid gap-10 lg:grid-cols-[1fr_20rem]">
       <div class:list={['rich-text tournament-body order-2 lg:order-1', hero && 'hide-first-image']}>
+        {
+          childrenEntries.length > 0 && (
+            <div class="mb-6 not-prose">
+              <h2 class="text-lg font-bold text-navy">{t('no', 'classes')}</h2>
+              <div class="mt-2 border-t border-slate-200">
+                {childrenEntries.map((child) => {
+                  const childStatus = tournamentStatus(child);
+                  return (
+                    <a
+                      href={`/turneringer/${child.data.slug}/`}
+                      class="group flex items-center gap-2.5 border-b border-slate-100 py-2 no-underline last:border-b-0 hover:bg-ice/50"
+                    >
+                      <span
+                        class:list={[
+                          'h-2 w-2 shrink-0 rounded-full',
+                          childStatus === 'upcoming' ? 'bg-green-500' : 'bg-slate-300',
+                        ]}
+                        aria-hidden="true"
+                      />
+                      <span class="font-semibold text-navy group-hover:underline">{child.data.name}</span>
+                      <span class="text-[13px] tabular-nums text-slate-500">{formatNoDate(child.data.date, 'no')}</span>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          )
+        }
         <Content />
       </div>
 
@@ -118,6 +168,18 @@ const jsonLd = {
           Fakta
         </h2>
         <dl class="px-5 text-sm">
+          {
+            parentEntry && (
+              <div class="flex justify-between gap-4 border-b border-slate-100 py-3">
+                <dt class="text-slate-500">{t('no', 'partOf')}</dt>
+                <dd class="text-right font-semibold text-brand">
+                  <a href={`/turneringer/${parentEntry.data.slug}/`} class="no-underline hover:underline">
+                    {parentEntry.data.name}
+                  </a>
+                </dd>
+              </div>
+            )
+          }
           <div class="flex justify-between gap-4 border-b border-slate-100 py-3">
             <dt class="text-slate-500">{t('no', 'date')}</dt>
             <dd class="text-right font-semibold text-navy">{formatNoDate(entry.data.date, 'no')}</dd>
