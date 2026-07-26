@@ -1,16 +1,24 @@
-import { visit } from "unist-util-visit";
-
-function textOf(node) {
-  let out = "";
-  visit(node, "text", (t) => { out += t.value; });
-  return out;
-}
-
 function slugify(text) {
   return text.toLowerCase().split("/")[0]
-    .replace(/[^a-zæøå0-9]+/gi, "-").replace(/^-+|-+$/g, "");
+    .replace(/[^\p{L}\p{N}]+/giu, "-").replace(/^-+|-+$/g, "");
 }
 
+function thCount(tableNode) {
+  const thead = (tableNode.children || []).find((c) => c.tagName === "thead");
+  if (!thead) return 0;
+  return (thead.children || [])
+    .filter((c) => c.tagName === "tr")
+    .reduce((n, tr) => n + (tr.children || []).filter((c) => c.tagName === "th").length, 0);
+}
+
+/**
+ * Sätteri hast plugin for the tricks (kombinasjoner) pages:
+ * - all content images get lazy loading + async decoding
+ * - tbody rows of trick tables (exactly 4 columns: name, difficulty,
+ *   description, combo) get a stable id slugified from the trick name
+ *   (first cell), so tricks can be deep-linked — e.g. /#kioskenstrøm
+ *   (special-cased: any row mentioning "kiosken" gets that exact id)
+ */
 export const satteriRehypeTricks = {
   name: "rehype-tricks",
   element: {
@@ -21,39 +29,23 @@ export const satteriRehypeTricks = {
         ctx.setProperty(node, "decoding", "async");
       }
       if (node.tagName === "tr") {
-        const parent = ctx.parent(node);
-        if (parent && parent.tagName === "tbody") {
-          const text = ctx.textContent(node);
-          let id = "";
-          if (text.toLowerCase().includes("kiosken")) {
-            id = "kioskenstrøm";
-          } else {
-            id = slugify(text);
-          }
-          if (id) {
-            ctx.setProperty(node, "id", id);
-          }
+        const tbody = ctx.parent(node);
+        if (!tbody || tbody.tagName !== "tbody") return;
+
+        let id = "";
+        if (ctx.textContent(node).toLowerCase().includes("kiosken")) {
+          id = "kioskenstrøm";
+        } else {
+          const table = ctx.parent(tbody);
+          if (!table || table.tagName !== "table" || thCount(table) !== 4) return;
+          const firstTd = (node.children || []).find((c) => c.tagName === "td");
+          if (!firstTd) return;
+          id = slugify(ctx.textContent(firstTd));
+        }
+        if (id) {
+          ctx.setProperty(node, "id", id);
         }
       }
     },
   },
 };
-
-export function rehypeTricks() {
-  return (tree) => {
-    visit(tree, "element", (node, _i, parent) => {
-      if (node.tagName === "img" && node.properties) {
-        node.properties.loading = "lazy";
-        node.properties.decoding = "async";
-      }
-      if (node.tagName === "tr" && parent && parent.tagName === "tbody") {
-        const first = (node.children || []).find((c) => c.tagName === "td");
-        const text = first ? textOf(first) : "";
-        const id = text.toLowerCase().includes("kiosken") ? "kioskenstrøm" : (first ? slugify(text) : "");
-        if (id) node.properties = { ...(node.properties || {}), id };
-      }
-    });
-  };
-}
-
-export default rehypeTricks;

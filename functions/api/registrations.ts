@@ -16,9 +16,15 @@
  * and country/WR stay NULL. Contact info (email/phone) is stored once per
  * registration — for teams, for the team as a whole.
  *
- * Duplicates are rejected per tournament on player_id for ranked players
- * (one ITHF id per person, regardless of email) and on lower(email) for
- * everyone else (partial unique indexes in migrations/0002_player_id.sql).
+ * Duplicates are rejected per tournament: ranked players on player_id
+ * (one ITHF id per person, regardless of email) and unranked individuals on
+ * lower(email) — partial unique indexes in migrations/0002_player_id.sql
+ * and 0003_team_player_ids.sql. Teams are deduplicated atomically inside
+ * the INSERT itself (WHERE NOT EXISTS): ranked teams on any of their
+ * player ids (matched against both registrations.player_id and the
+ * player_ids JSON arrays of earlier teams), free-text teams on the
+ * lowercased team name. Duplicate contact emails ARE allowed for teams —
+ * contact info is stored per team, and several teams may share one contact.
  *
  * Responses: 201 created · 400 validation (Norwegian messages) ·
  * 403 Turnstile failed · 409 duplicate · 502 ranking unavailable ·
@@ -186,7 +192,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   let country: string | null = null;
   let wr: number | null = null;
   let playerId: number | null = null;
-  let playerIdsJson: string | null = null;
+  let teamIds: number[] | null = null;
 
   if (body.type === 'team') {
     const ids = Array.isArray(body.playerIds)
@@ -195,36 +201,6 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     if (ids) {
       if (new Set(ids).size !== ids.length) {
         return json({ error: 'En spiller kan ikke velges flere ganger i samme lag.' }, 400);
-      }
-
-      // Check if any of the player IDs are already registered for this tournament
-      const { results: existingRegs } = await context.env.DB.prepare(
-        `SELECT player_id, player_ids FROM registrations WHERE tournament_slug = ?`,
-      )
-        .bind(body.tournament_slug as string)
-        .all();
-
-      const existingPlayerIds = new Set<number>();
-      for (const row of existingRegs) {
-        if (row.player_id != null) {
-          existingPlayerIds.add(Number(row.player_id));
-        }
-        if (row.player_ids && typeof row.player_ids === 'string') {
-          try {
-            const parsed = JSON.parse(row.player_ids);
-            if (Array.isArray(parsed)) {
-              for (const pid of parsed) {
-                if (Number.isInteger(Number(pid))) existingPlayerIds.add(Number(pid));
-              }
-            }
-          } catch {}
-        }
-      }
-
-      for (const pid of ids) {
-        if (existingPlayerIds.has(pid)) {
-          return json({ error: 'En av spillerne er allerede registrert i denne turneringen!' }, 409);
-        }
       }
 
       let ranking: Map<number, RankedPlayer>;
@@ -239,7 +215,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         return json({ error: 'Spilleren ble ikke funnet på verdensrankingen.' }, 400);
       }
       name = resolved.map((p) => p!.name).join(' / ');
-      playerIdsJson = JSON.stringify(ids);
+      teamIds = ids;
     } else {
       const names = (body.names as string[]).map((n) => n.trim());
       const lowerNames = names.map((n) => n.toLowerCase());
@@ -273,13 +249,58 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
   const email = (body.email as string).trim().toLowerCase();
   const phone = typeof body.phone === 'string' && body.phone.trim() ? body.phone.trim() : null;
+  const slug = body.tournament_slug as string;
 
   try {
+    if (body.type === 'team') {
+      // Atomic duplicate guard: the INSERT only happens when no conflicting
+      // registration exists (WHERE NOT EXISTS), so two simultaneous
+      // submissions can't both slip through — no separate SELECT to race.
+      // json_valid() guards against a hand-edited player_ids value breaking
+      // json_each for every future registration to the same tournament.
+      const columns = `(tournament_slug, type, name, country, email, phone, world_ranking, player_id, player_ids)`;
+      let stmt: D1PreparedStatement;
+      let duplicateError: string;
+      if (teamIds) {
+        const ph = teamIds.map(() => '?').join(', ');
+        stmt = context.env.DB.prepare(
+          `INSERT INTO registrations ${columns}
+           SELECT ?, ?, ?, ?, ?, ?, ?, NULL, ?
+           WHERE NOT EXISTS (
+             SELECT 1 FROM registrations r
+             WHERE r.tournament_slug = ?
+               AND (
+                 r.player_id IN (${ph})
+                 OR (json_valid(r.player_ids) AND EXISTS (
+                   SELECT 1 FROM json_each(r.player_ids) je WHERE je.value IN (${ph})
+                 ))
+               )
+           )`,
+        ).bind(slug, 'team', name, country, email, phone, wr, JSON.stringify(teamIds), slug, ...teamIds, ...teamIds);
+        duplicateError = 'En av spillerne er allerede registrert i denne turneringen!';
+      } else {
+        stmt = context.env.DB.prepare(
+          `INSERT INTO registrations ${columns}
+           SELECT ?, ?, ?, ?, ?, ?, ?, NULL, NULL
+           WHERE NOT EXISTS (
+             SELECT 1 FROM registrations r
+             WHERE r.tournament_slug = ? AND r.type = 'team' AND lower(r.name) = ?
+           )`,
+        ).bind(slug, 'team', name, country, email, phone, wr, slug, name.toLowerCase());
+        duplicateError = 'Laget er allerede registrert i denne turneringen!';
+      }
+      const result = await stmt.run();
+      if (result.meta.changes === 0) {
+        return json({ error: duplicateError }, 409);
+      }
+      return json({ ok: true, id: result.meta.last_row_id }, 201);
+    }
+
     const result = await context.env.DB.prepare(
       `INSERT INTO registrations (tournament_slug, type, name, country, email, phone, world_ranking, player_id, player_ids)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, NULL)`,
     )
-      .bind(body.tournament_slug as string, body.type as string, name, country, email, phone, wr, playerId, playerIdsJson)
+      .bind(slug, body.type as string, name, country, email, phone, wr, playerId)
       .run();
     return json({ ok: true, id: result.meta.last_row_id }, 201);
   } catch (err) {

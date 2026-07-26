@@ -25,6 +25,7 @@
         easy: 'Enkle (0–3)',
         medium: 'Middels (4–6)',
         hard: 'Vanskelige (7–10)',
+        ariaDifficulty: 'Vanskelighetsgrad',
         showing: (n, total) => `Viser ${n} av ${total} triks`,
         noResults: (q) => `Ingen triks funnet for «${q}»`,
       },
@@ -36,6 +37,7 @@
         easy: 'Easy (0–3)',
         medium: 'Medium (4–6)',
         hard: 'Hard (7–10)',
+        ariaDifficulty: 'Difficulty',
         showing: (n, total) => `Showing ${n} of ${total} tricks`,
         noResults: (q) => `No tricks found for "${q}"`,
       },
@@ -102,7 +104,7 @@
     const chipGroup = document.createElement('div');
     chipGroup.className = 'flex flex-wrap items-center gap-1.5';
     chipGroup.setAttribute('role', 'group');
-    chipGroup.setAttribute('aria-label', 'Vanskelegheitsgrad');
+    chipGroup.setAttribute('aria-label', t.ariaDifficulty);
 
     const chips = [
       { id: 'all', label: t.all, min: 0, max: 10 },
@@ -114,25 +116,29 @@
     let currentChip = 'all';
     const chipButtons = [];
 
+    const chipClass = (selected) =>
+      selected
+        ? 'inline-flex items-center min-h-[44px] px-2.5 py-1 text-xs font-medium rounded-full bg-red-600 text-white transition-colors cursor-pointer'
+        : 'inline-flex items-center min-h-[44px] px-2.5 py-1 text-xs font-medium rounded-full bg-slate-200 text-slate-700 hover:bg-slate-300 transition-colors cursor-pointer';
+
+    const syncChips = () => {
+      chipButtons.forEach((b, idx) => {
+        const isSelected = chips[idx].id === currentChip;
+        b.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+        b.className = chipClass(isSelected);
+      });
+    };
+
     chips.forEach((chip) => {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.textContent = chip.label;
       btn.setAttribute('aria-pressed', chip.id === 'all' ? 'true' : 'false');
-      btn.className =
-        chip.id === 'all'
-          ? 'inline-flex items-center min-h-[44px] px-2.5 py-1 text-xs font-medium rounded-full bg-red-600 text-white transition-colors cursor-pointer'
-          : 'inline-flex items-center min-h-[44px] px-2.5 py-1 text-xs font-medium rounded-full bg-slate-200 text-slate-700 hover:bg-slate-300 transition-colors cursor-pointer';
+      btn.className = chipClass(chip.id === 'all');
 
       btn.addEventListener('click', () => {
         currentChip = chip.id;
-        chipButtons.forEach((b, idx) => {
-          const isSelected = chips[idx].id === currentChip;
-          b.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
-          b.className = isSelected
-            ? 'inline-flex items-center min-h-[44px] px-2.5 py-1 text-xs font-medium rounded-full bg-red-600 text-white transition-colors cursor-pointer'
-            : 'inline-flex items-center min-h-[44px] px-2.5 py-1 text-xs font-medium rounded-full bg-slate-200 text-slate-700 hover:bg-slate-300 transition-colors cursor-pointer';
-        });
+        syncChips();
         filterRows();
       });
 
@@ -161,13 +167,7 @@
     clearBtn.addEventListener('click', () => {
       searchInput.value = '';
       currentChip = 'all';
-      chipButtons.forEach((b, idx) => {
-        const isSelected = chips[idx].id === 'all';
-        b.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
-        b.className = isSelected
-          ? 'px-2.5 py-1 text-xs font-medium rounded-full bg-red-600 text-white transition-colors cursor-pointer'
-          : 'px-2.5 py-1 text-xs font-medium rounded-full bg-slate-200 text-slate-700 hover:bg-slate-300 transition-colors cursor-pointer';
-      });
+      syncChips();
       filterRows();
     });
 
@@ -192,7 +192,10 @@
 
       allRows.forEach((item) => {
         const matchesQuery = !query || item.name.includes(query) || item.desc.includes(query);
-        const matchesDiff = item.diff >= minDiff && item.diff <= maxDiff;
+        // diff -1 = unparseable difficulty in the table; such rows only
+        // show under "Alle" so a content typo never hides a trick silently.
+        const matchesDiff =
+          item.diff === -1 ? currentChip === 'all' : item.diff >= minDiff && item.diff <= maxDiff;
 
         const isVisible = matchesQuery && matchesDiff;
         item.row.hidden = !isVisible;

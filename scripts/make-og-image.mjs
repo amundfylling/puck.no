@@ -1,7 +1,7 @@
 import sharp from "sharp";
 // Source: the original hero photo. Try these paths in order; use the first that exists.
 import { existsSync } from "node:fs";
-const candidates = ["src/assets/hero.png", "src/assets/hero.jpg",
+const candidates = ["src/assets/images/hero.png", "src/assets/images/hero.jpg",
   "migration/optimized-originals/index-2f7a1d75.png", "public/media/images/index-2f7a1d75.webp"];
 const src = candidates.find(existsSync);
 if (!src) { console.error("No hero source found in: " + candidates.join(", ")); process.exit(1); }

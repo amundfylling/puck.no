@@ -294,6 +294,10 @@ duplikatinnhold, og besøkende kan havne på det gamle domenet):
   `https://<branch>.puck-no.pages.dev`.
 - **Nye turneringer med seed fra Wix:** oppdater `TOURNAMENT_MAP` i
   `scripts/seed-d1.mjs` og kjør seed på nytt (--remote).
+- **Databasemigreringer (`migrations/`):** kjør alltid
+  `npx wrangler d1 migrations apply puck-no --remote` FØR du merger kode som
+  bruker dem — et Pages-bygg går live automatisk ved merge, og ny kode som
+  forventer en kolonne som ikke finnes ennå feiler for alle påmeldinger.
 - **Verdensrankingen** hentes automatisk ved hvert bygg og ved hver
   påmelding — ingen vedlikehold.
 
