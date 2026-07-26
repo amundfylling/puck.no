@@ -135,10 +135,13 @@ dist/                    # build output (git-ignored)
   `_redirects` sources (`/members-area`, `/event-details`) keep their form.
 - Security headers live in `public/_headers` (HSTS, CSP, nosniff,
   frame-ancestors, and removal of the Pages-default
-  `Access-Control-Allow-Origin: *`). `/admin/*` gets its own relaxed CSP for
-  Sveltia CMS (unpkg bundle, api.github.com, the OAuth worker, Google
-  Fonts) — the strict site CSP applies everywhere else. If you enable Web
-  Analytics (`CloudflareAnalytics.astro`), extend the CSP with
+  `Access-Control-Allow-Origin: *`). Pages _headers rules COMBINE across
+  matching paths (two `Content-Security-Policy` values would both be
+  enforced), so per-path exceptions must first unset the pervasive header
+  with `! Header-Name` — see the `/admin/*` block, which replaces the strict
+  CSP with a relaxed one for Sveltia CMS (unpkg bundle, api.github.com, the
+  OAuth worker, Google Fonts). If you enable Web Analytics
+  (`CloudflareAnalytics.astro`), extend the CSP with
   `https://static.cloudflareinsights.com` in script-src/connect-src.
 - SEO: per-page `<title>`/meta description from `src/data/seo.json`
   (fallback: frontmatter), canonical, OG, hreflang no/en pairs

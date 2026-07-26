@@ -15,5 +15,9 @@
 # unpkg (also version checks + PDF.js/Prism from there), calls the GitHub API,
 # the OAuth worker, and Google Fonts (per sveltiacms.app/docs/security).
 # All other headers above (HSTS, nosniff, ...) still apply to /admin/*.
+# The "! Content-Security-Policy" line removes the strict site-wide CSP from
+# the /* rule above — Pages _headers rules COMBINE (two CSP headers = the
+# browser enforces both), so the pervasive rule must be unset first.
 /admin/*
+  ! Content-Security-Policy
   Content-Security-Policy: default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' blob: data: https://unpkg.com https://api.github.com https://sveltia-cms-auth.amund-fylling.workers.dev; frame-src blob:; frame-ancestors 'self'; base-uri 'self'; form-action 'self'
