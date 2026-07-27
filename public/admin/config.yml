@@ -10,7 +10,7 @@ backend:
 
 site_url: https://www.puck.no
 locale: 'no'
-logo_url: https://www.puck.no/favicon.png
+logo_url: /favicon.png
 
 # Bilder som lastes opp her går til media-originals/images; prebuild
 # (scripts/optimize-media.mjs) genererer web-varianten under /media/images.

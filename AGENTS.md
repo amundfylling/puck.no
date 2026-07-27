@@ -145,8 +145,8 @@ dist/                    # build output (git-ignored)
   matching paths (two `Content-Security-Policy` values would both be
   enforced), so per-path exceptions must first unset the pervasive header
   with `! Header-Name` — see the `/admin/*` block, which replaces the strict
-  CSP with a relaxed one for Sveltia CMS (unpkg bundle, api.github.com, the
-  OAuth worker, Google Fonts). If you enable Web Analytics
+  CSP with a relaxed one for Sveltia CMS (unpkg bundle, api.github.com,
+  githubstatus.com, the OAuth worker, Fontsource fonts via cdn.jsdelivr.net). If you enable Web Analytics
   (`CloudflareAnalytics.astro`), extend the CSP with
   `https://static.cloudflareinsights.com` in script-src/connect-src.
 - SEO: per-page `<title>`/meta description from `src/data/seo.json`
