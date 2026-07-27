@@ -1,0 +1,18 @@
+{
+  "name": "puck-no-mcp-remote",
+  "version": "1.0.0",
+  "description": "Remote MCP server (Cloudflare Worker) for puck.no admin — OAuth-protected, D1-bound, GitHub API for content. Phone access via MCP connectors.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "yaml": "^2.8.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

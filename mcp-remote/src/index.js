@@ -1,0 +1,77 @@
+/**
+ * puck-no remote MCP worker — entry point / router.
+ *
+ * Public endpoints (OAuth 2.1, per MCP auth spec):
+ *   GET  /.well-known/oauth-protected-resource[/*]
+ *   GET  /.well-known/oauth-authorization-server[/*]
+ *   POST /register   (RFC 7591 dynamic client registration)
+ *   GET  /authorize  → GitHub OAuth (identity) + collaborator check (authz)
+ *   GET  /callback
+ *   POST /token      (PKCE S256)
+ *   GET  /health     (public liveness)
+ *
+ * Protected endpoint:
+ *   /mcp — Bearer token required (401 + WWW-Authenticate otherwise).
+ */
+import {
+  protectedResource, authorizationServerMetadata, register, authorize, callback, token,
+  authenticate, baseUrl, jsonRes,
+} from './oauth.js';
+import { handleMcp } from './mcp.js';
+
+const CORS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Authorization, Content-Type, MCP-Protocol-Version, MCP-Session-Id',
+  'Access-Control-Max-Age': '86400',
+};
+
+function withCors(res) {
+  const next = new Response(res.body, res);
+  for (const [k, v] of Object.entries(CORS)) next.headers.set(k, v);
+  return next;
+}
+
+export default {
+  async fetch(request, env) {
+    if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
+
+    const url = new URL(request.url);
+    const path = url.pathname.replace(/\/+$/, '') || '/';
+    let res;
+
+    try {
+      if (path === '/health') {
+        res = jsonRes({ ok: true, service: 'puck-no-mcp-remote' });
+      } else if (path === '/.well-known/oauth-protected-resource' || path.startsWith('/.well-known/oauth-protected-resource/')) {
+        res = protectedResource(request);
+      } else if (path === '/.well-known/oauth-authorization-server' || path.startsWith('/.well-known/oauth-authorization-server/')) {
+        res = authorizationServerMetadata(request);
+      } else if (path === '/register' && request.method === 'POST') {
+        res = await register(request, env);
+      } else if (path === '/authorize' && request.method === 'GET') {
+        res = await authorize(request, env);
+      } else if (path === '/callback' && request.method === 'GET') {
+        res = await callback(request, env);
+      } else if (path === '/token' && request.method === 'POST') {
+        res = await token(request, env);
+      } else if (path === '/mcp') {
+        const user = await authenticate(request, env);
+        if (!user) {
+          res = jsonRes({ error: 'unauthorized' }, 401, {
+            'WWW-Authenticate': `Bearer resource_metadata="${baseUrl(request)}/.well-known/oauth-protected-resource"`,
+          });
+        } else {
+          res = await handleMcp(request, env, user.login);
+        }
+      } else {
+        res = jsonRes({ error: 'not_found' }, 404);
+      }
+    } catch (err) {
+      console.error('worker error', err);
+      res = jsonRes({ error: 'internal_error', message: err.message }, 500);
+    }
+
+    return withCors(res);
+  },
+};

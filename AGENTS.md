@@ -111,6 +111,9 @@ migration/               # Phase 1 scraper + one-off fix-ups (raw/ git-ignored)
 mcp/                     # puck-no-admin MCP server (local stdio admin tools
                          # for tournaments/registrations/content — see
                          # mcp/README.md; own package.json, `npm test` in mcp/)
+mcp-remote/              # puck-no-mcp-remote Worker (same tools over HTTP +
+                         # OAuth for phone access — see mcp-remote/README.md;
+                         # D1 binding + GitHub PAT, `npm test` in mcp-remote/)
 dist/                    # build output (git-ignored)
 ```
 

@@ -1,0 +1,17 @@
+name = "puck-no-mcp"
+main = "src/index.js"
+compatibility_date = "2026-07-01"
+
+# Remote MCP server for puck.no admin (phone access via OAuth).
+# Secrets (never in git — set with `npx wrangler secret put <NAME>`):
+#   GITHUB_OAUTH_CLIENT_ID / GITHUB_OAUTH_CLIENT_SECRET — OAuth app for login
+#   GITHUB_TOKEN — fine-grained PAT (this repo, Contents: read+write)
+#   MCP_TOKEN_SECRET — HMAC key for issued tokens: `openssl rand -hex 32`
+
+[vars]
+GITHUB_REPO = "amundfylling/puck.no"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "puck-no"
+database_id = "556509c4-1f05-47d0-b044-0662fef7e375"

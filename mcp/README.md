@@ -23,13 +23,29 @@ npm install
 Serveren kjøres over stdio av MCP-klienten din. Den finner repo-roten selv
 (uavhengig av cwd) og legger nvm Node 24 først i PATH for subprocesser.
 
-### Kimi CLI (~/.kimi-code/config.toml)
+### Kimi CLI
 
-```toml
-[mcp.servers.puck-no-admin]
-command = "/Users/amundfylling/.nvm/versions/node/v24.18.0/bin/node"
-args = ["/Users/amundfylling/Downloads/puck.no/mcp/src/index.js"]
+MCP-servere registreres i `mcp.json` (IKKE config.toml) — enten på
+brukernivå (`~/.kimi-code/mcp.json`, gjelder alle prosjekter) eller på
+prosjektnivå (`<repo>/.kimi-code/mcp.json`, kun dette repoet — anbefalt,
+og `.kimi-code/` er allerede git-ignorert). **Denne er allerede satt opp
+for deg** i `.kimi-code/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "puck-no-admin": {
+      "command": "/Users/amundfylling/.nvm/versions/node/v24.18.0/bin/node",
+      "args": ["/Users/amundfylling/Downloads/puck.no/mcp/src/index.js"],
+      "cwd": "/Users/amundfylling/Downloads/puck.no",
+      "toolTimeoutMs": 300000
+    }
+  }
+}
 ```
+
+Start en ny Kimi-økt i repoet og sjekk status med `/mcp`. Verktøyene dukker
+opp som `mcp__puck-no-admin__*` (interaktiv redigering: `/mcp-config`).
 
 ### Claude Desktop (claude_desktop_config.json)
 
