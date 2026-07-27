@@ -111,6 +111,11 @@ collections:
           - { label: Tidligere, value: past }
         default: upcoming
         hint: 'Kun et hint — faktisk visning regnes ut fra datoen ved bygg.'
+      - label: Påmelding åpen
+        name: registrationOpen
+        widget: boolean
+        default: true
+        hint: 'Av = påmeldingsskjemaet skjules og nye påmeldinger avvises (f.eks. rett før turneringsstart).'
       - label: Min. spillere per lag
         name: teamMin
         widget: number

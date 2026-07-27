@@ -45,6 +45,8 @@ const tournaments = defineCollection({
     playingSystem: z.string().nullable(),
     /** Frontmatter hint — computed status (date vs build date) wins, see lib/tournaments.ts. */
     status: z.enum(['upcoming', 'past']),
+    /** false = registration closed (form hidden, API rejects). Default: open. */
+    registrationOpen: z.boolean().default(true),
     /**
      * Team tournament: both set => teams of teamMin..teamMax players may register.
      * Both null (default) => individual tournament. Mirrored to the API via

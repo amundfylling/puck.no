@@ -24,6 +24,7 @@ export const getStaticPaths = (async () => {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const status = tournamentStatus(entry);
+const registrationOpen = status === 'upcoming' && entry.data.registrationOpen;
 const hero = tournamentImage(entry);
 const date = parseNoDate(entry.data.date);
 const path = `/en/turneringer/${entry.data.slug}`;
@@ -206,7 +207,7 @@ const jsonLd = {
           }
         </dl>
         {
-          status === 'upcoming' && (
+          registrationOpen && (
             <div class="border-t border-slate-200 p-5">
               <a href="#registration" class="btn-primary block text-center no-underline">
                 {t('en', 'registerPlayer')}
@@ -218,7 +219,7 @@ const jsonLd = {
     </div>
 
     {
-      status === 'upcoming' && (
+      registrationOpen && (
         <RegistrationForm lang="en" slug={entry.data.slug} teamMin={entry.data.teamMin} teamMax={entry.data.teamMax} />
       )
     }

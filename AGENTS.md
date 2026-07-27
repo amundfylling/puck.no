@@ -108,6 +108,9 @@ src/assets/images/       # sources for Astro's <Image>/<Picture>/getImage
                          # pipeline (hero.png — front-page hero + og:image),
                          # committed so CI builds can resolve the imports
 migration/               # Phase 1 scraper + one-off fix-ups (raw/ git-ignored)
+mcp/                     # puck-no-admin MCP server (local stdio admin tools
+                         # for tournaments/registrations/content — see
+                         # mcp/README.md; own package.json, `npm test` in mcp/)
 dist/                    # build output (git-ignored)
 ```
 
@@ -204,10 +207,12 @@ simply keeps the committed web variants; CMS uploads land in
   `cover` (local path), `description` (excerpt).
 - Tournaments: `name`, `slug`, `date`, `location`, `prices`,
   `playingSystem`, `status` (`upcoming`|`past` — display status is computed
-  at build time, see Routing), `teamMin`/`teamMax` (both null = individual
-  tournament, the default; both set = team tournament where teams register
-  with teamMin–teamMax players from the ranking combobox; contact info is
-  stored once per team). The participant list is rendered from
+  at build time, see Routing), `registrationOpen` (default `true`; `false`
+  hides the form and makes the API reject new registrations — carried to
+  the API via `tournament-config.json`), `teamMin`/`teamMax` (both null =
+  individual tournament, the default; both set = team tournament where
+  teams register with teamMin–teamMax players from the ranking combobox;
+  contact info is stored once per team). The participant list is rendered from
   `src/data/registrations-snapshot.json` — do NOT re-add it to the Markdown
   body (the Wix duplicate table + registration widget markup was removed in
   Phase 2, see `migration/clean-tournament-bodies.mjs`).

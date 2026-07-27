@@ -122,6 +122,9 @@ function validate(body: Payload): string | null {
     return 'Ukjent turnering.';
   }
   const cfg = TOURNAMENTS[body.tournament_slug as string];
+  if (cfg.registrationOpen === false) {
+    return 'Påmeldingen for denne turneringen er stengt.';
+  }
   const isTeam = cfg.teamMin != null && cfg.teamMax != null;
 
   if (isTeam) {

@@ -18,12 +18,14 @@ import { fileURLToPath } from 'node:url';
 const DIR = fileURLToPath(new URL('../src/content/tournaments', import.meta.url));
 const OUT = fileURLToPath(new URL('../functions/lib/tournament-config.json', import.meta.url));
 
-/** Minimal scalar reader for our simple frontmatter (string | number | null). */
+/** Minimal scalar reader for our simple frontmatter (string | number | boolean | null). */
 function field(fm, key) {
   const m = fm.match(new RegExp(`^${key}:\\s*(.+)$`, 'm'));
   if (!m) return null;
   const v = m[1].trim();
   if (v === 'null') return null;
+  if (v === 'true') return true;
+  if (v === 'false') return false;
   if (/^-?\d+$/.test(v)) return Number(v);
   return v.replace(/^["']|["']$/g, '');
 }
@@ -45,7 +47,13 @@ for (const file of readdirSync(DIR).filter((f) => f.endsWith('.md'))) {
     console.error(`gen-tournament-config: ${file}: ugyldig teamMin/teamMax (${teamMin}/${teamMax})`);
     process.exit(1);
   }
-  config[slug] = { teamMin: teamMin ?? null, teamMax: teamMax ?? null };
+  const registrationOpen = field(fm[1], 'registrationOpen');
+  config[slug] = {
+    teamMin: teamMin ?? null,
+    teamMax: teamMax ?? null,
+    // only emitted when closed — the API treats a missing flag as open
+    ...(registrationOpen === false ? { registrationOpen: false } : {}),
+  };
 }
 
 writeFileSync(OUT, JSON.stringify(config, null, 1) + '\n');

@@ -10,6 +10,8 @@ export interface TournamentConfig {
   teamMin: number | null;
   /** Max players per team (null = individual tournament). */
   teamMax: number | null;
+  /** false = registration closed (absent = open). */
+  registrationOpen?: boolean;
 }
 
 export const TOURNAMENTS = config as unknown as Record<string, TournamentConfig>;

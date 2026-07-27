@@ -1,0 +1,119 @@
+# puck-no-admin MCP server
+
+Lokal MCP-server (Model Context Protocol) for administrative oppgaver på
+puck.no — turneringer, påmeldinger, innhold og drift. Den kjører lokalt på
+din maskin og pakker inn de to kontrollplanene som allerede finnes:
+
+- **Innhold (git):** oppretter/patcher Markdown-filer i `src/content/` og
+  commiter via **branch + PR** (standard) eller direkte til `main`
+  (`directToMain: true` — samme mønster som CMS-et).
+- **Påmeldinger (D1):** kjører SQL mot den **levende** databasen via
+  `npx wrangler d1 execute puck-no --remote` — gjenbruker din eksisterende
+  `wrangler login`. Ingen API-tokens å forvalte.
+
+Ingenting deployes, og nettsidens arkitektur er urørt.
+
+## Oppsett
+
+```bash
+cd mcp
+npm install
+```
+
+Serveren kjøres over stdio av MCP-klienten din. Den finner repo-roten selv
+(uavhengig av cwd) og legger nvm Node 24 først i PATH for subprocesser.
+
+### Kimi CLI (~/.kimi-code/config.toml)
+
+```toml
+[mcp.servers.puck-no-admin]
+command = "/Users/amundfylling/.nvm/versions/node/v24.18.0/bin/node"
+args = ["/Users/amundfylling/Downloads/puck.no/mcp/src/index.js"]
+```
+
+### Claude Desktop (claude_desktop_config.json)
+
+```json
+{
+  "mcpServers": {
+    "puck-no-admin": {
+      "command": "/Users/amundfylling/.nvm/versions/node/v24.18.0/bin/node",
+      "args": ["/Users/amundfylling/Downloads/puck.no/mcp/src/index.js"]
+    }
+  }
+}
+```
+
+Krav: Node ≥ 22.12, `wrangler login` gjort, `gh auth login` (for PR-flyt).
+
+## Verktøy (21)
+
+### Turneringer (git)
+| Verktøy | Gjør |
+|---|---|
+| `list_tournaments` | Alle turneringer m/ dato, status, påmeldingstall (live) |
+| `create_tournament` | Ny turnering (NO + valgfri EN-speil), regenererer API-konfig |
+| `update_tournament` | Patch navn/dato/sted/priser/spillsystem/lagregler (uten å røre brødtekst) |
+| `duplicate_tournament` | Kopier f.eks. fjorårets Norway Open til ny slug/dato |
+| `close_registration` / `open_registration` | Steng/åpne påmelding (`registrationOpen`) |
+| `archive_tournament` | Info — arkivering skjer automatisk etter dato |
+
+### Påmeldinger (D1, live)
+| Verktøy | Gjør |
+|---|---|
+| `list_registrations` | Påmeldte per turnering — kun offentlige felter |
+| `count_registrations` | Antall per turnering / totalt |
+| `add_registration` | Manuell påmelding (walk-ins); samme validering + duplikatvern som API-et |
+| `delete_registration` | **DESTRUKTIV — dry-run er standard**; forhåndsvis, så slett med `dryRun: false` |
+| `update_registration` | Rett navn/e-post/telefon |
+| `move_registration` | Flytt til annen turnering (f.eks. feil NM-klasse) |
+| `export_registrations` | Full CSV (PII) til git-ignorert `migration/raw/` — aldri i chatten |
+| `sync_participant_snapshot` | Regenerer `registrations-snapshot.json` fra live D1 + commit |
+| `ranking_lookup` | Søk i ITHF-rankingen → playerId |
+
+### Innhold (git)
+| Verktøy | Gjør |
+|---|---|
+| `create_news_post` | Nyhetsinnlegg (NO + valgfri EN-speil m/ hreflang-par) |
+| `add_timer` | MP3 → `public/media/audio` + rad i `timers.json` |
+| `add_arsmote_document` | PDF → `public/media/pdf` + rad i `documents.json` |
+
+### Drift
+| Verktøy | Gjør |
+|---|---|
+| `site_health` | `astro check` → `build` → `check-links`, grønn/rød per steg |
+| `deploy_status` | Siste Cloudflare Pages-bygg på main (via `gh`) |
+
+## Sikkerhetsmodell
+
+- **Read-only / write / destructive** er tydelig merket i hver verktøy-
+  beskrivelse. Destruktive verktøy (`delete_registration`) er
+  `dryRun: true` som standard — de viser nøyaktig hva som vil skje først.
+- **PII:** e-post/telefon maskeres i all chat-output (`a***@puck.no`).
+  Full kontaktinfo skrives kun til fil i git-ignorerte `migration/raw/`.
+- **Git:** krever ren working tree, stage'r kun filene verktøyet rørte,
+  aldri force-push. Standard er branch + PR.
+- **SQL:** all verdi-interpolasjon går gjennom `sqlValue()`-escaping.
+- **Ingen skjemaendringer** via MCP — migreringer kjøres manuelt
+  (`npx wrangler d1 migrations apply puck-no --remote`, se LAUNCH.md).
+
+## Testing
+
+```bash
+cd mcp
+npm test                                   # enhetstester (ren logikk)
+node test/smoke.mjs                        # read-only mot live D1 + ranking
+MCP_D1_LOCAL=1 node test/local-d1-roundtrip.mjs  # skrive-tester mot LOKAL D1
+```
+
+`MCP_D1_LOCAL=1` får alle D1-verktøy til å gå mot den lokale
+utviklingsdatabasen i stedet for produksjon.
+
+## Merknader
+
+- `close_registration` krever `registrationOpen`-feltet (lagt til i
+  innholdsskjemaet sommer 2026): skjemaet skjules og API-et avviser nye
+  påmeldinger etter neste bygg.
+- Lokal (miniflare) D1 rapporterer ikke `meta.changes` pålitelig —
+  skriveverktøyene verifiserer derfor med oppfølgings-SELECTs og virker
+  likt lokalt og i produksjon.

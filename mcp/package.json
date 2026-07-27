@@ -1,0 +1,21 @@
+{
+  "name": "puck-no-admin-mcp",
+  "version": "1.0.0",
+  "description": "Local MCP server for puck.no admin operations (tournaments, registrations, content) — wraps git and wrangler d1, no deployed components.",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=22.12"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.0",
+    "yaml": "^2.8.0",
+    "zod": "^3.25.0"
+  },
+  "bin": {
+    "puck-no-admin-mcp": "src/index.js"
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}
