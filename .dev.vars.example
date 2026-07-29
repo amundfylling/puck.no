@@ -13,3 +13,8 @@ TURNSTILE_SITE_KEY=1x00000000000000000000AA
 # requires the Cf-Access-Authenticated-User-Email header (defence in depth —
 # Access itself is configured in the Cloudflare dashboard, Phase 5).
 # ACCESS_TEAM_NAME=your-team.cloudflareaccess.com
+
+# Optional: GitHub token (repo scope) for POST /api/admin/registration-open —
+# the admin portal's open/close-registration button commits the frontmatter
+# change via the GitHub API. Without it the endpoint returns 503.
+# GITHUB_TOKEN=ghp_...

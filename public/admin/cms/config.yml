@@ -1,6 +1,7 @@
 # Sveltia CMS-konfigurasjon for puck.no
 # Backend: GitHub via sveltia-cms-auth Cloudflare Worker (ingen Netlify).
 # Innlogging krever GitHub OAuth-app (se REDIGERING.md / LAUNCH.md steg A5).
+# CMS-et ligger på /admin/cms/ (adminportalen på /admin/ lenker dit).
 backend:
   name: github
   repo: amundfylling/puck.no
@@ -19,10 +20,15 @@ public_folder: /media/images
 
 publish_mode: simple # direkte commit til main (CMS-brukere); utviklere bruker PR
 
+# Gyldig slug: små bokstaver, tall, norske tegn og bindestreker.
+_slug_pattern: &slug_pattern '^[a-z0-9æøå]+(-[a-z0-9æøå]+)*$'
+_slug_message: &slug_message 'Kun små bokstaver, tall, norske tegn (æøå) og bindestreker — f.eks. nm-2027-forhandstips'
+
 collections:
   - name: posts_no
     label: Nyheter (norsk)
     label_singular: Nyhetsartikkel
+    description: 'Norske nyhetsartikler på forsiden og i bloggen.'
     folder: src/content/posts
     create: true
     delete: false
@@ -30,11 +36,16 @@ collections:
     preview_path: /post/{{fields.slug}}
     summary: '{{title}} — {{pubDate}}'
     sortable_fields: [pubDate, title]
+    view_filters:
+      - { label: Turneringsreferat, field: categories, pattern: Turneringsreferat }
+      - { label: Forhåndstips, field: categories, pattern: Forhåndstips }
+      - { label: Adventskalender, field: categories, pattern: Adventskalender }
     fields:
       - { label: Tittel, name: title, widget: string }
       - label: Slug (URL)
         name: slug
         widget: string
+        pattern: [*slug_pattern, *slug_message]
         hint: 'Kun små bokstaver, tall og bindestreker — f.eks. nm-2027-forhandstips'
       - { label: Språk, name: lang, widget: hidden, default: 'no' }
       - { label: Publiseringsdato, name: pubDate, widget: datetime, date_format: 'YYYY-MM-DD', time_format: 'HH:mm', picker_utc: false }
@@ -51,6 +62,7 @@ collections:
   - name: posts_en
     label: Nyheter (engelsk)
     label_singular: News article
+    description: 'Engelske speil av norske artikler. Slug-paret må registreres i postMirrorsNoToEn av en utvikler.'
     folder: src/content/posts/en
     create: true
     delete: false
@@ -63,6 +75,7 @@ collections:
       - label: Slug (URL)
         name: slug
         widget: string
+        pattern: [*slug_pattern, *slug_message]
         hint: 'Engelsk variant av den norske slugen; legg paret til i postMirrorsNoToEn (utvikler)'
       - { label: Språk, name: lang, widget: hidden, default: 'en' }
       - { label: Publiseringsdato, name: pubDate, widget: datetime, date_format: 'YYYY-MM-DD', time_format: 'HH:mm', picker_utc: false }
@@ -79,6 +92,7 @@ collections:
   - name: tournaments
     label: Turneringer
     label_singular: Turnering
+    description: 'Turneringssider med påmelding. Engelsk speil opprettes i «Turneringer (engelsk)».'
     folder: src/content/tournaments
     create: true
     delete: false
@@ -86,11 +100,15 @@ collections:
     preview_path: /turneringer/{{fields.slug}}
     summary: '{{name}} — {{date}}'
     sortable_fields: [date, name]
+    view_groups:
+      - { label: Kommende, field: status, pattern: upcoming }
+      - { label: Tidligere, field: status, pattern: past }
     fields:
       - { label: Navn, name: name, widget: string }
       - label: Slug (URL)
         name: slug
         widget: string
+        pattern: [*slug_pattern, *slug_message]
         hint: 'Blir /turneringer/<slug>. Kun små bokstaver, tall, bindestreker og norske tegn.'
       - label: Dato (visningstekst)
         name: date
@@ -129,12 +147,14 @@ collections:
         required: false
         value_type: int
         min: 1
+        hint: 'Må fylles inn sammen med min. spillere per lag.'
       - label: Innhold (beskrivelse, tidsskjema)
         name: body
         widget: markdown
 
   - name: pages_no
     label: Sider (norsk)
+    description: 'Faste sider (forside, om oss, lær bordhockey, …). Nye sider opprettes av utvikler.'
     folder: src/content/pages
     create: false
     delete: false
@@ -143,7 +163,10 @@ collections:
     sortable_fields: [title]
     fields:
       - { label: Tittel, name: title, widget: string }
-      - { label: Slug (URL), name: slug, widget: string }
+      - label: Slug (URL)
+        name: slug
+        widget: string
+        hint: 'Bestemmer adressen til siden — endres kun av utvikler (bryter menyer og lenker).'
       - { label: Språk, name: lang, widget: hidden, default: 'no' }
       - { label: Metabeskrivelse, name: description, widget: text, required: false }
       - { label: SEO-tittel, name: seoTitle, widget: string, required: false }
@@ -152,6 +175,7 @@ collections:
 
   - name: pages_en
     label: Sider (engelsk)
+    description: 'Engelske speil av de faste sidene.'
     folder: src/content/pages/en
     create: false
     delete: false
@@ -160,7 +184,10 @@ collections:
     sortable_fields: [title]
     fields:
       - { label: Tittel, name: title, widget: string }
-      - { label: Slug (URL), name: slug, widget: string }
+      - label: Slug (URL)
+        name: slug
+        widget: string
+        hint: 'Bestemmer adressen til siden — endres kun av utvikler (bryter menyer og lenker).'
       - { label: Språk, name: lang, widget: hidden, default: 'en' }
       - { label: Metabeskrivelse, name: description, widget: text, required: false }
       - { label: SEO-tittel, name: seoTitle, widget: string, required: false }

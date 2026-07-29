@@ -1,0 +1,302 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import StatCard from '../../components/admin/StatCard.astro';
+import { getTournamentsSorted } from '../../lib/content';
+
+const views = await getTournamentsSorted();
+const upcoming = views.filter((v) => v.status === 'upcoming');
+const openCount = upcoming.filter((v) => v.entry.data.registrationOpen !== false).length;
+const names = Object.fromEntries(views.map((v) => [v.entry.data.slug, v.entry.data.name]));
+---
+
+<AdminLayout title="Oversikt | Admin | Bordhockeyforbundet" heading="Oversikt" active="oversikt">
+  <div data-dashboard data-names={JSON.stringify(names)}>
+    <!-- Stat cards -->
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <StatCard
+        value="–"
+        valueId="registrations"
+        label="Påmeldte totalt"
+        hint="Alle turneringer, sanntid"
+        icon="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"
+      />
+      <StatCard
+        value="–"
+        valueId="last7days"
+        label="Nye siste 7 dager"
+        hint="Påmeldinger registrert"
+        icon="M13.5 4.5 21 12l-7.5 7.5M21 12H3"
+      />
+      <StatCard
+        value={String(upcoming.length)}
+        label="Kommende turneringer"
+        hint="I dag eller senere"
+        icon="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
+      />
+      <StatCard
+        value={String(openCount)}
+        label="Åpne påmeldinger"
+        hint="Kommende med skjema åpent"
+        icon="M13.5 10.5V6.75a4.5 4.5 0 1 1 9 0v3.75M3.75 21.75h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H3.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+      />
+    </div>
+
+    <p data-dashboard-status class="mt-3 hidden text-sm" role="status"></p>
+
+    <div class="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-3">
+      <!-- Tournament table -->
+      <section class="xl:col-span-2" aria-labelledby="tournament-heading">
+        <div class="flex items-baseline justify-between gap-3">
+          <h2 id="tournament-heading" class="font-display text-lg font-bold text-navy dark:text-white">Turneringer</h2>
+          <a href="/admin/pameldinger/" class="text-sm font-semibold text-brand hover:text-brand-dark">Alle påmeldinger →</a>
+        </div>
+        <div class="mt-3 overflow-x-auto rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+          <table class="w-full min-w-[36rem] text-sm">
+            <thead>
+              <tr class="border-b border-slate-200 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:border-slate-800 dark:text-slate-400">
+                <th class="px-4 py-3">Turnering</th>
+                <th class="px-4 py-3">Status</th>
+                <th class="px-4 py-3">Påmelding</th>
+                <th class="px-4 py-3 text-right">Påmeldte</th>
+                <th class="px-4 py-3 text-right">Handlinger</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                views.map(({ entry, status }) => {
+                  const slug = entry.data.slug;
+                  const isTeam = entry.data.teamMin != null;
+                  const open = entry.data.registrationOpen !== false;
+                  return (
+                    <tr class="border-b border-slate-100 last:border-0 hover:bg-ice/60 dark:border-slate-800/60 dark:hover:bg-slate-800/40">
+                      <td class="px-4 py-3">
+                        <a href={`/admin/pameldinger/?slug=${encodeURIComponent(slug)}`} class="font-semibold text-navy hover:text-brand dark:text-white">
+                          {entry.data.name}
+                        </a>
+                        <p class="text-xs text-slate-400">{entry.data.date}</p>
+                      </td>
+                      <td class="px-4 py-3 whitespace-nowrap">
+                        <span class="inline-flex items-center gap-1.5">
+                          <span class:list={['h-2 w-2 rounded-full', status === 'upcoming' ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600']} />
+                          <span class="text-slate-600 dark:text-slate-300">{status === 'upcoming' ? 'Kommende' : 'Tidligere'}</span>
+                        </span>
+                      </td>
+                      <td class="px-4 py-3 whitespace-nowrap">
+                        {
+                          status === 'upcoming' ? (
+                            <button
+                              type="button"
+                              data-open-toggle={slug}
+                              data-open={open ? 'true' : 'false'}
+                              class="inline-flex items-center gap-1.5 rounded-md px-2 py-1 -mx-2 -my-1 transition-colors hover:bg-slate-100 dark:hover:bg-slate-800"
+                              title={open ? 'Klikk for å stenge påmeldingen' : 'Klikk for å åpne påmeldingen'}
+                            >
+                              <span
+                                data-open-dot={slug}
+                                class:list={['h-2 w-2 rounded-full', open ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600']}
+                              />
+                              <span data-open-text={slug} class="font-semibold text-slate-600 dark:text-slate-300">{open ? 'Åpen' : 'Stengt'}</span>
+                              <svg class="h-3.5 w-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5M7 9l5-5 5 5" /></svg>
+                            </button>
+                          ) : (
+                            <span class="inline-flex items-center gap-1.5 px-2 py-1 -mx-2 -my-1">
+                              <span class="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-600" />
+                              <span class="text-slate-400 dark:text-slate-500">–</span>
+                            </span>
+                          )
+                        }
+                      </td>
+                      <td class="px-4 py-3 text-right whitespace-nowrap">
+                        <span data-count-for={slug} data-count-kind={isTeam ? 'team' : 'player'} class="font-semibold tabular-nums text-navy dark:text-white">–</span>
+                      </td>
+                      <td class="px-4 py-3 text-right whitespace-nowrap">
+                        <a
+                          href={`/api/admin/registrations.csv?slug=${encodeURIComponent(slug)}`}
+                          class="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold text-slate-500 hover:bg-slate-100 hover:text-navy dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
+                          title="Last ned CSV (krever innlogging)"
+                        >
+                          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+                          CSV
+                        </a>
+                      </td>
+                    </tr>
+                  );
+                })
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Right column: recent registrations + CMS shortcut -->
+      <div class="space-y-6">
+        <section aria-labelledby="recent-heading">
+          <h2 id="recent-heading" class="font-display text-lg font-bold text-navy dark:text-white">Siste påmeldinger</h2>
+          <ul data-recent class="mt-3 space-y-2">
+            <li data-recent-empty class="rounded-xl border border-dashed border-slate-300 px-4 py-6 text-center text-sm text-slate-400 dark:border-slate-700 dark:text-slate-500">
+              Henter sanntidsdata …
+            </li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="cms-heading" class="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+          <h2 id="cms-heading" class="font-display text-lg font-bold text-navy dark:text-white">Innhold</h2>
+          <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+            Nyheter, turneringer, sider, timere og årsmøtedokumenter redigeres i CMS-et.
+          </p>
+          <a href="/admin/cms/" class="btn-primary mt-4 w-full text-center">Åpne CMS</a>
+          <p class="mt-3 text-xs text-slate-400 dark:text-slate-500">
+            Veiledning: REDIGERING.md i repoet.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Hydrate counts, totals and the recent-registrations feed from the
+    // Access-protected overview endpoint. Static content stays if it fails.
+    interface Overview {
+      tournaments: Record<
+        string,
+        { players: number; teams: number; lastRegistrationAt: string | null; registrationOpen: boolean }
+      >;
+      totals: { registrations: number; last7Days: number };
+      recent: { tournament: string; type: string; name: string; at: string }[];
+    }
+
+    const root = document.querySelector<HTMLElement>('[data-dashboard]');
+    if (root) {
+      const names: Record<string, string> = JSON.parse(root.dataset.names ?? '{}');
+      const status = root.querySelector<HTMLElement>('[data-dashboard-status]');
+
+      const showStatus = (text: string, isError = false) => {
+        if (!status) return;
+        status.textContent = text;
+        status.classList.remove('hidden');
+        status.classList.toggle('text-red-600', isError);
+        status.classList.toggle('dark:text-red-400', isError);
+        status.classList.toggle('text-slate-500', !isError);
+      };
+
+      const parseUtc = (at: string) => new Date(at.replace(' ', 'T') + 'Z');
+      const rtf = new Intl.RelativeTimeFormat('no', { numeric: 'auto' });
+      const rel = (date: Date): string => {
+        const s = Math.round((date.getTime() - Date.now()) / 1000);
+        const abs = Math.abs(s);
+        if (abs < 45) return 'akkurat nå';
+        const steps: [number, Intl.RelativeTimeFormatUnit][] = [
+          [31557600, 'year'],
+          [2629800, 'month'],
+          [604800, 'week'],
+          [86400, 'day'],
+          [3600, 'hour'],
+          [60, 'minute'],
+        ];
+        for (const [secs, unit] of steps) {
+          if (abs >= secs) return rtf.format(Math.trunc(s / secs), unit);
+        }
+        return rtf.format(s, 'second');
+      };
+
+      void (async () => {
+        let data: Overview;
+        try {
+          const res = await fetch('/api/admin/overview.json');
+          if (res.status === 403) {
+            showStatus('Sanntidsdata utilgjengelig: API-et svarte 403 (mangler Cloudflare Access-innlogging?).', true);
+            return;
+          }
+          if (!res.ok) throw new Error(String(res.status));
+          data = (await res.json()) as Overview;
+        } catch {
+          showStatus('Kunne ikke hente sanntidsdata — viser informasjon fra siste bygg.', true);
+          return;
+        }
+
+        root.querySelector('[data-stat="registrations"]')!.textContent = String(data.totals.registrations);
+        root.querySelector('[data-stat="last7days"]')!.textContent = String(data.totals.last7Days);
+
+        for (const [slug, t] of Object.entries(data.tournaments)) {
+          const cell = root.querySelector<HTMLElement>(`[data-count-for="${CSS.escape(slug)}"]`);
+          if (cell) {
+            const isTeam = cell.dataset.countKind === 'team';
+            const n = isTeam ? t.teams : t.players;
+            cell.textContent = `${n} ${isTeam ? (n === 1 ? 'lag' : 'lag') : n === 1 ? 'spiller' : 'spillere'}`;
+          }
+          const dot = root.querySelector(`[data-open-dot="${CSS.escape(slug)}"]`);
+          const text = root.querySelector(`[data-open-text="${CSS.escape(slug)}"]`);
+          if (dot && text) {
+            dot.classList.toggle('bg-emerald-500', t.registrationOpen);
+            dot.classList.toggle('bg-slate-300', !t.registrationOpen);
+            dot.classList.toggle('dark:bg-slate-600', !t.registrationOpen);
+            text.textContent = t.registrationOpen ? 'Åpen' : 'Stengt';
+          }
+        }
+
+        const list = root.querySelector<HTMLElement>('[data-recent]')!;
+        if (data.recent.length === 0) {
+          list.firstElementChild!.textContent = 'Ingen påmeldinger ennå.';
+        } else {
+          list.replaceChildren(
+            ...data.recent.map((r) => {
+              const li = document.createElement('li');
+              li.className =
+                'rounded-xl border border-slate-200 bg-white px-4 py-3 dark:border-slate-800 dark:bg-slate-900';
+              const top = document.createElement('p');
+              top.className = 'text-sm font-semibold text-navy dark:text-white';
+              top.textContent = r.name;
+              const sub = document.createElement('p');
+              sub.className = 'mt-0.5 text-xs text-slate-400';
+              sub.textContent = `${names[r.tournament] ?? r.tournament} · ${rel(parseUtc(r.at))}`;
+              li.append(top, sub);
+              return li;
+            }),
+          );
+        }
+      })();
+
+      // Open/close registration toggle → POST to the PAT-backed endpoint.
+      for (const btn of root.querySelectorAll<HTMLButtonElement>('[data-open-toggle]')) {
+        btn.addEventListener('click', async () => {
+          const slug = btn.dataset.openToggle!;
+          const next = btn.dataset.open !== 'true';
+          const name = names[slug] ?? slug;
+          if (
+            !window.confirm(
+              `Vil du ${next ? 'ÅPNE' : 'STENGE'} påmeldingen for ${name}?\n\nEndringen lagres i git og trer i kraft etter neste bygg (2–4 minutt).`,
+            )
+          ) {
+            return;
+          }
+          btn.disabled = true;
+          try {
+            const res = await fetch('/api/admin/registration-open', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ slug, open: next }),
+            });
+            const data = (await res.json()) as { error?: string; message?: string };
+            if (!res.ok) {
+              showStatus(data.error ?? `Noe gikk galt (${res.status}).`, true);
+            } else {
+              btn.dataset.open = String(next);
+              const dot = btn.querySelector('[data-open-dot]')!;
+              const text = btn.querySelector('[data-open-text]')!;
+              dot.classList.toggle('bg-emerald-500', next);
+              dot.classList.toggle('bg-slate-300', !next);
+              dot.classList.toggle('dark:bg-slate-600', !next);
+              text.textContent = next ? 'Åpen' : 'Stengt';
+              btn.title = next ? 'Klikk for å stenge påmeldingen' : 'Klikk for å åpne påmeldingen';
+              showStatus(data.message ?? 'Lagret.');
+            }
+          } catch {
+            showStatus('Fikk ikke kontakt med API-et. Prøv igjen.', true);
+          } finally {
+            btn.disabled = false;
+          }
+        });
+      }
+    }
+  </script>
+</AdminLayout>

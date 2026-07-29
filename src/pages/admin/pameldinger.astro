@@ -1,47 +1,266 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdminLayout from '../../layouts/AdminLayout.astro';
 import { getTournamentsSorted } from '../../lib/content';
 
 const views = await getTournamentsSorted();
+const defaultSlug = views.find((v) => v.status === 'upcoming')?.entry.data.slug ?? views[0]?.entry.data.slug ?? '';
 ---
 
-<BaseLayout
-  lang="no"
-  title="Påmeldinger (admin) | Bordhockeyforbundet"
-  description={null}
-  canonicalPath="/admin/pameldinger"
-  noUrl="/admin/pameldinger"
-  enUrl={null}
-  noindex={true}
->
-  <section class="mx-auto max-w-3xl px-4 py-10">
-    <h1 class="text-3xl font-extrabold text-navy">Påmeldinger (admin)</h1>
-    <p class="mt-3 rounded-lg border border-slate-300 bg-ice px-4 py-3 text-sm text-slate-700">
-      Denne siden krever styretilgang via Cloudflare Access. CSV-filene inneholder e-post og
-      telefonnummer — håndter dem i henhold til personvernerklæringen (se «Data &amp; privacy» i
-      README).
+<AdminLayout title="Påmeldinger | Admin | Bordhockeyforbundet" heading="Påmeldinger" active="pameldinger">
+  <div data-registrations data-default-slug={defaultSlug}>
+    <p class="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
+      Sanntidsdata fra påmeldingssystemet. E-post og telefonnummer vises ikke her — de hentes via
+      CSV-eksporten, og håndteres etter personvernerklæringen.
     </p>
-    <ul class="mt-6 space-y-3">
-      {
-        views.map(({ entry, status }) => (
-          <li class="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-            <div>
-              <p class="font-semibold text-navy">{entry.data.name}</p>
-              <p class="text-sm text-slate-500">
-                {entry.data.date} · {status === 'upcoming' ? 'Kommende' : 'Tidligere'}
-              </p>
-            </div>
-            <a
-              href={`/api/admin/registrations.csv?slug=${entry.data.slug}`}
-              target="_blank"
-              rel="noopener"
-              class="btn-outline !px-3 !py-1.5 text-sm"
-            >
-              Last ned CSV
-            </a>
-          </li>
-        ))
+
+    <!-- Toolbar -->
+    <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+      <select
+        data-tournament-select
+        class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-navy sm:max-w-xs dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+        aria-label="Velg turnering"
+      >
+        {
+          views.map(({ entry, status }) => (
+            <option value={entry.data.slug}>
+              {entry.data.name} ({status === 'upcoming' ? 'kommende' : 'tidligere'})
+            </option>
+          ))
+        }
+      </select>
+      <div class="relative flex-1">
+        <svg class="pointer-events-none absolute top-2.5 left-3 h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
+        <input
+          type="search"
+          data-search
+          placeholder="Søk på navn eller land …"
+          class="w-full rounded-lg border border-slate-300 bg-white py-2 pr-3 pl-9 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500"
+          aria-label="Filtrer påmeldinger"
+        />
+      </div>
+      <a
+        data-csv-link
+        href="#"
+        class="btn-outline inline-flex items-center justify-center gap-2 !px-4 !py-2 text-sm whitespace-nowrap"
+      >
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+        Last ned CSV
+      </a>
+    </div>
+
+    <!-- Mini stats -->
+    <div class="mt-4 flex flex-wrap gap-2 text-sm" data-mini-stats>
+      <span class="rounded-full border border-slate-200 bg-white px-3 py-1 dark:border-slate-800 dark:bg-slate-900">
+        <strong data-stat-count class="tabular-nums">–</strong> <span data-stat-count-label>påmeldte</span>
+      </span>
+      <span class="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-500 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400">
+        Siste påmelding: <strong data-stat-last>–</strong>
+      </span>
+      <span data-stat-filtered class="hidden rounded-full border border-brand/30 bg-brand/5 px-3 py-1 text-brand-dark dark:text-brand">
+        Viser <strong data-stat-filtered-count class="tabular-nums">0</strong> treff
+      </span>
+    </div>
+
+    <!-- Table -->
+    <div class="mt-4 overflow-x-auto rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+      <table class="w-full min-w-[40rem] text-sm">
+        <thead>
+          <tr class="border-b border-slate-200 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <th class="px-4 py-3">#</th>
+            <th class="px-4 py-3">
+              <button type="button" data-sort="name" class="inline-flex items-center gap-1 uppercase hover:text-navy dark:hover:text-white">Navn<span data-sort-arrow="name"></span></button>
+            </th>
+            <th class="px-4 py-3">
+              <button type="button" data-sort="country" class="inline-flex items-center gap-1 uppercase hover:text-navy dark:hover:text-white">Land<span data-sort-arrow="country"></span></button>
+            </th>
+            <th class="px-4 py-3">
+              <button type="button" data-sort="wr" class="inline-flex items-center gap-1 uppercase hover:text-navy dark:hover:text-white">VR<span data-sort-arrow="wr"></span></button>
+            </th>
+            <th class="px-4 py-3">Type</th>
+            <th class="px-4 py-3">
+              <button type="button" data-sort="at" class="inline-flex items-center gap-1 uppercase hover:text-navy dark:hover:text-white">Påmeldt<span data-sort-arrow="at"></span></button>
+            </th>
+          </tr>
+        </thead>
+        <tbody data-rows>
+          <tr>
+            <td colspan="6" class="px-4 py-10 text-center text-slate-400 dark:text-slate-500">Henter påmeldinger …</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p data-table-status class="mt-3 hidden text-sm" role="status"></p>
+  </div>
+
+  <script>
+    // Live registration browser: fetch rows for the selected tournament,
+    // client-side search + column sorting. URL ?slug= keeps the selection.
+    interface Row {
+      id: number;
+      type: 'player' | 'team';
+      name: string;
+      country: string | null;
+      world_ranking: number | null;
+      created_at: string;
+    }
+    type SortKey = 'name' | 'country' | 'wr' | 'at';
+
+    const root = document.querySelector<HTMLElement>('[data-registrations]');
+    if (root) {
+      const select = root.querySelector<HTMLSelectElement>('[data-tournament-select]')!;
+      const search = root.querySelector<HTMLInputElement>('[data-search]')!;
+      const csvLink = root.querySelector<HTMLAnchorElement>('[data-csv-link]')!;
+      const tbody = root.querySelector<HTMLTableSectionElement>('[data-rows]')!;
+      const status = root.querySelector<HTMLElement>('[data-table-status]')!;
+      const statCount = root.querySelector<HTMLElement>('[data-stat-count]')!;
+      const statCountLabel = root.querySelector<HTMLElement>('[data-stat-count-label]')!;
+      const statLast = root.querySelector<HTMLElement>('[data-stat-last]')!;
+      const statFiltered = root.querySelector<HTMLElement>('[data-stat-filtered]')!;
+      const statFilteredCount = root.querySelector<HTMLElement>('[data-stat-filtered-count]')!;
+
+      let rows: Row[] = [];
+      let sortKey: SortKey = 'at';
+      let sortDir: 1 | -1 = 1;
+
+      const parseUtc = (at: string) => new Date(at.replace(' ', 'T') + 'Z');
+      const fmtDate = new Intl.DateTimeFormat('no-NO', {
+        timeZone: 'UTC',
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+
+      const setStatus = (text: string, isError = false) => {
+        status.textContent = text;
+        status.classList.toggle('hidden', !text);
+        status.classList.toggle('text-red-600', isError);
+        status.classList.toggle('dark:text-red-400', isError);
+        status.classList.toggle('text-slate-500', !isError);
+      };
+
+      const emptyRow = (text: string) => {
+        const tr = document.createElement('tr');
+        const td = document.createElement('td');
+        td.colSpan = 6;
+        td.className = 'px-4 py-10 text-center text-slate-400 dark:text-slate-500';
+        td.textContent = text;
+        tr.appendChild(td);
+        return tr;
+      };
+
+      const cmp = (a: Row, b: Row): number => {
+        let v = 0;
+        if (sortKey === 'name') v = a.name.localeCompare(b.name, 'no');
+        else if (sortKey === 'country') v = (a.country ?? '').localeCompare(b.country ?? '', 'no');
+        else if (sortKey === 'wr') {
+          // Unranked always last, regardless of direction.
+          if (a.world_ranking == null && b.world_ranking == null) v = 0;
+          else if (a.world_ranking == null) return 1;
+          else if (b.world_ranking == null) return -1;
+          else v = a.world_ranking - b.world_ranking;
+        } else v = a.created_at.localeCompare(b.created_at);
+        return v * sortDir;
+      };
+
+      const render = () => {
+        const q = search.value.trim().toLowerCase();
+        const filtered = q
+          ? rows.filter(
+              (r) =>
+                r.name.toLowerCase().includes(q) || (r.country ?? '').toLowerCase().includes(q),
+            )
+          : rows;
+        const sorted = [...filtered].sort(cmp);
+
+        tbody.replaceChildren(
+          ...(sorted.length
+            ? sorted.map((r, i) => {
+                const tr = document.createElement('tr');
+                tr.className =
+                  'border-b border-slate-100 last:border-0 hover:bg-ice/60 dark:border-slate-800/60 dark:hover:bg-slate-800/40';
+                const cell = (text: string, extra = '') => {
+                  const td = document.createElement('td');
+                  td.className = `px-4 py-2.5 ${extra}`;
+                  td.textContent = text;
+                  return td;
+                };
+                tr.append(
+                  cell(String(i + 1), 'tabular-nums text-slate-400'),
+                  cell(r.name, 'font-semibold text-navy dark:text-white'),
+                  cell(r.country ?? '–', 'text-slate-600 dark:text-slate-300'),
+                  cell(r.world_ranking != null ? String(r.world_ranking) : '–', 'tabular-nums text-slate-600 dark:text-slate-300'),
+                  cell(r.type === 'team' ? 'Lag' : 'Spiller', 'text-slate-600 dark:text-slate-300'),
+                  cell(fmtDate.format(parseUtc(r.created_at)), 'whitespace-nowrap text-slate-500 dark:text-slate-400'),
+                );
+                return tr;
+              })
+            : [emptyRow(q ? 'Ingen treff på søket.' : 'Ingen påmeldinger ennå.')]),
+        );
+
+        statCount.textContent = String(rows.length);
+        statCountLabel.textContent = rows.length === 1 ? 'påmeldt' : 'påmeldte';
+        statLast.textContent = rows.length
+          ? fmtDate.format(parseUtc(rows[rows.length - 1].created_at))
+          : '–';
+        statFiltered.classList.toggle('hidden', !q);
+        statFilteredCount.textContent = String(filtered.length);
+
+        for (const el of root.querySelectorAll<HTMLElement>('[data-sort-arrow]')) {
+          const key = el.dataset.sortArrow as SortKey;
+          el.textContent = key === sortKey ? (sortDir === 1 ? '↑' : '↓') : '';
+        }
+      };
+
+      const load = async (slug: string) => {
+        rows = [];
+        render();
+        tbody.replaceChildren(emptyRow('Henter påmeldinger …'));
+        csvLink.href = `/api/admin/registrations.csv?slug=${encodeURIComponent(slug)}`;
+        setStatus('');
+        try {
+          const res = await fetch(`/api/admin/registrations.json?slug=${encodeURIComponent(slug)}`);
+          if (res.status === 403) {
+            tbody.replaceChildren(emptyRow('Ingen tilgang.'));
+            setStatus('API-et svarte 403 — Cloudflare Access-innlogging mangler eller er utløpt.', true);
+            return;
+          }
+          if (!res.ok) throw new Error(String(res.status));
+          rows = (await res.json()) as Row[];
+          render();
+        } catch {
+          tbody.replaceChildren(emptyRow('Kunne ikke hente påmeldinger.'));
+          setStatus('Noe gikk galt mot API-et. Prøv å laste siden på nytt.', true);
+        }
+      };
+
+      select.addEventListener('change', () => {
+        const url = new URL(window.location.href);
+        url.searchParams.set('slug', select.value);
+        window.history.replaceState(null, '', url);
+        void load(select.value);
+      });
+      search.addEventListener('input', render);
+      for (const btn of root.querySelectorAll<HTMLButtonElement>('[data-sort]')) {
+        btn.addEventListener('click', () => {
+          const key = btn.dataset.sort as SortKey;
+          if (sortKey === key) sortDir = sortDir === 1 ? -1 : 1;
+          else {
+            sortKey = key;
+            sortDir = 1;
+          }
+          render();
+        });
       }
-    </ul>
-  </section>
-</BaseLayout>
+
+      const initial = new URLSearchParams(window.location.search).get('slug');
+      if (initial && select.querySelector(`option[value="${CSS.escape(initial)}"]`)) {
+        select.value = initial;
+      } else if (root.dataset.defaultSlug) {
+        select.value = root.dataset.defaultSlug;
+      }
+      void load(select.value);
+    }
+  </script>
+</AdminLayout>

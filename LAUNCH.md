@@ -114,14 +114,14 @@ beskrevet, men bruk pages.dev-domenet):
    - `GITHUB_CLIENT_ID` (Text)
    - `GITHUB_CLIENT_SECRET` (**Secret**)
    - `ALLOWED_DOMAINS` = `puck-no.pages.dev` *(legg til puck.no i steg B)*
-4. I repoet: rediger `public/admin/config.yml` (blyant på GitHub) og sett
+4. I repoet: rediger `public/admin/cms/config.yml` (blyant på GitHub) og sett
    `base_url: <worker-URL>` → **Commit changes**. Vent på at Pages bygger
    på nytt (2–4 min).
-5. Test: gå til https://puck-no.pages.dev/admin/ → **Logg inn med GitHub**
+5. Test: gå til https://puck-no.pages.dev/admin/cms/ → **Logg inn med GitHub**
    → godkjenn → du skal se CMS-et med Nyheter, Turneringer osv.
    - Styremedlemmer må ha GitHub-konto og være lagt til som **collaborators**
      på repoet (GitHub → repo → **Settings** → **Collaborators** → invite).
-   - Blank side? Sjekk at den avslappede CSP-en for `/admin/*` ligger i
+   - Blank side? Sjekk at den avslappede CSP-en for `/admin/cms/*` ligger i
      `public/_headers` (den skal være der allerede).
 
 ## A6. Beskytt admin-sidene (Cloudflare Access)
@@ -131,8 +131,8 @@ Dette er **to uavhengige sperrer** (belte og bukseseler):
 
 1. **I koden (allerede på plass):** `/api/admin/*` svarer `403 Ikke tilgang.`
    med mindre Cloudflare Access har logget brukeren inn (headeren
-   `Cf-Access-Authenticated-User-Email`). Siden `/admin/pameldinger` henter
-   all data via det API-et, og er `noindex`.
+   `Cf-Access-Authenticated-User-Email`). Adminportalen (`/admin/`) henter
+   all sanntidsdata via det API-et, og er `noindex`.
 2. **Cloudflare Access (settes opp her):** en innloggingsside FORAN både
    `/admin/*` og `/api/admin/*`, slik at uvedkommende aldri når koden.
 
@@ -163,6 +163,22 @@ Slik setter du opp Cloudflare Access:
 4. **Før DNS-bytte (steg B):** legg `www.puck.no` (og `puck.no`) til som
    domain i samme applikasjon — se steg B3 — og verifiser at sperren virker
    på www-domenet FØR du peker DNS om.
+
+### Valgfritt: GITHUB_TOKEN (åpne/stenge-knappen i portalen)
+
+Knappen «Åpen/Stengt» ved hver kommende turnering i adminportalen committer
+frontmatter-endringen til main via GitHub API-et (samme mekanisme som
+CMS-et). Uten token svarer endepunktet `503` og knappen viser en forklaring.
+
+1. GitHub → **Settings** → **Developer settings** → **Personal access
+   tokens** → **Tokens (classic)** → **Generate new token**:
+   - **Scope:** `repo` (full kontroll — trengs for å committe).
+   - Navn f.eks. `puck-no-pages`, utløpstid etter eget valg.
+2. Pages → **puck-no** → **Settings** → **Variables and Secrets** →
+   legg til `GITHUB_TOKEN` som **Secret** → retry deployment.
+3. Test: trykk «Åpen» ved en test-turnering i portalen → du skal få
+   beskjed «… trer i kraft etter neste bygg», og commitet dukker opp i
+   repo-historikken.
 
 ## A7. (Valgfritt) Web Analytics
 

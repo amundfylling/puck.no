@@ -15,13 +15,16 @@ bilingual: Norwegian (default, at `/...`) and English (at `/en/...`).
   Turnstile-protected form on upcoming tournament pages, CSV admin export.
   Remaining launch steps (real `database_id`, real Turnstile keys,
   Cloudflare Access policy) are Phase 5 — see README.md.
-- **Phase 4 (done):** Sveltia CMS at `/admin/` (`public/admin/index.html` +
+- **Phase 4 (done):** Sveltia CMS at `/admin/cms/` (`public/admin/cms/index.html` +
   `config.yml`, GitHub backend, Norwegian UI). Board members edit news,
   tournaments, pages, timers and årsmøte PDFs in the browser — see
   `REDIGERING.md` (Norwegian guide). Auth runs through a sveltia-cms-auth
   Cloudflare Worker (GitHub OAuth) — deployment is Phase 5 (LAUNCH.md).
   CMS saves commit directly to `main` (publish_mode: simple); developers
   still use pull requests.
+- **Phase 4b (done):** custom admin portal at `/admin/` — dashboard with
+  live registration data (`AdminLayout.astro`, sidebar shell, dark mode,
+  Norwegian UI). Sveltia CMS moved to `/admin/cms/`; the portal links there.
 - **Phase 5 (docs done, launch pending):** `LAUNCH.md` is the full
   Norwegian runbook — deploy to the free `puck-no.pages.dev` domain first,
   verify everything, then cut `puck.no` over. Repo niceties: MIT `LICENSE`,
@@ -60,17 +63,21 @@ src/
       en/                # tournament pages, English (`lang: "en"` frontmatter)
   data/                  # structured JSON (unchanged from Phase 1, see below)
   layouts/BaseLayout.astro  # <head> (SEO/OG/hreflang/JSON-LD), header, footer
+  layouts/AdminLayout.astro # admin portal shell: sidebar, dark-mode toggle,
+                            # noindex (dark variant: @custom-variant in global.css)
   components/            # Header, Footer, HomePage, BlogIndex, PostCard,
                          # PostArticle, TournamentList, TournamentCard,
                          # AudioPlayer (vanilla-JS island), GalleryGrid
                          # (lightbox island), Arsmoter, RegistrationForm
                          # (live form -> /api/registrations), ParticipantList
-                         # (hydrates from the API), CloudflareAnalytics
+                         # (hydrates from the API), CloudflareAnalytics,
+                         # admin/StatCard
   lib/                   # i18n.ts (nav + UI strings + page/post mirrors),
                          # dates.ts (Norwegian date parsing), content.ts
                          # (collection helpers, tournament status), seo.ts
                          # (seo.json lookup), rss.ts, timere.ts, galleries.ts
-  pages/                 # routes — see "Routing" below (+ /admin/pameldinger)
+  pages/                 # routes — see "Routing" below (+ the admin portal
+                         # under /admin/: dashboard index.astro + pameldinger.astro)
   styles/global.css      # Tailwind import, @theme tokens (brand red/navy),
                          # font pairing (Bricolage Grotesque display + Geist
                          # body, self-hosted via @fontsource-variable/* imported
@@ -82,6 +89,10 @@ functions/               # Cloudflare Pages Functions (TypeScript):
   api/registrations.ts            # POST register player/team (Turnstile)
   api/tournaments/[slug]/players.ts  # GET public participant list
   api/admin/registrations.csv.ts  # GET full CSV export (Access-protected)
+  api/admin/overview.json.ts      # GET dashboard data: counts, flags, recent
+  api/admin/registrations.json.ts # GET rows for the portal table (no PII)
+  api/admin/registration-open.ts  # POST open/close registration — commits
+                                  # frontmatter via GitHub API (GITHUB_TOKEN)
 migrations/              # D1 schema migrations (0001_init.sql)
 wrangler.toml            # D1 binding DB (placeholder database_id, see README)
 .dev.vars.example        # local env template (Cloudflare TEST keys are safe)
@@ -144,8 +155,10 @@ dist/                    # build output (git-ignored)
   `Access-Control-Allow-Origin: *`). Pages _headers rules COMBINE across
   matching paths (two `Content-Security-Policy` values would both be
   enforced), so per-path exceptions must first unset the pervasive header
-  with `! Header-Name` — see the `/admin/*` block, which replaces the strict
-  CSP with a relaxed one for Sveltia CMS (unpkg bundle, api.github.com,
+  with `! Header-Name` — see the `/admin/*` block (portal: strict CSP plus
+  'unsafe-inline' script-src for the inline theme script) and the
+  `/admin/cms/*` block (most specific, replaces it with the relaxed CSP for
+  Sveltia CMS: unpkg bundle, api.github.com,
   githubstatus.com, the OAuth worker, Fontsource fonts via cdn.jsdelivr.net). If you enable Web Analytics
   (`CloudflareAnalytics.astro`), extend the CSP with
   `https://static.cloudflareinsights.com` in script-src/connect-src.

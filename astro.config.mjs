@@ -54,7 +54,7 @@ export default defineConfig({
   // the slash-less form) — keep every generated URL in the slash form so no
   // internal link, canonical, or sitemap entry hits that redirect.
   trailingSlash: 'always',
-  integrations: [sitemap()],
+  integrations: [sitemap({ filter: (page) => !page.includes('/admin') })],
   markdown: {
     processor: satteri({ hastPlugins: [trailingSlashLinks, satteriRehypeTricks] }),
   },

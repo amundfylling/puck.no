@@ -11,14 +11,23 @@
   Content-Security-Policy: default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com https://www.youtube-nocookie.com https://www.youtube.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'
   ! Access-Control-Allow-Origin
 
-# Relaxed CSP for the Sveltia CMS admin UI only — it loads its bundle from
-# unpkg (also version checks + PDF.js/Prism from there), calls the GitHub API,
-# the OAuth worker, githubstatus.com, and Fontsource fonts from jsdelivr
-# (Sveltia's docs say Google Fonts; the current bundle uses cdn.jsdelivr.net).
-# All other headers above (HSTS, nosniff, ...) still apply to /admin/*.
+# Admin portal (dashboard, påmeldinger): same strict CSP as the site, plus
+# 'unsafe-inline' in script-src for the small inline theme script in
+# AdminLayout (applies a saved dark/light choice before first paint).
 # The "! Content-Security-Policy" line removes the strict site-wide CSP from
 # the /* rule above — Pages _headers rules COMBINE (two CSP headers = the
 # browser enforces both), so the pervasive rule must be unset first.
 /admin/*
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'
+
+# Relaxed CSP for the Sveltia CMS admin UI only — it loads its bundle from
+# unpkg (also version checks + PDF.js/Prism from there), calls the GitHub API,
+# the OAuth worker, githubstatus.com, and Fontsource fonts from jsdelivr
+# (Sveltia's docs say Google Fonts; the current bundle uses cdn.jsdelivr.net).
+# All other headers above (HSTS, nosniff, ...) still apply to /admin/cms/*.
+# Most specific rule LAST: its "! Content-Security-Policy" also unsets the
+# /admin/* CSP above, so only this one is enforced on /admin/cms/*.
+/admin/cms/*
   ! Content-Security-Policy
   Content-Security-Policy: default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; connect-src 'self' blob: data: https://unpkg.com https://api.github.com https://www.githubstatus.com https://sveltia-cms-auth.amund-fylling.workers.dev; frame-src blob:; frame-ancestors 'self'; base-uri 'self'; form-action 'self'

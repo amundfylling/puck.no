@@ -33,11 +33,21 @@ full project conventions.
   - `GET /api/tournaments/{slug}/players` — public participant list (name,
     country, world_ranking only; never email/phone).
   - `GET /api/admin/registrations.csv?slug=…` — full CSV export incl. email/phone.
-    Protected by Cloudflare Access (platform level, Phase 5); additionally returns
-    401 when `ACCESS_TEAM_NAME` is set and the `Cf-Access-Authenticated-User-Email`
-    header is missing (defence in depth).
-- **Admin UI:** `/admin/pameldinger` lists tournaments with CSV download links
-  (noindex; also protect `/admin/*` with Access, Phase 5).
+  - `GET /api/admin/overview.json` — dashboard data: per-tournament counts,
+    registrationOpen flags, totals, recent registrations.
+  - `GET /api/admin/registrations.json?slug=…` — registration rows for the
+    portal's participant view (no email/phone).
+  - `POST /api/admin/registration-open` — open/close registration; commits the
+    frontmatter change to main via the GitHub API (needs the `GITHUB_TOKEN`
+    secret, else 503).
+  - All `/api/admin/*` endpoints require the
+    `Cf-Access-Authenticated-User-Email` header (403 otherwise) — defence in
+    depth behind the platform-level Cloudflare Access policy (Phase 5).
+- **Admin UI:** `/admin/` is a custom admin portal (dashboard with live
+  counts, searchable/sortable registrations browser at `/admin/pameldinger/`,
+  open/close toggle, CSV downloads, dark mode; noindex). The Sveltia CMS
+  lives at `/admin/cms/`. Protect `/admin/*` + `/api/admin/*` with Access
+  (Phase 5).
 
 ### Local development of the backend
 
@@ -124,7 +134,7 @@ tournament, type (player/team) and a timestamp.
   Note: the Sveltia CMS commits directly to `main` for board members — keep
   the rule but allow the CMS/GitHub-app actor, or leave protection off until
   multiple developers are active (documented decision: CMS needs direct
-  commits, see `publish_mode: simple` in `public/admin/config.yml`).
+  commits, see `publish_mode: simple` in `public/admin/cms/config.yml`).
 - **Pull requests get free preview deployments** on Cloudflare Pages
   (`https://<branch>.<project>.pages.dev`) — use them to review changes.
 - **Dependabot** is configured (`.github/dependabot.yml`): weekly npm PRs.

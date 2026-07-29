@@ -4,13 +4,28 @@ Nettsiden kan redigeres rett i nettleseren. Du trenger ikke kunne kode.
 
 ## Logge inn
 
-1. Gå til **https://www.puck.no/admin/**
-2. Trykk **Logg inn med GitHub** og godkjenn tilgang.
+1. Gå til **https://www.puck.no/admin/** — du kommer til adminportalen.
+2. For å redigere innhold, trykk **Rediger innhold (CMS)** i menyen
+   (eller gå direkte til **https://www.puck.no/admin/cms/**).
+3. Trykk **Logg inn med GitHub** og godkjenn tilgang.
    - Første gang må en administrator ha lagt deg til som medlem av repoet på GitHub.
-3. Du kommer nå til redigeringsverktøyet (Sveltia CMS) med norsk meny.
+4. Du kommer nå til redigeringsverktøyet (Sveltia CMS) med norsk meny.
 
 Endringer du lagrer blir publisert automatisk i løpet av 1–3 minutter
 (Cloudflare bygger siden på nytt). Er du usikker, lagre og sjekk siden etterpå.
+
+## Adminportalen (/admin/)
+
+Forsiden av portalen gir et sanntidsbilde av påmeldingene:
+
+- **Oversikt** – antall påmeldte per turnering, nye påmeldinger siste 7 dager
+  og de siste påmeldingene.
+- **Åpne/stenge påmelding** – trykk på «Åpen»/«Stengt» ved en kommende
+  turnering. Endringen trer i kraft etter neste bygg (2–4 minutter).
+- **Påmeldinger** – søkbar og sorterbar liste over påmeldte per turnering.
+  Her laster du også ned **CSV-filen** med e-post og telefonnummer
+  (håndteres etter personvernerklæringen).
+- Mørkt tema: sol/måne-knappen øverst til høyre.
 
 ---
 
