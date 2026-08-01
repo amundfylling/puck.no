@@ -1,6 +1,6 @@
 /** Ops tools: local health checks and deployment status. */
 import { z } from 'zod';
-import { PATHS, githubRepo } from '../lib/config.js';
+import { REPO_ROOT, githubRepo } from '../lib/config.js';
 import { run } from '../lib/run.js';
 import { ok, tool } from '../lib/respond.js';
 
@@ -15,7 +15,7 @@ async function siteHealth() {
     const started = Date.now();
     try {
       const { stdout, stderr } = await run('npm', npmArgs, {
-        cwd: PATHS.REPO_ROOT,
+        cwd: REPO_ROOT,
         timeoutMs: 5 * 60_000,
       });
       const out = (stdout + stderr).trim();
@@ -45,7 +45,7 @@ async function deployStatus(args) {
   try {
     const { stdout } = await run('gh', [
       'api', `repos/${repo}/commits/${args.ref ?? 'main'}/check-runs?per_page=30`,
-    ], { cwd: PATHS.REPO_ROOT });
+    ], { cwd: REPO_ROOT });
     json = JSON.parse(stdout);
   } catch (err) {
     throw new Error(

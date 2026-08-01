@@ -14,7 +14,7 @@
  *   /mcp — Bearer token required (401 + WWW-Authenticate otherwise).
  */
 import {
-  protectedResource, authorizationServerMetadata, register, authorize, callback, token,
+  protectedResource, authorizationServerMetadata, register, authorize, callback, approve, token,
   authenticate, baseUrl, jsonRes,
 } from './oauth.js';
 import { handleMcp } from './mcp.js';
@@ -54,6 +54,8 @@ export default {
         res = await authorize(request, env);
       } else if (path === '/callback' && request.method === 'GET') {
         res = await callback(request, env);
+      } else if (path === '/approve' && request.method === 'POST') {
+        res = await approve(request, env);
       } else if (path === '/token' && request.method === 'POST') {
         res = await token(request, env);
       } else if (path === '/mcp') {
@@ -69,8 +71,8 @@ export default {
         res = jsonRes({ error: 'not_found' }, 404);
       }
     } catch (err) {
-      console.error('worker error', err);
-      res = jsonRes({ error: 'internal_error', message: err.message }, 500);
+      console.error('worker error', err?.constructor?.name ?? 'Error');
+      res = jsonRes({ error: 'internal_error' }, 500);
     }
 
     return withCors(res);

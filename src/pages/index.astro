@@ -5,11 +5,13 @@ import { getEntry } from 'astro:content';
 import { getImage } from 'astro:assets';
 import heroImg from '../assets/images/hero.png';
 import { getPosts, getTournamentsSorted, groupByParent } from '../lib/content';
-import { seoForPath } from '../lib/seo';
+import { seoForContent } from '../lib/seo';
+import { assertDedicatedBodyUnchanged } from '../lib/dedicated-body';
 
 const entry = await getEntry('pages', 'index');
 if (!entry) throw new Error('pages/index not found');
-const seo = seoForPath('/');
+assertDedicatedBodyUnchanged(entry.id);
+const seo = seoForContent('/', entry.data);
 const posts = (await getPosts('no')).slice(0, 3);
 const upcoming = (await getTournamentsSorted()).filter((v) => v.status === 'upcoming');
 const families = groupByParent(upcoming);
@@ -38,8 +40,8 @@ const jsonLd = {
 
 <BaseLayout
   lang="no"
-  title={seo?.title ?? entry.data.seoTitle ?? entry.data.title}
-  description={seo?.description || entry.data.description}
+  title={seo.title}
+  description={seo.description}
   canonicalPath="/"
   noUrl="/"
   enUrl="/en"

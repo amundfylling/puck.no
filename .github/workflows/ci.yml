@@ -1,0 +1,101 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  site:
+    name: Site and Pages Functions
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      # Cloudflare's public always-pass test key exercises the rendered form.
+      PUBLIC_TURNSTILE_SITE_KEY: 1x00000000000000000000AA
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check Astro and TypeScript
+        run: npm run check
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Check Pages Functions TypeScript
+        run: npx tsc --project tsconfig.functions.json
+
+      - name: Build production site
+        run: npm run build
+
+      - name: Check generated internal links
+        run: npm run check-links
+
+      - name: Audit generated metadata, accessibility and CSP invariants
+        run: npm run audit-generated
+
+  mcp:
+    name: Local MCP server
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: mcp
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: mcp/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm test
+
+  mcp-remote:
+    name: Remote MCP Worker
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: mcp-remote
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: mcp-remote/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test

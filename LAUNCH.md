@@ -57,12 +57,23 @@ Når bygget er grønt har du et nettsted på
    export PATH="$HOME/.nvm/versions/node/v24.18.0/bin:$PATH"
    npx wrangler login          # åpner nettleser — logg inn og trykk Allow
    npx wrangler d1 migrations apply puck-no --remote
-   node scripts/seed-d1.mjs > /tmp/seed.sql
-   npx wrangler d1 execute puck-no --remote --file=/tmp/seed.sql
+   npx wrangler d1 execute puck-no --remote --command="SELECT COUNT(*) AS registrations FROM registrations"
+   # FORTSETT BARE hvis tallet over er 0 (helt ny/tom database).
+   puck_seed_sql="$(mktemp "${TMPDIR:-/tmp}/puck-seed.XXXXXX")"
+   chmod 600 "$puck_seed_sql"
+   trap 'rm -f "$puck_seed_sql"' EXIT
+   node scripts/seed-d1.mjs --replace --allow-delete > "$puck_seed_sql"
+   npx wrangler d1 execute puck-no --remote --file="$puck_seed_sql"
+   rm -f "$puck_seed_sql"
+   trap - EXIT
    ```
-   Migrering `0005_ranking_value.sql` må være kjørt før kode med WR 2020-
-   beregningen går live; den legger til det separate ITHF-feltet
-   `ranking_value`.
+   `--replace --allow-delete` sletter alle eksisterende påmeldinger først og
+   skal derfor **kun** brukes her, mot den bekreftet nye/tomme databasen. SQL-
+   filen inneholder ekte kontaktdata; `mktemp` + `chmod 600` holder den privat,
+   og den slettes straks etterpå.
+   Kjør alltid **alle** ventende migreringer før ny kode går live. I tillegg
+   til ranking-feltene oppretter `0006` engangskoder for MCP-innlogging og
+   `0007` den umiddelbare, fail-closed stengingen av påmelding.
    *(Alternativ uten terminal: åpne databasen i dashboardet → fanen
    **Console** → lim inn innholdet i hver fil under `migrations/` i
    nummerrekkefølge, deretter innholdet i seed-filen. Seed-filen inneholder
@@ -135,10 +146,12 @@ beskrevet, men bruk pages.dev-domenet):
 CSV-eksporten inneholder e-poster og telefonnummer og må ikke være åpen.
 Dette er **to uavhengige sperrer** (belte og bukseseler):
 
-1. **I koden (allerede på plass):** `/api/admin/*` svarer `403 Ikke tilgang.`
-   med mindre Cloudflare Access har logget brukeren inn (headeren
-   `Cf-Access-Authenticated-User-Email`). Adminportalen (`/admin/`) henter
-   all sanntidsdata via det API-et, og er `noindex`.
+1. **I koden (allerede på plass):** `/api/admin/*` verifiserer signaturen,
+   utstederen, utløpstiden og applikasjonens `aud` i Access-tokenet
+   (`Cf-Access-Jwt-Assertion`). En vanlig e-postheader gir aldri tilgang.
+   Endepunktet feiler lukket (`503`) frem til team-domene og AUD er satt.
+   Adminportalen (`/admin/`) henter all sanntidsdata via API-et og er `noindex`.
+   Alle skrivende kall krever dessuten JSON fra samme origin.
 2. **Cloudflare Access (settes opp her):** en innloggingsside FORAN både
    `/admin/*` og `/api/admin/*`, slik at uvedkommende aldri når koden.
 
@@ -159,14 +172,22 @@ Slik setter du opp Cloudflare Access:
      styremedlemmene som skal ha tilgang (f.eks. `amund.fylling@puck.no`).
    - **Login-metoder:** bruk standarden *One-time PIN* — styret skriver
      e-postadressen sin og får en engangskode på mail. Ingen passord.
-3. Test i et **privat vindu**:
+3. Åpne applikasjonen igjen: **Access controls** → **Applications** →
+   **Configure** → **Additional settings**, og kopier **Application Audience
+   (AUD) Tag**. I Pages-prosjektet: **Settings** → **Variables and Secrets**,
+   legg inn disse som vanlige variabler i Production og Preview:
+   - `ACCESS_TEAM_NAME` = team-navnet (f.eks. `nbhf`)
+   - `ACCESS_POLICY_AUD` = AUD-taggen du nettopp kopierte
+   Kjør deretter **Retry deployment**. Begge må være satt; API-et feiler lukket
+   hvis konfigurasjonen mangler eller tokenet gjelder en annen applikasjon.
+4. Test i et **privat vindu**:
    - https://puck-no.pages.dev/admin/pameldinger → skal vise
      Cloudflare-innloggingssiden (engangskode på mail).
    - https://puck-no.pages.dev/api/admin/registrations.csv?slug=norway-open-2026
-     UTEN innlogging → skal gi **403 Ikke tilgang.** (appen-sperren).
+     UTEN innlogging → skal også vise Access-innlogging/avvisning, aldri CSV.
    - Etter innlogging: trykk **Last ned CSV** på en turnering → sjekk at
      filen åpnes i Excel/Numbers og har alle kolonner.
-4. **Før DNS-bytte (steg B):** legg `www.puck.no` (og `puck.no`) til som
+5. **Før DNS-bytte (steg B):** legg `www.puck.no` (og `puck.no`) til som
    domain i samme applikasjon — se steg B3 — og verifiser at sperren virker
    på www-domenet FØR du peker DNS om.
 
@@ -182,9 +203,10 @@ CMS-et). Uten token svarer endepunktet `503` og knappen viser en forklaring.
    - Navn f.eks. `puck-no-pages`, utløpstid etter eget valg.
 2. Pages → **puck-no** → **Settings** → **Variables and Secrets** →
    legg til `GITHUB_TOKEN` som **Secret** → retry deployment.
-3. Test: trykk «Åpen» ved en test-turnering i portalen → du skal få
-   beskjed «… trer i kraft etter neste bygg», og commitet dukker opp i
-   repo-historikken.
+3. Test med en ekte, kommende turnering: «Steng» skal avvise nye API-kall med
+   én gang, mens skjemaets visning synkroniseres ved neste bygg. «Åpne» kan
+   aldri overstyre lukket frontmatter og er derfor helt synkronisert senest
+   ved neste bygg. Commitet skal dukke opp i repo-historikken.
 
 ## A7. Slå på ukentlig rankingoppdatering
 
@@ -203,6 +225,17 @@ hele året. Den oppdaterer bare kommende turneringer og lar gamle rankingverdier
 stå hvis ITHF-kilden ikke kan hentes. Oppdateringen omfatter også ITHF-feltet
 `Player_Value`, som WR 2020-beregningen bruker for poeng per plassering.
 Kontroller første kjøring i **Workers & Pages → puck-no-mcp → Logs**.
+
+### Daglig bygg for riktig turneringsstatus
+
+Kommende/tidligere-status regnes ved statisk bygg. Opprett derfor en
+**Production deploy hook** i Pages-prosjektets **Settings → Builds &
+deployments → Deploy hooks**. Legg hook-URL-en inn i GitHub-repoets
+**Settings → Secrets and variables → Actions** som hemmeligheten
+`CLOUDFLARE_PAGES_DEPLOY_HOOK`. Workflowen
+`.github/workflows/daily-rebuild.yml` kaller den én gang daglig og kan også
+kjøres manuelt. Det offentlige API-et avviser uansett påmelding etter
+sluttdato, men dette daglige bygget holder lister og statustekst oppdatert.
 
 ## A8. (Valgfritt) Web Analytics
 
@@ -233,7 +266,7 @@ Kontroller første kjøring i **Workers & Pages → puck-no-mcp → Logs**.
 
 # STEG B — Flytt puck.no til den nye siden
 
-**Gjør dette først når A8 er krysset av.** Frem til nå er den gamle
+**Gjør dette først når A9 er krysset av.** Frem til nå er den gamle
 Wix-siden urørt.
 
 ## B1. Legg puck.no inn i Cloudflare
@@ -256,10 +289,16 @@ Wix-siden urørt.
 
 1. **Workers & Pages** → **puck-no** → **Custom domains** →
    **Set up a custom domain** → skriv `www.puck.no` → godkjenn (Cloudflare
-   lager DNS-posten selv). Gjenta for `puck.no` (naked domain — Cloudflare
-   omdirigerer automatisk til www, eller motsatt, begge virker).
-2. I **SSL/TLS**: sett kryptering til **Full (strict)**.
-3. Nå svarer https://www.puck.no med DEN NYE siden. Den gamle Wix-siden er
+   lager DNS-posten selv). Gjenta for `puck.no` (naked domain).
+2. Lag en eksplisitt canonical-redirect; Pages garanterer ikke automatisk
+   apex→www. Gå til **Rules → Redirect Rules → Single Redirect**:
+   - Når hostname er nøyaktig `puck.no`
+   - Status `301`
+   - Mål: samme sti på `https://www.puck.no` (behold query string)
+   Test både en vanlig side og en URL med `?test=1`. Ikke lag motsatt
+   www→apex-regel samtidig — det gir redirect-loop.
+3. I **SSL/TLS**: sett kryptering til **Full (strict)**.
+4. Nå svarer https://www.puck.no med DEN NYE siden. Den gamle Wix-siden er
    dermed avløst. (Wix-abonnementet kan sies opp når du har sett at alt er
    stabilt noen dager — alt innhold er allerede migrert.)
 
@@ -269,7 +308,7 @@ Wix-siden urørt.
    `www.puck.no` (og `puck.no`).
 2. **sveltia-cms-auth** worker → `ALLOWED_DOMAINS` =
    `puck-no.pages.dev,www.puck.no,puck.no` (behold pages.dev som fallback).
-3. **Web Analytics** (A7): legg til `www.puck.no` som eget nettsted, bytt
+3. **Web Analytics** (A8): legg til `www.puck.no` som eget nettsted, bytt
    token i `PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN` → retry deployment.
 4. **Access** (A6): legg `www.puck.no` til som domain i de to
    applikasjonene (eller lag nye apper for www-domenet).
@@ -335,7 +374,19 @@ duplikatinnhold, og besøkende kan havne på det gamle domenet):
 - **Tekniske endringer:** branch + pull request → gratis forhåndsvisning på
   `https://<branch>.puck-no.pages.dev`.
 - **Nye turneringer med seed fra Wix:** oppdater `TOURNAMENT_MAP` i
-  `scripts/seed-d1.mjs` og kjør seed på nytt (--remote).
+  `scripts/seed-d1.mjs`, lag en privat midlertidig fil og bruk den
+  ikke-destruktive `--append`-modusen:
+  ```bash
+  puck_seed_sql="$(mktemp "${TMPDIR:-/tmp}/puck-seed.XXXXXX")"
+  chmod 600 "$puck_seed_sql"
+  trap 'rm -f "$puck_seed_sql"' EXIT
+  node scripts/seed-d1.mjs --append > "$puck_seed_sql"
+  npx wrangler d1 execute puck-no --remote --file="$puck_seed_sql"
+  rm -f "$puck_seed_sql"
+  trap - EXIT
+  ```
+  Kjør aldri `--replace --allow-delete` mot den levende databasen; den modusen
+  begynner med `DELETE FROM registrations`.
 - **Databasemigreringer (`migrations/`):** kjør alltid
   `npx wrangler d1 migrations apply puck-no --remote` FØR du merger kode som
   bruker dem — et Pages-bygg går live automatisk ved merge, og ny kode som

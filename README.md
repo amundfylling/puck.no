@@ -24,14 +24,18 @@ full project conventions.
 
 - **Stack:** Cloudflare Pages file-based functions in `functions/` (TypeScript) +
   D1 (SQLite) binding `DB`. Static Astro output is unchanged.
-- **Config:** `wrangler.toml` (D1 binding; placeholder `database_id` — create the
-  real DB with `npx wrangler d1 create puck-no` and fill it in, Phase 5).
+- **Config:** `wrangler.toml` contains the real `puck-no` D1 binding. A new
+  environment must create its own database and replace that public ID.
 - **Schema:** ordered migrations in `migrations/`. `0004_registration_details.sql`
   adds ranking points, clubs, structured team rosters, custom-question answers
   and per-tournament ranking-refresh timestamps. `0005_ranking_value.sql` adds
-  the ITHF `Player_Value` used by the WR 2020 placement-points algorithm.
+  the ITHF `Player_Value` used by the WR 2020 placement-points algorithm;
+  later migrations add one-use remote OAuth codes and the fail-closed runtime
+  registration switch. Always apply every pending migration before deploying.
 - **Endpoints:**
   - `POST /api/registrations` — register player/team (Turnstile-verified).
+    Public writes stop when `registrationOpen` is false or after the generated
+    tournament end date in Europe/Oslo; admin corrections can still be added.
   - `GET /api/tournaments/{slug}/players` — public participant list with club,
     country, ranking position/points and team rosters; never email, phone or
     custom-question answers.
@@ -45,10 +49,12 @@ full project conventions.
     for the portal, including contact details, rosters and custom answers.
   - `POST /api/admin/registration-open` — open/close registration; commits the
     frontmatter change to main via the GitHub API (needs the `GITHUB_TOKEN`
-    secret, else 503).
-  - All `/api/admin/*` endpoints require the
-    `Cf-Access-Authenticated-User-Email` header (403 otherwise) — defence in
-    depth behind the platform-level Cloudflare Access policy (Phase 5).
+    secret, else 503). Closing also writes a D1 veto first, so public writes
+    stop immediately; D1 can never override a CMS/frontmatter closure open.
+  - All `/api/admin/*` endpoints require a valid signed Cloudflare Access JWT.
+    Middleware verifies its signature, issuer, expiry and application audience
+    before placing the verified identity in request context; a spoofed email
+    header is never trusted. Mutations additionally require same-origin JSON.
 - **Admin UI:** `/admin/` is a custom admin portal (dashboard with live
   counts, searchable/sortable registration management at `/admin/pameldinger/`,
   add/edit/delete, open/close toggle, CSV downloads, dark mode; noindex). The Sveltia CMS
@@ -69,22 +75,44 @@ npm run build
 # pages dev: both mistakes silently create a second, empty local database
 # and every API call fails with 500 "no such table: registrations"):
 npx wrangler d1 migrations apply puck-no --local
-node scripts/seed-d1.mjs > /tmp/seed.sql
-npx wrangler d1 execute puck-no --local --file=/tmp/seed.sql
+# The SQL contains PII: use a private temporary file and remove it afterwards.
+puck_seed_sql="$(mktemp "${TMPDIR:-/tmp}/puck-seed.XXXXXX")"
+chmod 600 "$puck_seed_sql"
+trap 'rm -f "$puck_seed_sql"' EXIT
+node scripts/seed-d1.mjs --replace --allow-delete > "$puck_seed_sql" # EMPTY/throwaway local DB only
+npx wrangler d1 execute puck-no --local --file="$puck_seed_sql"
+rm -f "$puck_seed_sql"
+trap - EXIT
 
 # serve static site + functions + local D1 (bindings come from wrangler.toml):
 npx wrangler pages dev dist --local
 ```
 
+The admin API has no local authentication bypass: without a real, valid Access
+assertion it intentionally returns 503/403. Use `npm test` for local auth checks
+and an Access-protected preview/production hostname for end-to-end admin tests.
+
 ### Seeded data (the 135 pre-migration registrations)
 
 `scripts/seed-d1.mjs` converts the real Wix export **`participants export wix.csv`**
-(repo root, GIT-IGNORED — real emails/phones, never commit it) to SQL, and
-regenerates `src/data/registrations-snapshot.json` (public fields only:
-name/country/world_ranking). Tournament names are mapped via `TOURNAMENT_MAP`
-in the script; unmapped rows (e.g. "Norway Open 2025") are skipped and
-reported. Rows sharing an email within the same tournament+type (one person
-registered another) get a deterministic `+dupN` email suffix and are reported.
+(repo root, GIT-IGNORED — real emails/phones, never commit it) to SQL. It refuses
+to run until one explicit mode is chosen:
+
+- `--append` is the safe mode for an existing/live database. Every insert has
+  an identity guard, so rerunning the same export does not duplicate rows. It
+  never deletes registrations and leaves the static snapshot untouched.
+- `--backfill` only updates matching legacy ranked-player rows; it neither
+  inserts nor deletes registrations.
+- `--replace --allow-delete` starts with `DELETE FROM registrations` and is only
+  for a confirmed empty or throwaway database. This is the only mode that
+  regenerates `src/data/registrations-snapshot.json` (public fields only).
+
+Tournament names are mapped via `TOURNAMENT_MAP`; unmapped rows are skipped and
+reported. Shared contact emails are allowed for ranked players and teams. When
+two unranked individuals in one tournament share an address, the required
+unique guard uses a deterministic `+dupN` suffix; reports mask the address.
+Generated SQL contains PII, so always redirect it to a `chmod 600` `mktemp`
+file and remove that file immediately after Wrangler executes it.
 
 ### World ranking data
 
@@ -108,6 +136,18 @@ tournaments every Wednesday at 03:00 Europe/Oslo. This includes both total
 points are recalculated from the highest-rated `playersPerTeam` roster members;
 unranked players count as zero. If the ITHF fetch fails, the old values remain
 untouched. The public participant table shows the last successful refresh time.
+
+After first applying migrations `0004` and `0005`, existing registrations can
+be backfilled once from the live ITHF feed. Preview the exact scope first, then
+apply it:
+
+```bash
+npm run backfill-ranking -- --remote
+npm run backfill-ranking -- --remote --apply
+```
+
+The script reads no contact details. It updates ranked individuals and links
+legacy team roster names only when there is one exact ranking-name match.
 
 ### ITHF WR 2020 placement points
 
@@ -152,15 +192,19 @@ configured custom-question answers and a timestamp.
 3. Create D1 (`npx wrangler d1 create puck-no`), put the real `database_id` in
    `wrangler.toml`, apply migrations + seed with `--remote`.
 4. Set `TURNSTILE_SECRET_KEY` (Pages env var / secret).
-5. Cloudflare Access policy for `/admin/*` and `/api/admin/*`; set `ACCESS_TEAM_NAME`.
+5. Cloudflare Access policy for `/admin/*` and `/api/admin/*`; set
+   `ACCESS_TEAM_NAME` and the application's `ACCESS_POLICY_AUD` tag. The admin
+   API deliberately fails closed until both variables are configured.
 6. Deploy `mcp-remote/` so its Wednesday 03:00 Europe/Oslo ranking-refresh
    cron is active (see `mcp-remote/README.md`).
+7. Configure the secret `CLOUDFLARE_PAGES_DEPLOY_HOOK`; the daily workflow
+   rebuilds build-time tournament status even when no content commit occurs.
 
 ## Repository & workflow
 
 - **Branch protection (recommended):** GitHub → Settings → Branches → add
   rule for `main`: require a pull request before merging (1 approval is
-  enough for a small team) and require status checks if CI is added later.
+  enough for a small team) and require the checks from `.github/workflows/ci.yml`.
   Note: the Sveltia CMS commits directly to `main` for board members — keep
   the rule but allow the CMS/GitHub-app actor, or leave protection off until
   multiple developers are active (documented decision: CMS needs direct

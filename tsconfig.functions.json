@@ -1,0 +1,11 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "lib": ["ES2022", "WebWorker"],
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "types": ["@cloudflare/workers-types"]
+  },
+  "include": ["functions/**/*.ts"],
+  "exclude": ["functions/**/*.test.ts"]
+}

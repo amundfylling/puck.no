@@ -21,14 +21,21 @@ puck-no-mcp.workers.dev
 - **Innlogging:** OAuth 2.1 med PKCE (S256). Brukeren logger inn med GitHub;
   **kun collaborators på `amundfylling/puck.no` får tilgang** — samme
   tillitsmodell som Sveltia CMS.
-- **Tokens:** HMAC-signerte, uten serverlagring. Autorisasjonskode 5 min,
-  tilgangstoken 30 dager (ny innlogging kreves etterpå — bevisst valg).
-- **All skriving logges** (bruker, verktøy, argumenter — maskert) til
-  Workers-loggene = revisjonsspor.
+- **Tokens:** OAuth-state, samtykke og tokens er HMAC-signerte.
+  Autorisasjonskoder varer fem minutter og har en tilfeldig ID i D1 som
+  slettes atomisk ved første innløsning; replay av samme kode avvises.
+  Tilgangstoken varer én time.
+- **Eksplisitt samtykke:** etter GitHub-innlogging viser Workeren klientnavn
+  og callback-origin og krever et eget «Godkjenn»-klikk før en kode utstedes.
+- **Alle verktøykall logges** (bruker, verktøy, argumenter — rekursivt
+  maskert) til Workers-loggene som revisjonsspor. Uventede feil returnerer
+  ikke interne GitHub-, D1- eller nettverksdetaljer til klienten.
 - **PII:** e-post/telefon maskeres i all output. `export_registrations`
   finnes IKKE her — full eksport gjøres i nettleser via den
   Access-beskyttede `/admin/pameldinger`.
-- **Revokasjon:** fjern brukeren som collaborator → ingen nye tokens.
+- **Revokasjon:** collaborator-status kontrolleres på hvert MCP-kall. Fjern
+  brukeren fra repoet, så mister også et eksisterende token tilgang straks
+  (GitHub-feil håndteres fail-closed).
   Roter `MCP_TOKEN_SECRET` → alle utstedte tokens ugyldiggjøres øyeblikkelig.
 - Bevisst utelatt: `site_health` (kan ikke kjøre bygg fra en Worker — bruk
   den lokale MCP-serveren).
@@ -67,6 +74,9 @@ npx wrangler secret put GITHUB_OAUTH_CLIENT_ID      # lim inn fra steg 1
 npx wrangler secret put GITHUB_OAUTH_CLIENT_SECRET  # lim inn fra steg 1
 npx wrangler secret put GITHUB_TOKEN                # lim inn fra steg 2
 npx wrangler secret put MCP_TOKEN_SECRET            # generer: openssl rand -hex 32
+cd ..
+npx wrangler d1 migrations apply puck-no --remote   # inkluderer OAuth-koder + runtime-stenging
+cd mcp-remote
 npx wrangler deploy
 ```
 
@@ -78,7 +88,9 @@ Og `curl -i .../mcp` skal gi `401` med `WWW-Authenticate`-header.
 1. Claude-appen → **Settings → Connectors → Add custom connector**
 2. URL: `https://puck-no-mcp.<sub>.workers.dev/mcp` → **Add**
 3. Trykk **Connect** → du sendes til GitHub-innlogging → **Authorize**
-4. Ferdig — be om f.eks. «list tournaments» eller «close registration
+4. Kontroller klientnavn og callback-adresse på samtykkesiden, og trykk
+   **Godkjenn** bare hvis du startet innloggingen.
+5. Ferdig — be om f.eks. «list tournaments» eller «close registration
    for norway-open-2026» i en samtale med connectoren aktivert.
 
 Fungerer også fra Claude Desktop og andre MCP-klienter med OAuth-støtte
@@ -101,7 +113,10 @@ Som den lokale serveren (`mcp/README.md`), minus `export_registrations`
 
 Merknader mot lokalversjonen: innholdsverktøy committer **rett til main**
 (som CMS-et — ingen PR-flyt her), og filopplasting skjer via **direkte-URL**
-(Workeren henter fila) i stedet for lokale filstier.
+(Workeren henter fila) i stedet for lokale filstier. URL-en må bruke HTTPS,
+fila kan være maksimalt 10 MB, og innholdet må stemme med filtypen. Private
+nettverksadresser, usikre filnavn og filnavn som allerede finnes i repoet
+avvises.
 
 ## Drift
 
@@ -113,8 +128,9 @@ Merknader mot lokalversjonen: innholdsverktøy committer **rett til main**
   forbruksmønster. D1-bindingen deler kvote med nettsiden.
 - **Lokal utvikling:** `npm run dev` (wrangler dev) — bruk
   `.dev.vars` for secrets lokalt (GIT-IGNORED — aldri commit!).
-- **Tester:** `npm test` (17 enhetstester: krypto, PKCE, OAuth-flyt,
-  MCP-ruting, D1-verktøy med falsk database).
+- **Tester:** `npm test` (enhetstester for blant annet krypto, PKCE,
+  OAuth-flyt, MCP-ruting, sikre filhentinger, Git-CAS og D1-verktøy med
+  falsk database).
 - **Rankingjobb:** `wrangler.toml` kjører ved begge mulige UTC-tider for
   03:00 i Oslo; Workeren utfører bare riktig DST-tilpasset kjøring. Den
   oppdaterer klubb, land, rankingposisjon, samlede poeng, eksakt

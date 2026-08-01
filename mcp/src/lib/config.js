@@ -22,7 +22,8 @@ export const PATHS = {
   i18n: `${REPO_ROOT}src/lib/i18n.ts`,
   audioDir: `${REPO_ROOT}public/media/audio`,
   pdfDir: `${REPO_ROOT}public/media/pdf`,
-  mediaOriginalsImages: `${REPO_ROOT}media-originals/images`,
+  /** Committed source images added by CMS/MCP; optimized at build time. */
+  mediaUploadsImages: `${REPO_ROOT}media-uploads/images`,
   /** Git-ignored scratch dir (see .gitignore) — safe for PII exports. */
   exportDir: `${REPO_ROOT}migration/raw`,
 };

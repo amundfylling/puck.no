@@ -15,11 +15,10 @@
  * Requires the GITHUB_TOKEN secret (repo scope) — a Pages secret, never in
  * git. Returns 503 with a setup hint when it is missing.
  *
- * Protected two ways (belt and braces), like registrations.csv:
- *  1. Application-level: the Cf-Access-Authenticated-User-Email header must
- *     be present (Cloudflare Access adds it after a successful login).
- *  2. Platform-level: Cloudflare Access in front of /api/admin/* (LAUNCH.md).
+ * Protected by Cloudflare Access at the edge and signed-assertion verification
+ * in functions/api/admin/_middleware.ts.
  */
+import { adminIdentity } from '../../lib/admin-auth';
 import { KNOWN_SLUGS } from '../../lib/tournaments';
 
 interface Env {
@@ -73,6 +72,7 @@ function utf8ToBase64(text: string): string {
 async function gh<T>(token: string, path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${API}${path}`, {
     ...init,
+    signal: AbortSignal.timeout(10_000),
     headers: {
       Authorization: `Bearer ${token}`,
       Accept: 'application/vnd.github+json',
@@ -83,9 +83,15 @@ async function gh<T>(token: string, path: string, init?: RequestInit): Promise<T
   });
   if (!res.ok) {
     const text = await res.text();
-    throw new Error(`GitHub API svarte ${res.status}: ${text.slice(0, 200)}`);
+    throw new GitHubApiError(res.status, `GitHub API svarte ${res.status}: ${text.slice(0, 200)}`);
   }
   return (await res.json()) as T;
+}
+
+class GitHubApiError extends Error {
+  constructor(public readonly status: number, message: string) {
+    super(message);
+  }
 }
 
 interface ContentsResponse {
@@ -93,9 +99,7 @@ interface ContentsResponse {
 }
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
-  if (!context.request.headers.get('Cf-Access-Authenticated-User-Email')) {
-    return json({ error: 'Ikke tilgang.' }, 403);
-  }
+  if (!adminIdentity(context.data)) return json({ error: 'Ikke tilgang.' }, 403);
   const token = context.env.GITHUB_TOKEN;
   if (!token) {
     return json(
@@ -115,21 +119,48 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   if (!KNOWN_SLUGS.has(slug)) return json({ error: 'Ukjent turnering.' }, 400);
   if (typeof open !== 'boolean') return json({ error: '«open» må være true eller false.' }, 400);
 
-  // Current file contents (EN mirror optional).
+  // Apply the safety-critical runtime state first. Closed rows are vetoes;
+  // opening removes the veto but can never override closed frontmatter.
+  try {
+    if (open) {
+      await context.env.DB.prepare(
+        'DELETE FROM tournament_settings WHERE tournament_slug = ?',
+      ).bind(slug).run();
+    } else {
+      await context.env.DB.prepare(
+        `INSERT INTO tournament_settings (tournament_slug, registration_open, updated_at)
+         VALUES (?, 0, datetime('now'))
+         ON CONFLICT(tournament_slug) DO UPDATE SET
+           registration_open = 0,
+           updated_at = excluded.updated_at`,
+      ).bind(slug).run();
+    }
+  } catch (error) {
+    console.error('runtime registration setting failed', error);
+    return json({ error: 'Kunne ikke endre påmeldingsstatus i databasen.' }, 503);
+  }
+
+  // Pin every read to one immutable commit. If main advances before the final
+  // ref update, GitHub rejects the non-fast-forward write instead of letting
+  // stale content overwrite the newer edit.
+  let baseSha: string;
   let noFile: ContentsResponse;
   let enFile: ContentsResponse | null = null;
   try {
+    const ref = await gh<{ object: { sha: string } }>(token, `/repos/${REPO}/git/ref/heads/main`);
+    baseSha = ref.object.sha;
     noFile = await gh<ContentsResponse>(
       token,
-      `/repos/${REPO}/contents/src/content/tournaments/${slug}.md?ref=main`,
+      `/repos/${REPO}/contents/src/content/tournaments/${slug}.md?ref=${encodeURIComponent(baseSha)}`,
     );
     try {
       enFile = await gh<ContentsResponse>(
         token,
-        `/repos/${REPO}/contents/src/content/tournaments/en/${slug}.md?ref=main`,
+        `/repos/${REPO}/contents/src/content/tournaments/en/${slug}.md?ref=${encodeURIComponent(baseSha)}`,
       );
-    } catch {
-      enFile = null; // no English mirror
+    } catch (error) {
+      if (error instanceof GitHubApiError && error.status === 404) enFile = null;
+      else throw error;
     }
   } catch (e) {
     return json({ error: `Kunne ikke lese turneringsfilen: ${(e as Error).message}` }, 502);
@@ -150,8 +181,6 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
   // One atomic commit: ref → base tree → blobs → new tree → commit → ref.
   try {
-    const ref = await gh<{ object: { sha: string } }>(token, `/repos/${REPO}/git/ref/heads/main`);
-    const baseSha = ref.object.sha;
     const baseCommit = await gh<{ tree: { sha: string } }>(
       token,
       `/repos/${REPO}/git/commits/${baseSha}`,
@@ -178,17 +207,23 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     });
     await gh(token, `/repos/${REPO}/git/refs/heads/main`, {
       method: 'PATCH',
-      body: JSON.stringify({ sha: commit.sha }),
+      body: JSON.stringify({ sha: commit.sha, force: false }),
     });
     return json({
       ok: true,
       slug,
       registrationOpen: open,
       commit: commit.sha.slice(0, 7),
-      message: `Påmelding ${open ? 'åpnet' : 'stengt'} — trer i kraft etter neste bygg (2–4 min).`,
+      message: open
+        ? 'Åpning er lagret. API og skjema åpner senest ved neste bygg.'
+        : 'Påmelding er stengt i API-et med én gang. Skjemaet synkroniseres av neste bygg.',
     });
   } catch (e) {
-    return json({ error: `Kunne ikke lagre: ${(e as Error).message}` }, 502);
+    const status = e instanceof GitHubApiError && e.status === 422 ? 409 : 502;
+    const message = status === 409
+      ? 'Innholdet ble endret samtidig. Last siden på nytt og prøv igjen.'
+      : `Kunne ikke lagre: ${(e as Error).message}`;
+    return json({ error: message }, status);
   }
 };
 

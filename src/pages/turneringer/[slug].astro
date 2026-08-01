@@ -4,9 +4,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import RegistrationForm from '../../components/RegistrationForm.astro';
 import ParticipantList from '../../components/ParticipantList.astro';
 import { tournamentImage, tournamentStatus } from '../../lib/content';
-import { formatNoDate, parseNoDate } from '../../lib/dates';
-import { seoForPath } from '../../lib/seo';
+import { formatIsoDate, formatNoDate, parseNoDate } from '../../lib/dates';
+import { seoForContent } from '../../lib/seo';
 import { t } from '../../lib/i18n';
+import { getPublicImageDimensions } from '../../lib/media';
 import registrations from '../../data/registrations-snapshot.json';
 import type { GetStaticPaths } from 'astro';
 
@@ -17,7 +18,7 @@ interface Player {
 }
 
 export const getStaticPaths = (async () => {
-  const tournaments = await getCollection('tournaments', (t) => t.data.lang === 'no');
+  const tournaments = await getCollection('tournaments', (t) => !t.data.draft && t.data.lang === 'no');
   return tournaments.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry } }));
 }) satisfies GetStaticPaths;
 
@@ -26,16 +27,20 @@ const { Content } = await render(entry);
 const status = tournamentStatus(entry);
 const registrationOpen = status === 'upcoming' && entry.data.registrationOpen;
 const hero = tournamentImage(entry);
+const heroDimensions = await getPublicImageDimensions(hero);
 const date = parseNoDate(entry.data.date);
+const isoDate = date ? formatIsoDate(date) : undefined;
 const path = `/turneringer/${entry.data.slug}`;
-const seo = seoForPath(path);
+const seo = seoForContent(path, {
+  title: `${entry.data.name} | Bordhockeyforbundet`,
+});
 const players =
   (registrations.tournaments as Record<string, Player[]>)[entry.data.slug]?.filter(
     (p) => p.name && p.name.toLowerCase() !== 'name',
   ) ?? [];
 const priceList = entry.data.prices?.split(';').map((s) => s.trim()).filter(Boolean) ?? [];
 
-const allTournaments = await getCollection('tournaments', (t) => t.data.lang === 'no');
+const allTournaments = await getCollection('tournaments', (t) => !t.data.draft && t.data.lang === 'no');
 const parentEntry = entry.data.parent
   ? allTournaments.find((t) => t.data.slug === entry.data.parent)
   : null;
@@ -48,7 +53,7 @@ const jsonLd = {
   '@type': 'SportsEvent',
   name: entry.data.name,
   url: `https://www.puck.no${path}/`,
-  ...(date && { startDate: date.toISOString().slice(0, 10) }),
+  ...(isoDate && { startDate: isoDate }),
   eventStatus:
     status === 'past' ? 'https://schema.org/EventCompleted' : 'https://schema.org/EventScheduled',
   ...(entry.data.location && {
@@ -82,11 +87,12 @@ const jsonLd = {
 
 <BaseLayout
   lang="no"
-  title={seo?.title ?? `${entry.data.name} | Bordhockeyforbundet`}
-  description={seo?.description || null}
+  title={seo.title}
+  description={seo.description}
   canonicalPath={path}
   noUrl={path}
   enUrl={`/en${path}`}
+  ogImage={hero}
   jsonLd={jsonLd}
 >
   <article class="mx-auto max-w-4xl px-4 py-10">
@@ -98,35 +104,30 @@ const jsonLd = {
 
     <header class="mt-4 border-b border-slate-200 pb-6">
       <h1 class="text-3xl font-extrabold text-navy sm:text-4xl">{entry.data.name}</h1>
-      <p class="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-600">
-        <span class="inline-flex items-center gap-1.5 font-semibold text-navy whitespace-nowrap">
-          <span
-            class:list={[
-              'h-2 w-2 rounded-full',
-              status === 'upcoming' ? 'bg-green-500' : 'bg-slate-400',
-            ]}
-            aria-hidden="true"></span>
-          {t('no', status)}
-        </span>
-        <span class="whitespace-nowrap">
-          <span aria-hidden="true" class="mr-2">·</span>
-          <time>{formatNoDate(entry.data.date, 'no')}</time>
-        </span>
-        {
-          entry.data.location && (
-            <span class="whitespace-nowrap">
-              <span aria-hidden="true" class="mr-2">·</span>
-              <span>{entry.data.location}</span>
-            </span>
-          )
-        }
+      <p class="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-navy">
+        <span
+          class:list={[
+            'h-2 w-2 rounded-full',
+            status === 'upcoming' ? 'bg-green-500' : 'bg-slate-400',
+          ]}
+          aria-hidden="true"></span>
+        {t('no', status)}
       </p>
     </header>
 
     {
       hero && (
         <figure class="mt-6">
-          <img src={hero} alt={entry.data.name} class="aspect-[21/9] w-full rounded-lg object-cover" />
+          <img
+            src={hero}
+            alt={entry.data.name}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            width={heroDimensions?.width}
+            height={heroDimensions?.height}
+            class="aspect-[21/9] w-full rounded-lg object-cover"
+          />
         </figure>
       )
     }
@@ -183,7 +184,9 @@ const jsonLd = {
           }
           <div class="flex justify-between gap-4 border-b border-slate-100 py-3">
             <dt class="text-slate-500">{t('no', 'date')}</dt>
-            <dd class="text-right font-semibold text-navy">{formatNoDate(entry.data.date, 'no')}</dd>
+            <dd class="text-right font-semibold text-navy">
+              <time datetime={isoDate}>{formatNoDate(entry.data.date, 'no')}</time>
+            </dd>
           </div>
           {
             entry.data.location && (
@@ -209,7 +212,7 @@ const jsonLd = {
         {
           registrationOpen && (
             <div class="border-t border-slate-200 p-5">
-              <a href="#pamelding" class="btn-primary block text-center no-underline">
+              <a href="#pamelding" class="btn-outline block text-center no-underline">
                 {t('no', 'registerPlayer')}
               </a>
             </div>
@@ -231,7 +234,13 @@ const jsonLd = {
     }
 
     <div id="deltakere" class="scroll-mt-6">
-      <ParticipantList slug={entry.data.slug} players={players} lang="no" playersPerTeam={entry.data.playersPerTeam} />
+      <ParticipantList
+        slug={entry.data.slug}
+        players={players}
+        lang="no"
+        playersPerTeam={entry.data.playersPerTeam}
+        snapshotDate={registrations.snapshot_date}
+      />
     </div>
   </article>
 </BaseLayout>

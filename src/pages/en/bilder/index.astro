@@ -1,21 +1,27 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import GalleryIndex from '../../../components/GalleryIndex.astro';
-import { seoForPath } from '../../../lib/seo';
+import { getEntry } from 'astro:content';
+import { seoForContent } from '../../../lib/seo';
+import { assertDedicatedBodyUnchanged } from '../../../lib/dedicated-body';
 
-const seo = seoForPath('/en/bilder');
+const entry = await getEntry('pages', 'en/bilder');
+if (!entry) throw new Error('pages/en/bilder not found');
+assertDedicatedBodyUnchanged(entry.id);
+const seo = seoForContent('/en/bilder', entry.data);
 ---
 
 <BaseLayout
   lang="en"
-  title={seo?.title ?? 'Image galleries | Bordhockeyforbundet'}
-  description={seo?.description || null}
+  title={seo.title}
+  description={seo.description}
   canonicalPath="/en/bilder"
   noUrl="/bilder"
   enUrl="/en/bilder"
 >
   <section class="mx-auto max-w-6xl px-4 py-10">
-    <h1 class="text-3xl font-extrabold text-navy">Image galleries</h1>
+    <h1 class="text-3xl font-extrabold text-navy">{entry.data.title}</h1>
+    {entry.data.description && <p class="mt-3 max-w-2xl text-slate-600">{entry.data.description}</p>}
     <GalleryIndex lang="en" />
   </section>
 </BaseLayout>

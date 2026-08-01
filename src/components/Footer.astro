@@ -26,6 +26,7 @@ const shortName = lang === 'en' ? 'NTHF' : 'NBHF';
           alt=""
           width="40"
           height="40"
+          decoding="async"
           class="h-10 w-10 rounded bg-white p-0.5"
         />
         <span class="leading-tight">
@@ -60,7 +61,7 @@ const shortName = lang === 'en' ? 'NTHF' : 'NBHF';
                   class="text-slate-300 no-underline hover:text-white hover:underline"
                 >
                   {child.label}
-                  {child.external && <span class="sr-only"> ({t(lang, 'opensInNewTab')})</span>}
+                  {child.external && <span class="sr-only"> {t(lang, 'opensInNewTab')}</span>}
                 </a>
               </li>
             ))}
@@ -95,7 +96,7 @@ const shortName = lang === 'en' ? 'NTHF' : 'NBHF';
             target="_blank"
             rel="noopener"
             class="text-slate-300 no-underline hover:text-white hover:underline"
-            >ITHF<span class="sr-only"> ({t(lang, 'opensInNewTab')})</span></a
+            >ITHF<span class="sr-only"> {t(lang, 'opensInNewTab')}</span></a
           >
         </li>
       </ul>

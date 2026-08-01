@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Prebuild step: generate functions/lib/tournament-config.json from the
- * tournaments content collection frontmatter (team rules, date and questions).
+ * Prebuild step: generate functions/lib/tournament-config.json from non-draft
+ * tournament frontmatter (team rules, machine end date and questions).
  *
  * The Pages Functions bundler cannot import from src/, so this JSON is the
  * single shared source of truth for the API (slug validity + team rules).
@@ -15,6 +15,7 @@
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import YAML from 'yaml';
+import { norwegianEndDate } from './lib/tournament-date.mjs';
 
 const DIR = fileURLToPath(new URL('../src/content/tournaments', import.meta.url));
 const OUT = fileURLToPath(new URL('../functions/lib/tournament-config.json', import.meta.url));
@@ -65,8 +66,11 @@ for (const file of readdirSync(DIR).filter((f) => f.endsWith('.md'))) {
   const fm = text.match(/^---\n([\s\S]*?)\n---/);
   if (!fm) continue;
   const data = YAML.parse(fm[1]);
+  if (data?.draft === true) continue;
   const slug = data?.slug;
   if (!slug) continue;
+  const endDate = norwegianEndDate(data.date);
+  if (!endDate) fail(file, `ugyldig dato (${data.date})`);
   const playersPerTeam = data.playersPerTeam ?? null;
   const maxSubstitutes = data.maxSubstitutes ?? 0;
   if (playersPerTeam != null && (!Number.isInteger(playersPerTeam) || playersPerTeam < 1)) {
@@ -90,6 +94,7 @@ for (const file of readdirSync(DIR).filter((f) => f.endsWith('.md'))) {
   }
   config[slug] = {
     date: data.date,
+    endDate,
     playersPerTeam,
     maxSubstitutes,
     rankingLevel: rankingLevel == null ? null : String(rankingLevel),

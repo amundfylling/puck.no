@@ -1,6 +1,7 @@
 {
  "bergen-open-2025": {
   "date": "15. november 2025",
+  "endDate": "2025-11-15",
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
@@ -8,6 +9,7 @@
  },
  "duo-nm-2026": {
   "date": "3. mai 2026",
+  "endDate": "2026-05-03",
   "playersPerTeam": 2,
   "maxSubstitutes": 0,
   "rankingLevel": "10",
@@ -15,6 +17,7 @@
  },
  "jæren-open-2025": {
   "date": "17. januar 2026",
+  "endDate": "2026-01-17",
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
@@ -22,6 +25,7 @@
  },
  "norgesmesterskapet-2026-dame": {
   "date": "2. mai 2026",
+  "endDate": "2026-05-02",
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
@@ -29,6 +33,7 @@
  },
  "norgesmesterskapet-2026-junior": {
   "date": "3. mai 2026",
+  "endDate": "2026-05-03",
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
@@ -36,6 +41,7 @@
  },
  "norgesmesterskapet-2026-u13": {
   "date": "1. mai 2026",
+  "endDate": "2026-05-01",
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
@@ -43,6 +49,7 @@
  },
  "norgesmesterskapet-2026-veteran": {
   "date": "3. mai 2026",
+  "endDate": "2026-05-03",
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
@@ -50,6 +57,7 @@
  },
  "norgesmesterskapet-2026": {
   "date": "2. mai 2026",
+  "endDate": "2026-05-02",
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
@@ -57,6 +65,7 @@
  },
  "norway-open-2025": {
   "date": "23. august 2025",
+  "endDate": "2025-08-23",
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
@@ -64,6 +73,7 @@
  },
  "norway-open-2026": {
   "date": "5. september 2026",
+  "endDate": "2026-09-05",
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
@@ -71,56 +81,15 @@
  },
  "sudden-death-cup": {
   "date": "24. august 2025",
+  "endDate": "2025-08-24",
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
   "registrationQuestions": []
  },
- "test-individuell-2026": {
-  "date": "15. november 2026",
-  "playersPerTeam": null,
-  "maxSubstitutes": 0,
-  "rankingLevel": "4",
-  "registrationQuestions": []
- },
- "test-lagturnering-2026": {
-  "date": "20. november 2026",
-  "playersPerTeam": 2,
-  "maxSubstitutes": 1,
-  "rankingLevel": "10",
-  "registrationQuestions": [
-   {
-    "id": "lunsj-antall",
-    "labelNo": "Hvor mange på laget ønsker lunsj?",
-    "labelEn": "How many team members want lunch?",
-    "required": true,
-    "options": [
-     {
-      "value": "0",
-      "labelNo": "0",
-      "labelEn": "0"
-     },
-     {
-      "value": "1",
-      "labelNo": "1",
-      "labelEn": "1"
-     },
-     {
-      "value": "2",
-      "labelNo": "2",
-      "labelEn": "2"
-     },
-     {
-      "value": "3",
-      "labelNo": "3",
-      "labelEn": "3"
-     }
-    ]
-   }
-  ]
- },
  "trondheim-open-2025": {
   "date": "7. mars 2026",
+  "endDate": "2026-03-07",
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,

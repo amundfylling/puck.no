@@ -20,6 +20,8 @@ const { title, file, durationHint, lang } = Astro.props;
     type="button"
     data-play
     aria-label={`${t(lang, 'play')}: ${title}`}
+    data-play-label={`${t(lang, 'play')}: ${title}`}
+    data-pause-label={`${t(lang, 'pause')}: ${title}`}
     class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand text-white hover:bg-brand-dark"
   >
     <svg data-icon-play width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
@@ -68,6 +70,10 @@ const { title, file, durationHint, lang } = Astro.props;
     function setPlaying(playing: boolean) {
       iconPlay.classList.toggle('hidden', playing);
       iconPause.classList.toggle('hidden', !playing);
+      btn.setAttribute(
+        'aria-label',
+        playing ? (btn.dataset.pauseLabel ?? '') : (btn.dataset.playLabel ?? ''),
+      );
     }
 
     btn.addEventListener('click', () => {

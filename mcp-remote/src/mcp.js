@@ -6,6 +6,8 @@
  */
 import { dbTools } from './tools/dbtools.js';
 import { contentTools } from './tools/contenttools.js';
+import { ValidationError } from './lib/validate.js';
+import { readTextLimited, RequestTooLargeError } from './lib/request.js';
 
 const PROTOCOL_VERSION = '2025-06-18';
 const SERVER_INFO = { name: 'puck-no-admin-remote', version: '1.0.0' };
@@ -19,8 +21,59 @@ const jsonRpcError = (id, code, message) => ({ jsonrpc: '2.0', id, error: { code
 const respond = (payload, status = 200) =>
   new Response(JSON.stringify(payload), {
     status,
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
   });
+
+function validateValue(value, schema, path = 'arguments', depth = 0) {
+  if (depth > 8) return `${path} er for dypt nestet`;
+  if (schema.enum && !schema.enum.some((candidate) => Object.is(candidate, value))) {
+    return `${path} har en verdi som ikke er tillatt`;
+  }
+  if (!schema.type) return null;
+  if (schema.type === 'object') {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return `${path} må være et objekt`;
+    for (const required of schema.required ?? []) {
+      if (!(required in value)) return `${path}.${required} er påkrevd`;
+    }
+    const properties = schema.properties ?? {};
+    for (const [key, child] of Object.entries(value)) {
+      const childSchema = properties[key] ?? schema.additionalProperties;
+      if (!childSchema) return `${path}.${key} er ikke et tillatt felt`;
+      const error = validateValue(child, childSchema, `${path}.${key}`, depth + 1);
+      if (error) return error;
+    }
+    return null;
+  }
+  if (schema.type === 'array') {
+    if (!Array.isArray(value)) return `${path} må være en liste`;
+    if (value.length > (schema.maxItems ?? 100)) return `${path} har for mange elementer`;
+    if (schema.minItems != null && value.length < schema.minItems) return `${path} har for få elementer`;
+    for (let index = 0; index < value.length; index++) {
+      const error = validateValue(value[index], schema.items ?? {}, `${path}[${index}]`, depth + 1);
+      if (error) return error;
+    }
+    return null;
+  }
+  if (schema.type === 'string') {
+    if (typeof value !== 'string') return `${path} må være tekst`;
+    if (value.length > (schema.maxLength ?? 500_000)) return `${path} er for lang`;
+    if (schema.minLength != null && value.length < schema.minLength) return `${path} er for kort`;
+    return null;
+  }
+  if (schema.type === 'integer') {
+    if (!Number.isSafeInteger(value)) return `${path} må være et heltall`;
+  } else if (schema.type === 'number') {
+    if (typeof value !== 'number' || !Number.isFinite(value)) return `${path} må være et tall`;
+  } else if (schema.type === 'boolean') {
+    if (typeof value !== 'boolean') return `${path} må være sann/usann`;
+    return null;
+  }
+  if (typeof value === 'number') {
+    if (schema.minimum != null && value < schema.minimum) return `${path} er for liten`;
+    if (schema.maximum != null && value > schema.maximum) return `${path} er for stor`;
+  }
+  return null;
+}
 
 async function handleMessage(msg, env, user) {
   const { id, method, params } = msg;
@@ -53,14 +106,29 @@ async function handleMessage(msg, env, user) {
     const tool = byName.get(params?.name);
     if (!tool) return jsonRpcError(id, -32602, `Unknown tool: ${params?.name}`);
     const args = params.arguments ?? {};
+    const validationError = validateValue(args, tool.inputSchema);
+    if (validationError) return jsonRpcError(id, -32602, validationError);
     console.log(JSON.stringify({ event: 'tool_call', user, tool: tool.name, args: auditSafe(args) }));
     try {
       const [summary, data] = await tool.run(env, args);
       const text = data !== undefined ? `${summary}\n\n${JSON.stringify(data, null, 2)}` : summary;
       return jsonRpc(id, { content: [{ type: 'text', text }], isError: false });
     } catch (err) {
+      const expected = err instanceof ValidationError;
+      console.error(JSON.stringify({
+        event: 'tool_error',
+        user,
+        tool: tool.name,
+        kind: err?.constructor?.name ?? 'Error',
+        status: Number.isInteger(err?.status) ? err.status : undefined,
+      }));
       return jsonRpc(id, {
-        content: [{ type: 'text', text: `Feil: ${err.message ?? err}` }],
+        content: [{
+          type: 'text',
+          text: expected
+            ? `Feil: ${err.message}`
+            : 'Feil: Operasjonen kunne ikke fullføres trygt. Sjekk Worker-loggen og gjeldende status før du prøver igjen.',
+        }],
         isError: true,
       });
     }
@@ -70,14 +138,22 @@ async function handleMessage(msg, env, user) {
 }
 
 /** Strip large/sensitive arg values from the audit log. */
-function auditSafe(args) {
-  const out = {};
-  for (const [k, v] of Object.entries(args ?? {})) {
-    if (/body|content|base64|file/i.test(k)) out[k] = `<${typeof v === 'string' ? `${v.length} chars` : 'data'}>`;
-    else if (/email|phone/i.test(k)) out[k] = '***';
-    else out[k] = v;
+export function auditSafe(value, key = '', depth = 0) {
+  const fullySensitive =
+    /answer|email|phone|token|secret|password|credential|authorization|cookie/i.test(key) ||
+    /^(?:name|names|query)$/i.test(key);
+  const largeContent = /body|content|base64|file/i.test(key);
+  if (fullySensitive || largeContent) {
+    return typeof value === 'string' && !fullySensitive ? `<${value.length} chars>` : '***';
   }
-  return out;
+  if (depth > 6) return '<nested data>';
+  if (Array.isArray(value)) return value.map((item) => auditSafe(item, key, depth + 1));
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value).map(([childKey, child]) => [childKey, auditSafe(child, childKey, depth + 1)]),
+    );
+  }
+  return value;
 }
 
 export async function handleMcp(request, env, user) {
@@ -91,8 +167,11 @@ export async function handleMcp(request, env, user) {
 
   let msg;
   try {
-    msg = await request.json();
-  } catch {
+    msg = JSON.parse(await readTextLimited(request, 1024 * 1024));
+  } catch (error) {
+    if (error instanceof RequestTooLargeError) {
+      return respond(jsonRpcError(null, -32600, 'Request body too large'), 413);
+    }
     return respond(jsonRpcError(null, -32700, 'Parse error'), 400);
   }
   if (Array.isArray(msg)) {

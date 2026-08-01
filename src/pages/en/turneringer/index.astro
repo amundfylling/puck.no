@@ -1,20 +1,25 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import TournamentList from '../../../components/TournamentList.astro';
+import { getEntry } from 'astro:content';
 import { getTournamentsSorted } from '../../../lib/content';
-import { seoForPath } from '../../../lib/seo';
+import { seoForContent } from '../../../lib/seo';
+import { assertDedicatedBodyUnchanged } from '../../../lib/dedicated-body';
 
+const entry = await getEntry('pages', 'en/turneringer');
+if (!entry) throw new Error('pages/en/turneringer not found');
+assertDedicatedBodyUnchanged(entry.id);
 const views = await getTournamentsSorted(new Date(), 'en');
-const seo = seoForPath('/en/turneringer');
+const seo = seoForContent('/en/turneringer', entry.data);
 ---
 
 <BaseLayout
   lang="en"
-  title={seo?.title ?? 'Tournaments | Bordhockeyforbundet'}
-  description={seo?.description || null}
+  title={seo.title}
+  description={seo.description}
   canonicalPath="/en/turneringer"
   noUrl="/turneringer"
   enUrl="/en/turneringer"
 >
-  <TournamentList lang="en" views={views} />
+  <TournamentList lang="en" views={views} title={entry.data.title} description={entry.data.description} />
 </BaseLayout>

@@ -6,6 +6,7 @@ location: "Oslo"
 prices: "Deltakeravgift: 150 NOK; Junior: 50 NOK"
 playingSystem: "Gruppespill med 8 videre til sluttspill."
 status: "upcoming"
+draft: true
 playersPerTeam: null
 maxSubstitutes: 0
 rankingLevel: "4"

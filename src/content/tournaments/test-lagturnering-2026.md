@@ -6,6 +6,7 @@ location: "Bergen"
 prices: "Lagavgift: 300 NOK per lag"
 playingSystem: "Lagkamper i alle mot alle format."
 status: "upcoming"
+draft: true
 playersPerTeam: 2
 maxSubstitutes: 1
 rankingLevel: "10"

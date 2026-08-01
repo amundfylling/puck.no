@@ -256,8 +256,8 @@
   "description": "The Norwegian Table Hockey Association (NTHF) has organized table hockey tournaments in Norway since 1994. The association works to promote table hockey by organizing tournaments, supporting local leagues and making the sport more accessible to everyone who wants to participate."
  },
  "/en/om-oss": {
-  "title": "OM OSS | Bordhockeyforbundet",
-  "description": "Norges Bordhockeyforbund (NBHF) har arrangert bordhockeyturneringer i Norge siden 1994. Forbundet arbeider for å fremme bordhockeysporten gjennom å organisere turneringer, støtte lokalligaer og gjøre sporten mer tilgjengelig for alle som ønsker å delta."
+  "title": "About us | Bordhockeyforbundet",
+  "description": "The Norwegian Table Hockey Association organizes tournaments, supports local leagues and makes table hockey more accessible in Norway."
  },
  "/en/services-1": {
   "title": "PLAY TABLE HOCKEY | Bordhockeyforbundet",
@@ -292,11 +292,11 @@
   "description": ""
  },
  "/en/kvalifisering-mesterskap": {
-  "title": "VM Kvalik | Bordhockeyforbundet",
+  "title": "Euro 2026 Qualification | Bordhockeyforbundet",
   "description": ""
  },
  "/en/bilder": {
-  "title": "Bildegallerier | Bordhockeyforbundet",
+  "title": "Image galleries | Bordhockeyforbundet",
   "description": ""
  },
  "/en/blog": {
@@ -304,7 +304,7 @@
   "description": "The latest news from Norwegian table hockey! Read up on upcoming and completed tournaments and other exciting content."
  },
  "/en/årsmøter": {
-  "title": "Referat fra årsmøter | Bordhockeyforbundet",
+  "title": "Annual meeting minutes | Bordhockeyforbundet",
   "description": ""
  }
 }

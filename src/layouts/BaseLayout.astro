@@ -6,10 +6,11 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CloudflareAnalytics from '../components/CloudflareAnalytics.astro';
 import { t, type Lang } from '../lib/i18n';
+import { normalizeMetaDescription } from '../lib/meta';
 
 interface Props {
   lang: Lang;
-  /** Full <title> (from seo.json or frontmatter). */
+  /** Full <title>; editable content takes precedence over the migration fallback. */
   title: string;
   description?: string | null;
   /** Path of this page, e.g. "/om-oss" — used for canonical + og:url. */
@@ -45,8 +46,19 @@ const canonical = abs(slash(canonicalPath));
 const noUrlSlash = noUrl ? slash(noUrl) : null;
 const enUrlSlash = enUrl ? slash(enUrl) : null;
 const ogImageAbs = ogImage ? abs(ogImage) : abs('/media/images/og-default.jpg');
-const desc = description || undefined;
+const defaultDescription =
+  lang === 'en'
+    ? 'The Norwegian Table Hockey Association organizes tournaments, local leagues and resources for table hockey players in Norway.'
+    : 'Norges Bordhockeyforbund organiserer turneringer, lokalligaer og ressurser for bordhockeyspillere i Norge.';
+const desc = normalizeMetaDescription(description?.trim() || defaultDescription);
 const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+const serializeJsonLd = (value: Record<string, unknown>) =>
+  JSON.stringify(value)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026')
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029');
 ---
 
 <!doctype html>
@@ -55,7 +67,7 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    {desc && <meta name="description" content={desc} />}
+    <meta name="description" content={desc} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
@@ -69,16 +81,18 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="Norges Bordhockeyforbund" />
     <meta property="og:title" content={title} />
-    {desc && <meta property="og:description" content={desc} />}
+    <meta property="og:description" content={desc} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImageAbs} />
     <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'nb_NO'} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={desc} />
     <meta name="twitter:image" content={ogImageAbs} />
     {noUrlSlash && <link rel="alternate" hreflang="no" href={abs(noUrlSlash)} />}
     {enUrlSlash && <link rel="alternate" hreflang="en" href={abs(enUrlSlash)} />}
     {noUrlSlash && <link rel="alternate" hreflang="x-default" href={abs(noUrlSlash)} />}
-    {ld.map((obj) => <script is:inline type="application/ld+json" set:html={JSON.stringify(obj)} />)}
+    {ld.map((obj) => <script is:inline type="application/ld+json" set:html={serializeJsonLd(obj)} />)}
     {slash(canonicalPath).includes('kombinasjoner') && <script is:inline defer src="/js/tricks.js" />}
   </head>
   <body class="flex min-h-screen flex-col">

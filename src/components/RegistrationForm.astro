@@ -56,7 +56,9 @@ const l =
         phone: 'Phone number',
         submit: 'Register',
         sending: 'Registering…',
-        success: 'Takk for din registrering!',
+        success: 'Thank you for registering!',
+        genericError: 'Something went wrong. Please try again later.',
+        networkError: 'Network error. Please try again.',
         pickPlayer: 'Select a player from the list, or use "I can\'t find my name".',
         pickAll: 'Fill in all players on the team.',
         privacy:
@@ -85,6 +87,8 @@ const l =
         submit: 'Registrer',
         sending: 'Registrerer…',
         success: 'Takk for din registrering!',
+        genericError: 'Noe gikk galt. Prøv igjen senere.',
+        networkError: 'Nettverksfeil. Prøv igjen.',
         pickPlayer: 'Velg en spiller fra listen, eller bruk «Jeg finner ikke navnet mitt».',
         pickAll: 'Fyll inn alle spillerne på laget.',
         privacy:
@@ -108,7 +112,15 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
   data-slug={slug}
   data-type={type}
   data-visible={visibleCount}
-  data-messages={JSON.stringify({ pickPlayer: l.pickPlayer, pickAll: l.pickAll, loading: l.loading, noResults: l.noResults, points: l.points })}
+  data-messages={JSON.stringify({
+    pickPlayer: l.pickPlayer,
+    pickAll: l.pickAll,
+    loading: l.loading,
+    noResults: l.noResults,
+    points: l.points,
+    genericError: l.genericError,
+    networkError: l.networkError,
+  })}
 >
   <h2 id="pamelding-heading" class="text-xl font-bold text-navy">{l.heading}</h2>
   {isTeam && <p class="mt-1 text-sm text-slate-600">{l.teamHint}</p>}
@@ -378,9 +390,12 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
 
     function readPlayer(box: HTMLElement, state: SelectState): { playerId?: number; name?: string } {
       if (state.playerId != null) return { playerId: state.playerId };
+      // Text typed in the ranking combobox is not an identity. Require either
+      // an explicit ranking result selection or the explicit unranked-player
+      // fallback so ranked entrants cannot accidentally be submitted by name.
+      if (!state.fallback) return {};
       const fallbackInput = box.querySelector<HTMLInputElement>('[data-combo-fallback-input]')!;
-      const input = box.querySelector<HTMLInputElement>('[data-combo-input]')!;
-      const name = (state.fallback ? fallbackInput.value : input.value).trim();
+      const name = fallbackInput.value.trim();
       return name ? { name } : {};
     }
 
@@ -393,8 +408,15 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
     const addBtn = form.querySelector<HTMLButtonElement>('[data-add-row]');
 
     function refreshRows() {
-      rows.forEach((row, i) => row.classList.toggle('hidden', !active.includes(i)));
       rows.forEach((row, i) => {
+        const isActive = active.includes(i);
+        row.classList.toggle('hidden', !isActive);
+        // Hidden form controls still participate in constraint validation.
+        // Disable inactive substitute rows so a hidden required fallback field
+        // can never block submission.
+        row.querySelectorAll<HTMLInputElement | HTMLButtonElement>('input, button').forEach((control) => {
+          control.disabled = !isActive;
+        });
         const rm = row.querySelector<HTMLElement>('[data-remove-row]');
         if (rm) rm.classList.toggle('hidden', active[active.length - 1] !== i || active.length <= minRows);
       });
@@ -412,10 +434,15 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
       btn.addEventListener('click', () => {
         const i = Number(btn.dataset.removeRow);
         if (active.length <= minRows) return;
+        states[i].reset();
+        rows[i].querySelectorAll<HTMLInputElement>('input').forEach((input) => {
+          input.value = '';
+        });
         active = active.filter((r) => r !== i);
         refreshRows();
       });
     });
+    refreshRows();
 
     /* ---------- submit ---------- */
     const btn = form.querySelector<HTMLButtonElement>('[data-submit]')!;
@@ -480,10 +507,10 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
           refreshRows();
           document.dispatchEvent(new CustomEvent('registrations:refresh'));
         } else {
-          showMessage(body.error ?? 'Noe gikk galt. Prøv igjen senere.', false);
+          showMessage(body.error ?? msgs.genericError ?? 'Noe gikk galt. Prøv igjen senere.', false);
         }
       } catch {
-        showMessage('Nettverksfeil. Prøv igjen.', false);
+        showMessage(msgs.networkError ?? 'Nettverksfeil. Prøv igjen.', false);
       } finally {
         btn.disabled = false;
         btn.textContent = btnLabel;

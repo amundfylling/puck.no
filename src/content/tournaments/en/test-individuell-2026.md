@@ -7,6 +7,7 @@ location: "Oslo"
 prices: "Entry fee: 150 NOK; Junior: 50 NOK"
 playingSystem: "Group stage with 8 advancing to play-offs."
 status: "upcoming"
+draft: true
 playersPerTeam: null
 maxSubstitutes: 0
 rankingLevel: "4"

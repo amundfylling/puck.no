@@ -5,8 +5,34 @@
  */
 const RANKING_URL = 'https://stiga.trefik.cz/ithf/ranking/ranking.txt';
 const TTL_MS = 5 * 60 * 1000;
+const MAX_RANKING_BYTES = 5 * 1024 * 1024;
 
 let cache = null; // { at: number, byId: Map<number, player>, all: player[] }
+
+async function readTextLimited(response, maxBytes) {
+  const declared = Number(response.headers.get('Content-Length'));
+  if (Number.isFinite(declared) && declared > maxBytes) throw new Error('Verdensrankingen er uventet stor.');
+  if (!response.body) throw new Error('Verdensrankingen er tom.');
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let bytes = 0;
+  let text = '';
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    bytes += value.byteLength;
+    if (bytes > maxBytes) {
+      await reader.cancel();
+      throw new Error('Verdensrankingen er uventet stor.');
+    }
+    text += decoder.decode(value, { stream: true });
+  }
+  return text + decoder.decode();
+}
+
+export function canonicalNameKey(name) {
+  return String(name).normalize('NFKC').trim().replace(/\s+/gu, ' ').toLocaleLowerCase('nb-NO');
+}
 
 export function parseRanking(tsv) {
   const byId = new Map();
@@ -22,6 +48,7 @@ export function parseRanking(tsv) {
       Number.isInteger(r) && r > 0 &&
       Number.isInteger(i) && i > 0 &&
       points?.trim() !== '' && Number.isFinite(rankingPoints) && rankingPoints >= 0 &&
+      value?.trim() !== '' && Number.isFinite(playerValue) && playerValue >= 0 &&
       name
     ) {
       const p = {
@@ -31,7 +58,7 @@ export function parseRanking(tsv) {
         club: club ?? '',
         nation: nation ?? '',
         points: rankingPoints,
-        value: value?.trim() !== '' && Number.isFinite(playerValue) ? playerValue : null,
+        value: playerValue,
       };
       byId.set(i, p);
       all.push(p);
@@ -42,10 +69,13 @@ export function parseRanking(tsv) {
 
 async function load() {
   if (cache && Date.now() - cache.at < TTL_MS) return cache;
-  const res = await fetch(RANKING_URL);
+  const res = await fetch(RANKING_URL, { signal: AbortSignal.timeout(10_000) });
   if (!res.ok) throw new Error(`Kunne ikke hente verdensrankingen (HTTP ${res.status}).`);
-  const tsv = await res.text();
+  const tsv = await readTextLimited(res, MAX_RANKING_BYTES);
   const { byId, all } = parseRanking(tsv);
+  if (all.length < 1000) {
+    throw new Error(`Verdensrankingen ser ufullstendig ut (${all.length} gyldige spillere; forventet minst 1000).`);
+  }
   cache = { at: Date.now(), byId, all };
   return cache;
 }

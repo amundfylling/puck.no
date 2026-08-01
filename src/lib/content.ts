@@ -53,7 +53,7 @@ export function tournamentImage(t: Tournament): string | null {
 export async function getTournamentMirror(entry: Tournament): Promise<Tournament | undefined> {
   const en = await getCollection(
     'tournaments',
-    (t) => t.data.lang === 'en' && t.data.slug === entry.data.slug,
+    (t) => !t.data.draft && t.data.lang === 'en' && t.data.slug === entry.data.slug,
   );
   return en[0];
 }
@@ -63,10 +63,10 @@ export async function getTournamentsSorted(
   now: Date = new Date(),
   lang: Lang = 'no',
 ): Promise<TournamentView[]> {
-  const all = await getCollection('tournaments', (t) => t.data.lang === 'no');
+  const all = await getCollection('tournaments', (t) => !t.data.draft && t.data.lang === 'no');
   let enNames = new Map<string, string>();
   if (lang === 'en') {
-    const mirrors = await getCollection('tournaments', (t) => t.data.lang === 'en');
+    const mirrors = await getCollection('tournaments', (t) => !t.data.draft && t.data.lang === 'en');
     enNames = new Map(mirrors.map((t) => [t.data.slug, t.data.name]));
   }
   const views = all.map((entry) => ({

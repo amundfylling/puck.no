@@ -1,0 +1,26 @@
+name: Daily static-date rebuild
+
+on:
+  schedule:
+    # Tournament status is computed at build time. One daily rebuild keeps the
+    # upcoming/past lists accurate even during weeks without content commits.
+    - cron: '17 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    env:
+      DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
+    steps:
+      - name: Require the Pages deploy-hook secret
+        if: env.DEPLOY_HOOK == ''
+        run: |
+          echo 'CLOUDFLARE_PAGES_DEPLOY_HOOK is not configured.' >&2
+          exit 1
+      - name: Trigger production rebuild
+        if: env.DEPLOY_HOOK != ''
+        run: curl --fail-with-body --silent --show-error --retry 3 --request POST "$DEPLOY_HOOK"

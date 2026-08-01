@@ -1,7 +1,7 @@
 /**
- * Git flow for content changes. Default: feature branch + push + PR via
- * `gh` (repo convention: changes to main go through PRs). Opt-in
- * directToMain commits to main and pushes (same as the CMS workflow).
+ * Git flow for content changes: feature branch + push + PR via `gh`.
+ * The browser CMS has its own documented direct-main exception; developer
+ * MCP tools follow the repository's pull-request rule unconditionally.
  *
  * Safety: requires a clean working tree before the tool writes anything,
  * stages ONLY the files the tool touched, never force-pushes, never
@@ -9,13 +9,18 @@
  */
 import { REPO_ROOT } from './config.js';
 import { run } from './run.js';
+import { randomUUID } from 'node:crypto';
 
 async function git(args) {
   return (await run('git', args, { cwd: REPO_ROOT })).stdout.trim();
 }
 
-/** Throw if the working tree is dirty (lists the offending paths). */
+/** Throw before a tool writes if it is not starting from a clean main. */
 export async function ensureClean() {
+  const branch = await git(['branch', '--show-current']);
+  if (branch !== 'main') {
+    throw new Error(`MCP-gitverktøy må startes fra main (nåværende branch er «${branch || 'detached HEAD'}»).`);
+  }
   const out = await git(['status', '--porcelain']);
   if (out) {
     const paths = out.split('\n').map((l) => l.slice(3)).slice(0, 20);
@@ -27,21 +32,13 @@ export async function ensureClean() {
 
 /**
  * Commit `files` (repo-relative paths) with `message`.
- * Returns { mode: 'pr'|'direct', branch?, prUrl?, commitSha }.
+ * Returns { mode: 'pr', branch, prUrl, commitSha }.
  */
-export async function commitFiles({ files, message, prBody, directToMain = false, branchPrefix = 'mcp' }) {
-  const stamp = new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '');
-
-  if (directToMain) {
-    const branch = await git(['branch', '--show-current']);
-    if (branch !== 'main') {
-      throw new Error(`directToMain requires the main branch (currently on «${branch}»).`);
-    }
-    await git(['add', '--', ...files]);
-    await git(['commit', '-m', message]);
-    const sha = await git(['rev-parse', '--short', 'HEAD']);
-    await git(['push', 'origin', 'main']);
-    return { mode: 'direct', commitSha: sha };
+export async function commitFiles({ files, message, prBody, branchPrefix = 'mcp' }) {
+  const stamp = `${new Date().toISOString().slice(0, 19).replace(/[-:T]/g, '')}-${randomUUID().slice(0, 8)}`;
+  const originalBranch = await git(['branch', '--show-current']);
+  if (originalBranch !== 'main') {
+    throw new Error(`MCP-gitverktøy må startes fra main (nåværende branch er «${originalBranch}»).`);
   }
 
   const branch = `${branchPrefix}/${stamp}`;
@@ -61,6 +58,6 @@ export async function commitFiles({ files, message, prBody, directToMain = false
   } finally {
     // Return to main so the repo is left in a predictable state; the
     // feature branch (and PR) stays on the remote.
-    await git(['checkout', 'main']).catch(() => {});
+    await git(['checkout', originalBranch]).catch(() => {});
   }
 }

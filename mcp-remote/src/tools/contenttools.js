@@ -3,7 +3,7 @@
  * All reads/writes go through the GitHub API; commits go straight to main
  * (same model as the Sveltia CMS). Multi-file changes land in ONE commit.
  */
-import { getTextFile, listFiles, commitFiles, toBase64, checkRuns } from '../github.js';
+import { getTextFile, listFiles, commitFiles, toBase64, checkRuns, withGitSnapshot } from '../github.js';
 import { parseMdText, patchMdText, createMdText } from '../lib/frontmatter.js';
 import { tournamentStatus, parseNoDate } from '../lib/dates.js';
 import {
@@ -14,6 +14,18 @@ import {
 const TOURNAMENTS_DIR = 'src/content/tournaments';
 const POSTS_DIR = 'src/content/posts';
 const CONFIG_PATH = 'functions/lib/tournament-config.json';
+const MAX_DOWNLOAD_BYTES = 10 * 1024 * 1024;
+const DOWNLOAD_TIMEOUT_MS = 15_000;
+const MAX_REDIRECTS = 3;
+
+function endDateFor(dateText) {
+  const date = parseNoDate(dateText);
+  if (!date) throw new ValidationError(`Kan ikke tolke turneringsdatoen «${dateText}».`);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
 
 /**
  * Regenerate functions/lib/tournament-config.json from the tournament
@@ -30,11 +42,12 @@ async function regenerateConfig(env) {
     if (!raw) continue;
     const { data } = parseMdText(raw);
     const slug = data.slug;
-    if (!slug) continue;
+    if (!slug || data.draft === true) continue;
     assertTeamRule(data.playersPerTeam ?? null, data.maxSubstitutes ?? 0);
     assertTournamentRankingLevel(data.playersPerTeam ?? null, data.rankingLevel ?? null);
     config[slug] = {
       date: data.date,
+      endDate: endDateFor(data.date),
       playersPerTeam: data.playersPerTeam ?? null,
       maxSubstitutes: data.maxSubstitutes ?? 0,
       registrationQuestions: data.registrationQuestions ?? [],
@@ -63,7 +76,7 @@ async function listTournaments(env) {
   const entries = [];
   for (const path of paths) {
     const { data } = parseMdText(await getTextFile(env, path));
-    if (!data.slug || data.lang === 'en') continue;
+    if (!data.slug || data.lang === 'en' || data.draft === true) continue;
     entries.push({
       slug: data.slug,
       name: data.name,
@@ -105,6 +118,7 @@ async function createTournament(env, args) {
   assertDateText(date, parseNoDate);
   assertTeamRule(args.playersPerTeam ?? null, args.maxSubstitutes ?? 0);
   assertTournamentRankingLevel(args.playersPerTeam ?? null, args.rankingLevel ?? null);
+  env = await withGitSnapshot(env);
   if (await tournamentFileExists(env, slug)) {
     throw new ValidationError(`Turneringen «${slug}» finnes allerede.`);
   }
@@ -148,10 +162,15 @@ async function createTournament(env, args) {
 export async function regenerateConfigPreview(env, slug, fields) {
   const raw = await getTextFile(env, CONFIG_PATH);
   const config = raw ? JSON.parse(raw) : {};
+  if (fields.draft === true) {
+    delete config[slug];
+    return { path: CONFIG_PATH, text: JSON.stringify(config, null, 1) + '\n' };
+  }
   const previous = config[slug] ?? {};
   const next = {
     ...previous,
     ...(fields.date !== undefined ? { date: fields.date } : {}),
+    ...(fields.date !== undefined ? { endDate: endDateFor(fields.date) } : {}),
     ...(fields.playersPerTeam !== undefined ? { playersPerTeam: fields.playersPerTeam ?? null } : {}),
     ...(fields.maxSubstitutes !== undefined ? { maxSubstitutes: fields.maxSubstitutes ?? 0 } : {}),
     ...(fields.registrationQuestions !== undefined ? { registrationQuestions: fields.registrationQuestions ?? [] } : {}),
@@ -161,6 +180,7 @@ export async function regenerateConfigPreview(env, slug, fields) {
   if (!('maxSubstitutes' in next)) next.maxSubstitutes = 0;
   if (!('registrationQuestions' in next)) next.registrationQuestions = [];
   if (!('rankingLevel' in next)) next.rankingLevel = null;
+  if (!('endDate' in next)) next.endDate = endDateFor(next.date);
   assertTeamRule(next.playersPerTeam, next.maxSubstitutes);
   assertTournamentRankingLevel(next.playersPerTeam, next.rankingLevel);
   if (fields.registrationOpen === false) next.registrationOpen = false;
@@ -175,6 +195,7 @@ export const TOURNAMENT_SYNC_TO_EN = ['date', 'location', 'status', 'registratio
 async function updateTournament(env, args) {
   const { slug, ...patch } = args;
   assertSlug(slug);
+  env = await withGitSnapshot(env);
   const clean = {};
   for (const key of TOURNAMENT_PATCHABLE) if (patch[key] !== undefined) clean[key] = patch[key];
   if (Object.keys(clean).length === 0) throw new ValidationError('Ingen felt å oppdatere.');
@@ -222,6 +243,7 @@ async function duplicateTournament(env, args) {
   const { sourceSlug, newSlug, newDate } = args;
   assertSlug(newSlug, 'ny slug');
   assertDateText(newDate, parseNoDate);
+  env = await withGitSnapshot(env);
   if (!(await tournamentFileExists(env, sourceSlug))) {
     throw new ValidationError(`Fant ikke kildeturneringen «${sourceSlug}».`);
   }
@@ -265,19 +287,34 @@ async function duplicateTournament(env, args) {
 
 async function setRegistrationOpen(env, slug, open) {
   assertSlug(slug);
+  env = await withGitSnapshot(env);
   const { no, en } = await readTournament(env, slug);
   const files = [{ path: `${TOURNAMENTS_DIR}/${slug}.md`, text: patchMdText(no, { registrationOpen: open }).text }];
   if (en) {
     files.push({ path: `${TOURNAMENTS_DIR}/en/${slug}.md`, text: patchMdText(en, { registrationOpen: open }).text });
   }
   files.push(await regenerateConfigPreview(env, slug, { registrationOpen: open }));
+  // The fail-closed runtime control is applied before the slower GitHub flow.
+  // If a concurrent content edit makes the commit conflict, the requested
+  // safety state still takes effect and the user can retry the content sync.
+  if (open) {
+    await env.DB.prepare('DELETE FROM tournament_settings WHERE tournament_slug = ?').bind(slug).run();
+  } else {
+    await env.DB.prepare(
+      `INSERT INTO tournament_settings (tournament_slug, registration_open, updated_at)
+       VALUES (?, 0, datetime('now'))
+       ON CONFLICT(tournament_slug) DO UPDATE SET
+         registration_open = 0,
+         updated_at = excluded.updated_at`,
+    ).bind(slug).run();
+  }
   const { commitSha, url } = await commitFiles(env, {
     message: `feat(tournaments): ${open ? 'open' : 'close'} registration for ${slug} (via remote MCP)`,
     files,
   });
   return [
-    `Påmelding for ${slug} er nå ${open ? 'ÅPEN' : 'STENGT'} (${commitSha}: ${url}). ` +
-      'Skjemaet skjules/vises og API-et godtar/avviser nye påmeldinger etter neste bygg (2–4 min).',
+    `Påmelding for ${slug} er ${open ? 'satt til ÅPEN ved neste bygg' : 'STENGT i API-et med én gang'} (${commitSha}: ${url}). ` +
+      'Skjemaet synkroniseres ved neste bygg.',
     { slug, registrationOpen: open, commit: url },
   ];
 }
@@ -297,22 +334,169 @@ async function archiveTournament(_env, args) {
   ];
 }
 
-async function fetchBinary(url, what = 'filen') {
-  let res;
+function isForbiddenIpv4(hostname) {
+  const parts = hostname.split('.');
+  if (parts.length !== 4 || parts.some((part) => !/^\d{1,3}$/.test(part) || Number(part) > 255)) return false;
+  const [a, b, c] = parts.map(Number);
+  return (
+    a === 0 || a === 10 || a === 127 ||
+    (a === 100 && b >= 64 && b <= 127) ||
+    (a === 169 && b === 254) ||
+    (a === 172 && b >= 16 && b <= 31) ||
+    (a === 192 && b === 0 && c === 0) ||
+    (a === 192 && b === 0 && c === 2) ||
+    (a === 192 && b === 88 && c === 99) ||
+    (a === 192 && b === 168) ||
+    (a === 198 && (b === 18 || b === 19)) ||
+    (a === 198 && b === 51 && c === 100) ||
+    (a === 203 && b === 0 && c === 113) ||
+    a >= 224
+  );
+}
+
+/** Validate every initial/redirect URL before the Worker is allowed to fetch it. */
+export function validateDownloadUrl(input) {
+  let url;
   try {
-    res = await fetch(url);
-  } catch (err) {
-    throw new ValidationError(`Kunne ikke laste ned ${what}: ${err.message}`);
+    url = input instanceof URL ? new URL(input.href) : new URL(input);
+  } catch {
+    throw new ValidationError('Filadressen er ugyldig.');
   }
-  if (!res.ok) throw new ValidationError(`Nedlasting av ${what} feilet (HTTP ${res.status}).`);
-  const buf = new Uint8Array(await res.arrayBuffer());
-  if (buf.length > 10 * 1024 * 1024) throw new ValidationError(`${what} er for stor (maks 10 MB).`);
-  return buf;
+  if (url.protocol !== 'https:') throw new ValidationError('Filadressen må bruke HTTPS.');
+  if (url.username || url.password) throw new ValidationError('Filadressen kan ikke inneholde brukernavn eller passord.');
+  if (url.hash) throw new ValidationError('Filadressen kan ikke inneholde et fragment (#).');
+  if (url.port && url.port !== '443') throw new ValidationError('Filadressen kan ikke bruke en egendefinert port.');
+  if (url.href.length > 2_048) throw new ValidationError('Filadressen er for lang.');
+
+  const host = url.hostname.replace(/^\[|\]$/g, '').toLowerCase();
+  if (
+    !host.includes('.') || host.includes(':') || isForbiddenIpv4(host) ||
+    ['localhost', 'localhost.localdomain'].includes(host) ||
+    ['.localhost', '.local', '.internal', '.home.arpa'].some((suffix) => host.endsWith(suffix))
+  ) {
+    throw new ValidationError('Filadressen peker til et lokalt eller privat nettverk.');
+  }
+  return url;
+}
+
+/** Decode one URL path segment into a safe, portable repository filename. */
+export function fileNameFromUrl(input, allowedExtensions) {
+  const url = validateDownloadUrl(input);
+  const encoded = url.pathname.split('/').pop();
+  let name;
+  try {
+    name = decodeURIComponent(encoded ?? '').normalize('NFC');
+  } catch {
+    throw new ValidationError('Filnavnet i adressen er ugyldig kodet.');
+  }
+  if (
+    !name || name.length > 180 || name === '.' || name === '..' ||
+    name.startsWith('.') || /[\\/\u0000-\u001f\u007f]/u.test(name) ||
+    !/^[\p{L}\p{N}][\p{L}\p{N} ._()'-]*$/u.test(name)
+  ) {
+    throw new ValidationError('Filnavnet i adressen inneholder tegn som ikke er tillatt.');
+  }
+  const extension = name.match(/\.([^.]+)$/u)?.[1].toLowerCase();
+  if (!extension || !allowedExtensions.includes(extension)) {
+    throw new ValidationError(`Filen må være ${allowedExtensions.join('/')}.`);
+  }
+  return { url, name, extension };
+}
+
+const startsWithBytes = (bytes, signature) =>
+  bytes.length >= signature.length && signature.every((value, index) => bytes[index] === value);
+const ascii = (bytes, start, end) => String.fromCharCode(...bytes.subarray(start, end));
+
+/** Extension and file content must agree; HTTP Content-Type alone is not trusted. */
+export function hasExpectedFileSignature(bytes, extension) {
+  if (extension === 'jpg' || extension === 'jpeg') return startsWithBytes(bytes, [0xff, 0xd8, 0xff]);
+  if (extension === 'png') return startsWithBytes(bytes, [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+  if (extension === 'webp') return bytes.length >= 12 && ascii(bytes, 0, 4) === 'RIFF' && ascii(bytes, 8, 12) === 'WEBP';
+  if (extension === 'avif') {
+    return bytes.length >= 16 && ascii(bytes, 4, 8) === 'ftyp' && /avif|avis/u.test(ascii(bytes, 8, Math.min(bytes.length, 64)));
+  }
+  if (extension === 'mp3') {
+    return startsWithBytes(bytes, [0x49, 0x44, 0x33]) ||
+      (bytes.length >= 2 && bytes[0] === 0xff && (bytes[1] & 0xe0) === 0xe0 && (bytes[1] & 0x06) !== 0);
+  }
+  if (extension === 'pdf') return ascii(bytes, 0, Math.min(bytes.length, 5)) === '%PDF-';
+  return false;
+}
+
+async function readLimitedBody(res, what) {
+  const declared = Number(res.headers.get('Content-Length'));
+  if (Number.isFinite(declared) && declared > MAX_DOWNLOAD_BYTES) {
+    await res.body?.cancel();
+    throw new ValidationError(`${what} er for stor (maks 10 MB).`);
+  }
+  if (!res.body) throw new ValidationError(`${what} er tom.`);
+  const reader = res.body.getReader();
+  const chunks = [];
+  let length = 0;
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    length += value.byteLength;
+    if (length > MAX_DOWNLOAD_BYTES) {
+      await reader.cancel();
+      throw new ValidationError(`${what} er for stor (maks 10 MB).`);
+    }
+    chunks.push(value);
+  }
+  const bytes = new Uint8Array(length);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return bytes;
+}
+
+export async function fetchBinary(input, what, expectedExtension) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), DOWNLOAD_TIMEOUT_MS);
+  let url = validateDownloadUrl(input);
+  try {
+    for (let redirects = 0; redirects <= MAX_REDIRECTS; redirects++) {
+      const res = await fetch(url, { redirect: 'manual', signal: controller.signal });
+      if (res.status >= 300 && res.status < 400) {
+        const location = res.headers.get('Location');
+        await res.body?.cancel();
+        if (!location) throw new ValidationError(`Nedlasting av ${what} fikk en ugyldig omdirigering.`);
+        if (redirects === MAX_REDIRECTS) throw new ValidationError(`Nedlasting av ${what} har for mange omdirigeringer.`);
+        url = validateDownloadUrl(new URL(location, url));
+        continue;
+      }
+      if (!res.ok) throw new ValidationError(`Nedlasting av ${what} feilet (HTTP ${res.status}).`);
+      const bytes = await readLimitedBody(res, what);
+      if (!hasExpectedFileSignature(bytes, expectedExtension)) {
+        throw new ValidationError(`${what} har ikke gyldig ${expectedExtension.toUpperCase()}-innhold.`);
+      }
+      return bytes;
+    }
+  } catch (error) {
+    if (error instanceof ValidationError) throw error;
+    if (error?.name === 'AbortError') throw new ValidationError(`Nedlasting av ${what} tok for lang tid.`);
+    throw new ValidationError(`Kunne ikke laste ned ${what}.`);
+  } finally {
+    clearTimeout(timer);
+  }
+  throw new ValidationError(`Kunne ikke laste ned ${what}.`);
+}
+
+export async function assertMediaPathsAvailable(env, candidatePaths) {
+  const existing = await listFiles(env);
+  const byKey = new Map(existing.map((path) => [path.normalize('NFC').toLocaleLowerCase('en-US'), path]));
+  for (const path of candidatePaths) {
+    const collision = byKey.get(path.normalize('NFC').toLocaleLowerCase('en-US'));
+    if (collision) throw new ValidationError(`Mediefilen finnes allerede som «${collision}». Velg et annet filnavn.`);
+  }
 }
 
 async function createNewsPost(env, args) {
   const { title, slug } = args;
   assertSlug(slug);
+  env = await withGitSnapshot(env);
   const noPath = `${POSTS_DIR}/${slug}.md`;
   if (await getTextFile(env, noPath)) throw new ValidationError(`Innlegget «${slug}» finnes allerede.`);
   const en = args.englishMirror;
@@ -326,14 +510,15 @@ async function createNewsPost(env, args) {
   const files = [];
   let cover;
   if (args.coverFileUrl) {
-    const urlPath = new URL(args.coverFileUrl).pathname;
-    const base = urlPath.split('/').pop();
-    if (!/\.(jpe?g|png|webp|avif)$/i.test(base)) {
-      throw new ValidationError('Forsidebildet må være jpg/png/webp/avif (sjekk URL-en).');
-    }
-    const bytes = await fetchBinary(args.coverFileUrl, 'forsidebildet');
-    files.push({ path: `media-originals/images/${base}`, base64: toBase64(bytes) });
-    cover = `/media/images/${base}`;
+    const media = fileNameFromUrl(args.coverFileUrl, ['jpg', 'jpeg', 'png', 'webp', 'avif']);
+    await assertMediaPathsAvailable(env, [
+      `media-uploads/images/${media.name}`,
+      `media-originals/images/${media.name}`,
+      `public/media/images/${media.name}`,
+    ]);
+    const bytes = await fetchBinary(media.url, 'forsidebildet', media.extension);
+    files.push({ path: `media-uploads/images/${media.name}`, base64: toBase64(bytes) });
+    cover = `/media/images/${media.name}`;
   }
 
   const pubDate = args.pubDate ?? new Date().toISOString();
@@ -374,24 +559,24 @@ async function createNewsPost(env, args) {
 
 async function addMediaDocument(env, args, kind) {
   const isTimer = kind === 'timer';
-  const urlPath = new URL(args.fileUrl).pathname;
-  const base = decodeURIComponent(urlPath.split('/').pop());
-  const extOk = isTimer ? /\.mp3$/i.test(base) : /\.pdf$/i.test(base);
-  if (!extOk) throw new ValidationError(isTimer ? 'Kun MP3-filer støttes (sjekk URL-en).' : 'Kun PDF-filer støttes (sjekk URL-en).');
-  const bytes = await fetchBinary(args.fileUrl, 'filen');
+  const media = fileNameFromUrl(args.fileUrl, [isTimer ? 'mp3' : 'pdf']);
+  env = await withGitSnapshot(env);
+  const destination = isTimer ? `public/media/audio/${media.name}` : `public/media/pdf/${media.name}`;
+  await assertMediaPathsAvailable(env, [destination]);
+  const bytes = await fetchBinary(media.url, 'filen', media.extension);
 
   const jsonPath = isTimer ? 'src/data/timers.json' : 'src/data/documents.json';
   const raw = await getTextFile(env, jsonPath);
   const items = JSON.parse(raw);
   const entry = isTimer
-    ? { title: args.title, file: `/media/audio/${base}`, ...(args.durationHint ? { duration_hint: args.durationHint } : {}) }
-    : { title: args.title, year: args.year, file: `/media/pdf/${base}`, page: '/årsmøter' };
+    ? { title: args.title, file: `/media/audio/${media.name}`, ...(args.durationHint ? { duration_hint: args.durationHint } : {}) }
+    : { title: args.title, year: args.year, file: `/media/pdf/${media.name}`, page: '/årsmøter' };
   if (isTimer) items.push(entry);
   else items.unshift(entry); // newest first
   const indent = raw.match(/\n(\s+)"/)?.[1].length ?? 2;
 
   const files = [
-    { path: isTimer ? `public/media/audio/${base}` : `public/media/pdf/${base}`, base64: toBase64(bytes) },
+    { path: destination, base64: toBase64(bytes) },
     { path: jsonPath, text: JSON.stringify(items, null, indent) + '\n' },
   ];
   const { commitSha, url } = await commitFiles(env, {

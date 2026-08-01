@@ -3,7 +3,8 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { satteri } from '@astrojs/markdown-satteri';
-import { satteriRehypeTricks } from "./src/plugins/rehype-tricks.mjs";
+import { satteriRehypeTricks } from './src/plugins/rehype-tricks.mjs';
+import { satteriRehypeMedia } from './src/plugins/rehype-media.mjs';
 
 /**
  * Sätteri hast plugin: give internal links in rendered markdown the
@@ -48,15 +49,37 @@ const trailingSlashLinks = {
   },
 };
 
+/** @type {import('satteri').HastPluginDefinition} */
+const tournamentScheduleHeadings = {
+  name: 'tournament-schedule-headings',
+  element: {
+    filter: ['h1'],
+    visit(node, ctx) {
+      const id = typeof node.properties?.id === 'string' ? node.properties.id : '';
+      const text = ctx.textContent(node).trim().toLowerCase();
+      if (id === 'tidsskjema' || id === 'schedule' || text === 'tidsskjema' || text === 'schedule') {
+        ctx.replaceNode(node, { ...node, tagName: 'h2' });
+      }
+    },
+  },
+};
+
 export default defineConfig({
   site: 'https://www.puck.no',
   // Cloudflare Pages serves directory pages with a trailing slash (and 308s
   // the slash-less form) — keep every generated URL in the slash form so no
   // internal link, canonical, or sitemap entry hits that redirect.
   trailingSlash: 'always',
-  integrations: [sitemap({ filter: (page) => !page.includes('/admin') })],
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/admin') && !/\/404\/?$/.test(page),
+    }),
+  ],
   markdown: {
-    processor: satteri({ hastPlugins: [trailingSlashLinks, satteriRehypeTricks] }),
+    // Render local media with stable dimensions without modifying migrated content.
+    processor: satteri({
+      hastPlugins: [trailingSlashLinks, satteriRehypeTricks, satteriRehypeMedia, tournamentScheduleHeadings],
+    }),
   },
   vite: {
     plugins: [tailwindcss()],

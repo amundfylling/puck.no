@@ -78,8 +78,10 @@ async function existsForUrl(urlPath, pageFile) {
 }
 
 const broken = new Map(); // url -> Set of pages
+const unstableImages = new Map(); // src -> Set of pages
 let pages = 0;
 let checked = 0;
+let localImages = 0;
 
 // Redirect sources from public/_redirects are valid URLs (they 301 in production).
 const redirectRules = [];
@@ -111,6 +113,15 @@ function isRedirected(url) {
 for await (const file of walk(DIST)) {
   pages++;
   const html = await fs.readFile(file, 'utf8');
+  for (const match of html.matchAll(/<img\b[^>]*>/gi)) {
+    const tag = match[0];
+    const src = tag.match(/\ssrc\s*=\s*(["'])(.*?)\1/i)?.[2];
+    if (!src?.startsWith('/media/')) continue;
+    localImages++;
+    if (/\swidth\s*=\s*["']?\d+/i.test(tag) && /\sheight\s*=\s*["']?\d+/i.test(tag)) continue;
+    if (!unstableImages.has(src)) unstableImages.set(src, new Set());
+    unstableImages.get(src).add(path.relative(DIST, file));
+  }
   for (const url of urlsOf(html)) {
     if (!isInternal(url)) continue;
     checked++;
@@ -132,7 +143,19 @@ for (const { from, to } of redirectRules) {
   }
 }
 
-console.log(`check-links: ${pages} pages, ${checked} internal links checked`);
+console.log(
+  `check-links: ${pages} pages, ${checked} internal links and ${localImages} local images checked`,
+);
+if (broken.size || unstableImages.size) {
+  if (unstableImages.size) {
+    console.error(`\n${unstableImages.size} local image(s) missing intrinsic width/height:`);
+    for (const [src, from] of [...unstableImages.entries()].sort()) {
+      console.error(`  ${src}`);
+      for (const f of [...from].slice(0, 5)) console.error(`    <- ${f}`);
+      if (from.size > 5) console.error(`    <- ... and ${from.size - 5} more`);
+    }
+  }
+}
 if (broken.size) {
   console.error(`\n${broken.size} broken internal link(s):`);
   for (const [url, from] of [...broken.entries()].sort()) {
@@ -140,6 +163,6 @@ if (broken.size) {
     for (const f of [...from].slice(0, 5)) console.error(`    <- ${f}`);
     if (from.size > 5) console.error(`    <- ... and ${from.size - 5} more`);
   }
-  process.exit(1);
 }
-console.log('check-links: all internal links resolve ✓');
+if (broken.size || unstableImages.size) process.exit(1);
+console.log('check-links: all internal links resolve and local images have intrinsic dimensions ✓');

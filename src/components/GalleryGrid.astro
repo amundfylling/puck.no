@@ -1,5 +1,6 @@
 ---
 import { t, type Lang } from '../lib/i18n';
+import { getPublicImageDimensions } from '../lib/media';
 
 interface Props {
   slug: string;
@@ -11,11 +12,17 @@ interface Props {
 
 const { slug, title, images, lang } = Astro.props;
 const thumbOf = (src: string) => src.replace(`/media/galleries/${slug}/`, `/media/galleries/${slug}/thumbs/`);
+const items = await Promise.all(
+  images.map(async (src) => {
+    const thumb = thumbOf(src);
+    return { src, thumb, dimensions: await getPublicImageDimensions(thumb) };
+  }),
+);
 ---
 
 <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4" data-gallery>
   {
-    images.map((src, i) => (
+    items.map(({ src, thumb, dimensions }, i) => (
       <button
         type="button"
         data-thumb
@@ -25,9 +32,12 @@ const thumbOf = (src: string) => src.replace(`/media/galleries/${slug}/`, `/medi
         class="overflow-hidden rounded-lg focus-visible:outline-brand"
       >
         <img
-          src={thumbOf(src)}
+          src={thumb}
           alt={`${title}, ${t(lang, 'photoOf')} ${i + 1}`}
           loading="lazy"
+          decoding="async"
+          width={dimensions?.width}
+          height={dimensions?.height}
           class="aspect-square w-full object-cover transition-transform hover:scale-105"
         />
       </button>
@@ -58,7 +68,7 @@ const thumbOf = (src: string) => src.replace(`/media/galleries/${slug}/`, `/medi
     >&lsaquo;</button
   >
   <figure class="flex max-h-full max-w-5xl flex-col items-center gap-2">
-    <img data-full-img src="" alt="" class="max-h-[82vh] w-auto max-w-full rounded object-contain" />
+    <img data-full-img src="" alt="" decoding="async" class="max-h-[82vh] w-auto max-w-full rounded object-contain" />
     <figcaption data-counter class="text-sm text-white/80"></figcaption>
   </figure>
   <button

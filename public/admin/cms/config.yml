@@ -13,9 +13,9 @@ site_url: https://www.puck.no
 locale: 'no'
 logo_url: /favicon.png
 
-# Bilder som lastes opp her går til media-originals/images; prebuild
-# (scripts/optimize-media.mjs) genererer web-varianten under /media/images.
-media_folder: media-originals/images
+# CMS-opplastinger må være committet for at Cloudflare-bygg skal se dem.
+# prebuild optimaliserer kilden til den offentlige /media/images-stien.
+media_folder: media-uploads/images
 public_folder: /media/images
 
 publish_mode: simple # direkte commit til main (CMS-brukere); utviklere bruker PR
@@ -143,6 +143,11 @@ collections:
           - { label: Tidligere, value: past }
         default: upcoming
         hint: 'Kun et hint — faktisk visning regnes ut fra datoen ved bygg.'
+      - label: Kladd / intern test
+        name: draft
+        widget: boolean
+        default: false
+        hint: 'På = siden, listene, sitemap og offentlig påmeldings-API utelater turneringen.'
       - label: Påmelding åpen
         name: registrationOpen
         widget: boolean
@@ -188,6 +193,71 @@ collections:
               - { label: Tekst (norsk), name: labelNo, widget: string }
               - { label: Text (English), name: labelEn, widget: string }
       - label: Innhold (beskrivelse, tidsskjema)
+        name: body
+        widget: markdown
+
+  - name: tournaments_en
+    label: Turneringer (engelsk)
+    label_singular: Engelsk turnering
+    description: 'Engelske speil av norske turneringer. Bruk samme slug, dato og lagregler som den norske siden.'
+    folder: src/content/tournaments/en
+    create: true
+    delete: false
+    slug: '{{fields.slug}}'
+    preview_path: /en/turneringer/{{fields.slug}}
+    summary: '{{name}} — {{date}}'
+    sortable_fields: [date, name]
+    fields:
+      - { label: Name, name: name, widget: string }
+      - label: Slug (samme som norsk)
+        name: slug
+        widget: string
+        pattern: [*slug_pattern, *slug_message]
+        hint: 'Må være identisk med slug på den norske turneringen.'
+      - { label: Språk, name: lang, widget: hidden, default: 'en' }
+      - label: Date (same display value as Norwegian)
+        name: date
+        widget: string
+        hint: 'Behold norsk maskinlesbart datoformat, f.eks. «5. september 2026»; siden viser det lokalisert.'
+      - { label: Location, name: location, widget: string, required: false }
+      - label: Parent tournament slug
+        name: parent
+        widget: string
+        required: false
+        pattern: [*slug_pattern, *slug_message]
+      - { label: Prices, name: prices, widget: text, required: false }
+      - { label: Playing system, name: playingSystem, widget: text, required: false }
+      - label: ITHF ranking level (same as Norwegian)
+        name: rankingLevel
+        widget: select
+        required: false
+        options:
+          - { label: 'Level 1 – World Championship', value: '1-world' }
+          - { label: 'Level 1 – Continental Championship', value: '1-continental' }
+          - { label: 'Level 2', value: '2' }
+          - { label: 'Level 3', value: '3' }
+          - { label: 'Level 4', value: '4' }
+          - { label: 'Level 5', value: '5' }
+          - { label: 'Level 6', value: '6' }
+          - { label: 'Level 10 – team tournament', value: '10' }
+      - label: Status hint
+        name: status
+        widget: select
+        options:
+          - { label: Upcoming, value: upcoming }
+          - { label: Past, value: past }
+        default: upcoming
+      - { label: Draft / internal test (same as Norwegian), name: draft, widget: boolean, default: false }
+      - { label: Registration open (same as Norwegian), name: registrationOpen, widget: boolean, default: true }
+      - label: Players counted for team seeding
+        name: playersPerTeam
+        widget: number
+        required: false
+        value_type: int
+        min: 1
+        hint: 'Leave empty for an individual tournament; keep identical to Norwegian.'
+      - { label: Maximum substitutes, name: maxSubstitutes, widget: number, value_type: int, min: 0, default: 0 }
+      - label: Content (description and Schedule heading)
         name: body
         widget: markdown
 
@@ -251,7 +321,7 @@ collections:
               - label: Lydfil (MP3)
                 name: file
                 widget: file
-                media_folder: /public/media/audio
+                media_folder: public/media/audio
                 public_folder: /media/audio
               - { label: Varighet (hint, f.eks. 05:38), name: duration_hint, widget: string, required: false }
       - name: documents
@@ -270,7 +340,7 @@ collections:
               - label: PDF-fil
                 name: file
                 widget: file
-                media_folder: /public/media/pdf
+                media_folder: public/media/pdf
                 public_folder: /media/pdf
               - { label: Kildelenke (Wix, historisk), name: sourceUrl, widget: hidden, required: false }
               - { label: Side, name: page, widget: hidden, default: '/årsmøter', required: false }

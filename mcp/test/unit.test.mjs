@@ -9,6 +9,7 @@ import { parseNoDate, tournamentStatus } from '../src/lib/dates.js';
 import { sqlValue } from '../src/lib/d1.js';
 import { readMd, patchMd, createMd } from '../src/lib/frontmatter.js';
 import { parseRanking } from '../src/lib/ranking.js';
+import { canonicalNameKey } from '../src/lib/ranking.js';
 import {
   assertSlug, assertDateText, assertEmail, assertPhone, assertTeamRule,
   assertRankingLevel, assertTournamentRankingLevel, RANKING_LEVELS,
@@ -17,6 +18,8 @@ import {
 import {
   registerTournamentTools, TOURNAMENT_PATCHABLE, TOURNAMENT_SYNC_TO_EN,
 } from '../src/tools/tournaments.js';
+import { CommandError } from '../src/lib/run.js';
+import { csvField } from '../src/tools/registrations.js';
 
 // --- dates ---
 test('parseNoDate parses single dates', () => {
@@ -186,7 +189,7 @@ test('tournament MCP schemas and handlers enforce rankingLevel and English sync'
   assert.ok(TOURNAMENT_SYNC_TO_EN.includes('rankingLevel'));
 });
 
-test('ITHF ranking parser keeps total points separate from exact Player_Value', () => {
+test('ITHF ranking parser keeps total points separate and rejects missing Player_Value', () => {
   const tsv = [
     'header 1',
     'header 2',
@@ -194,13 +197,39 @@ test('ITHF ranking parser keeps total points separate from exact Player_Value', 
     '2\t43\tNo Value\t\tSWE\t12\t',
   ].join('\n');
   const { all, byId } = parseRanking(tsv);
-  assert.equal(all.length, 2);
+  assert.equal(all.length, 1);
   assert.equal(byId.get(42).points, 123.45);
   assert.equal(byId.get(42).value, 98.765);
-  assert.equal(byId.get(43).value, null);
+  assert.equal(byId.has(43), false);
 });
 
 test('masking keeps PII out of output', () => {
   assert.equal(maskEmail('amund.fylling@puck.no'), 'a***@puck.no');
   assert.equal(maskPhone('+47 999 88 777'), '+4***77');
+});
+
+test('unranked duplicate keys normalize Unicode, case and whitespace', () => {
+  assert.equal(canonicalNameKey(' Åge\u00a0 Hansen '), canonicalNameKey('åGE Hansen'));
+  assert.equal(canonicalNameKey('Cafe\u0301'), canonicalNameKey('Café'));
+});
+
+test('command errors redact SQL and its output from the MCP-visible message', () => {
+  const pii = 'person@example.no';
+  const err = new CommandError(
+    ['npx', 'wrangler', 'd1', 'execute', 'puck-no', '--command', `INSERT INTO registrations (email) VALUES ('${pii}')`],
+    1,
+    `failed SQL ${pii}`,
+    `error near ${pii}`,
+    { sensitive: true },
+  );
+  assert.match(err.message, /\[redacted SQL\]/);
+  assert.doesNotMatch(err.message, /person@example\.no/);
+});
+
+test('CSV fields neutralize spreadsheet formulas after whitespace/control characters', () => {
+  for (const value of ['=1+1', '+cmd', '-2+3', '@SUM(A1:A2)', '\t=HYPERLINK("https://evil.example")']) {
+    assert.ok(csvField(value).startsWith('"\''), value);
+  }
+  assert.equal(csvField('ordinary'), '"ordinary"');
+  assert.equal(csvField('quoted "value"'), '"quoted ""value"""');
 });

@@ -7,11 +7,10 @@
  * Plus site-wide totals and the most recent registrations (public fields
  * only — name is shown on the public participant lists anyway).
  *
- * Protected two ways (belt and braces), like registrations.csv:
- *  1. Application-level: the Cf-Access-Authenticated-User-Email header must
- *     be present (Cloudflare Access adds it after a successful login).
- *  2. Platform-level: Cloudflare Access in front of /api/admin/* (LAUNCH.md).
+ * Protected by Cloudflare Access at the edge and signed-assertion verification
+ * in functions/api/admin/_middleware.ts.
  */
+import { adminIdentity } from '../../lib/admin-auth';
 import { KNOWN_SLUGS, TOURNAMENTS } from '../../lib/tournaments';
 
 interface Env {
@@ -45,9 +44,7 @@ interface RecentRow {
 }
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
-  if (!context.request.headers.get('Cf-Access-Authenticated-User-Email')) {
-    return json({ error: 'Ikke tilgang.' }, 403);
-  }
+  if (!adminIdentity(context.data)) return json({ error: 'Ikke tilgang.' }, 403);
 
   const counts = await context.env.DB.prepare(
     `SELECT tournament_slug AS slug, type, COUNT(*) AS n, MAX(created_at) AS last
@@ -61,6 +58,16 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     `SELECT tournament_slug, type, name, created_at FROM registrations
      ORDER BY created_at DESC, id DESC LIMIT 12`,
   ).all<RecentRow>();
+  const runtimeClosed = new Set<string>();
+  try {
+    const runtimeSettings = await context.env.DB.prepare(
+      'SELECT tournament_slug FROM tournament_settings WHERE registration_open = 0',
+    ).all<{ tournament_slug: string }>();
+    for (const row of runtimeSettings.results) runtimeClosed.add(row.tournament_slug);
+  } catch (error) {
+    if (!(error instanceof Error) || !/no such table.*tournament_settings/i.test(error.message)) throw error;
+    console.warn('tournament_settings migration not applied; dashboard uses build-time flags');
+  }
 
   const tournaments: Record<
     string,
@@ -71,7 +78,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       players: 0,
       teams: 0,
       lastRegistrationAt: null,
-      registrationOpen: TOURNAMENTS[slug]?.registrationOpen !== false,
+      registrationOpen: TOURNAMENTS[slug]?.registrationOpen !== false && !runtimeClosed.has(slug),
     };
   }
   let total = 0;

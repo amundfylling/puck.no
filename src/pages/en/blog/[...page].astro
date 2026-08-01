@@ -3,7 +3,8 @@ import { getEntry } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import BlogIndex from '../../../components/BlogIndex.astro';
 import { BLOG_PAGE_SIZE, getPosts, postCategories } from '../../../lib/content';
-import { seoForPath } from '../../../lib/seo';
+import { seoForContent } from '../../../lib/seo';
+import { assertDedicatedBodyUnchanged } from '../../../lib/dedicated-body';
 import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async () => {
@@ -23,18 +24,19 @@ export const getStaticPaths = (async () => {
 const { page, pageCount, posts, categories } = Astro.props;
 const entry = await getEntry('pages', 'en/blog');
 if (!entry) throw new Error('pages/en/blog not found');
+assertDedicatedBodyUnchanged(entry.id);
 const path = page === 1 ? '/en/blog' : `/en/blog/${page}`;
-const seo = seoForPath('/en/blog');
-const baseTitle = seo?.title ?? entry.data.seoTitle ?? entry.data.title;
+const seo = seoForContent('/en/blog', entry.data);
+const baseTitle = seo.title;
 const title = page === 1 ? baseTitle : `${baseTitle} – Page ${page}`;
 ---
 
 <BaseLayout
   lang="en"
   title={title}
-  description={seo?.description || entry.data.description}
+  description={seo.description}
   canonicalPath={path}
-  noUrl={path.replace(/^\/en/, '')}
+  noUrl={page === 1 ? '/blog' : null}
   enUrl={path}
 >
   <BlogIndex lang="en" entry={entry} posts={posts} page={page} pageCount={pageCount} categories={categories} />

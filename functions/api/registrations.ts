@@ -5,6 +5,7 @@
  * resolved server-side. Team rosters may mix ranked and unranked players.
  */
 import { createRegistration, RegistrationError, type RegistrationPayload } from '../lib/registration';
+import { BodyTooLargeError, readRequestTextLimited } from '../lib/http';
 import { KNOWN_SLUGS, TOURNAMENTS } from '../lib/tournaments';
 
 interface Env {
@@ -37,6 +38,7 @@ async function verifyTurnstile(secret: string, token: string, ip: string | null)
     if (ip) form.append('remoteip', ip);
     const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
       method: 'POST',
+      signal: AbortSignal.timeout(8_000),
       body: form,
     });
     if (!res.ok) return false;
@@ -49,9 +51,17 @@ async function verifyTurnstile(secret: string, token: string, ip: string | null)
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   let body: PublicPayload;
+  const mediaType = (context.request.headers.get('Content-Type') ?? '').split(';', 1)[0].trim().toLowerCase();
+  if (mediaType !== 'application/json') {
+    return json({ error: 'Forespørselen må være JSON.' }, 415);
+  }
   try {
-    body = (await context.request.json()) as PublicPayload;
-  } catch {
+    const raw = await readRequestTextLimited(context.request, 64 * 1024);
+    const parsed = JSON.parse(raw) as unknown;
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('shape');
+    body = parsed as PublicPayload;
+  } catch (error) {
+    if (error instanceof BodyTooLargeError) return json({ error: 'Forespørselen er for stor.' }, 413);
     return json({ error: 'Ugyldig forespørsel.' }, 400);
   }
   if (typeof body.tournament_slug !== 'string' || !KNOWN_SLUGS.has(body.tournament_slug)) {

@@ -25,7 +25,7 @@ Become part of the table hockey community
       <h3>Learn table hockey</h3>
       <p class="hub-lead">Do you want to get better at table hockey?</p>
       <p class="hub-text">Whether you're a beginner or experienced, we offer resources to help you improve your techniques, understand the tactics of the game, and dominate the boards!</p>
-      <a href="/en/lær-bordhockey" class="btn-primary">See our learning resources</a>
+      <a href="/en/lær-bordhockey" class="btn-outline">See our learning resources</a>
     </div>
   </div>
   <div class="hub-card">
@@ -34,7 +34,7 @@ Become part of the table hockey community
       <h3>Tournaments</h3>
       <p class="hub-lead">Are you ready to take the next step?</p>
       <p class="hub-text">5 official NTHF tournaments are organized each year in Bergen, Trondheim and Kvernaland. The tournaments are open to everyone, and are free for players in their first season!</p>
-      <a href="/en/turneringer" class="btn-primary">Sign up for a tournament</a>
+      <a href="/en/turneringer" class="btn-outline">Sign up for a tournament</a>
     </div>
   </div>
 </div>

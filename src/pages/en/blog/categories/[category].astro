@@ -34,7 +34,7 @@ const path = `/en/blog/categories/${Astro.params.category}`;
     <h1 class="mt-4 text-3xl font-extrabold text-navy">{category}</h1>
     <p class="mt-1 text-sm text-slate-500">{t('en', 'categories')}</p>
     <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {posts.map((post, i) => <PostCard post={post} lang="en" eager={i < 3} />)}
+      {posts.map((post, i) => <PostCard post={post} lang="en" eager={i < 3} headingLevel={2} />)}
     </div>
   </section>
 </BaseLayout>

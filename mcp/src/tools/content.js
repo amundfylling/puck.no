@@ -1,17 +1,17 @@
 /**
  * Content tools (git/content plane): news posts, timers, årsmøte PDFs.
- * Writes go through the branch+PR flow by default.
+ * Writes always go through the branch+PR flow.
  */
-import { copyFileSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename, extname } from 'node:path';
 import { z } from 'zod';
-import { PATHS } from '../lib/config.js';
+import { PATHS, REPO_ROOT } from '../lib/config.js';
 import { createMd } from '../lib/frontmatter.js';
 import { assertSlug, ValidationError } from '../lib/validate.js';
 import { ensureClean, commitFiles } from '../lib/git.js';
 import { ok, tool } from '../lib/respond.js';
 
-const rel = (abs) => abs.replace(PATHS.REPO_ROOT, '');
+const rel = (abs) => abs.replace(REPO_ROOT, '');
 
 const IMAGE_EXTS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif']);
 
@@ -22,7 +22,7 @@ function detectIndent(raw) {
 }
 
 async function createNewsPost(args) {
-  const { title, slug, directToMain = false } = args;
+  const { title, slug } = args;
   assertSlug(slug);
   const noPath = `${PATHS.postsDir}/${slug}.md`;
   if (existsSync(noPath)) throw new ValidationError(`Innlegget «${slug}» finnes allerede.`);
@@ -42,7 +42,9 @@ async function createNewsPost(args) {
     if (!existsSync(args.coverFile)) throw new ValidationError(`Finner ikke bildefilen «${args.coverFile}».`);
     const ext = extname(args.coverFile).toLowerCase();
     if (!IMAGE_EXTS.has(ext)) throw new ValidationError(`Ugyldig bildeformat «${ext}» (tillatt: ${[...IMAGE_EXTS].join(', ')}).`);
-    const dest = `${PATHS.mediaOriginalsImages}/${basename(args.coverFile)}`;
+    mkdirSync(PATHS.mediaUploadsImages, { recursive: true });
+    const dest = `${PATHS.mediaUploadsImages}/${basename(args.coverFile)}`;
+    if (existsSync(dest)) throw new ValidationError(`Et bilde med filnavnet «${basename(dest)}» finnes allerede.`);
     copyFileSync(args.coverFile, dest);
     cover = `/media/images/${basename(args.coverFile)}`;
     touched.push(rel(dest));
@@ -84,23 +86,23 @@ async function createNewsPost(args) {
   const result = await commitFiles({
     files: touched,
     message: `content(posts): add ${slug}`,
-    directToMain,
   });
   return ok(
     `Nyhetsinnlegg opprettet: «${title}» (${slug})${en ? ' + engelsk versjon' : ''}. ` +
-      (result.mode === 'pr' ? `PR: ${result.prUrl}` : `Pushet til main (${result.commitSha}).`) +
+      `PR: ${result.prUrl}` +
       (cover ? ' Forsidebildet optimaliseres automatisk ved bygg.' : ''),
     { files: touched, git: result },
   );
 }
 
 async function addTimer(args) {
-  const { title, directToMain = false } = args;
+  const { title } = args;
   if (!existsSync(args.file)) throw new ValidationError(`Finner ikke filen «${args.file}».`);
   if (extname(args.file).toLowerCase() !== '.mp3') throw new ValidationError('Kun MP3-filer støttes.');
 
   await ensureClean();
   const dest = `${PATHS.audioDir}/${basename(args.file)}`;
+  if (existsSync(dest)) throw new ValidationError(`En lydfil med filnavnet «${basename(dest)}» finnes allerede.`);
   copyFileSync(args.file, dest);
 
   const raw = readFileSync(PATHS.timersJson, 'utf8');
@@ -116,22 +118,22 @@ async function addTimer(args) {
   const result = await commitFiles({
     files: [rel(dest), rel(PATHS.timersJson)],
     message: `content(data): add timer "${title}"`,
-    directToMain,
   });
   return ok(
     `Timer «${title}» lagt til. ` +
-      (result.mode === 'pr' ? `PR: ${result.prUrl}` : `Pushet til main (${result.commitSha}).`),
+      `PR: ${result.prUrl}`,
     { entry, git: result },
   );
 }
 
 async function addArsmoteDocument(args) {
-  const { title, year, directToMain = false } = args;
+  const { title, year } = args;
   if (!existsSync(args.file)) throw new ValidationError(`Finner ikke filen «${args.file}».`);
   if (extname(args.file).toLowerCase() !== '.pdf') throw new ValidationError('Kun PDF-filer støttes.');
 
   await ensureClean();
   const dest = `${PATHS.pdfDir}/${basename(args.file)}`;
+  if (existsSync(dest)) throw new ValidationError(`En PDF med filnavnet «${basename(dest)}» finnes allerede.`);
   copyFileSync(args.file, dest);
 
   const raw = readFileSync(PATHS.documentsJson, 'utf8');
@@ -143,11 +145,10 @@ async function addArsmoteDocument(args) {
   const result = await commitFiles({
     files: [rel(dest), rel(PATHS.documentsJson)],
     message: `content(data): add årsmøte document "${title}"`,
-    directToMain,
   });
   return ok(
     `Dokument «${title}» (${year}) lagt til. ` +
-      (result.mode === 'pr' ? `PR: ${result.prUrl}` : `Pushet til main (${result.commitSha}).`),
+      `PR: ${result.prUrl}`,
     { entry, git: result },
   );
 }
@@ -158,7 +159,7 @@ export function registerContentTools(server) {
     {
       title: 'Create news post',
       description:
-        'WRITES GIT (PR by default). Creates a news post (Norwegian + optional English mirror with the hreflang slug pair registered). Cover image is copied into the media pipeline and optimized at build time.',
+        'WRITES GIT (branch + PR). Creates a news post (Norwegian + optional English mirror with the hreflang slug pair registered). Cover image is copied into the media pipeline and optimized at build time.',
       inputSchema: {
         title: z.string(),
         slug: z.string(),
@@ -175,7 +176,6 @@ export function registerContentTools(server) {
             description: z.string().nullish(),
           })
           .optional(),
-        directToMain: z.boolean().optional(),
       },
     },
     tool(createNewsPost),
@@ -185,12 +185,11 @@ export function registerContentTools(server) {
     'add_timer',
     {
       title: 'Add timer (MP3)',
-      description: 'WRITES GIT (PR by default). Copies an MP3 into public/media/audio and adds a row to src/data/timers.json.',
+      description: 'WRITES GIT (branch + PR). Copies an MP3 into public/media/audio and adds a row to src/data/timers.json.',
       inputSchema: {
         title: z.string(),
         file: z.string().describe('Absolute local path to the MP3'),
         durationHint: z.string().optional().describe('e.g. "05:38"'),
-        directToMain: z.boolean().optional(),
       },
     },
     tool(addTimer),
@@ -200,12 +199,11 @@ export function registerContentTools(server) {
     'add_arsmote_document',
     {
       title: 'Add årsmøte document (PDF)',
-      description: 'WRITES GIT (PR by default). Copies a PDF into public/media/pdf and adds a row to src/data/documents.json.',
+      description: 'WRITES GIT (branch + PR). Copies a PDF into public/media/pdf and adds a row to src/data/documents.json.',
       inputSchema: {
         title: z.string().describe('e.g. "Årsmøtereferat 2026"'),
         year: z.number().int().min(2000).max(2100),
         file: z.string().describe('Absolute local path to the PDF'),
-        directToMain: z.boolean().optional(),
       },
     },
     tool(addArsmoteDocument),

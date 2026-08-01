@@ -2,12 +2,12 @@
 /**
  * GET /api/admin/registrations.csv?slug=… — full export incl. email/phone.
  *
- * Protected two ways (belt and braces):
- *  1. Application-level: the Cf-Access-Authenticated-User-Email header must be
- *     present (Cloudflare Access adds it after a successful login), else 403.
- *  2. Platform-level: Cloudflare Access in front of /api/admin/* (LAUNCH.md).
+ * Protected by Cloudflare Access at the edge and signed-assertion verification
+ * in functions/api/admin/_middleware.ts.
  * CSV is quoted and starts with a BOM so Excel shows Norwegian characters.
  */
+import { adminIdentity } from '../../lib/admin-auth';
+import { csvField } from '../../lib/csv';
 import { KNOWN_SLUGS } from '../../lib/tournaments';
 import { parseAnswers } from '../../lib/registration';
 
@@ -27,12 +27,8 @@ function json(data: unknown, status = 200): Response {
   });
 }
 
-const csvField = (v: unknown): string => `"${String(v ?? '').replaceAll('"', '""')}"`;
-
 export const onRequestGet: PagesFunction<Env> = async (context) => {
-  if (!context.request.headers.get('Cf-Access-Authenticated-User-Email')) {
-    return json({ error: 'Ikke tilgang.' }, 403);
-  }
+  if (!adminIdentity(context.data)) return json({ error: 'Ikke tilgang.' }, 403);
   const slug = new URL(context.request.url).searchParams.get('slug') ?? '';
   if (!KNOWN_SLUGS.has(slug)) {
     return json({ error: 'Ukjent turnering.' }, 400);
@@ -82,6 +78,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       'Content-Type': 'text/csv; charset=utf-8',
       'Content-Disposition': `attachment; filename="pameldinger-${slug}.csv"`,
       'Cache-Control': 'no-store',
+      'X-Content-Type-Options': 'nosniff',
+      'Referrer-Policy': 'no-referrer',
     },
   });
 };

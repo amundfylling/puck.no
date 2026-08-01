@@ -1,6 +1,9 @@
 /// <reference types="@cloudflare/workers-types" />
 
+import { readResponseTextLimited } from './http.ts';
+
 export const RANKING_URL = 'https://stiga.trefik.cz/ithf/ranking/ranking.txt';
+const MAX_RANKING_BYTES = 5 * 1024 * 1024;
 
 export interface RankedPlayer {
   rank: number;
@@ -21,6 +24,8 @@ export interface RosterPlayer {
   worldRanking: number | null;
   rankingPoints: number;
   rankingValue: number;
+  /** Server-generated Unicode-stable duplicate key for unranked players. */
+  nameKey?: string;
 }
 
 export interface TeamSeed {
@@ -69,9 +74,10 @@ export function parseRanking(tsv: string): Map<number, RankedPlayer> {
 export async function fetchRanking(): Promise<Map<number, RankedPlayer>> {
   const res = await fetch(RANKING_URL, {
     cf: { cacheTtl: 21600, cacheEverything: true },
+    signal: AbortSignal.timeout(10_000),
   });
   if (!res.ok) throw new Error(`ranking HTTP ${res.status}`);
-  const ranking = parseRanking(await res.text());
+  const ranking = parseRanking(await readResponseTextLimited(res, MAX_RANKING_BYTES));
   if (ranking.size < 1000) throw new Error(`ranking parse returned only ${ranking.size} players`);
   return ranking;
 }
@@ -88,6 +94,10 @@ export function rankedRosterPlayer(player: RankedPlayer): RosterPlayer {
   };
 }
 
+export function canonicalNameKey(name: string): string {
+  return name.normalize('NFKC').trim().replace(/\s+/gu, ' ').toLocaleLowerCase('nb-NO');
+}
+
 export function unrankedRosterPlayer(name: string): RosterPlayer {
   return {
     playerId: null,
@@ -97,6 +107,7 @@ export function unrankedRosterPlayer(name: string): RosterPlayer {
     worldRanking: null,
     rankingPoints: 0,
     rankingValue: 0,
+    nameKey: canonicalNameKey(name),
   };
 }
 

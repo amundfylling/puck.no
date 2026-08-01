@@ -14,13 +14,26 @@ interface Props {
   players: Player[];
   lang: Lang;
   playersPerTeam?: number | null;
+  snapshotDate?: string;
 }
 
-const { slug, players, lang, playersPerTeam = null } = Astro.props;
+const { slug, players, lang, playersPerTeam = null, snapshotDate } = Astro.props;
 const isTeam = playersPerTeam != null;
+const snapshotDisplay = snapshotDate
+  ? new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : 'nb-NO', {
+      dateStyle: 'medium',
+      timeZone: 'UTC',
+    }).format(new Date(`${snapshotDate}T12:00:00Z`))
+  : null;
 const labels = lang === 'en'
   ? {
       club: 'Club', points: 'Points', team: 'Team', substitute: 'Substitute', refreshed: 'Ranking updated',
+      participantsCaption: 'Registered participants and their current ranking details.',
+      placementCaption: 'Calculated ITHF points by finishing position.',
+      liveUnavailable: 'Live updates are temporarily unavailable. The displayed list may be outdated.',
+      snapshotFallback: snapshotDisplay
+        ? `Live updates are unavailable. Showing the saved snapshot from ${snapshotDisplay}; it may be outdated.`
+        : 'Live updates are unavailable. Showing a saved snapshot that may be outdated.',
       placementHeading: 'Calculated ITHF points by placement', placement: 'Placement', award: 'ITHF points',
       calculationNote: 'Calculated with the ITHF World Ranking 2020 algorithm from the current entrants and their Player Value.',
       emptyPoints: 'Points will be calculated when participants register.',
@@ -30,6 +43,12 @@ const labels = lang === 'en'
     }
   : {
       club: 'Klubb', points: 'Poeng', team: 'Lag', substitute: 'Innbytter', refreshed: 'Ranking oppdatert',
+      participantsCaption: 'Påmeldte deltakere og gjeldende rankingopplysninger.',
+      placementCaption: 'Beregnede ITHF-poeng etter sluttplassering.',
+      liveUnavailable: 'Direkteoppdateringen er midlertidig utilgjengelig. Listen kan være utdatert.',
+      snapshotFallback: snapshotDisplay
+        ? `Direkteoppdateringen er utilgjengelig. Viser lagret oversikt fra ${snapshotDisplay}; den kan være utdatert.`
+        : 'Direkteoppdateringen er utilgjengelig. Viser en lagret oversikt som kan være utdatert.',
       placementHeading: 'Beregnede ITHF-poeng per plassering', placement: 'Plassering', award: 'ITHF-poeng',
       calculationNote: 'Beregnet med ITHF World Ranking 2020-algoritmen fra dagens påmeldte og deres Player Value.',
       emptyPoints: 'Poengene beregnes når deltakere melder seg på.',
@@ -56,14 +75,15 @@ const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part)
   </div>
   <div class="mt-4 overflow-x-auto">
     <table class="w-full border-collapse text-sm">
+      <caption class="sr-only">{labels.participantsCaption}</caption>
       <thead>
         <tr>
-          <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">#</th>
-          <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t(lang, 'name')}</th>
-          <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{labels.club}</th>
-          <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t(lang, 'country')}</th>
-          <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t(lang, 'wr')}</th>
-          <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{labels.points}</th>
+          <th scope="col" class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">#</th>
+          <th scope="col" class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t(lang, 'name')}</th>
+          <th scope="col" class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{labels.club}</th>
+          <th scope="col" class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t(lang, 'country')}</th>
+          <th scope="col" class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t(lang, 'wr')}</th>
+          <th scope="col" class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{labels.points}</th>
         </tr>
       </thead>
       <tbody data-participant-rows>
@@ -109,7 +129,7 @@ const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part)
       </tbody>
     </table>
   </div>
-  <p class="mt-2 text-xs text-slate-500" data-participants-status aria-live="polite"></p>
+  <p class="mt-2 hidden text-xs font-medium text-amber-800" data-participants-status role="status" aria-live="polite"></p>
 
   <div data-placement-points-wrap class="mt-10 hidden border-t border-slate-200 pt-8">
     <div class="flex flex-wrap items-baseline justify-between gap-2">
@@ -120,10 +140,11 @@ const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part)
     <p data-placement-note class="mt-2 text-sm font-semibold text-slate-700" aria-live="polite"></p>
     <div data-placement-table class="mt-4 overflow-x-auto">
       <table class="w-full border-collapse text-sm">
+        <caption class="sr-only">{labels.placementCaption}</caption>
         <thead>
           <tr>
-            <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{labels.placement}</th>
-            <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{labels.award}</th>
+            <th scope="col" class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{labels.placement}</th>
+            <th scope="col" class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{labels.award}</th>
           </tr>
         </thead>
         <tbody data-placement-rows></tbody>
@@ -163,6 +184,7 @@ const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part)
   if (section) {
     const tbody = section.querySelector<HTMLTableSectionElement>('[data-participant-rows]')!;
     const refreshed = section.querySelector<HTMLElement>('[data-ranking-refreshed]');
+    const status = section.querySelector<HTMLElement>('[data-participants-status]')!;
     const placementWrap = section.querySelector<HTMLElement>('[data-placement-points-wrap]')!;
     const placementRows = section.querySelector<HTMLTableSectionElement>('[data-placement-rows]')!;
     const placementTable = section.querySelector<HTMLElement>('[data-placement-table]')!;
@@ -171,6 +193,7 @@ const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part)
     const slug = section.dataset.slug!;
     const lang = section.dataset.lang === 'en' ? 'en' : 'no';
     const labels = JSON.parse(section.dataset.labels ?? '{}') as Record<string, string>;
+    let hasLiveData = false;
     const levelLabels: Record<NonNullable<ResponseBody['rankingLevel']>, string> = lang === 'en'
       ? {
           '1-world': 'Level 1 · World Championship',
@@ -275,9 +298,18 @@ const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part)
     }
 
     async function refresh() {
+      const showUnavailable = () => {
+        status.textContent = hasLiveData
+          ? (labels.liveUnavailable ?? '')
+          : (labels.snapshotFallback ?? labels.liveUnavailable ?? '');
+        status.classList.remove('hidden');
+      };
       try {
         const res = await fetch(`/api/tournaments/${encodeURIComponent(slug)}/players`);
-        if (!res.ok) return;
+        if (!res.ok) {
+          showUnavailable();
+          return;
+        }
         const data = (await res.json()) as ResponseBody;
         tbody.replaceChildren(
           data.playersPerTeam == null
@@ -293,8 +325,11 @@ const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part)
           refreshed.textContent = `${labels.refreshed ?? 'Ranking oppdatert'} ${date}`;
         }
         renderPlacementPoints(data);
+        hasLiveData = true;
+        status.textContent = '';
+        status.classList.add('hidden');
       } catch {
-        // Offline/API down: retain the committed static fallback.
+        showUnavailable();
       }
     }
 

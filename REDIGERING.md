@@ -21,7 +21,8 @@ Forsiden av portalen gir et sanntidsbilde av påmeldingene:
 - **Oversikt** – antall påmeldte per turnering, nye påmeldinger siste 7 dager
   og de siste påmeldingene.
 - **Åpne/stenge påmelding** – trykk på «Åpen»/«Stengt» ved en kommende
-  turnering. Endringen trer i kraft etter neste bygg (2–4 minutter).
+  turnering. Stenging av nye API-påmeldinger skjer med én gang; skjemaets
+  synlighet (og full åpning igjen) synkroniseres ved neste bygg.
 - **Påmeldinger** – søkbar og sorterbar liste over påmeldte per turnering.
   Her kan du legge til en påmelding selv etter at påmeldingen er stengt,
   redigere lag/spillere, kontaktinformasjon og tilleggssvar, eller slette en
@@ -121,7 +122,7 @@ nettgrensesnitt — det krever heller ingen kodekunnskaper:
    **Commit changes** (velg «Commit directly to the main branch»).
 4. Ny artikkel: trykk **Add file** → **Create new file** i riktig mappe.
    Husk frontmatter-blokken øverst (kopier en eksisterende fil og bytt ut
-   verdiene). Bilder lastes opp til `media-originals/images/` og refereres
+   verdiene). Bilder lastes opp til `media-uploads/images/` og refereres
    som `/media/images/<filnavn>`.
 
 Endringen publiseres automatisk i løpet av noen minutter.

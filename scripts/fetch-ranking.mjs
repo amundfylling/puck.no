@@ -12,10 +12,12 @@
  * kept (warning printed) and still copied to public/.
  */
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { readResponseTextLimited } from './lib/bounded-response.mjs';
 
 const URL = 'https://stiga.trefik.cz/ithf/ranking/ranking.txt';
 const DATA_FILE = 'src/data/ranking.json';
 const PUBLIC_FILE = 'public/ranking.json';
+const MAX_RANKING_BYTES = 5 * 1024 * 1024;
 
 export function parseRanking(tsv) {
   const lines = tsv.split(/\r?\n/);
@@ -42,9 +44,9 @@ export function parseRanking(tsv) {
 
 let tsv = null;
 try {
-  const res = await fetch(URL);
+  const res = await fetch(URL, { signal: AbortSignal.timeout(15_000) });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  tsv = await res.text();
+  tsv = await readResponseTextLimited(res, MAX_RANKING_BYTES);
 } catch (err) {
   console.warn(`fetch-ranking: download failed (${err.message})`);
 }

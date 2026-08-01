@@ -9,10 +9,11 @@ PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA
 # Same value as PUBLIC_TURNSTILE_SITE_KEY, kept for reference:
 TURNSTILE_SITE_KEY=1x00000000000000000000AA
 
-# Optional: Cloudflare Access team name. When set, GET /api/admin/registrations.csv
-# requires the Cf-Access-Authenticated-User-Email header (defence in depth —
-# Access itself is configured in the Cloudflare dashboard, Phase 5).
-# ACCESS_TEAM_NAME=your-team.cloudflareaccess.com
+# Required for /api/admin/*: Cloudflare Access team name/domain and the
+# application's Audience (AUD) tag. The API fails closed when either is absent
+# and cryptographically verifies Cf-Access-Jwt-Assertion on every request.
+# ACCESS_TEAM_NAME=your-team
+# ACCESS_POLICY_AUD=copy-from-access-application-additional-settings
 
 # Optional: GitHub token (repo scope) for POST /api/admin/registration-open —
 # the admin portal's open/close-registration button commits the frontmatter

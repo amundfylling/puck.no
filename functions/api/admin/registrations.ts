@@ -6,6 +6,7 @@ import {
   updateRegistration,
   type RegistrationPayload,
 } from '../../lib/registration';
+import { adminIdentity } from '../../lib/admin-auth';
 import { KNOWN_SLUGS, TOURNAMENTS } from '../../lib/tournaments';
 
 interface Env {
@@ -29,10 +30,6 @@ function json(data: unknown, status = 200): Response {
   });
 }
 
-function authenticated(context: EventContext<Env, string, unknown>): boolean {
-  return Boolean(context.request.headers.get('Cf-Access-Authenticated-User-Email'));
-}
-
 async function payload(context: EventContext<Env, string, unknown>): Promise<AdminPayload> {
   try {
     const body = (await context.request.json()) as unknown;
@@ -54,7 +51,7 @@ async function handle(
   context: EventContext<Env, string, unknown>,
   action: (body: AdminPayload) => Promise<Response>,
 ): Promise<Response> {
-  if (!authenticated(context)) return json({ error: 'Ikke tilgang.' }, 403);
+  if (!adminIdentity(context.data)) return json({ error: 'Ikke tilgang.' }, 403);
   try {
     return await action(await payload(context));
   } catch (error) {
@@ -93,4 +90,3 @@ export const onRequestDelete: PagesFunction<Env> = async (context) =>
   });
 
 export const onRequest: PagesFunction<Env> = async () => json({ error: 'Method not allowed' }, 405);
-

@@ -6,11 +6,10 @@
  * Includes contact details, structured rosters and custom answers because
  * administrators can add/edit/delete rows here. The route is Access-protected.
  *
- * Protected two ways (belt and braces), like registrations.csv:
- *  1. Application-level: the Cf-Access-Authenticated-User-Email header must
- *     be present (Cloudflare Access adds it after a successful login).
- *  2. Platform-level: Cloudflare Access in front of /api/admin/* (LAUNCH.md).
+ * Protected by Cloudflare Access at the edge and signed-assertion verification
+ * in functions/api/admin/_middleware.ts.
  */
+import { adminIdentity } from '../../lib/admin-auth';
 import { KNOWN_SLUGS } from '../../lib/tournaments';
 import { parseAnswers, parseRoster } from '../../lib/registration';
 
@@ -31,9 +30,7 @@ function json(data: unknown, status = 200): Response {
 }
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
-  if (!context.request.headers.get('Cf-Access-Authenticated-User-Email')) {
-    return json({ error: 'Ikke tilgang.' }, 403);
-  }
+  if (!adminIdentity(context.data)) return json({ error: 'Ikke tilgang.' }, 403);
   const slug = new URL(context.request.url).searchParams.get('slug') ?? '';
   if (!KNOWN_SLUGS.has(slug)) {
     return json({ error: 'Ukjent turnering.' }, 400);

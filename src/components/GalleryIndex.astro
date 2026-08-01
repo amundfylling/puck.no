@@ -1,6 +1,7 @@
 ---
 import { galleries, thumbOf } from '../lib/galleries';
 import { t, type Lang } from '../lib/i18n';
+import { getPublicImageDimensions } from '../lib/media';
 
 interface Props {
   lang: Lang;
@@ -8,20 +9,29 @@ interface Props {
 
 const { lang } = Astro.props;
 // Gallery detail pages exist only in Norwegian — both indexes link there.
+const galleryItems = await Promise.all(
+  galleries.map(async (gallery) => {
+    const thumb = thumbOf(gallery.slug, gallery.images[0]);
+    return { gallery, thumb, dimensions: await getPublicImageDimensions(thumb) };
+  }),
+);
 ---
 
 <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
   {
-    galleries.map((gallery) => (
+    galleryItems.map(({ gallery, thumb, dimensions }) => (
       <li>
         <a
           href={`/bilder/${gallery.slug}/`}
           class="group block overflow-hidden rounded-lg border border-slate-200 bg-white no-underline shadow-sm transition-shadow hover:shadow-md"
         >
           <img
-            src={thumbOf(gallery.slug, gallery.images[0])}
+            src={thumb}
             alt={gallery.title}
             loading="lazy"
+            decoding="async"
+            width={dimensions?.width}
+            height={dimensions?.height}
             class="aspect-video w-full object-cover transition-transform group-hover:scale-105"
           />
           <div class="p-4">

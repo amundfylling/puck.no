@@ -5,8 +5,8 @@ puck.no — turneringer, påmeldinger, innhold og drift. Den kjører lokalt på
 din maskin og pakker inn de to kontrollplanene som allerede finnes:
 
 - **Innhold (git):** oppretter/patcher Markdown-filer i `src/content/` og
-  commiter via **branch + PR** (standard) eller direkte til `main`
-  (`directToMain: true` — samme mønster som CMS-et).
+  committer alltid via en **branch + pull request**. Bare nettleser-CMS-et har
+  det dokumenterte unntaket som committer direkte til `main`.
 - **Påmeldinger (D1):** kjører SQL mot den **levende** databasen via
   `npx wrangler d1 execute puck-no --remote` — gjenbruker din eksisterende
   `wrangler login`. Ingen API-tokens å forvalte.
@@ -71,7 +71,7 @@ Krav: Node ≥ 22.12, `wrangler login` gjort, `gh auth login` (for PR-flyt).
 | `create_tournament` | Ny turnering (NO + valgfri EN-speil), rankingnivå og regenerert API-konfig |
 | `update_tournament` | Patch navn/dato/sted/priser/spillsystem/lagregler/rankingnivå/tilleggsspørsmål (uten å røre brødtekst) |
 | `duplicate_tournament` | Kopier f.eks. fjorårets Norway Open til ny slug/dato |
-| `close_registration` / `open_registration` | Steng/åpne påmelding (`registrationOpen`) |
+| `close_registration` / `open_registration` | Steng straks via D1 / åpne etter branch + PR + bygg (`registrationOpen`) |
 | `archive_tournament` | Info — arkivering skjer automatisk etter dato |
 
 ### Påmeldinger (D1, live)
@@ -84,7 +84,7 @@ Krav: Node ≥ 22.12, `wrangler login` gjort, `gh auth login` (for PR-flyt).
 | `update_registration` | Rett navn/e-post/telefon (full rosterredigering gjøres i adminportalen) |
 | `move_registration` | Flytt til annen turnering (f.eks. feil NM-klasse) |
 | `export_registrations` | Full CSV (PII) til git-ignorert `migration/raw/` — aldri i chatten |
-| `sync_participant_snapshot` | Regenerer `registrations-snapshot.json` fra live D1 + commit |
+| `sync_participant_snapshot` | Regenerer `registrations-snapshot.json` fra live D1 + pull request |
 | `ranking_lookup` | Søk i ITHF-rankingen → playerId, rankingposisjon, ITHF-poeng og eksakt `Player_Value` |
 
 ### Innhold (git)
@@ -127,9 +127,10 @@ utviklingsdatabasen i stedet for produksjon.
 
 ## Merknader
 
-- `close_registration` krever `registrationOpen`-feltet (lagt til i
-  innholdsskjemaet sommer 2026): skjemaet skjules og API-et avviser nye
-  påmeldinger etter neste bygg.
+- `close_registration` skriver først en fail-closed D1-veto, slik at API-et
+  avviser nye påmeldinger med én gang, og åpner deretter en PR som skjuler
+  skjemaet. `open_registration` fjerner vetoen, men lukket frontmatter vinner
+  frem til PR-en er merget og siden er bygd på nytt.
 - Lokal (miniflare) D1 rapporterer ikke `meta.changes` pålitelig —
   skriveverktøyene verifiserer derfor med oppfølgings-SELECTs og virker
   likt lokalt og i produksjon.

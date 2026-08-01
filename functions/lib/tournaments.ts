@@ -9,6 +9,8 @@ import type { RankingLevel } from './ranking-points';
 export interface TournamentConfig {
   /** Norwegian display date, used by the scheduled ranking refresh. */
   date: string;
+  /** ISO date of the event's final day; public registration closes after it. */
+  endDate: string;
   /** Exact number of highest-rated roster members whose points count. */
   playersPerTeam: number | null;
   /** Maximum optional substitutes in addition to playersPerTeam. */

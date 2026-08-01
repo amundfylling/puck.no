@@ -2,12 +2,14 @@
 
 import type { RegistrationQuestion, TournamentConfig } from './tournaments';
 import {
+  canonicalNameKey,
   fetchRanking,
   rankedRosterPlayer,
   seedTeam,
   unrankedRosterPlayer,
   type RosterPlayer,
 } from './ranking';
+import { isPastTournamentDate } from './tournament-date';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^\+?[0-9][0-9\s-]{0,29}$/;
@@ -157,7 +159,7 @@ async function resolveDetails(cfg: TournamentConfig, body: RegistrationPayload):
   if (new Set(ids).size !== ids.length) {
     throw new RegistrationError('En spiller kan ikke velges flere ganger i samme lag.');
   }
-  const freeNames = normalized.filter((entry) => entry.id == null).map((entry) => entry.name.toLocaleLowerCase('no'));
+  const freeNames = normalized.filter((entry) => entry.id == null).map((entry) => canonicalNameKey(entry.name));
   if (new Set(freeNames).size !== freeNames.length) {
     throw new RegistrationError('En spiller kan ikke føres opp flere ganger i samme lag.');
   }
@@ -177,7 +179,7 @@ async function resolveDetails(cfg: TournamentConfig, body: RegistrationPayload):
     if (!player) throw new RegistrationError('Spilleren ble ikke funnet på verdensrankingen.');
     return rankedRosterPlayer(player);
   });
-  const lowerResolvedNames = roster.map((player) => player.name.toLocaleLowerCase('no'));
+  const lowerResolvedNames = roster.map((player) => canonicalNameKey(player.name));
   if (new Set(lowerResolvedNames).size !== lowerResolvedNames.length) {
     throw new RegistrationError('En spiller kan ikke føres opp flere ganger i samme lag.');
   }
@@ -266,7 +268,13 @@ export function parseRoster(value: unknown, fallbackName = ''): RosterPlayer[] {
   if (typeof value === 'string' && value) {
     try {
       const parsed = JSON.parse(value) as unknown;
-      if (Array.isArray(parsed)) return parsed as RosterPlayer[];
+      if (Array.isArray(parsed)) {
+        return (parsed as RosterPlayer[]).map((player) =>
+          player.playerId == null
+            ? { ...player, nameKey: canonicalNameKey(String(player.name ?? '')) }
+            : player,
+        );
+      }
     } catch {
       // Fall through to the legacy slash-separated display name.
     }
@@ -297,9 +305,18 @@ function teamConflict(details: ResolvedRegistration, excludeId?: number): { sql:
   }
   const unrankedNames = (details.roster ?? [])
     .filter((player) => player.playerId == null)
-    .map((player) => player.name.toLocaleLowerCase('no'));
+    .map((player) => canonicalNameKey(player.name));
   if (unrankedNames.length > 0) {
     const placeholders = unrankedNames.map(() => '?').join(', ');
+    clauses.push(`(json_valid(r.roster) AND EXISTS (
+      SELECT 1 FROM json_each(r.roster) roster_keys
+      WHERE json_extract(roster_keys.value, '$.playerId') IS NULL
+        AND json_extract(roster_keys.value, '$.nameKey') IN (${placeholders})
+    ))`);
+    binds.push(...unrankedNames);
+    // Compatibility with rows created before nameKey was introduced. New
+    // rows use the exact Unicode-stable key above, keeping concurrent INSERT
+    // statements protected by the same atomic NOT EXISTS guard.
     clauses.push(`(json_valid(r.roster) AND EXISTS (
       SELECT 1 FROM json_each(r.roster) roster_names
       WHERE json_extract(roster_names.value, '$.playerId') IS NULL
@@ -320,10 +337,35 @@ export async function createRegistration(
   slug: string,
   cfg: TournamentConfig,
   body: RegistrationPayload,
-  options: { allowClosed?: boolean } = {},
+  options: { allowClosed?: boolean; now?: Date } = {},
 ): Promise<{ id: number | string | undefined; details: ResolvedRegistration }> {
-  if (!options.allowClosed && cfg.registrationOpen === false) {
-    throw new RegistrationError('Påmeldingen for denne turneringen er stengt.');
+  if (!options.allowClosed) {
+    let registrationOpen = cfg.registrationOpen !== false;
+    try {
+      const runtime = await db.prepare(
+        'SELECT registration_open FROM tournament_settings WHERE tournament_slug = ?',
+      ).bind(slug).first<{ registration_open: number }>();
+      // Runtime settings are a fail-closed veto only. A stale database row
+      // can never reopen an event that frontmatter has closed through CMS.
+      if (runtime?.registration_open === 0) registrationOpen = false;
+    } catch (error) {
+      // Safe rolling deploy: if code reaches Pages just before the migration,
+      // the committed configuration continues to enforce its prior state.
+      if (!(error instanceof Error) || !/no such table.*tournament_settings/i.test(error.message)) throw error;
+      console.warn('tournament_settings migration not applied; using build-time registration flag');
+    }
+    if (!registrationOpen) {
+      throw new RegistrationError('Påmeldingen for denne turneringen er stengt.');
+    }
+    try {
+      if (isPastTournamentDate(cfg.endDate, options.now)) {
+        throw new RegistrationError('Påmeldingsfristen for denne turneringen er utløpt.');
+      }
+    } catch (error) {
+      if (error instanceof RegistrationError) throw error;
+      console.error('invalid tournament end date', error);
+      throw new RegistrationError('Registreringen er ikke konfigurert riktig.', 500);
+    }
   }
   const contact = normalizeContact(body.email, body.phone);
   const details = await resolveDetails(cfg, body);

@@ -7,9 +7,16 @@ import TournamentCard from './TournamentCard.astro';
 interface Props {
   lang: Lang;
   views: TournamentView[];
+  title?: string;
+  description?: string | null;
 }
 
-const { lang, views } = Astro.props;
+const {
+  lang,
+  views,
+  title = lang === 'en' ? 'Tournaments' : 'Turneringer',
+  description = null,
+} = Astro.props;
 const upcoming = views.filter((v) => v.status === 'upcoming');
 const past = views.filter((v) => v.status === 'past');
 
@@ -19,7 +26,8 @@ const pastFamilies = groupByParent(past, allSlugs);
 ---
 
 <section class="mx-auto max-w-4xl px-4 py-10">
-  <h1 class="text-3xl font-extrabold text-navy">{lang === 'en' ? 'Tournaments' : 'Turneringer'}</h1>
+  <h1 class="text-3xl font-extrabold text-navy">{title}</h1>
+  {description && <p class="mt-3 max-w-2xl text-slate-600">{description}</p>}
 
   <div class="mt-8 flex items-baseline gap-3">
     <h2 class="text-xl font-bold text-navy">{t(lang, 'upcomingTournaments')}</h2>

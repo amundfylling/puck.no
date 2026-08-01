@@ -1,25 +1,25 @@
 /**
  * Tournament tools (git/content plane). Writes go through the branch+PR
- * flow by default; `directToMain: true` commits to main like the CMS does.
+ * flow: every developer-side mutation opens a branch and pull request.
  */
 import { existsSync, readdirSync } from 'node:fs';
 import { z } from 'zod';
-import { PATHS } from '../lib/config.js';
+import { PATHS, REPO_ROOT } from '../lib/config.js';
 import { readMd, patchMd, createMd } from '../lib/frontmatter.js';
 import { tournamentStatus, parseNoDate } from '../lib/dates.js';
 import {
   assertSlug, assertDateText, assertTeamRule, assertTournamentRankingLevel,
   RANKING_LEVELS, readTournamentConfig, tournamentFiles, ValidationError,
 } from '../lib/validate.js';
-import { d1Select } from '../lib/d1.js';
+import { d1, d1Select, sqlValue } from '../lib/d1.js';
 import { ensureClean, commitFiles } from '../lib/git.js';
 import { run } from '../lib/run.js';
 import { ok, tool } from '../lib/respond.js';
 
-const rel = (abs) => abs.replace(PATHS.REPO_ROOT, '');
+const rel = (abs) => abs.replace(REPO_ROOT, '');
 
 async function regenerateConfig() {
-  await run('node', [PATHS.genTournamentConfig], { cwd: PATHS.REPO_ROOT });
+  await run('node', [PATHS.genTournamentConfig], { cwd: REPO_ROOT });
 }
 
 /** All Norwegian tournament entries with computed status (+ live counts). */
@@ -27,7 +27,7 @@ async function listTournaments() {
   const entries = [];
   for (const file of readdirSync(PATHS.tournamentsDir).filter((f) => f.endsWith('.md'))) {
     const { data } = readMd(`${PATHS.tournamentsDir}/${file}`);
-    if (!data.slug || data.lang === 'en') continue;
+    if (!data.slug || data.lang === 'en' || data.draft === true) continue;
     entries.push({
       slug: data.slug,
       name: data.name,
@@ -68,7 +68,7 @@ async function listTournaments() {
 }
 
 async function createTournament(args) {
-  const { name, slug, date, directToMain = false } = args;
+  const { name, slug, date } = args;
   assertSlug(slug);
   assertDateText(date);
   assertTeamRule(args.playersPerTeam ?? null, args.maxSubstitutes ?? 0);
@@ -125,11 +125,10 @@ async function createTournament(args) {
   const result = await commitFiles({
     files: touched,
     message: `feat(tournaments): add ${slug}`,
-    directToMain,
   });
   return ok(
     `Turnering opprettet: ${name} (${slug}). ` +
-      (result.mode === 'pr' ? `PR: ${result.prUrl}` : `Pushet til main (${result.commitSha}).`) +
+      `PR: ${result.prUrl}` +
       ' Siden bygges på nytt ved merge; turneringen dukker da opp under /turneringer med påmeldingsskjema.',
     { files: touched, git: result },
   );
@@ -140,7 +139,7 @@ export const TOURNAMENT_PATCHABLE = ['name', 'date', 'location', 'prices', 'play
 export const TOURNAMENT_SYNC_TO_EN = ['date', 'location', 'status', 'registrationOpen', 'playersPerTeam', 'maxSubstitutes', 'registrationQuestions', 'rankingLevel'];
 
 async function updateTournament(args) {
-  const { slug, directToMain = false, ...patch } = args;
+  const { slug, ...patch } = args;
   assertSlug(slug);
   const files = tournamentFiles(slug);
   if (!existsSync(files.no)) throw new ValidationError(`Fant ikke turneringen «${slug}».`);
@@ -183,17 +182,16 @@ async function updateTournament(args) {
   const result = await commitFiles({
     files: touched,
     message: `feat(tournaments): update ${slug} (${Object.keys(clean).join(', ')})`,
-    directToMain,
   });
   return ok(
     `Oppdaterte ${slug}: ${Object.keys(clean).join(', ')}. ` +
-      (result.mode === 'pr' ? `PR: ${result.prUrl}` : `Pushet til main (${result.commitSha}).`),
+      `PR: ${result.prUrl}`,
     { before, after: clean, enMirrorSynced: enBefore != null, git: result },
   );
 }
 
 async function duplicateTournament(args) {
-  const { sourceSlug, newSlug, newDate, directToMain = false } = args;
+  const { sourceSlug, newSlug, newDate } = args;
   assertSlug(newSlug, 'ny slug');
   assertDateText(newDate);
   const src = tournamentFiles(sourceSlug);
@@ -234,22 +232,35 @@ async function duplicateTournament(args) {
   const result = await commitFiles({
     files: touched,
     message: `feat(tournaments): add ${newSlug} (copy of ${sourceSlug})`,
-    directToMain,
   });
   return ok(
     `Kopierte ${sourceSlug} → ${newSlug}. ` +
-      (result.mode === 'pr' ? `PR: ${result.prUrl}` : `Pushet til main (${result.commitSha}).`) +
+      `PR: ${result.prUrl}` +
       ' Husk å gjennomgå innholdet (tidsskjema, priser) før publisering.',
     { files: touched, git: result },
   );
 }
 
-async function setRegistrationOpen(slug, open, directToMain) {
+async function setRegistrationOpen(slug, open) {
   assertSlug(slug);
   const files = tournamentFiles(slug);
   if (!existsSync(files.no)) throw new ValidationError(`Fant ikke turneringen «${slug}».`);
 
   await ensureClean();
+  // Apply the fail-closed runtime veto before the slower branch/PR flow.
+  // Opening only removes the veto; closed frontmatter still wins until the
+  // pull request is merged and Pages has rebuilt the generated config.
+  if (open) {
+    await d1(`DELETE FROM tournament_settings WHERE tournament_slug = ${sqlValue(slug)}`);
+  } else {
+    await d1(
+      `INSERT INTO tournament_settings (tournament_slug, registration_open, updated_at)
+       VALUES (${sqlValue(slug)}, 0, datetime('now'))
+       ON CONFLICT(tournament_slug) DO UPDATE SET
+         registration_open = 0,
+         updated_at = excluded.updated_at`,
+    );
+  }
   patchMd(files.no, { registrationOpen: open });
   const touched = [rel(files.no)];
   if (files.en) {
@@ -262,12 +273,13 @@ async function setRegistrationOpen(slug, open, directToMain) {
   const result = await commitFiles({
     files: touched,
     message: `feat(tournaments): ${open ? 'open' : 'close'} registration for ${slug}`,
-    directToMain,
   });
   return ok(
-    `Påmelding for ${slug} er nå ${open ? 'ÅPEN' : 'STENGT'}. ` +
-      (result.mode === 'pr' ? `PR: ${result.prUrl}` : `Pushet til main (${result.commitSha}).`) +
-      ' Skjemaet skjules/vises og API-et godtar/avviser nye påmeldinger etter neste bygg.',
+    (open
+      ? `Åpningsendringen for ${slug} er klar. Påmelding åpner etter merge og neste bygg. `
+      : `Påmelding for ${slug} er STENGT i API-et med én gang. `) +
+      `PR: ${result.prUrl}` +
+      ' Det statiske skjemaet synkroniseres etter merge og neste bygg.',
     { slug, registrationOpen: open, git: result },
   );
 }
@@ -311,7 +323,7 @@ export function registerTournamentTools(server) {
     {
       title: 'Create tournament',
       description:
-        'WRITES GIT (branch + PR by default, directToMain optional). Creates a tournament page (Norwegian file + optional English mirror), regenerates the API tournament config, and opens a PR. The registration form appears automatically once merged and rebuilt.',
+        'WRITES GIT (branch + PR). Creates a tournament page (Norwegian file + optional English mirror), regenerates the API tournament config, and opens a PR. The registration form appears automatically once merged and rebuilt.',
       inputSchema: {
         name: z.string().min(1).describe('Display name, e.g. "Norway Open 2027"'),
         slug: z.string().describe('URL slug, lowercase/digits/dashes/Nordic chars, e.g. "norway-open-2027"'),
@@ -330,7 +342,6 @@ export function registerTournamentTools(server) {
         body: z.string().optional().describe('Markdown body (description + "# Tidsskjema" schedule)'),
         englishName: z.string().optional().describe('Set to also create the English mirror page'),
         englishBody: z.string().optional().describe('English markdown body ("# Schedule" heading)'),
-        directToMain: z.boolean().optional().describe('Commit straight to main instead of opening a PR'),
       },
     },
     tool(createTournament),
@@ -341,7 +352,7 @@ export function registerTournamentTools(server) {
     {
       title: 'Update tournament details',
       description:
-        'WRITES GIT (PR by default). Patches tournament frontmatter (name/date/location/prices/playingSystem/status/registrationOpen/team rules/ranking level) without touching the body. Non-translatable fields are synced to the English mirror when it exists.',
+        'WRITES GIT (branch + PR). Patches tournament frontmatter (name/date/location/prices/playingSystem/status/registrationOpen/team rules/ranking level) without touching the body. Non-translatable fields are synced to the English mirror when it exists.',
       inputSchema: {
         slug: z.string(),
         name: z.string().optional(),
@@ -358,7 +369,6 @@ export function registerTournamentTools(server) {
           id: z.string(), labelNo: z.string(), labelEn: z.string(), required: z.boolean().optional(),
           options: z.array(z.object({ value: z.string(), labelNo: z.string(), labelEn: z.string() })).min(2),
         })).optional(),
-        directToMain: z.boolean().optional(),
       },
     },
     tool(updateTournament),
@@ -369,14 +379,13 @@ export function registerTournamentTools(server) {
     {
       title: 'Duplicate tournament',
       description:
-        "WRITES GIT (PR by default). Copies an existing tournament (e.g. last year's Norway Open) to a new slug/date — body included. Review the copied schedule/prices afterwards.",
+        "WRITES GIT (branch + PR). Copies an existing tournament (e.g. last year's Norway Open) to a new slug/date — body included. Review the copied schedule/prices afterwards.",
       inputSchema: {
         sourceSlug: z.string(),
         newSlug: z.string(),
         newDate: z.string().describe('Norwegian display date for the copy'),
         newName: z.string().optional().describe('Defaults to the source name'),
         newEnglishName: z.string().optional(),
-        directToMain: z.boolean().optional(),
       },
     },
     tool(duplicateTournament),
@@ -387,13 +396,12 @@ export function registerTournamentTools(server) {
     {
       title: 'Close registration',
       description:
-        'WRITES GIT (PR by default). Sets registrationOpen: false on a tournament (NO + EN mirror): the form is hidden and the API rejects new registrations after the next build.',
+        'WRITES LIVE D1 + GIT (branch + PR). Sets registrationOpen: false on a tournament (NO + EN mirror): the API closes immediately through D1 and the form is hidden after the pull request is merged and rebuilt.',
       inputSchema: {
         slug: z.string(),
-        directToMain: z.boolean().optional(),
       },
     },
-    tool((args) => setRegistrationOpen(args.slug, false, args.directToMain ?? false)),
+    tool((args) => setRegistrationOpen(args.slug, false)),
   );
 
   server.registerTool(
@@ -401,13 +409,12 @@ export function registerTournamentTools(server) {
     {
       title: 'Open registration',
       description:
-        'WRITES GIT (PR by default). Sets registrationOpen: true on a tournament (NO + EN mirror): the form reappears and the API accepts registrations after the next build.',
+        'WRITES LIVE D1 + GIT (branch + PR). Removes the runtime veto and sets registrationOpen: true: the form and API reopen after the pull request is merged and rebuilt, unless frontmatter remains closed.',
       inputSchema: {
         slug: z.string(),
-        directToMain: z.boolean().optional(),
       },
     },
-    tool((args) => setRegistrationOpen(args.slug, true, args.directToMain ?? false)),
+    tool((args) => setRegistrationOpen(args.slug, true)),
   );
 
   server.registerTool(

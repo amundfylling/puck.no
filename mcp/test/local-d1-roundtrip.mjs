@@ -13,7 +13,7 @@ import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 const transport = new StdioClientTransport({
   command: process.execPath,
   args: ['src/index.js'],
-  env: { ...process.env, MCP_D1_LOCAL: '1' },
+  env: { ...process.env, MCP_D1_LOCAL: '1', MCP_ALLOW_DRAFTS: '1' },
   stderr: 'pipe',
 });
 const client = new Client({ name: 'roundtrip-test', version: '0.1.0' });

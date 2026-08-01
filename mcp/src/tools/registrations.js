@@ -4,24 +4,45 @@
  * is masked in chat output and only ever written to a git-ignored local
  * file by export_registrations. Destructive tools are dry-run by default.
  */
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { closeSync, existsSync, mkdirSync, openSync, writeFileSync } from 'node:fs';
+import { dirname, isAbsolute, relative, resolve } from 'node:path';
 import { z } from 'zod';
 import { PATHS } from '../lib/config.js';
 import { d1, d1Select, sqlValue } from '../lib/d1.js';
-import { getRankedPlayer, searchRanking } from '../lib/ranking.js';
+import { canonicalNameKey, getRankedPlayer, searchRanking } from '../lib/ranking.js';
 import {
   assertEmail, assertPhone, assertSlug, maskEmail, maskPhone, readTournamentConfig,
   ValidationError,
 } from '../lib/validate.js';
 import { ensureClean, commitFiles } from '../lib/git.js';
+import { readMd } from '../lib/frontmatter.js';
 import { ok, tool } from '../lib/respond.js';
 
 const cfg = readTournamentConfig;
 
 function knownSlug(slug) {
   assertSlug(slug);
-  if (!cfg()[slug]) throw new ValidationError(`Ukjent turnering «${slug}» (ikke i tournament-config.json).`);
-  return cfg()[slug];
+  if (cfg()[slug]) return cfg()[slug];
+  // Internal fixture tournaments are deliberately absent from the deployed
+  // API config. The explicit test-only flag lets the local D1 round-trip suite
+  // exercise them without making them public registration targets.
+  if (process.env.MCP_ALLOW_DRAFTS === '1') {
+    const file = `${PATHS.tournamentsDir}/${slug}.md`;
+    if (existsSync(file)) {
+      const { data } = readMd(file);
+      if (data.draft === true) {
+        return {
+          date: data.date,
+          playersPerTeam: data.playersPerTeam ?? null,
+          maxSubstitutes: data.maxSubstitutes ?? 0,
+          rankingLevel: data.rankingLevel ?? null,
+          registrationQuestions: data.registrationQuestions ?? [],
+          ...(data.registrationOpen === false ? { registrationOpen: false } : {}),
+        };
+      }
+    }
+  }
+  throw new ValidationError(`Ukjent turnering «${slug}» (ikke i tournament-config.json).`);
 }
 
 function registrationAnswers(config, values = {}) {
@@ -135,11 +156,11 @@ async function addRegistration(args) {
         roster.push({ playerId: p.id, name: p.name, club: p.club || null, country: p.nation || null, worldRanking: p.rank, rankingPoints: p.points, rankingValue: p.value });
       } else {
         if (!freeName || freeName.length > 500) throw new ValidationError('Ugyldig spillernavn.');
-        roster.push({ playerId: null, name: freeName, club: null, country: null, worldRanking: null, rankingPoints: 0, rankingValue: 0 });
+        roster.push({ playerId: null, name: freeName, nameKey: canonicalNameKey(freeName), club: null, country: null, worldRanking: null, rankingPoints: 0, rankingValue: 0 });
       }
     }
     const ids = roster.flatMap((p) => p.playerId == null ? [] : [p.playerId]);
-    const lower = roster.map((p) => p.name.toLowerCase());
+    const lower = roster.map((p) => canonicalNameKey(p.name));
     if (new Set(ids).size !== ids.length || new Set(lower).size !== lower.length) throw new ValidationError('Samme spiller er valgt flere ganger.');
     roster.sort((a, b) => b.rankingPoints - a.rankingPoints || (a.worldRanking ?? Infinity) - (b.worldRanking ?? Infinity));
     name = roster.map((p) => p.name).join(' / ');
@@ -172,7 +193,7 @@ async function addRegistration(args) {
         const ids = roster.flatMap((player) => player.playerId == null ? [] : [player.playerId]);
         const unrankedNames = roster
           .filter((player) => player.playerId == null)
-          .map((player) => player.name.toLowerCase());
+          .map((player) => canonicalNameKey(player.name));
         const clauses = [];
         if (ids.length) {
           const inList = ids.map(sqlValue).join(', ');
@@ -187,6 +208,11 @@ async function addRegistration(args) {
         }
         if (unrankedNames.length) {
           const inList = unrankedNames.map(sqlValue).join(', ');
+          clauses.push(`(json_valid(r.roster) AND EXISTS (
+            SELECT 1 FROM json_each(r.roster) roster_keys
+            WHERE json_extract(roster_keys.value, '$.playerId') IS NULL
+              AND json_extract(roster_keys.value, '$.nameKey') IN (${inList})
+          ))`);
           clauses.push(`(json_valid(r.roster) AND EXISTS (
             SELECT 1 FROM json_each(r.roster) roster_names
             WHERE json_extract(roster_names.value, '$.playerId') IS NULL
@@ -354,49 +380,112 @@ async function moveRegistration(args) {
         : 'Kan ikke flytte et lag til en individuell turnering.',
     );
   }
+  const answersJson = registrationAnswers(target, args.answers);
   if (row.type === 'team') {
-    const teamSize = row.player_ids
-      ? JSON.parse(row.player_ids).length
-      : String(row.name).split(' / ').length;
+    let roster;
+    try {
+      roster = row.roster ? JSON.parse(row.roster) : null;
+    } catch {
+      roster = null;
+    }
+    if (!Array.isArray(roster)) {
+      const ids = row.player_ids ? JSON.parse(row.player_ids) : [];
+      const names = String(row.name).split(/\s+\/\s+|\s*,\s*/).filter(Boolean);
+      roster = [];
+      for (let index = 0; index < Math.max(ids.length, names.length); index++) {
+        if (Number.isInteger(ids[index])) {
+          const player = await getRankedPlayer(ids[index]);
+          if (!player) throw new ValidationError(`Spiller-ID ${ids[index]} ble ikke funnet på verdensrankingen.`);
+          roster.push({ playerId: player.id, name: player.name, club: player.club || null, country: player.nation || null, worldRanking: player.rank, rankingPoints: player.points, rankingValue: player.value });
+        } else if (names[index]) {
+          roster.push({ playerId: null, name: names[index], nameKey: canonicalNameKey(names[index]), club: null, country: null, worldRanking: null, rankingPoints: 0, rankingValue: 0 });
+        }
+      }
+    }
+    roster = roster.map((player) => player.playerId == null
+      ? { ...player, nameKey: canonicalNameKey(player.name) }
+      : player);
+    const teamSize = roster.length;
     const targetMax = target.playersPerTeam + (target.maxSubstitutes ?? 0);
     if (teamSize < target.playersPerTeam || teamSize > targetMax) {
       throw new ValidationError(
         `Laget har ${teamSize} spillere; ${toTournamentSlug} krever ${target.playersPerTeam}–${targetMax}.`,
       );
     }
-  }
-  // Pre-check duplicates in the target tournament
-  const dupClauses = [];
-  if (row.player_id != null) dupClauses.push(`player_id = ${sqlValue(row.player_id)}`);
-  if (row.type === 'player') dupClauses.push(`(type = 'player' AND player_id IS NULL AND lower(email) = lower(${sqlValue(row.email)}))`);
-  if (row.player_ids) {
-    const ids = JSON.parse(row.player_ids);
-    const ph = ids.map(sqlValue).join(', ');
-    dupClauses.push(`player_id IN (${ph})`);
-    dupClauses.push(`(json_valid(player_ids) AND EXISTS (SELECT 1 FROM json_each(player_ids) je WHERE je.value IN (${ph})))`);
-  }
-  if (row.type === 'team') dupClauses.push(`(type = 'team' AND lower(name) = lower(${sqlValue(row.name)}))`);
-  if (dupClauses.length) {
-    const dups = await d1Select(
-      `SELECT id, name FROM registrations WHERE tournament_slug = ${sqlValue(toTournamentSlug)} AND (${dupClauses.join(' OR ')})`,
+    roster.sort((a, b) =>
+      Number(b.rankingPoints ?? 0) - Number(a.rankingPoints ?? 0) ||
+      (a.worldRanking ?? Infinity) - (b.worldRanking ?? Infinity) ||
+      String(a.name).localeCompare(String(b.name), 'nb-NO'));
+    const ids = roster.flatMap((player) => Number.isInteger(player.playerId) ? [player.playerId] : []);
+    const unrankedKeys = roster
+      .filter((player) => player.playerId == null)
+      .map((player) => canonicalNameKey(player.name));
+    const dupClauses = [];
+    if (ids.length) {
+      const ph = ids.map(sqlValue).join(', ');
+      dupClauses.push(`player_id IN (${ph})`);
+      dupClauses.push(`(json_valid(player_ids) AND EXISTS (SELECT 1 FROM json_each(player_ids) je WHERE je.value IN (${ph})))`);
+      dupClauses.push(`(json_valid(roster) AND EXISTS (
+        SELECT 1 FROM json_each(roster) je WHERE json_extract(je.value, '$.playerId') IN (${ph})
+      ))`);
+    }
+    if (unrankedKeys.length) {
+      const ph = unrankedKeys.map(sqlValue).join(', ');
+      dupClauses.push(`(json_valid(roster) AND EXISTS (
+        SELECT 1 FROM json_each(roster) je
+        WHERE json_extract(je.value, '$.playerId') IS NULL
+          AND json_extract(je.value, '$.nameKey') IN (${ph})
+      ))`);
+      dupClauses.push(`(json_valid(roster) AND EXISTS (
+        SELECT 1 FROM json_each(roster) je
+        WHERE json_extract(je.value, '$.playerId') IS NULL
+          AND lower(json_extract(je.value, '$.name')) IN (${ph})
+      ))`);
+    }
+    const displayName = roster.map((player) => player.name).join(' / ');
+    dupClauses.push(`(type = 'team' AND lower(name) = lower(${sqlValue(displayName)}))`);
+    const rankingPoints = roster.slice(0, target.playersPerTeam)
+      .reduce((sum, player) => sum + Number(player.rankingPoints ?? 0), 0);
+    const worldRanking = roster.find((player) => player.worldRanking != null)?.worldRanking ?? null;
+    await d1(
+      `UPDATE registrations
+       SET tournament_slug = ${sqlValue(toTournamentSlug)}, name = ${sqlValue(displayName)},
+           world_ranking = ${sqlValue(worldRanking)}, ranking_points = ${sqlValue(rankingPoints)},
+           ranking_value = NULL, player_ids = ${sqlValue(ids.length ? JSON.stringify(ids) : null)},
+           roster = ${sqlValue(JSON.stringify(roster))}, answers = ${sqlValue(answersJson)}
+       WHERE id = ${sqlValue(args.id)} AND NOT EXISTS (
+         SELECT 1 FROM registrations
+         WHERE tournament_slug = ${sqlValue(toTournamentSlug)} AND (${dupClauses.join(' OR ')})
+       )`,
     );
-    if (dups.length) {
-      throw new ValidationError(
-        `Konflikt i målturneringen — allerede registrert der (id ${dups.map((d) => d.id).join(', ')}).`,
+  } else {
+    try {
+      await d1(
+        `UPDATE registrations SET tournament_slug = ${sqlValue(toTournamentSlug)}, answers = ${sqlValue(answersJson)} WHERE id = ${sqlValue(args.id)}`,
       );
+    } catch (error) {
+      if (/UNIQUE constraint failed/i.test(error.message)) {
+        throw new ValidationError('Spilleren er allerede registrert i målturneringen.');
+      }
+      throw error;
     }
   }
-
-  await d1(
-    `UPDATE registrations SET tournament_slug = ${sqlValue(toTournamentSlug)} WHERE id = ${sqlValue(args.id)}`,
-  );
+  const moved = await d1Select(`SELECT tournament_slug FROM registrations WHERE id = ${sqlValue(args.id)}`);
+  if (moved[0]?.tournament_slug !== toTournamentSlug) {
+    throw new ValidationError('Konflikt i målturneringen — en av spillerne er allerede registrert der.');
+  }
   return ok(
     `Flyttet påmelding ${args.id} (${row.name}) fra ${row.tournament_slug} til ${toTournamentSlug}.`,
     { id: args.id, from: row.tournament_slug, to: toTournamentSlug },
   );
 }
 
-const csvField = (v) => `"${String(v ?? '').replaceAll('"', '""')}"`;
+/** Neutralize spreadsheet formulas even when hidden behind whitespace/control characters. */
+export const csvField = (v) => {
+  let value = String(v ?? '');
+  if (/^[\u0000-\u0020]*[=+\-@]/u.test(value)) value = `'${value}`;
+  return `"${value.replaceAll('"', '""')}"`;
+};
 
 async function exportRegistrations(args) {
   const { tournamentSlug } = args;
@@ -426,11 +515,28 @@ async function exportRegistrations(args) {
   );
   const csv = '﻿' + [header, ...lines].join('\r\n') + '\r\n'; // BOM for Excel
 
-  mkdirSync(PATHS.exportDir, { recursive: true });
+  mkdirSync(PATHS.exportDir, { recursive: true, mode: 0o700 });
   const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '');
-  const out =
-    args.outPath ?? `${PATHS.exportDir}/registrations-${tournamentSlug}-${stamp}.csv`;
-  writeFileSync(out, csv);
+  const exportRoot = resolve(PATHS.exportDir);
+  const out = resolve(
+    args.outPath ?? `${PATHS.exportDir}/registrations-${tournamentSlug}-${stamp}.csv`,
+  );
+  const fromRoot = relative(exportRoot, out);
+  if (!fromRoot || fromRoot.startsWith('..') || isAbsolute(fromRoot) || resolve(dirname(out)) !== exportRoot) {
+    throw new ValidationError('Eksportfilen må ligge direkte i den git-ignorerte migration/raw-mappen.');
+  }
+  let fd;
+  try {
+    // Exclusive creation prevents accidental overwrite and follows neither an
+    // existing file nor a symlink. Contact data is owner-readable only.
+    fd = openSync(out, 'wx', 0o600);
+    writeFileSync(fd, csv, 'utf8');
+  } catch (err) {
+    if (err?.code === 'EEXIST') throw new ValidationError(`Eksportfilen finnes allerede: ${out}`);
+    throw err;
+  } finally {
+    if (fd !== undefined) closeSync(fd);
+  }
   return ok(
     `Eksporterte ${rows.length} påmeldinger til ${out}\n` +
       'Filen inneholder e-poster og telefonnumre — den ligger i git-ignorerte migration/raw/. Ikke del den ukritisk, og slett den når du er ferdig.',
@@ -474,11 +580,10 @@ async function syncParticipantSnapshot(args) {
   const result = await commitFiles({
     files: ['src/data/registrations-snapshot.json'],
     message: 'chore(data): sync registrations snapshot from D1',
-    directToMain: args.directToMain ?? false,
   });
   return ok(
     `Snapshot oppdatert (${rows.length} påmeldte, ${Object.keys(tournaments).length} turneringer). ` +
-      (result.mode === 'pr' ? `PR: ${result.prUrl}` : `Pushet til main (${result.commitSha}).`) +
+      `PR: ${result.prUrl}` +
       ' Den statiske deltakerlisten oppdateres ved neste bygg (siden hydrerer uansett live fra API-et).',
     { registrations: rows.length, tournaments: Object.keys(tournaments).length, git: result },
   );
@@ -582,6 +687,7 @@ export function registerRegistrationTools(server) {
       inputSchema: {
         id: z.number().int().positive(),
         toTournamentSlug: z.string(),
+        answers: z.record(z.string()).optional().describe('Svar som kreves av målturneringen'),
       },
     },
     tool(moveRegistration),
@@ -595,7 +701,7 @@ export function registerRegistrationTools(server) {
         'READ-ONLY from D1, WRITES a local file. Full CSV incl. email/phone (PII) for one tournament, written to the git-ignored migration/raw/ folder — contents are never printed to chat.',
       inputSchema: {
         tournamentSlug: z.string(),
-        outPath: z.string().optional().describe('Default: migration/raw/registrations-<slug>-<timestamp>.csv'),
+        outPath: z.string().optional().describe('Optional filename inside migration/raw/ (other paths and overwrites are refused)'),
       },
     },
     tool(exportRegistrations),
@@ -606,8 +712,8 @@ export function registerRegistrationTools(server) {
     {
       title: 'Sync participant snapshot',
       description:
-        'READS live D1, WRITES GIT (PR by default). Regenerates src/data/registrations-snapshot.json (public fields only) from the live database and commits it, so the static build shows current participant lists.',
-      inputSchema: { directToMain: z.boolean().optional() },
+        'READS live D1, WRITES GIT (branch + PR). Regenerates src/data/registrations-snapshot.json (public fields only) from the live database and opens a pull request, so the static build shows current participant lists after merge.',
+      inputSchema: {},
     },
     tool(syncParticipantSnapshot),
   );

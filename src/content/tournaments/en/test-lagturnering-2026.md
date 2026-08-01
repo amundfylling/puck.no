@@ -7,6 +7,7 @@ location: "Bergen"
 prices: "Team fee: 300 NOK per team"
 playingSystem: "Team matches in round robin format."
 status: "upcoming"
+draft: true
 playersPerTeam: 2
 maxSubstitutes: 1
 rankingLevel: "10"

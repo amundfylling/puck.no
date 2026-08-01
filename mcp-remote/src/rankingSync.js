@@ -1,6 +1,6 @@
 /** Weekly ITHF ranking refresh for registrations in upcoming tournaments. */
 import { tournamentStatus } from './lib/dates.js';
-import { getRanking } from './lib/ranking.js';
+import { canonicalNameKey, getRanking } from './lib/ranking.js';
 import { getTournamentConfig } from './lib/tournamentConfig.js';
 
 const unranked = (name) => ({
@@ -11,6 +11,7 @@ const unranked = (name) => ({
   worldRanking: null,
   rankingPoints: 0,
   rankingValue: 0,
+  nameKey: canonicalNameKey(name),
 });
 
 const ranked = (player) => ({

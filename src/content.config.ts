@@ -71,6 +71,8 @@ const tournaments = defineCollection({
     playingSystem: z.string().nullable(),
     /** Frontmatter hint — computed status (date vs build date) wins, see lib/tournaments.ts. */
     status: z.enum(['upcoming', 'past']),
+    /** Internal fixtures/previews are retained in content but never published or exposed to the API. */
+    draft: z.boolean().default(false),
     /** false = registration closed (form hidden, API rejects). Default: open. */
     registrationOpen: z.boolean().default(true),
     /** Exact number of highest-rated roster members whose points count. Null = individual. */

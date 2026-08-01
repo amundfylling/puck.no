@@ -44,15 +44,20 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const refresh = await context.env.DB.prepare(
     'SELECT refreshed_at FROM ranking_refreshes WHERE tournament_slug = ?',
   ).bind(slug).first<{ refreshed_at: string }>();
-  const participants = results.map((row) => ({
-    type: row.type,
-    name: row.name,
-    country: row.country ?? null,
-    club: row.club ?? null,
-    world_ranking: row.world_ranking ?? null,
-    ranking_points: row.ranking_points ?? (row.type === 'team' ? 0 : null),
-    roster: row.type === 'team' ? parseRoster(row.roster, String(row.name)) : null,
-  }));
+  const participants = results.map((row) => {
+    const roster = row.type === 'team'
+      ? parseRoster(row.roster, String(row.name)).map(({ nameKey: _internalKey, ...player }) => player)
+      : null;
+    return {
+      type: row.type,
+      name: row.name,
+      country: row.country ?? null,
+      club: row.club ?? null,
+      world_ranking: row.world_ranking ?? null,
+      ranking_points: row.ranking_points ?? (row.type === 'team' ? 0 : null),
+      roster,
+    };
+  });
   const tournament = TOURNAMENTS[slug];
   const playerValues = results.map((row) =>
     tournament.playersPerTeam == null ? Number(row.ranking_value ?? 0) : 0,
