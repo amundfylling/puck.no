@@ -18,6 +18,7 @@ import {
   authenticate, baseUrl, jsonRes,
 } from './oauth.js';
 import { handleMcp } from './mcp.js';
+import { isOsloRefreshTime, refreshUpcomingRankings } from './rankingSync.js';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -73,5 +74,19 @@ export default {
     }
 
     return withCors(res);
+  },
+  async scheduled(controller, env, ctx) {
+    const scheduledAt = new Date(controller.scheduledTime);
+    // Wrangler cron is UTC. It fires at both possible UTC offsets; exactly
+    // one invocation is 03:00 Europe/Oslo across daylight-saving changes.
+    if (!isOsloRefreshTime(scheduledAt)) return;
+    ctx.waitUntil(
+      refreshUpcomingRankings(env, scheduledAt)
+        .then((result) => console.log(JSON.stringify({ event: 'ranking_refresh', ...result })))
+        .catch((error) => {
+          console.error('ranking refresh failed', error);
+          throw error;
+        }),
+    );
   },
 };

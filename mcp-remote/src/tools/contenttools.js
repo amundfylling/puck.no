@@ -7,24 +7,13 @@ import { getTextFile, listFiles, commitFiles, toBase64, checkRuns } from '../git
 import { parseMdText, patchMdText, createMdText } from '../lib/frontmatter.js';
 import { tournamentStatus, parseNoDate } from '../lib/dates.js';
 import {
-  assertSlug, assertDateText, assertTeamRule, ValidationError,
+  assertSlug, assertDateText, assertTeamRule, assertTournamentRankingLevel,
+  RANKING_LEVELS, ValidationError,
 } from '../lib/validate.js';
 
 const TOURNAMENTS_DIR = 'src/content/tournaments';
 const POSTS_DIR = 'src/content/posts';
 const CONFIG_PATH = 'functions/lib/tournament-config.json';
-
-/** Minimal scalar reader for our simple frontmatter (mirrors gen-tournament-config.mjs). */
-function field(fm, key) {
-  const m = fm.match(new RegExp(`^${key}:\\s*(.+)$`, 'm'));
-  if (!m) return null;
-  const v = m[1].trim();
-  if (v === 'null') return null;
-  if (v === 'true') return true;
-  if (v === 'false') return false;
-  if (/^-?\d+$/.test(v)) return Number(v);
-  return v.replace(/^["']|["']$/g, '');
-}
 
 /**
  * Regenerate functions/lib/tournament-config.json from the tournament
@@ -38,20 +27,19 @@ async function regenerateConfig(env) {
   const config = {};
   for (const path of files) {
     const raw = await getTextFile(env, path);
-    const fm = raw?.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-    if (!fm) continue;
-    const slug = field(fm[1], 'slug');
+    if (!raw) continue;
+    const { data } = parseMdText(raw);
+    const slug = data.slug;
     if (!slug) continue;
-    const teamMin = field(fm[1], 'teamMin');
-    const teamMax = field(fm[1], 'teamMax');
-    if ((teamMin == null) !== (teamMax == null)) {
-      throw new ValidationError(`${path}: teamMin/teamMax må begge være satt eller begge null.`);
-    }
-    const registrationOpen = field(fm[1], 'registrationOpen');
+    assertTeamRule(data.playersPerTeam ?? null, data.maxSubstitutes ?? 0);
+    assertTournamentRankingLevel(data.playersPerTeam ?? null, data.rankingLevel ?? null);
     config[slug] = {
-      teamMin: teamMin ?? null,
-      teamMax: teamMax ?? null,
-      ...(registrationOpen === false ? { registrationOpen: false } : {}),
+      date: data.date,
+      playersPerTeam: data.playersPerTeam ?? null,
+      maxSubstitutes: data.maxSubstitutes ?? 0,
+      registrationQuestions: data.registrationQuestions ?? [],
+      rankingLevel: data.rankingLevel ?? null,
+      ...(data.registrationOpen === false ? { registrationOpen: false } : {}),
     };
   }
   return { path: CONFIG_PATH, text: JSON.stringify(config, null, 1) + '\n' };
@@ -83,7 +71,10 @@ async function listTournaments(env) {
       location: data.location ?? null,
       status: tournamentStatus(data.date),
       registrationOpen: data.registrationOpen !== false,
-      team: data.teamMin != null ? `${data.teamMin}–${data.teamMax} per lag` : 'individuell',
+      rankingLevel: data.rankingLevel ?? null,
+      team: data.playersPerTeam != null
+        ? `${data.playersPerTeam} teller + opptil ${data.maxSubstitutes ?? 0} innbyttere`
+        : 'individuell',
     });
   }
   entries.sort((a, b) => {
@@ -112,7 +103,8 @@ async function createTournament(env, args) {
   const { name, slug, date } = args;
   assertSlug(slug);
   assertDateText(date, parseNoDate);
-  assertTeamRule(args.teamMin ?? null, args.teamMax ?? null);
+  assertTeamRule(args.playersPerTeam ?? null, args.maxSubstitutes ?? 0);
+  assertTournamentRankingLevel(args.playersPerTeam ?? null, args.rankingLevel ?? null);
   if (await tournamentFileExists(env, slug)) {
     throw new ValidationError(`Turneringen «${slug}» finnes allerede.`);
   }
@@ -124,8 +116,10 @@ async function createTournament(env, args) {
     playingSystem: args.playingSystem ?? null,
     status: 'upcoming',
     ...(args.registrationOpen === false ? { registrationOpen: false } : {}),
-    teamMin: args.teamMin ?? null,
-    teamMax: args.teamMax ?? null,
+    playersPerTeam: args.playersPerTeam ?? null,
+    maxSubstitutes: args.maxSubstitutes ?? 0,
+    registrationQuestions: args.registrationQuestions ?? [],
+    rankingLevel: args.rankingLevel ?? null,
   };
   const files = [{
     path: `${TOURNAMENTS_DIR}/${slug}.md`,
@@ -151,34 +145,53 @@ async function createTournament(env, args) {
 }
 
 /** Config JSON updated with one new/changed entry (without re-reading everything). */
-async function regenerateConfigPreview(env, slug, fields) {
+export async function regenerateConfigPreview(env, slug, fields) {
   const raw = await getTextFile(env, CONFIG_PATH);
   const config = raw ? JSON.parse(raw) : {};
-  config[slug] = {
-    teamMin: fields.teamMin ?? null,
-    teamMax: fields.teamMax ?? null,
-    ...(fields.registrationOpen === false ? { registrationOpen: false } : {}),
+  const previous = config[slug] ?? {};
+  const next = {
+    ...previous,
+    ...(fields.date !== undefined ? { date: fields.date } : {}),
+    ...(fields.playersPerTeam !== undefined ? { playersPerTeam: fields.playersPerTeam ?? null } : {}),
+    ...(fields.maxSubstitutes !== undefined ? { maxSubstitutes: fields.maxSubstitutes ?? 0 } : {}),
+    ...(fields.registrationQuestions !== undefined ? { registrationQuestions: fields.registrationQuestions ?? [] } : {}),
+    ...(fields.rankingLevel !== undefined ? { rankingLevel: fields.rankingLevel ?? null } : {}),
   };
+  if (!('playersPerTeam' in next)) next.playersPerTeam = null;
+  if (!('maxSubstitutes' in next)) next.maxSubstitutes = 0;
+  if (!('registrationQuestions' in next)) next.registrationQuestions = [];
+  if (!('rankingLevel' in next)) next.rankingLevel = null;
+  assertTeamRule(next.playersPerTeam, next.maxSubstitutes);
+  assertTournamentRankingLevel(next.playersPerTeam, next.rankingLevel);
+  if (fields.registrationOpen === false) next.registrationOpen = false;
+  else if (fields.registrationOpen === true) delete next.registrationOpen;
+  config[slug] = next;
   return { path: CONFIG_PATH, text: JSON.stringify(config, null, 1) + '\n' };
 }
 
-const PATCHABLE = ['name', 'date', 'location', 'prices', 'playingSystem', 'status', 'registrationOpen', 'teamMin', 'teamMax'];
-const SYNC_TO_EN = ['date', 'location', 'status', 'registrationOpen', 'teamMin', 'teamMax'];
+export const TOURNAMENT_PATCHABLE = ['name', 'date', 'location', 'prices', 'playingSystem', 'status', 'registrationOpen', 'playersPerTeam', 'maxSubstitutes', 'registrationQuestions', 'rankingLevel'];
+export const TOURNAMENT_SYNC_TO_EN = ['date', 'location', 'status', 'registrationOpen', 'playersPerTeam', 'maxSubstitutes', 'registrationQuestions', 'rankingLevel'];
 
 async function updateTournament(env, args) {
   const { slug, ...patch } = args;
   assertSlug(slug);
   const clean = {};
-  for (const key of PATCHABLE) if (patch[key] !== undefined) clean[key] = patch[key];
+  for (const key of TOURNAMENT_PATCHABLE) if (patch[key] !== undefined) clean[key] = patch[key];
   if (Object.keys(clean).length === 0) throw new ValidationError('Ingen felt å oppdatere.');
   if (clean.date !== undefined) assertDateText(clean.date, parseNoDate);
 
   const { no, en } = await readTournament(env, slug);
-  if (clean.teamMin !== undefined || clean.teamMax !== undefined) {
-    const { data } = parseMdText(no);
+  const current = parseMdText(no).data;
+  if (clean.playersPerTeam !== undefined || clean.maxSubstitutes !== undefined) {
     assertTeamRule(
-      clean.teamMin !== undefined ? clean.teamMin : data.teamMin,
-      clean.teamMax !== undefined ? clean.teamMax : data.teamMax,
+      clean.playersPerTeam !== undefined ? clean.playersPerTeam : current.playersPerTeam,
+      clean.maxSubstitutes !== undefined ? clean.maxSubstitutes : current.maxSubstitutes,
+    );
+  }
+  if (clean.rankingLevel !== undefined || clean.playersPerTeam !== undefined) {
+    assertTournamentRankingLevel(
+      clean.playersPerTeam !== undefined ? clean.playersPerTeam : current.playersPerTeam,
+      clean.rankingLevel !== undefined ? clean.rankingLevel : current.rankingLevel,
     );
   }
 
@@ -187,7 +200,7 @@ async function updateTournament(env, args) {
   let enSynced = false;
   if (en) {
     const enPatch = {};
-    for (const key of SYNC_TO_EN) if (clean[key] !== undefined) enPatch[key] = clean[key];
+    for (const key of TOURNAMENT_SYNC_TO_EN) if (clean[key] !== undefined) enPatch[key] = clean[key];
     if (Object.keys(enPatch).length) {
       files.push({ path: `${TOURNAMENTS_DIR}/en/${slug}.md`, text: patchMdText(en, enPatch).text });
       enSynced = true;
@@ -218,7 +231,8 @@ async function duplicateTournament(env, args) {
 
   const { no, en } = await readTournament(env, sourceSlug);
   const src = parseMdText(no);
-  assertTeamRule(src.data.teamMin ?? null, src.data.teamMax ?? null);
+  assertTeamRule(src.data.playersPerTeam ?? null, src.data.maxSubstitutes ?? 0);
+  assertTournamentRankingLevel(src.data.playersPerTeam ?? null, src.data.rankingLevel ?? null);
   const newFields = {
     ...src.data,
     name: args.newName ?? src.data.name,
@@ -234,7 +248,7 @@ async function duplicateTournament(env, args) {
     const enSrc = parseMdText(en);
     files.push({
       path: `${TOURNAMENTS_DIR}/en/${newSlug}.md`,
-      text: createMdText({ ...enSrc.data, name: args.newEnglishName ?? enSrc.data.name, slug: newSlug, lang: 'en', date: newDate, status: 'upcoming' }, enSrc.body),
+      text: createMdText({ ...enSrc.data, name: args.newEnglishName ?? enSrc.data.name, slug: newSlug, lang: 'en', date: newDate, status: 'upcoming', rankingLevel: newFields.rankingLevel ?? null }, enSrc.body),
     });
   }
   files.push(await regenerateConfigPreview(env, newSlug, newFields));
@@ -415,7 +429,7 @@ export const contentTools = [
   {
     name: 'list_tournaments',
     title: 'List tournaments',
-    description: 'READ-ONLY. All tournaments with date, computed status, registration-open flag, team rules and live registration counts.',
+    description: 'READ-ONLY. All tournaments with date, computed status, registration-open flag, team rules, ITHF ranking level and live registration counts.',
     inputSchema: { type: 'object', properties: {} },
     run: listTournaments,
   },
@@ -433,8 +447,20 @@ export const contentTools = [
         location: { type: 'string' },
         prices: { type: 'string' },
         playingSystem: { type: 'string' },
-        teamMin: { type: 'integer' },
-        teamMax: { type: 'integer' },
+        playersPerTeam: { type: 'integer', minimum: 1 },
+        maxSubstitutes: { type: 'integer', minimum: 0 },
+        rankingLevel: { enum: [null, ...RANKING_LEVELS], description: 'ITHF tournament level used to calculate placement points' },
+        registrationQuestions: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: { type: 'string' }, labelNo: { type: 'string' }, labelEn: { type: 'string' }, required: { type: 'boolean' },
+              options: { type: 'array', items: { type: 'object', properties: { value: { type: 'string' }, labelNo: { type: 'string' }, labelEn: { type: 'string' } }, required: ['value', 'labelNo', 'labelEn'] } },
+            },
+            required: ['id', 'labelNo', 'labelEn', 'options'],
+          },
+        },
         registrationOpen: { type: 'boolean' },
         body: { type: 'string' },
         englishName: { type: 'string', description: 'Set to also create the English mirror' },
@@ -448,7 +474,7 @@ export const contentTools = [
     name: 'update_tournament',
     title: 'Update tournament details',
     description:
-      'WRITES GIT (commit to main). Patches tournament frontmatter (name/date/location/prices/playingSystem/status/registrationOpen/team rules) without touching the body. Non-translatable fields sync to the EN mirror.',
+      'WRITES GIT (commit to main). Patches tournament frontmatter (name/date/location/prices/playingSystem/status/registrationOpen/team rules/ranking level) without touching the body. Non-translatable fields sync to the EN mirror.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -460,8 +486,20 @@ export const contentTools = [
         playingSystem: { type: 'string' },
         status: { type: 'string', enum: ['upcoming', 'past'] },
         registrationOpen: { type: 'boolean' },
-        teamMin: { type: 'integer' },
-        teamMax: { type: 'integer' },
+        playersPerTeam: { type: 'integer', minimum: 1 },
+        maxSubstitutes: { type: 'integer', minimum: 0 },
+        rankingLevel: { enum: [null, ...RANKING_LEVELS] },
+        registrationQuestions: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: { type: 'string' }, labelNo: { type: 'string' }, labelEn: { type: 'string' }, required: { type: 'boolean' },
+              options: { type: 'array', items: { type: 'object', properties: { value: { type: 'string' }, labelNo: { type: 'string' }, labelEn: { type: 'string' } }, required: ['value', 'labelNo', 'labelEn'] } },
+            },
+            required: ['id', 'labelNo', 'labelEn', 'options'],
+          },
+        },
       },
       required: ['slug'],
     },

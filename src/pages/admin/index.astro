@@ -65,7 +65,7 @@ const names = Object.fromEntries(views.map((v) => [v.entry.data.slug, v.entry.da
               {
                 views.map(({ entry, status }) => {
                   const slug = entry.data.slug;
-                  const isTeam = entry.data.teamMin != null;
+                  const isTeam = entry.data.playersPerTeam != null;
                   const open = entry.data.registrationOpen !== false;
                   return (
                     <tr class="border-b border-slate-100 last:border-0 hover:bg-ice/60 dark:border-slate-800/60 dark:hover:bg-slate-800/40">

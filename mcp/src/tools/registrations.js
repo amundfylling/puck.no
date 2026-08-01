@@ -24,13 +24,39 @@ function knownSlug(slug) {
   return cfg()[slug];
 }
 
+function registrationAnswers(config, values = {}) {
+  const known = new Set((config.registrationQuestions ?? []).map((question) => question.id));
+  for (const id of Object.keys(values ?? {})) {
+    if (!known.has(id)) throw new ValidationError(`Ukjent tilleggsspørsmål «${id}».`);
+  }
+  const answers = [];
+  for (const question of config.registrationQuestions ?? []) {
+    const value = values?.[question.id];
+    if (value == null || value === '') {
+      if (question.required) throw new ValidationError(`Svar på «${question.labelNo}» er påkrevd.`);
+      continue;
+    }
+    const option = question.options.find((candidate) => candidate.value === value);
+    if (!option) throw new ValidationError(`Ugyldig svar på «${question.labelNo}».`);
+    answers.push({
+      questionId: question.id, questionLabelNo: question.labelNo, questionLabelEn: question.labelEn,
+      value: option.value, labelNo: option.labelNo, labelEn: option.labelEn,
+    });
+  }
+  return answers.length ? JSON.stringify(answers) : null;
+}
+
 const publicRow = (r) => ({
   id: r.id,
   type: r.type,
   name: r.name,
   country: r.country ?? '',
+  club: r.club ?? '',
   worldRanking: r.world_ranking ?? null,
+  rankingPoints: r.ranking_points ?? null,
+  rankingValue: r.ranking_value ?? null,
   playerId: r.player_id ?? null,
+  roster: r.roster ? JSON.parse(r.roster) : null,
   registeredAt: r.created_at,
 });
 
@@ -38,7 +64,7 @@ async function listRegistrations(args) {
   const { tournamentSlug, limit = 500 } = args;
   knownSlug(tournamentSlug);
   const rows = await d1Select(
-    `SELECT id, type, name, country, world_ranking, player_id, created_at
+    `SELECT id, type, name, country, club, world_ranking, ranking_points, ranking_value, player_id, roster, created_at
      FROM registrations WHERE tournament_slug = ${sqlValue(tournamentSlug)}
      ORDER BY id ASC LIMIT ${Number(limit) | 0}`,
   );
@@ -74,42 +100,53 @@ async function countRegistrations(args) {
 async function addRegistration(args) {
   const { tournamentSlug } = args;
   const config = knownSlug(tournamentSlug);
-  const isTeam = config.teamMin != null && config.teamMax != null;
+  const isTeam = config.playersPerTeam != null;
   assertEmail(args.email);
   assertPhone(args.phone);
   const email = args.email.trim().toLowerCase();
   const phone = args.phone?.trim() || null;
+  const answersJson = registrationAnswers(config, args.answers);
 
-  let name, country = null, wr = null, playerId = null, playerIdsJson = null;
+  let name, country = null, club = null, wr = null, rankingPoints = 0, rankingValue = 0;
+  let playerId = null, playerIdsJson = null, rosterJson = null;
 
   if (isTeam) {
-    const ids = Array.isArray(args.playerIds) ? args.playerIds : null;
-    const names = Array.isArray(args.names) ? args.names : null;
-    if ((ids == null) === (names == null)) {
-      throw new ValidationError('Lagturnering: oppgi enten playerIds ELLER names (ikke begge).');
+    const sources = [args.players, args.playerIds, args.names].filter(Array.isArray);
+    if (sources.length !== 1) throw new ValidationError('Lagturnering: oppgi players (anbefalt), playerIds eller names.');
+    const entries = Array.isArray(args.players)
+      ? args.players
+      : Array.isArray(args.playerIds)
+        ? args.playerIds.map((rankedId) => ({ playerId: rankedId }))
+        : args.names.map((freeName) => ({ name: freeName }));
+    const count = entries.length;
+    const max = config.playersPerTeam + (config.maxSubstitutes ?? 0);
+    if (count < config.playersPerTeam || count > max) {
+      throw new ValidationError(`Laget må ha mellom ${config.playersPerTeam} og ${max} spillere.`);
     }
-    const count = (ids ?? names).length;
-    if (count < config.teamMin || count > config.teamMax) {
-      throw new ValidationError(`Laget må ha mellom ${config.teamMin} og ${config.teamMax} spillere.`);
-    }
-    if (ids) {
-      if (ids.some((v) => !Number.isInteger(v) || v <= 0)) throw new ValidationError('Ugyldig spiller-ID.');
-      if (new Set(ids).size !== ids.length) throw new ValidationError('Samme spiller er valgt flere ganger.');
-      const resolved = [];
-      for (const id of ids) {
-        const p = await getRankedPlayer(id);
-        if (!p) throw new ValidationError(`Spiller-ID ${id} ble ikke funnet på verdensrankingen.`);
-        resolved.push(p);
+    const roster = [];
+    for (const entry of entries) {
+      const hasId = entry?.playerId != null;
+      const freeName = String(entry?.name ?? '').trim();
+      if (hasId === Boolean(freeName)) throw new ValidationError('Hver spiller må ha enten playerId eller name.');
+      if (hasId) {
+        if (!Number.isInteger(entry.playerId) || entry.playerId <= 0) throw new ValidationError('Ugyldig spiller-ID.');
+        const p = await getRankedPlayer(entry.playerId);
+        if (!p) throw new ValidationError(`Spiller-ID ${entry.playerId} ble ikke funnet på verdensrankingen.`);
+        roster.push({ playerId: p.id, name: p.name, club: p.club || null, country: p.nation || null, worldRanking: p.rank, rankingPoints: p.points, rankingValue: p.value });
+      } else {
+        if (!freeName || freeName.length > 500) throw new ValidationError('Ugyldig spillernavn.');
+        roster.push({ playerId: null, name: freeName, club: null, country: null, worldRanking: null, rankingPoints: 0, rankingValue: 0 });
       }
-      name = resolved.map((p) => p.name).join(' / ');
-      playerIdsJson = JSON.stringify(ids);
-    } else {
-      const trimmed = names.map((n) => String(n).trim());
-      if (trimmed.some((n) => !n)) throw new ValidationError('Spillernavn kan ikke være tomme.');
-      const lower = trimmed.map((n) => n.toLowerCase());
-      if (new Set(lower).size !== lower.length) throw new ValidationError('Samme spiller står flere ganger på laget.');
-      name = trimmed.join(' / ');
     }
+    const ids = roster.flatMap((p) => p.playerId == null ? [] : [p.playerId]);
+    const lower = roster.map((p) => p.name.toLowerCase());
+    if (new Set(ids).size !== ids.length || new Set(lower).size !== lower.length) throw new ValidationError('Samme spiller er valgt flere ganger.');
+    roster.sort((a, b) => b.rankingPoints - a.rankingPoints || (a.worldRanking ?? Infinity) - (b.worldRanking ?? Infinity));
+    name = roster.map((p) => p.name).join(' / ');
+    playerIdsJson = ids.length ? JSON.stringify(ids) : null;
+    rosterJson = JSON.stringify(roster);
+    rankingPoints = roster.slice(0, config.playersPerTeam).reduce((sum, p) => sum + p.rankingPoints, 0);
+    wr = roster.find((p) => p.worldRanking != null)?.worldRanking ?? null;
   } else {
     if (args.playerId == null && !args.name) throw new ValidationError('Oppgi playerId eller name.');
     if (args.playerId != null) {
@@ -117,7 +154,10 @@ async function addRegistration(args) {
       if (!p) throw new ValidationError(`Spiller-ID ${args.playerId} ble ikke funnet på verdensrankingen.`);
       name = p.name;
       country = p.nation || null;
+      club = p.club || null;
       wr = p.rank;
+      rankingPoints = p.points;
+      rankingValue = p.value;
       playerId = p.id;
     } else {
       name = String(args.name).trim();
@@ -127,33 +167,46 @@ async function addRegistration(args) {
 
   async function insertRegistration() {
     try {
-      if (isTeam && playerIdsJson) {
-        const ids = JSON.parse(playerIdsJson);
-        const inList = ids.map(sqlValue).join(', ');
+      if (isTeam) {
+        const roster = JSON.parse(rosterJson);
+        const ids = roster.flatMap((player) => player.playerId == null ? [] : [player.playerId]);
+        const unrankedNames = roster
+          .filter((player) => player.playerId == null)
+          .map((player) => player.name.toLowerCase());
+        const clauses = [];
+        if (ids.length) {
+          const inList = ids.map(sqlValue).join(', ');
+          clauses.push(`r.player_id IN (${inList})`);
+          clauses.push(`(json_valid(r.player_ids) AND EXISTS (
+            SELECT 1 FROM json_each(r.player_ids) legacy_ids WHERE legacy_ids.value IN (${inList})
+          ))`);
+          clauses.push(`(json_valid(r.roster) AND EXISTS (
+            SELECT 1 FROM json_each(r.roster) roster_ids
+            WHERE json_extract(roster_ids.value, '$.playerId') IN (${inList})
+          ))`);
+        }
+        if (unrankedNames.length) {
+          const inList = unrankedNames.map(sqlValue).join(', ');
+          clauses.push(`(json_valid(r.roster) AND EXISTS (
+            SELECT 1 FROM json_each(r.roster) roster_names
+            WHERE json_extract(roster_names.value, '$.playerId') IS NULL
+              AND lower(json_extract(roster_names.value, '$.name')) IN (${inList})
+          ))`);
+        }
+        clauses.push(`(r.type = 'team' AND lower(r.name) = ${sqlValue(name.toLowerCase())})`);
         await d1(
-          `INSERT INTO registrations (tournament_slug, type, name, country, email, phone, world_ranking, player_id, player_ids)
-           SELECT ${sqlValue(tournamentSlug)}, 'team', ${sqlValue(name)}, NULL, ${sqlValue(email)}, ${sqlValue(phone)}, NULL, NULL, ${sqlValue(playerIdsJson)}
+          `INSERT INTO registrations (tournament_slug, type, name, country, club, email, phone, world_ranking, ranking_points, ranking_value, player_id, player_ids, roster, answers)
+           SELECT ${sqlValue(tournamentSlug)}, 'team', ${sqlValue(name)}, NULL, NULL, ${sqlValue(email)}, ${sqlValue(phone)}, ${sqlValue(wr)}, ${sqlValue(rankingPoints)}, NULL, NULL, ${sqlValue(playerIdsJson)}, ${sqlValue(rosterJson)}, ${sqlValue(answersJson)}
            WHERE NOT EXISTS (
              SELECT 1 FROM registrations r
              WHERE r.tournament_slug = ${sqlValue(tournamentSlug)}
-               AND (r.player_id IN (${inList}) OR (json_valid(r.player_ids) AND EXISTS (
-                 SELECT 1 FROM json_each(r.player_ids) je WHERE je.value IN (${inList})
-               )))
-           )`,
-        );
-      } else if (isTeam) {
-        await d1(
-          `INSERT INTO registrations (tournament_slug, type, name, country, email, phone, world_ranking, player_id, player_ids)
-           SELECT ${sqlValue(tournamentSlug)}, 'team', ${sqlValue(name)}, NULL, ${sqlValue(email)}, ${sqlValue(phone)}, NULL, NULL, NULL
-           WHERE NOT EXISTS (
-             SELECT 1 FROM registrations r
-             WHERE r.tournament_slug = ${sqlValue(tournamentSlug)} AND r.type = 'team' AND lower(r.name) = ${sqlValue(name.toLowerCase())}
+               AND (${clauses.join(' OR ')})
            )`,
         );
       } else {
         await d1(
-          `INSERT INTO registrations (tournament_slug, type, name, country, email, phone, world_ranking, player_id, player_ids)
-           VALUES (${sqlValue(tournamentSlug)}, 'player', ${sqlValue(name)}, ${sqlValue(country)}, ${sqlValue(email)}, ${sqlValue(phone)}, ${sqlValue(wr)}, ${sqlValue(playerId)}, NULL)`,
+          `INSERT INTO registrations (tournament_slug, type, name, country, club, email, phone, world_ranking, ranking_points, ranking_value, player_id, player_ids, roster, answers)
+           VALUES (${sqlValue(tournamentSlug)}, 'player', ${sqlValue(name)}, ${sqlValue(country)}, ${sqlValue(club)}, ${sqlValue(email)}, ${sqlValue(phone)}, ${sqlValue(wr)}, ${sqlValue(rankingPoints)}, ${sqlValue(rankingValue)}, ${sqlValue(playerId)}, NULL, NULL, ${sqlValue(answersJson)})`,
         );
       }
     } catch (err) {
@@ -179,9 +232,7 @@ async function addRegistration(args) {
     const after = await countOf();
     if (after === before) {
       throw new ValidationError(
-        playerIdsJson
-          ? 'En av spillerne er allerede registrert i denne turneringen!'
-          : 'Laget er allerede registrert i denne turneringen!',
+        'En av spillerne er allerede registrert i denne turneringen!',
       );
     }
     newId = (
@@ -295,7 +346,7 @@ async function moveRegistration(args) {
     throw new ValidationError('Påmeldingen er allerede i den turneringen.');
   }
 
-  const targetIsTeam = target.teamMin != null;
+  const targetIsTeam = target.playersPerTeam != null;
   if ((row.type === 'team') !== targetIsTeam) {
     throw new ValidationError(
       targetIsTeam
@@ -307,9 +358,10 @@ async function moveRegistration(args) {
     const teamSize = row.player_ids
       ? JSON.parse(row.player_ids).length
       : String(row.name).split(' / ').length;
-    if (teamSize < target.teamMin || teamSize > target.teamMax) {
+    const targetMax = target.playersPerTeam + (target.maxSubstitutes ?? 0);
+    if (teamSize < target.playersPerTeam || teamSize > targetMax) {
       throw new ValidationError(
-        `Laget har ${teamSize} spillere; ${toTournamentSlug} krever ${target.teamMin}–${target.teamMax}.`,
+        `Laget har ${teamSize} spillere; ${toTournamentSlug} krever ${target.playersPerTeam}–${targetMax}.`,
       );
     }
   }
@@ -350,10 +402,10 @@ async function exportRegistrations(args) {
   const { tournamentSlug } = args;
   knownSlug(tournamentSlug);
   const rows = await d1Select(
-    `SELECT id, tournament_slug, type, name, country, email, phone, world_ranking, created_at
+    `SELECT id, tournament_slug, type, name, country, club, email, phone, world_ranking, ranking_points, ranking_value, roster, answers, created_at
      FROM registrations WHERE tournament_slug = ${sqlValue(tournamentSlug)} ORDER BY id ASC`,
   );
-  const header = 'id,tournament_slug,type,name,country,email,phone,world_ranking,created_at';
+  const header = 'id,tournament_slug,type,name,country,club,email,phone,world_ranking,ranking_points,ranking_value,roster_json,answers_json,created_at';
   const lines = rows.map((r) =>
     [
       r.id,
@@ -361,9 +413,14 @@ async function exportRegistrations(args) {
       csvField(r.type),
       csvField(r.name),
       csvField(r.country),
+      csvField(r.club),
       csvField(r.email),
       csvField(r.phone),
       r.world_ranking ?? '',
+      r.ranking_points ?? '',
+      r.ranking_value ?? '',
+      csvField(r.roster),
+      csvField(r.answers),
       csvField(r.created_at),
     ].join(','),
   );
@@ -383,21 +440,28 @@ async function exportRegistrations(args) {
 
 async function syncParticipantSnapshot(args) {
   const rows = await d1Select(
-    `SELECT tournament_slug, name, country, world_ranking FROM registrations`,
+    `SELECT tournament_slug, type, name, country, club, world_ranking, ranking_points, ranking_value, roster FROM registrations`,
   );
   const tournaments = {};
   for (const r of rows) {
     (tournaments[r.tournament_slug] ??= []).push({
       name: r.name,
       country: r.country ?? '',
+      type: r.type,
+      ...(r.club ? { club: r.club } : {}),
       ...(r.world_ranking != null ? { world_ranking: String(r.world_ranking) } : {}),
+      ...(r.ranking_points != null ? { ranking_points: r.ranking_points } : {}),
+      ...(r.ranking_value != null ? { ranking_value: r.ranking_value } : {}),
+      ...(r.roster ? { roster: JSON.parse(r.roster) } : {}),
     });
   }
   for (const list of Object.values(tournaments)) {
     list.sort((a, b) => {
+      const ap = a.ranking_points ?? -1;
+      const bp = b.ranking_points ?? -1;
       const aw = a.world_ranking != null ? Number(a.world_ranking) : Infinity;
       const bw = b.world_ranking != null ? Number(b.world_ranking) : Infinity;
-      return aw - bw || a.name.localeCompare(b.name);
+      return bp - ap || aw - bw || a.name.localeCompare(b.name);
     });
   }
   const snapshot = {
@@ -424,7 +488,7 @@ async function rankingLookup(args) {
   const hits = await searchRanking(args.query, args.limit ?? 10);
   if (hits.length === 0) return ok(`Ingen treff på «${args.query}» på verdensrankingen.`, []);
   return ok(
-    `${hits.length} treff på «${args.query}» (rank, ITHF playerId, navn, klubb, nasjon).`,
+    `${hits.length} treff på «${args.query}» (rank, ITHF playerId, navn, klubb, nasjon, poeng og Player_Value).`,
     hits,
   );
 }
@@ -435,7 +499,7 @@ export function registerRegistrationTools(server) {
     {
       title: 'List registrations',
       description:
-        'READ-ONLY (live D1). Registrations for a tournament — public fields only (id, name, country, world ranking). Use export_registrations for contact details.',
+        'READ-ONLY (live D1). Registrations for a tournament — public fields only (id, name, country, world ranking, ranking points and Player_Value). Use export_registrations for contact details.',
       inputSchema: {
         tournamentSlug: z.string(),
         limit: z.number().int().min(1).max(5000).optional(),
@@ -466,8 +530,13 @@ export function registerRegistrationTools(server) {
         phone: z.string().nullish(),
         playerId: z.number().int().positive().nullish().describe('ITHF ranking id (individual tournaments)'),
         name: z.string().nullish().describe('Free-text name for unranked players (individual tournaments)'),
+        players: z.array(z.object({
+          playerId: z.number().int().positive().optional(),
+          name: z.string().optional(),
+        })).nullish().describe('Team tournaments: mixed roster; each entry has playerId OR free-text name'),
         playerIds: z.array(z.number().int().positive()).nullish().describe('Team tournaments: ranking ids of all team members'),
         names: z.array(z.string()).nullish().describe('Team tournaments: free-text names of all team members'),
+        answers: z.record(z.string()).optional().describe('Custom question id -> selected option value'),
       },
     },
     tool(addRegistration),
@@ -548,7 +617,7 @@ export function registerRegistrationTools(server) {
     {
       title: 'ITHF ranking lookup',
       description:
-        'READ-ONLY (network). Search the live ITHF world ranking by name → rank, playerId, club, nation. Use the playerId with add_registration.',
+        'READ-ONLY (network). Search the live ITHF world ranking by name → rank, playerId, club, nation, points and Player_Value. Use the playerId with add_registration.',
       inputSchema: {
         query: z.string().describe('Name (substring, case-insensitive)'),
         limit: z.number().int().min(1).max(50).optional(),

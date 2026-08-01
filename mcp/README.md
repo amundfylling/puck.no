@@ -67,9 +67,9 @@ Krav: Node ≥ 22.12, `wrangler login` gjort, `gh auth login` (for PR-flyt).
 ### Turneringer (git)
 | Verktøy | Gjør |
 |---|---|
-| `list_tournaments` | Alle turneringer m/ dato, status, påmeldingstall (live) |
-| `create_tournament` | Ny turnering (NO + valgfri EN-speil), regenererer API-konfig |
-| `update_tournament` | Patch navn/dato/sted/priser/spillsystem/lagregler (uten å røre brødtekst) |
+| `list_tournaments` | Alle turneringer m/ dato, status, rankingnivå og påmeldingstall (live) |
+| `create_tournament` | Ny turnering (NO + valgfri EN-speil), rankingnivå og regenerert API-konfig |
+| `update_tournament` | Patch navn/dato/sted/priser/spillsystem/lagregler/rankingnivå/tilleggsspørsmål (uten å røre brødtekst) |
 | `duplicate_tournament` | Kopier f.eks. fjorårets Norway Open til ny slug/dato |
 | `close_registration` / `open_registration` | Steng/åpne påmelding (`registrationOpen`) |
 | `archive_tournament` | Info — arkivering skjer automatisk etter dato |
@@ -77,15 +77,15 @@ Krav: Node ≥ 22.12, `wrangler login` gjort, `gh auth login` (for PR-flyt).
 ### Påmeldinger (D1, live)
 | Verktøy | Gjør |
 |---|---|
-| `list_registrations` | Påmeldte per turnering — kun offentlige felter |
+| `list_registrations` | Påmeldte per turnering — roster, klubb, rankingposisjon og ITHF-poeng; PII maskert |
 | `count_registrations` | Antall per turnering / totalt |
 | `add_registration` | Manuell påmelding (walk-ins); samme validering + duplikatvern som API-et |
 | `delete_registration` | **DESTRUKTIV — dry-run er standard**; forhåndsvis, så slett med `dryRun: false` |
-| `update_registration` | Rett navn/e-post/telefon |
+| `update_registration` | Rett navn/e-post/telefon (full rosterredigering gjøres i adminportalen) |
 | `move_registration` | Flytt til annen turnering (f.eks. feil NM-klasse) |
 | `export_registrations` | Full CSV (PII) til git-ignorert `migration/raw/` — aldri i chatten |
 | `sync_participant_snapshot` | Regenerer `registrations-snapshot.json` fra live D1 + commit |
-| `ranking_lookup` | Søk i ITHF-rankingen → playerId |
+| `ranking_lookup` | Søk i ITHF-rankingen → playerId, rankingposisjon, ITHF-poeng og eksakt `Player_Value` |
 
 ### Innhold (git)
 | Verktøy | Gjør |
@@ -133,3 +133,14 @@ utviklingsdatabasen i stedet for produksjon.
 - Lokal (miniflare) D1 rapporterer ikke `meta.changes` pålitelig —
   skriveverktøyene verifiserer derfor med oppfølgings-SELECTs og virker
   likt lokalt og i produksjon.
+- Lagregler bruker `playersPerTeam` + `maxSubstitutes`. Laget kan registrere
+  fra `playersPerTeam` til summen av de to feltene; bare de høyest rangerte
+  `playersPerTeam`-spillerne teller i lagets ITHF-poengsum.
+- `rankingLevel` er valgfritt og synkroniseres til engelsk speil/API-konfig.
+  Tillatte verdier er `1-world`, `1-continental`, `2`, `3`, `4`, `5`, `6`
+  og `10`; `null` betyr at turneringen ikke gir beregnede rankingpoeng.
+  Individuelle turneringer kan ikke bruke `10`, mens lagturneringer bare kan
+  bruke `10` eller `null`.
+- MCP-et holder rankingens samlede `points` og algoritmens eksakte
+  `Player_Value` adskilt. Ved manuell påmelding lagres sistnevnte i
+  `ranking_value` (individuell) og `rankingValue` på hvert lagmedlem.

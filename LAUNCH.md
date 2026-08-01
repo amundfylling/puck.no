@@ -60,9 +60,13 @@ Når bygget er grønt har du et nettsted på
    node scripts/seed-d1.mjs > /tmp/seed.sql
    npx wrangler d1 execute puck-no --remote --file=/tmp/seed.sql
    ```
+   Migrering `0005_ranking_value.sql` må være kjørt før kode med WR 2020-
+   beregningen går live; den legger til det separate ITHF-feltet
+   `ranking_value`.
    *(Alternativ uten terminal: åpne databasen i dashboardet → fanen
-   **Console** → lim inn innholdet i `migrations/0001_init.sql`, deretter
-   innholdet i seed-filen. Seed-filen inneholder ekte e-poster — ikke del
+   **Console** → lim inn innholdet i hver fil under `migrations/` i
+   nummerrekkefølge, deretter innholdet i seed-filen. Seed-filen inneholder
+   ekte e-poster — ikke del
    den andre steder.)*
 
 ## A3. Slå på Turnstile (robot-sperre i påmeldingsskjemaet)
@@ -85,12 +89,14 @@ Når bygget er grønt har du et nettsted på
 På https://puck-no.pages.dev:
 
 1. Gå til **Turneringer** → **Norway Open 2026**.
-2. Sjekk at «Påmeldte spillere» viser 12 spillere (Rainers Kalnins øverst).
+2. Sjekk at «Påmeldte spillere» viser navn, klubb, land, rankingposisjon og
+   ITHF-poeng, sortert med høyest poengsum først.
 3. Registrer en testspiller (søk f.eks. «test» eller bruk «Jeg finner ikke
    navnet mitt») → forvent **«Takk for din registrering!»** og at spilleren
    dukker opp i listen.
-4. Registrer samme e-post igjen → forvent **«Spiller er allerede
-   registrert!»**.
+4. Registrer samme spiller-ID igjen → forvent **«Spiller er allerede
+   registrert!»**. I en lagturnering skal samme spiller heller ikke kunne
+   registreres på to lag.
 5. Slett testspilleren fra databasen (terminal):
    ```bash
    npx wrangler d1 execute puck-no --remote --command="DELETE FROM registrations WHERE email='din-test@epost.no';"
@@ -180,7 +186,25 @@ CMS-et). Uten token svarer endepunktet `503` og knappen viser en forklaring.
    beskjed «… trer i kraft etter neste bygg», og commitet dukker opp i
    repo-historikken.
 
-## A7. (Valgfritt) Web Analytics
+## A7. Slå på ukentlig rankingoppdatering
+
+Rankingoppdateringen kjører i den eksterne admin-Workeren. Følg oppsettet i
+`mcp-remote/README.md`, og deploy fra repoet:
+
+```bash
+cd mcp-remote
+npm install
+npx wrangler deploy
+```
+
+`mcp-remote/wrangler.toml` registrerer to UTC-cronforsøk hver onsdag. Workeren
+sjekker Europe/Oslo-tid, slik at bare kjøringen kl. 03:00 gjør arbeid gjennom
+hele året. Den oppdaterer bare kommende turneringer og lar gamle rankingverdier
+stå hvis ITHF-kilden ikke kan hentes. Oppdateringen omfatter også ITHF-feltet
+`Player_Value`, som WR 2020-beregningen bruker for poeng per plassering.
+Kontroller første kjøring i **Workers & Pages → puck-no-mcp → Logs**.
+
+## A8. (Valgfritt) Web Analytics
 
 1. Dashbord → **Analytics & Logs** → **Web Analytics** → **Add a site** →
    hostname `puck-no.pages.dev`. Kopier **JS-snippet token**.
@@ -190,7 +214,7 @@ CMS-et). Uten token svarer endepunktet `503` og knappen viser en forklaring.
    i `script-src` og `connect-src` (beacon-scriptet ellers blokkert).
 4. Ingen informasjonskapsler, ingen banner nødvendig.
 
-## A8. Akseptansetest på pages.dev (sjekkliste)
+## A9. Akseptansetest på pages.dev (sjekkliste)
 
 - [ ] Forsiden, Nyheter, en bloggpost, Turneringer, én turneringsside,
       Timere (spill av 5 sek), Bilder + et galleri, Årsmøter (åpne en PDF),
@@ -316,8 +340,12 @@ duplikatinnhold, og besøkende kan havne på det gamle domenet):
   `npx wrangler d1 migrations apply puck-no --remote` FØR du merger kode som
   bruker dem — et Pages-bygg går live automatisk ved merge, og ny kode som
   forventer en kolonne som ikke finnes ennå feiler for alle påmeldinger.
-- **Verdensrankingen** hentes automatisk ved hvert bygg og ved hver
-  påmelding — ingen vedlikehold.
+- **Verdensrankingen** hentes ved hvert bygg og ved nye rangerte påmeldinger.
+  Registrerte spillere i kommende turneringer oppdateres hver onsdag kl. 03:00
+  Europe/Oslo av `puck-no-mcp`-Workeren. Se Worker-loggene hvis feltet «Ranking
+  sist oppdatert» ikke endres. Oppdateringen lagrer både spillerens totale
+  rankingpoeng og den separate `Player_Value` som brukes til å beregne WR 2020-
+  poengtabellen for turneringer med valgt ITHF-rankingnivå.
 
 # Miljøvariabler — oversikt
 

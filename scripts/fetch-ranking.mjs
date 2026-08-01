@@ -4,7 +4,7 @@
  * ranking (https://stiga.trefik.cz/ithf/ranking/ranking.txt, TSV) and
  * convert it to compact JSON used by the registration form's player search.
  *
- * Output: [rank, id, name, club, nation] per player —
+ * Output: [rank, id, name, club, nation, points, playerValue] per player —
  *   src/data/ranking.json   committed snapshot (offline fallback)
  *   public/ranking.json     served to the client (generated, git-ignored)
  *
@@ -23,11 +23,19 @@ export function parseRanking(tsv) {
   const players = [];
   for (const line of lines.slice(2)) {
     if (!line.trim()) continue;
-    const [rank, id, name, club, nation] = line.split('\t');
+    const [rank, id, name, club, nation, points, playerValue] = line.split('\t');
     const r = Number(rank);
     const i = Number(id);
-    if (!Number.isInteger(r) || !Number.isInteger(i) || !name) continue;
-    players.push([r, i, name, club ?? '', nation ?? '']);
+    const p = Number(points);
+    const v = Number(playerValue);
+    if (
+      !Number.isInteger(r) || r <= 0 ||
+      !Number.isInteger(i) || i <= 0 ||
+      points?.trim() === '' || !Number.isFinite(p) || p < 0 ||
+      playerValue?.trim() === '' || !Number.isFinite(v) || v < 0 ||
+      !name
+    ) continue;
+    players.push([r, i, name, club ?? '', nation ?? '', p, v]);
   }
   return players;
 }

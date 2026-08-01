@@ -9,6 +9,7 @@
  * CSV is quoted and starts with a BOM so Excel shows Norwegian characters.
  */
 import { KNOWN_SLUGS } from '../../lib/tournaments';
+import { parseAnswers } from '../../lib/registration';
 
 interface Env {
   DB: D1Database;
@@ -37,26 +38,44 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     return json({ error: 'Ukjent turnering.' }, 400);
   }
   const { results } = await context.env.DB.prepare(
-    `SELECT id, tournament_slug, type, name, country, email, phone, world_ranking, created_at
+    `SELECT id, tournament_slug, type, name, country, club, email, phone,
+            world_ranking, ranking_points, ranking_value, roster, answers, created_at
      FROM registrations WHERE tournament_slug = ? ORDER BY id ASC`,
   )
     .bind(slug)
     .all();
 
-  const header = 'id,tournament_slug,type,name,country,email,phone,world_ranking,created_at';
-  const rows = results.map((r) =>
-    [
+  const questionIds: string[] = [];
+  for (const row of results) {
+    for (const answer of parseAnswers(row.answers)) {
+      if (!questionIds.includes(answer.questionId)) questionIds.push(answer.questionId);
+    }
+  }
+  const header = [
+    'id', 'tournament_slug', 'type', 'name', 'country', 'club', 'email', 'phone',
+    'world_ranking', 'ranking_points', 'ranking_value', 'roster_json',
+    ...questionIds.map((id) => `question_${id}`),
+    'created_at',
+  ].join(',');
+  const rows = results.map((r) => {
+    const answers = new Map(parseAnswers(r.answers).map((answer) => [answer.questionId, answer.labelNo]));
+    return [
       r.id,
       csvField(r.tournament_slug),
       csvField(r.type),
       csvField(r.name),
       csvField(r.country),
+      csvField(r.club),
       csvField(r.email),
       csvField(r.phone),
       r.world_ranking ?? '',
+      r.ranking_points ?? '',
+      r.ranking_value ?? '',
+      csvField(r.roster),
+      ...questionIds.map((id) => csvField(answers.get(id) ?? '')),
       csvField(r.created_at),
-    ].join(','),
-  );
+    ].join(',');
+  });
   const csv = '\uFEFF' + [header, ...rows].join('\r\n') + '\r\n'; // leading ﻿ (BOM) for Excel
   return new Response(csv, {
     headers: {

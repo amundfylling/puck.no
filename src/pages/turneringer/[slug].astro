@@ -220,12 +220,18 @@ const jsonLd = {
 
     {
       registrationOpen && (
-        <RegistrationForm lang="no" slug={entry.data.slug} teamMin={entry.data.teamMin} teamMax={entry.data.teamMax} />
+        <RegistrationForm
+          lang="no"
+          slug={entry.data.slug}
+          playersPerTeam={entry.data.playersPerTeam}
+          maxSubstitutes={entry.data.maxSubstitutes}
+          registrationQuestions={entry.data.registrationQuestions}
+        />
       )
     }
 
     <div id="deltakere" class="scroll-mt-6">
-      <ParticipantList slug={entry.data.slug} players={players} lang="no" />
+      <ParticipantList slug={entry.data.slug} players={players} lang="no" playersPerTeam={entry.data.playersPerTeam} />
     </div>
   </article>
 </BaseLayout>

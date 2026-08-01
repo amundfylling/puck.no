@@ -6,8 +6,9 @@ location: "Oslo"
 prices: "Deltakeravgift: 150 NOK; Junior: 50 NOK"
 playingSystem: "Gruppespill med 8 videre til sluttspill."
 status: "upcoming"
-teamMin: null
-teamMax: null
+playersPerTeam: null
+maxSubstitutes: 0
+rankingLevel: "4"
 ---
 
 Testturnering for individuelle spillere. Turneringen er åpen for alle spillere uavhengig av tidligere erfaring.

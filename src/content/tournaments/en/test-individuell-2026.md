@@ -7,8 +7,9 @@ location: "Oslo"
 prices: "Entry fee: 150 NOK; Junior: 50 NOK"
 playingSystem: "Group stage with 8 advancing to play-offs."
 status: "upcoming"
-teamMin: null
-teamMax: null
+playersPerTeam: null
+maxSubstitutes: 0
+rankingLevel: "4"
 ---
 
 Test tournament for individual players. The tournament is open to all players regardless of previous experience.

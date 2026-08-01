@@ -24,6 +24,7 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const CSV_FILE = fileURLToPath(new URL('../participants export wix.csv', import.meta.url));
+const RANKING_FILE = fileURLToPath(new URL('../src/data/ranking.json', import.meta.url));
 if (!existsSync(CSV_FILE)) {
   console.error(`seed-d1: "${CSV_FILE}" not found — the Wix export is git-ignored;`);
   console.error('place it in the repo root before seeding.');
@@ -73,11 +74,18 @@ function parseCsv(text) {
 const esc = (s) => `'${String(s).replaceAll("'", "''")}'`;
 
 const rows = parseCsv(readFileSync(CSV_FILE, 'utf8').replace(/^﻿/, ''));
+const rankingById = new Map(
+  JSON.parse(readFileSync(RANKING_FILE, 'utf8'))
+    .map(([rank, id, name, club, nation, points, playerValue]) => [
+      id,
+      { rank, name, club: club || null, nation: nation || null, points, playerValue },
+    ]),
+);
 const header = rows[0];
 const col = (name) => header.indexOf(name);
 const data = rows.slice(1).filter((r) => r.length > 5);
 
-const seeded = []; // {slug, type, name, country, email, phone, wr, playerId}
+const seeded = []; // {slug, type, name, country, club, email, phone, wr, rankingPoints, rankingValue, playerId}
 const skipped = []; // {reason, tournament, name}
 const adjusted = []; // {name, email, note}
 
@@ -112,7 +120,13 @@ for (const r of data) {
   const wr = rankRaw && Number.isInteger(Number(rankRaw)) ? Number(rankRaw) : null;
   const pidRaw = r[col('playerId')].trim();
   const playerId = pidRaw && Number.isInteger(Number(pidRaw)) ? Number(pidRaw) : null;
-  seeded.push({ slug, type, name, country, email, phone, wr, playerId });
+  const ranked = playerId == null ? null : rankingById.get(playerId) ?? null;
+  seeded.push({
+    slug, type, name, country, email, phone, wr, playerId,
+    club: ranked?.club ?? null,
+    rankingPoints: ranked?.points ?? null,
+    rankingValue: ranked?.playerValue ?? null,
+  });
 }
 
 // --- SQL ---
@@ -126,7 +140,9 @@ if (BACKFILL) {
   for (const s of seeded) {
     if (s.playerId != null) {
       lines.push(
-        `UPDATE registrations SET player_id = ${s.playerId} WHERE tournament_slug = ${esc(s.slug)} AND email = ${esc(s.email)};`,
+        `UPDATE registrations SET player_id = ${s.playerId}, club = ${s.club ? esc(s.club) : 'NULL'}, ` +
+        `ranking_points = ${s.rankingPoints ?? 'NULL'}, ranking_value = ${s.rankingValue ?? 'NULL'} ` +
+        `WHERE tournament_slug = ${esc(s.slug)} AND email = ${esc(s.email)};`,
       );
     }
   }
@@ -134,9 +150,10 @@ if (BACKFILL) {
   lines.push('DELETE FROM registrations;', '-- idempotent re-seed');
   for (const s of seeded) {
     lines.push(
-      `INSERT INTO registrations (tournament_slug, type, name, country, email, phone, world_ranking, player_id) VALUES (` +
-        `${esc(s.slug)}, ${esc(s.type)}, ${esc(s.name)}, ${s.country ? esc(s.country) : 'NULL'}, ` +
-        `${esc(s.email)}, ${s.phone ? esc(s.phone) : 'NULL'}, ${s.wr ?? 'NULL'}, ${s.playerId ?? 'NULL'});`,
+      `INSERT INTO registrations (tournament_slug, type, name, country, club, email, phone, world_ranking, ranking_points, ranking_value, player_id) VALUES (` +
+        `${esc(s.slug)}, ${esc(s.type)}, ${esc(s.name)}, ${s.country ? esc(s.country) : 'NULL'}, ${s.club ? esc(s.club) : 'NULL'}, ` +
+        `${esc(s.email)}, ${s.phone ? esc(s.phone) : 'NULL'}, ${s.wr ?? 'NULL'}, ${s.rankingPoints ?? 'NULL'}, ` +
+        `${s.rankingValue ?? 'NULL'}, ${s.playerId ?? 'NULL'});`,
     );
   }
 }

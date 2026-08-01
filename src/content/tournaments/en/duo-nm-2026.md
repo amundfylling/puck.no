@@ -8,8 +8,9 @@ parent: "norgesmesterskapet-2026"
 prices: null
 playingSystem: null
 status: "upcoming"
-teamMin: 2
-teamMax: 2
+playersPerTeam: 2
+maxSubstitutes: 0
+rankingLevel: "10"
 ---
 ![Duo-NM 2026](/media/images/duo-nm-2026-717a73c5.webp)
 

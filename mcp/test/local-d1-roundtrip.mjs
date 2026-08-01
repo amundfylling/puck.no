@@ -70,15 +70,16 @@ try {
 
   let teamAdded = false;
   if (pid && pid2) {
-    const addT = await call('add_registration', { tournamentSlug: TEAM, email: 'roundtrip3@test.no', playerIds: [pid, pid2] });
+    const answers = { 'lunsj-antall': '2' };
+    const addT = await call('add_registration', { tournamentSlug: TEAM, email: 'roundtrip3@test.no', playerIds: [pid, pid2], answers });
     check('add team (2 ranked players)', !addT.isError && addT.text.includes('Registrert'), addT.text.slice(0, 400));
     teamAdded = !addT.isError;
 
-    const dupT = await call('add_registration', { tournamentSlug: TEAM, email: 'another@test.no', playerIds: [pid, pid2] });
+    const dupT = await call('add_registration', { tournamentSlug: TEAM, email: 'another@test.no', playerIds: [pid, pid2], answers });
     check('overlapping team rejected', dupT.isError && dupT.text.includes('allerede'), dupT.text.slice(0, 300));
 
-    const wrongSize = await call('add_registration', { tournamentSlug: TEAM, email: 'solo@test.no', playerIds: [pid] });
-    check('team size below teamMin rejected', wrongSize.isError && wrongSize.text.includes('mellom 2 og 3'), wrongSize.text.slice(0, 300));
+    const wrongSize = await call('add_registration', { tournamentSlug: TEAM, email: 'solo@test.no', playerIds: [pid], answers });
+    check('team size below playersPerTeam rejected', wrongSize.isError && wrongSize.text.includes('mellom 2 og 3'), wrongSize.text.slice(0, 300));
   }
 
   // --- list + update ---

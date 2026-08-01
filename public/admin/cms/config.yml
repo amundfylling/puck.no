@@ -121,6 +121,20 @@ collections:
         hint: 'La stå tom hvis arena ikke er kunngjort'
       - { label: Priser, name: prices, widget: text, required: false }
       - { label: Spillsystem, name: playingSystem, widget: text, required: false }
+      - label: ITHF-rankingnivå
+        name: rankingLevel
+        widget: select
+        required: false
+        hint: 'Styrer beregnede ITHF-poeng for hver plassering. La stå tomt hvis poeng ikke skal vises. Nivå 1 har ulike garantier for VM og kontinentalmesterskap.'
+        options:
+          - { label: 'Nivå 1 – verdensmesterskap', value: '1-world' }
+          - { label: 'Nivå 1 – kontinentalmesterskap', value: '1-continental' }
+          - { label: 'Nivå 2', value: '2' }
+          - { label: 'Nivå 3', value: '3' }
+          - { label: 'Nivå 4', value: '4' }
+          - { label: 'Nivå 5', value: '5' }
+          - { label: 'Nivå 6', value: '6' }
+          - { label: 'Nivå 10 – lagturnering (ingen poeng)', value: '10' }
       - label: Status
         name: status
         widget: select
@@ -134,20 +148,45 @@ collections:
         widget: boolean
         default: true
         hint: 'Av = påmeldingsskjemaet skjules og nye påmeldinger avvises (f.eks. rett før turneringsstart).'
-      - label: Min. spillere per lag
-        name: teamMin
+      - label: Spillere som teller for laget
+        name: playersPerTeam
         widget: number
         required: false
         value_type: int
         min: 1
-        hint: 'La begge stå tomme for individuell turnering. Fyll inn begge (f.eks. 2 og 2) for lagturnering.'
-      - label: Maks. spillere per lag
-        name: teamMax
+        hint: 'La stå tom for individuell turnering. For lag: antallet høyest rangerte spillere som skal telle i seedingen, f.eks. 3.'
+      - label: Maks. innbyttere
+        name: maxSubstitutes
         widget: number
-        required: false
         value_type: int
-        min: 1
-        hint: 'Må fylles inn sammen med min. spillere per lag.'
+        min: 0
+        default: 0
+        hint: 'Ekstra, valgfrie spillere utover antallet som teller. Bruk 0 hvis innbyttere ikke er tillatt.'
+      - label: Ekstra spørsmål i påmeldingen
+        name: registrationQuestions
+        widget: list
+        required: false
+        label_singular: Spørsmål
+        summary: '{{fields.labelNo}}'
+        hint: 'Ett svar per påmelding/lag. Svarene vises bare for administratorer.'
+        fields:
+          - label: Intern ID
+            name: id
+            widget: string
+            pattern: ['^[a-z0-9][a-z0-9-]*$', 'Små bokstaver, tall og bindestrek, f.eks. lunsj-antall. Ikke endre ID etter at svar er mottatt.']
+          - { label: Spørsmål (norsk), name: labelNo, widget: string }
+          - { label: Question (English), name: labelEn, widget: string }
+          - { label: Obligatorisk, name: required, widget: boolean, default: false }
+          - label: Svaralternativer
+            name: options
+            widget: list
+            min: 2
+            label_singular: Svaralternativ
+            summary: '{{fields.labelNo}}'
+            fields:
+              - { label: Lagret verdi, name: value, widget: string, hint: 'Kort og stabil verdi, f.eks. 0, 1 eller ja. Ikke endre etter at svar er mottatt.' }
+              - { label: Tekst (norsk), name: labelNo, widget: string }
+              - { label: Text (English), name: labelEn, widget: string }
       - label: Innhold (beskrivelse, tidsskjema)
         name: body
         widget: markdown

@@ -8,8 +8,8 @@ import { PATHS } from '../lib/config.js';
 import { readMd, patchMd, createMd } from '../lib/frontmatter.js';
 import { tournamentStatus, parseNoDate } from '../lib/dates.js';
 import {
-  assertSlug, assertDateText, assertTeamRule, readTournamentConfig, tournamentFiles,
-  ValidationError,
+  assertSlug, assertDateText, assertTeamRule, assertTournamentRankingLevel,
+  RANKING_LEVELS, readTournamentConfig, tournamentFiles, ValidationError,
 } from '../lib/validate.js';
 import { d1Select } from '../lib/d1.js';
 import { ensureClean, commitFiles } from '../lib/git.js';
@@ -35,7 +35,10 @@ async function listTournaments() {
       location: data.location ?? null,
       status: tournamentStatus(data.date),
       registrationOpen: data.registrationOpen !== false,
-      team: data.teamMin != null ? `${data.teamMin}–${data.teamMax} per lag` : 'individuell',
+      rankingLevel: data.rankingLevel ?? null,
+      team: data.playersPerTeam != null
+        ? `${data.playersPerTeam} teller + opptil ${data.maxSubstitutes ?? 0} innbyttere`
+        : 'individuell',
     });
   }
   entries.sort((a, b) => {
@@ -68,7 +71,8 @@ async function createTournament(args) {
   const { name, slug, date, directToMain = false } = args;
   assertSlug(slug);
   assertDateText(date);
-  assertTeamRule(args.teamMin ?? null, args.teamMax ?? null);
+  assertTeamRule(args.playersPerTeam ?? null, args.maxSubstitutes ?? 0);
+  assertTournamentRankingLevel(args.playersPerTeam ?? null, args.rankingLevel ?? null);
   const files = tournamentFiles(slug);
   if (existsSync(files.no)) throw new ValidationError(`Turneringen «${slug}» finnes allerede (${rel(files.no)}).`);
   if (readTournamentConfig()[slug]) throw new ValidationError(`Slug «${slug}» finnes allerede i API-konfigen.`);
@@ -84,8 +88,10 @@ async function createTournament(args) {
     playingSystem: args.playingSystem ?? null,
     status: 'upcoming',
     ...(args.registrationOpen === false ? { registrationOpen: false } : {}),
-    teamMin: args.teamMin ?? null,
-    teamMax: args.teamMax ?? null,
+    playersPerTeam: args.playersPerTeam ?? null,
+    maxSubstitutes: args.maxSubstitutes ?? 0,
+    registrationQuestions: args.registrationQuestions ?? [],
+    rankingLevel: args.rankingLevel ?? null,
   };
   const body =
     args.body ??
@@ -104,8 +110,10 @@ async function createTournament(args) {
       playingSystem: args.playingSystem ?? null,
       status: 'upcoming',
       ...(args.registrationOpen === false ? { registrationOpen: false } : {}),
-      teamMin: args.teamMin ?? null,
-      teamMax: args.teamMax ?? null,
+      playersPerTeam: args.playersPerTeam ?? null,
+      maxSubstitutes: args.maxSubstitutes ?? 0,
+      registrationQuestions: args.registrationQuestions ?? [],
+      rankingLevel: args.rankingLevel ?? null,
     };
     createMd(`${PATHS.tournamentsEnDir}/${slug}.md`, enFields, args.englishBody ?? 'Description coming.\n\n# Schedule\n\n**10:00** Doors open\n');
     touched.push(rel(`${PATHS.tournamentsEnDir}/${slug}.md`));
@@ -127,9 +135,9 @@ async function createTournament(args) {
   );
 }
 
-const PATCHABLE_NO = ['name', 'date', 'location', 'prices', 'playingSystem', 'status', 'registrationOpen', 'teamMin', 'teamMax'];
+export const TOURNAMENT_PATCHABLE = ['name', 'date', 'location', 'prices', 'playingSystem', 'status', 'registrationOpen', 'playersPerTeam', 'maxSubstitutes', 'registrationQuestions', 'rankingLevel'];
 /** Fields that must stay in sync in the EN mirror (non-translatable). */
-const SYNC_TO_EN = ['date', 'location', 'status', 'registrationOpen', 'teamMin', 'teamMax'];
+export const TOURNAMENT_SYNC_TO_EN = ['date', 'location', 'status', 'registrationOpen', 'playersPerTeam', 'maxSubstitutes', 'registrationQuestions', 'rankingLevel'];
 
 async function updateTournament(args) {
   const { slug, directToMain = false, ...patch } = args;
@@ -138,14 +146,20 @@ async function updateTournament(args) {
   if (!existsSync(files.no)) throw new ValidationError(`Fant ikke turneringen «${slug}».`);
 
   const clean = {};
-  for (const key of PATCHABLE_NO) if (patch[key] !== undefined) clean[key] = patch[key];
+  for (const key of TOURNAMENT_PATCHABLE) if (patch[key] !== undefined) clean[key] = patch[key];
   if (Object.keys(clean).length === 0) throw new ValidationError('Ingen felt å oppdatere.');
   if (clean.date !== undefined) assertDateText(clean.date);
-  if (clean.teamMin !== undefined || clean.teamMax !== undefined) {
-    const { data } = readMd(files.no);
+  const current = readMd(files.no).data;
+  if (clean.playersPerTeam !== undefined || clean.maxSubstitutes !== undefined) {
     assertTeamRule(
-      clean.teamMin !== undefined ? clean.teamMin : data.teamMin,
-      clean.teamMax !== undefined ? clean.teamMax : data.teamMax,
+      clean.playersPerTeam !== undefined ? clean.playersPerTeam : current.playersPerTeam,
+      clean.maxSubstitutes !== undefined ? clean.maxSubstitutes : current.maxSubstitutes,
+    );
+  }
+  if (clean.rankingLevel !== undefined || clean.playersPerTeam !== undefined) {
+    assertTournamentRankingLevel(
+      clean.playersPerTeam !== undefined ? clean.playersPerTeam : current.playersPerTeam,
+      clean.rankingLevel !== undefined ? clean.rankingLevel : current.rankingLevel,
     );
   }
 
@@ -156,7 +170,7 @@ async function updateTournament(args) {
   let enBefore = null;
   if (files.en) {
     const enPatch = {};
-    for (const key of SYNC_TO_EN) if (clean[key] !== undefined) enPatch[key] = clean[key];
+    for (const key of TOURNAMENT_SYNC_TO_EN) if (clean[key] !== undefined) enPatch[key] = clean[key];
     if (Object.keys(enPatch).length) {
       enBefore = patchMd(files.en, enPatch);
       touched.push(rel(files.en));
@@ -189,7 +203,8 @@ async function duplicateTournament(args) {
 
   await ensureClean();
   const { data, body } = readMd(src.no);
-  assertTeamRule(data.teamMin ?? null, data.teamMax ?? null);
+  assertTeamRule(data.playersPerTeam ?? null, data.maxSubstitutes ?? 0);
+  assertTournamentRankingLevel(data.playersPerTeam ?? null, data.rankingLevel ?? null);
   createMd(dst.no, {
     ...data,
     name: args.newName ?? data.name,
@@ -208,6 +223,7 @@ async function duplicateTournament(args) {
       lang: 'en',
       date: newDate,
       status: 'upcoming',
+      rankingLevel: data.rankingLevel ?? null,
     }, en.body);
     touched.push(rel(`${PATHS.tournamentsEnDir}/${newSlug}.md`));
   }
@@ -284,7 +300,7 @@ export function registerTournamentTools(server) {
     {
       title: 'List tournaments',
       description:
-        'READ-ONLY. All tournaments with date, computed status (upcoming/past), registration-open flag, team rules and live registration counts from D1.',
+        'READ-ONLY. All tournaments with date, computed status (upcoming/past), registration-open flag, team rules, ITHF ranking level and live registration counts from D1.',
       inputSchema: {},
     },
     tool(listTournaments),
@@ -303,8 +319,13 @@ export function registerTournamentTools(server) {
         location: z.string().nullish().describe('Venue (leave null until announced)'),
         prices: z.string().nullish().describe('Semicolon-separated price lines'),
         playingSystem: z.string().nullish().describe('Playing system text'),
-        teamMin: z.number().int().min(1).nullish().describe('Min players per team (team tournaments)'),
-        teamMax: z.number().int().min(1).nullish().describe('Max players per team (team tournaments)'),
+        playersPerTeam: z.number().int().min(1).nullish().describe('Exact number of highest-rated roster members whose points count'),
+        maxSubstitutes: z.number().int().min(0).optional().describe('Maximum optional substitutes; default 0'),
+        rankingLevel: z.enum(RANKING_LEVELS).nullish().describe('ITHF tournament level used to calculate placement points'),
+        registrationQuestions: z.array(z.object({
+          id: z.string(), labelNo: z.string(), labelEn: z.string(), required: z.boolean().optional(),
+          options: z.array(z.object({ value: z.string(), labelNo: z.string(), labelEn: z.string() })).min(2),
+        })).optional(),
         registrationOpen: z.boolean().optional().describe('Default true; false = registration closed from day one'),
         body: z.string().optional().describe('Markdown body (description + "# Tidsskjema" schedule)'),
         englishName: z.string().optional().describe('Set to also create the English mirror page'),
@@ -320,7 +341,7 @@ export function registerTournamentTools(server) {
     {
       title: 'Update tournament details',
       description:
-        'WRITES GIT (PR by default). Patches tournament frontmatter (name/date/location/prices/playingSystem/status/registrationOpen/team rules) without touching the body. Non-translatable fields are synced to the English mirror when it exists.',
+        'WRITES GIT (PR by default). Patches tournament frontmatter (name/date/location/prices/playingSystem/status/registrationOpen/team rules/ranking level) without touching the body. Non-translatable fields are synced to the English mirror when it exists.',
       inputSchema: {
         slug: z.string(),
         name: z.string().optional(),
@@ -330,8 +351,13 @@ export function registerTournamentTools(server) {
         playingSystem: z.string().nullish(),
         status: z.enum(['upcoming', 'past']).optional().describe('Hint only — display status is computed from date'),
         registrationOpen: z.boolean().optional(),
-        teamMin: z.number().int().min(1).nullish(),
-        teamMax: z.number().int().min(1).nullish(),
+        playersPerTeam: z.number().int().min(1).nullish(),
+        maxSubstitutes: z.number().int().min(0).optional(),
+        rankingLevel: z.enum(RANKING_LEVELS).nullish(),
+        registrationQuestions: z.array(z.object({
+          id: z.string(), labelNo: z.string(), labelEn: z.string(), required: z.boolean().optional(),
+          options: z.array(z.object({ value: z.string(), labelNo: z.string(), labelEn: z.string() })).min(2),
+        })).optional(),
         directToMain: z.boolean().optional(),
       },
     },

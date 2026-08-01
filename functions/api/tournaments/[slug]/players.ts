@@ -2,10 +2,12 @@
 /**
  * GET /api/tournaments/{slug}/players — public participant list.
  *
- * Returns ONLY { name, country, world_ranking } per row — never email/phone.
- * Ordered by world_ranking (NULLS LAST), then name.
+ * Returns public player/team seed data — never email, phone or custom answers.
+ * Points sort descending; equal team totals use the best player's world rank.
  */
-import { KNOWN_SLUGS } from '../../../lib/tournaments';
+import { KNOWN_SLUGS, TOURNAMENTS } from '../../../lib/tournaments';
+import { parseRoster } from '../../../lib/registration';
+import { calculatePlacementPoints } from '../../../lib/ranking-points';
 
 interface Env {
   DB: D1Database;
@@ -29,18 +31,48 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     return json({ error: 'Ukjent turnering.' }, 404);
   }
   const { results } = await context.env.DB.prepare(
-    `SELECT name, country, world_ranking FROM registrations
+    `SELECT type, name, country, club, world_ranking, ranking_points,
+            ranking_value, player_id, roster
+     FROM registrations
      WHERE tournament_slug = ?
-     ORDER BY world_ranking IS NULL ASC, world_ranking ASC, name COLLATE NOCASE ASC`,
+     ORDER BY ranking_points IS NULL ASC, ranking_points DESC,
+              world_ranking IS NULL ASC, world_ranking ASC,
+              name COLLATE NOCASE ASC`,
   )
     .bind(slug)
     .all();
-  const players = results.map((r) => ({
-    name: r.name,
-    country: r.country ?? null,
-    world_ranking: r.world_ranking ?? null,
+  const refresh = await context.env.DB.prepare(
+    'SELECT refreshed_at FROM ranking_refreshes WHERE tournament_slug = ?',
+  ).bind(slug).first<{ refreshed_at: string }>();
+  const participants = results.map((row) => ({
+    type: row.type,
+    name: row.name,
+    country: row.country ?? null,
+    club: row.club ?? null,
+    world_ranking: row.world_ranking ?? null,
+    ranking_points: row.ranking_points ?? (row.type === 'team' ? 0 : null),
+    roster: row.type === 'team' ? parseRoster(row.roster, String(row.name)) : null,
   }));
-  return json(players);
+  const tournament = TOURNAMENTS[slug];
+  const playerValues = results.map((row) =>
+    tournament.playersPerTeam == null ? Number(row.ranking_value ?? 0) : 0,
+  );
+  const rankingValuesComplete = !results.some((row) =>
+    row.type === 'player' && row.player_id != null && row.ranking_value == null,
+  );
+  const placementPoints = tournament.rankingLevel == null
+    ? null
+    : calculatePlacementPoints(tournament.rankingLevel, playerValues)
+      .map(({ placement, points }) => ({ placement, points }));
+  return json({
+    participants,
+    playersPerTeam: tournament.playersPerTeam,
+    rankingRefreshedAt: refresh?.refreshed_at ?? null,
+    rankingLevel: tournament.rankingLevel,
+    rankingAlgorithm: tournament.rankingLevel == null ? null : 'ithf-wr-2020',
+    rankingValuesComplete,
+    placementPoints,
+  });
 };
 
 export const onRequest: PagesFunction<Env> = async () =>

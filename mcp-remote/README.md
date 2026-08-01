@@ -12,7 +12,8 @@ Telefon (Claude connector)
 puck-no-mcp.workers.dev
    ├─ OAuth: GitHub-innlogging → collaborator-sjekk på repoet (som CMS-et)
    ├─ D1-binding: påmeldingsverktøy mot den levende databasen
-   └─ GitHub API (PAT): innholdsverktøy committer rett til main (som CMS-et)
+   ├─ GitHub API (PAT): innholdsverktøy committer rett til main (som CMS-et)
+   └─ Cron: oppdaterer rankingdata onsdag kl. 03:00 Europe/Oslo
 ```
 
 ## Sikkerhetsmodell
@@ -88,7 +89,10 @@ Fungerer også fra Claude Desktop og andre MCP-klienter med OAuth-støtte
 Som den lokale serveren (`mcp/README.md`), minus `export_registrations`
 (bruk `/admin/pameldinger` i nettleser) og `site_health` (lokalt verktøy):
 
-- **Turneringer:** list, create, update, duplicate, close/open registration, archive
+- **Turneringer:** list, create, update, duplicate, close/open registration,
+  archive; valgfritt `rankingLevel` (`1-world`, `1-continental`, `2`, `3`,
+  `4`, `5`, `6`, `10`) synkroniseres til engelsk speil og API-konfig.
+  Nivå `10` er kun for lag; lag kan ellers bare bruke `null`
 - **Påmeldinger (live D1):** list, count, add, delete (dry-run standard),
   update, move, sync_participant_snapshot, ranking_lookup
 - **Innhold:** create_news_post (forsidebilde via URL), add_timer (MP3-URL),
@@ -109,5 +113,10 @@ Merknader mot lokalversjonen: innholdsverktøy committer **rett til main**
   forbruksmønster. D1-bindingen deler kvote med nettsiden.
 - **Lokal utvikling:** `npm run dev` (wrangler dev) — bruk
   `.dev.vars` for secrets lokalt (GIT-IGNORED — aldri commit!).
-- **Tester:** `npm test` (16 enhetstester: krypto, PKCE, OAuth-flyt,
+- **Tester:** `npm test` (17 enhetstester: krypto, PKCE, OAuth-flyt,
   MCP-ruting, D1-verktøy med falsk database).
+- **Rankingjobb:** `wrangler.toml` kjører ved begge mulige UTC-tider for
+  03:00 i Oslo; Workeren utfører bare riktig DST-tilpasset kjøring. Den
+  oppdaterer klubb, land, rankingposisjon, samlede poeng, eksakt
+  `Player_Value`/`ranking_value` og lagseeding for kommende turneringer, og
+  beholder gamle verdier dersom ITHF-oppslaget feiler.

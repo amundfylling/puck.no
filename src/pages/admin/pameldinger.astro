@@ -3,53 +3,49 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 import { getTournamentsSorted } from '../../lib/content';
 
 const views = await getTournamentsSorted();
-const defaultSlug = views.find((v) => v.status === 'upcoming')?.entry.data.slug ?? views[0]?.entry.data.slug ?? '';
+const defaultSlug = views.find((view) => view.status === 'upcoming')?.entry.data.slug ?? views[0]?.entry.data.slug ?? '';
+const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
+  playersPerTeam: entry.data.playersPerTeam,
+  maxSubstitutes: entry.data.maxSubstitutes,
+  registrationQuestions: entry.data.registrationQuestions,
+}]));
 ---
 
 <AdminLayout title="Påmeldinger | Admin | Bordhockeyforbundet" heading="Påmeldinger" active="pameldinger">
-  <div data-registrations data-default-slug={defaultSlug}>
+  <div data-registrations data-default-slug={defaultSlug} data-configs={JSON.stringify(configs)}>
     <p class="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
-      Sanntidsdata fra påmeldingssystemet. E-post og telefonnummer vises ikke her — de hentes via
-      CSV-eksporten, og håndteres etter personvernerklæringen.
+      Sanntidsdata fra påmeldingssystemet. Kontaktdata og tilleggssvar er personopplysninger og må håndteres etter personvernerklæringen.
     </p>
 
-    <!-- Toolbar -->
-    <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+    <div class="mt-4 flex flex-col gap-3 lg:flex-row lg:items-center">
       <select
         data-tournament-select
-        class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-navy sm:max-w-xs dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+        class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-navy lg:max-w-xs dark:border-slate-700 dark:bg-slate-900 dark:text-white"
         aria-label="Velg turnering"
       >
-        {
-          views.map(({ entry, status }) => (
-            <option value={entry.data.slug}>
-              {entry.data.name} ({status === 'upcoming' ? 'kommende' : 'tidligere'})
-            </option>
-          ))
-        }
+        {views.map(({ entry, status }) => (
+          <option value={entry.data.slug}>{entry.data.name} ({status === 'upcoming' ? 'kommende' : 'tidligere'})</option>
+        ))}
       </select>
       <div class="relative flex-1">
         <svg class="pointer-events-none absolute top-2.5 left-3 h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
         <input
           type="search"
           data-search
-          placeholder="Søk på navn eller land …"
+          placeholder="Søk på navn, land, e-post eller svar …"
           class="w-full rounded-lg border border-slate-300 bg-white py-2 pr-3 pl-9 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500"
           aria-label="Filtrer påmeldinger"
         />
       </div>
-      <a
-        data-csv-link
-        href="#"
-        class="btn-outline inline-flex items-center justify-center gap-2 !px-4 !py-2 text-sm whitespace-nowrap"
-      >
-        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+      <button type="button" data-add class="btn-primary inline-flex items-center justify-center !px-4 !py-2 text-sm whitespace-nowrap">
+        + Legg til
+      </button>
+      <a data-csv-link href="#" class="btn-outline inline-flex items-center justify-center !px-4 !py-2 text-sm whitespace-nowrap">
         Last ned CSV
       </a>
     </div>
 
-    <!-- Mini stats -->
-    <div class="mt-4 flex flex-wrap gap-2 text-sm" data-mini-stats>
+    <div class="mt-4 flex flex-wrap gap-2 text-sm">
       <span class="rounded-full border border-slate-200 bg-white px-3 py-1 dark:border-slate-800 dark:bg-slate-900">
         <strong data-stat-count class="tabular-nums">–</strong> <span data-stat-count-label>påmeldte</span>
       </span>
@@ -61,156 +57,238 @@ const defaultSlug = views.find((v) => v.status === 'upcoming')?.entry.data.slug 
       </span>
     </div>
 
-    <!-- Table -->
     <div class="mt-4 overflow-x-auto rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
-      <table class="w-full min-w-[40rem] text-sm">
+      <table class="w-full min-w-[76rem] text-sm">
         <thead>
           <tr class="border-b border-slate-200 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:border-slate-800 dark:text-slate-400">
             <th class="px-4 py-3">#</th>
-            <th class="px-4 py-3">
-              <button type="button" data-sort="name" class="inline-flex items-center gap-1 uppercase hover:text-navy dark:hover:text-white">Navn<span data-sort-arrow="name"></span></button>
-            </th>
-            <th class="px-4 py-3">
-              <button type="button" data-sort="country" class="inline-flex items-center gap-1 uppercase hover:text-navy dark:hover:text-white">Land<span data-sort-arrow="country"></span></button>
-            </th>
-            <th class="px-4 py-3">
-              <button type="button" data-sort="wr" class="inline-flex items-center gap-1 uppercase hover:text-navy dark:hover:text-white">VR<span data-sort-arrow="wr"></span></button>
-            </th>
-            <th class="px-4 py-3">Type</th>
-            <th class="px-4 py-3">
-              <button type="button" data-sort="at" class="inline-flex items-center gap-1 uppercase hover:text-navy dark:hover:text-white">Påmeldt<span data-sort-arrow="at"></span></button>
-            </th>
+            <th class="px-4 py-3"><button type="button" data-sort="name" class="uppercase hover:text-navy dark:hover:text-white">Navn <span data-sort-arrow="name"></span></button></th>
+            <th class="px-4 py-3"><button type="button" data-sort="country" class="uppercase hover:text-navy dark:hover:text-white">Land <span data-sort-arrow="country"></span></button></th>
+            <th class="px-4 py-3"><button type="button" data-sort="wr" class="uppercase hover:text-navy dark:hover:text-white">VR <span data-sort-arrow="wr"></span></button></th>
+            <th class="px-4 py-3"><button type="button" data-sort="points" class="uppercase hover:text-navy dark:hover:text-white">Poeng <span data-sort-arrow="points"></span></button></th>
+            <th class="px-4 py-3">Kontakt</th>
+            <th class="px-4 py-3">Tilleggssvar</th>
+            <th class="px-4 py-3"><button type="button" data-sort="at" class="uppercase hover:text-navy dark:hover:text-white">Påmeldt <span data-sort-arrow="at"></span></button></th>
+            <th class="px-4 py-3"><span class="sr-only">Handlinger</span></th>
           </tr>
         </thead>
         <tbody data-rows>
-          <tr>
-            <td colspan="6" class="px-4 py-10 text-center text-slate-400 dark:text-slate-500">Henter påmeldinger …</td>
-          </tr>
+          <tr><td colspan="9" class="px-4 py-10 text-center text-slate-400 dark:text-slate-500">Henter påmeldinger …</td></tr>
         </tbody>
       </table>
     </div>
     <p data-table-status class="mt-3 hidden text-sm" role="status"></p>
+
+    <dialog data-editor class="m-auto max-h-[90vh] w-[min(44rem,calc(100%-2rem))] overflow-y-auto rounded-xl border border-slate-200 bg-white p-0 text-slate-900 backdrop:bg-navy/50 dark:border-slate-700 dark:bg-slate-900 dark:text-white">
+      <form data-editor-form class="p-5 sm:p-6">
+        <div class="flex items-start justify-between gap-4 border-b border-slate-200 pb-4 dark:border-slate-700">
+          <div>
+            <h2 data-editor-title class="text-xl font-bold text-navy dark:text-white">Legg til påmelding</h2>
+            <p data-editor-kind class="mt-1 text-sm text-slate-500 dark:text-slate-400"></p>
+          </div>
+          <button type="button" data-editor-close class="min-h-11 min-w-11 text-2xl text-slate-500" aria-label="Lukk">×</button>
+        </div>
+
+        <div data-editor-players class="mt-5 grid gap-4"></div>
+        <div data-editor-add-wrap class="mt-3 hidden">
+          <button type="button" data-editor-add-player class="btn-outline !px-3 !py-1.5 text-sm">+ Legg til spiller</button>
+        </div>
+
+        <div class="mt-5 grid gap-4 sm:grid-cols-2">
+          <label class="grid gap-1 text-sm font-semibold">
+            E-post <span class="text-brand">*</span>
+            <input data-editor-email type="email" required maxlength="254" class="rounded border border-slate-300 bg-white px-3 py-2 font-normal dark:border-slate-700 dark:bg-slate-950" />
+          </label>
+          <label class="grid gap-1 text-sm font-semibold">
+            Telefonnummer
+            <input data-editor-phone type="tel" maxlength="30" class="rounded border border-slate-300 bg-white px-3 py-2 font-normal dark:border-slate-700 dark:bg-slate-950" />
+          </label>
+        </div>
+
+        <div data-editor-questions class="mt-5 grid gap-4"></div>
+        <div data-editor-history class="mt-4 hidden border-t border-slate-200 pt-4 text-sm dark:border-slate-700"></div>
+        <p data-editor-message class="mt-4 hidden rounded px-3 py-2 text-sm font-semibold" role="status"></p>
+
+        <div class="mt-6 flex flex-wrap justify-between gap-3 border-t border-slate-200 pt-4 dark:border-slate-700">
+          <button type="button" data-editor-delete class="hidden min-h-11 px-3 text-sm font-semibold text-red-700 underline dark:text-red-400">Slett påmelding</button>
+          <div class="ml-auto flex gap-2">
+            <button type="button" data-editor-cancel class="btn-outline">Avbryt</button>
+            <button type="submit" data-editor-save class="btn-primary">Lagre</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
   </div>
 
   <script>
-    // Live registration browser: fetch rows for the selected tournament,
-    // client-side search + column sorting. URL ?slug= keeps the selection.
+    interface QuestionOption { value: string; labelNo: string; labelEn: string }
+    interface Question { id: string; labelNo: string; labelEn: string; required: boolean; options: QuestionOption[] }
+    interface TournamentConfig { playersPerTeam: number | null; maxSubstitutes: number; registrationQuestions: Question[] }
+    interface RosterPlayer {
+      playerId: number | null;
+      name: string;
+      club: string | null;
+      country: string | null;
+      worldRanking: number | null;
+      rankingPoints: number;
+    }
+    interface Answer {
+      questionId: string;
+      questionLabelNo: string;
+      value: string;
+      labelNo: string;
+    }
     interface Row {
       id: number;
       type: 'player' | 'team';
       name: string;
       country: string | null;
+      club: string | null;
+      email: string;
+      phone: string | null;
       world_ranking: number | null;
+      ranking_points: number | null;
+      player_id: number | null;
+      roster: RosterPlayer[] | null;
+      answers: Answer[];
       created_at: string;
     }
-    type SortKey = 'name' | 'country' | 'wr' | 'at';
+    type SortKey = 'name' | 'country' | 'wr' | 'points' | 'at';
+    type RankingRow = [number, number, string, string, string, number?, number?];
 
     const root = document.querySelector<HTMLElement>('[data-registrations]');
     if (root) {
+      const configs = JSON.parse(root.dataset.configs ?? '{}') as Record<string, TournamentConfig>;
       const select = root.querySelector<HTMLSelectElement>('[data-tournament-select]')!;
       const search = root.querySelector<HTMLInputElement>('[data-search]')!;
       const csvLink = root.querySelector<HTMLAnchorElement>('[data-csv-link]')!;
       const tbody = root.querySelector<HTMLTableSectionElement>('[data-rows]')!;
-      const status = root.querySelector<HTMLElement>('[data-table-status]')!;
+      const tableStatus = root.querySelector<HTMLElement>('[data-table-status]')!;
       const statCount = root.querySelector<HTMLElement>('[data-stat-count]')!;
       const statCountLabel = root.querySelector<HTMLElement>('[data-stat-count-label]')!;
       const statLast = root.querySelector<HTMLElement>('[data-stat-last]')!;
       const statFiltered = root.querySelector<HTMLElement>('[data-stat-filtered]')!;
       const statFilteredCount = root.querySelector<HTMLElement>('[data-stat-filtered-count]')!;
+      const dialog = root.querySelector<HTMLDialogElement>('[data-editor]')!;
+      const editorForm = root.querySelector<HTMLFormElement>('[data-editor-form]')!;
+      const editorTitle = root.querySelector<HTMLElement>('[data-editor-title]')!;
+      const editorKind = root.querySelector<HTMLElement>('[data-editor-kind]')!;
+      const playerFields = root.querySelector<HTMLElement>('[data-editor-players]')!;
+      const addPlayerWrap = root.querySelector<HTMLElement>('[data-editor-add-wrap]')!;
+      const addPlayerButton = root.querySelector<HTMLButtonElement>('[data-editor-add-player]')!;
+      const emailInput = root.querySelector<HTMLInputElement>('[data-editor-email]')!;
+      const phoneInput = root.querySelector<HTMLInputElement>('[data-editor-phone]')!;
+      const questionFields = root.querySelector<HTMLElement>('[data-editor-questions]')!;
+      const history = root.querySelector<HTMLElement>('[data-editor-history]')!;
+      const editorMessage = root.querySelector<HTMLElement>('[data-editor-message]')!;
+      const deleteButton = root.querySelector<HTMLButtonElement>('[data-editor-delete]')!;
+      const saveButton = root.querySelector<HTMLButtonElement>('[data-editor-save]')!;
 
       let rows: Row[] = [];
-      let sortKey: SortKey = 'at';
-      let sortDir: 1 | -1 = 1;
+      let sortKey: SortKey = 'points';
+      let sortDir: 1 | -1 = -1;
+      let editing: Row | null = null;
+      let rankingPromise: Promise<RankingRow[]> | null = null;
+      let playerEditors: Array<{ box: HTMLElement; input: HTMLInputElement; playerId: number | null }> = [];
 
       const parseUtc = (at: string) => new Date(at.replace(' ', 'T') + 'Z');
       const fmtDate = new Intl.DateTimeFormat('no-NO', {
-        timeZone: 'UTC',
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
+        timeZone: 'Europe/Oslo', day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit',
+      });
+      const norm = (value: string) => value.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
+      const loadRanking = () => rankingPromise ??= fetch('/ranking.json').then((response) => {
+        if (!response.ok) throw new Error(String(response.status));
+        return response.json() as Promise<RankingRow[]>;
       });
 
-      const setStatus = (text: string, isError = false) => {
-        status.textContent = text;
-        status.classList.toggle('hidden', !text);
-        status.classList.toggle('text-red-600', isError);
-        status.classList.toggle('dark:text-red-400', isError);
-        status.classList.toggle('text-slate-500', !isError);
+      const setTableStatus = (text: string, isError = false) => {
+        tableStatus.textContent = text;
+        tableStatus.classList.toggle('hidden', !text);
+        tableStatus.classList.toggle('text-red-600', isError);
+        tableStatus.classList.toggle('dark:text-red-400', isError);
+        tableStatus.classList.toggle('text-slate-500', !isError);
       };
-
       const emptyRow = (text: string) => {
         const tr = document.createElement('tr');
         const td = document.createElement('td');
-        td.colSpan = 6;
+        td.colSpan = 9;
         td.className = 'px-4 py-10 text-center text-slate-400 dark:text-slate-500';
         td.textContent = text;
         tr.appendChild(td);
         return tr;
       };
-
-      const cmp = (a: Row, b: Row): number => {
-        let v = 0;
-        if (sortKey === 'name') v = a.name.localeCompare(b.name, 'no');
-        else if (sortKey === 'country') v = (a.country ?? '').localeCompare(b.country ?? '', 'no');
-        else if (sortKey === 'wr') {
-          // Unranked always last, regardless of direction.
-          if (a.world_ranking == null && b.world_ranking == null) v = 0;
-          else if (a.world_ranking == null) return 1;
-          else if (b.world_ranking == null) return -1;
-          else v = a.world_ranking - b.world_ranking;
-        } else v = a.created_at.localeCompare(b.created_at);
-        return v * sortDir;
+      const cell = (text: string, extra = '') => {
+        const td = document.createElement('td');
+        td.className = `px-4 py-2.5 align-top ${extra}`;
+        td.textContent = text;
+        return td;
+      };
+      const cmpNullable = (a: number | null, b: number | null, highFirst: boolean) => {
+        if (a == null && b == null) return 0;
+        if (a == null) return 1;
+        if (b == null) return -1;
+        return highFirst ? b - a : a - b;
+      };
+      const compare = (a: Row, b: Row) => {
+        let value = 0;
+        if (sortKey === 'name') value = a.name.localeCompare(b.name, 'no');
+        else if (sortKey === 'country') value = (a.country ?? '').localeCompare(b.country ?? '', 'no');
+        else if (sortKey === 'wr') return cmpNullable(a.world_ranking, b.world_ranking, false) * (sortDir === 1 ? 1 : -1);
+        else if (sortKey === 'points') return cmpNullable(a.ranking_points, b.ranking_points, true) * (sortDir === -1 ? 1 : -1);
+        else value = a.created_at.localeCompare(b.created_at);
+        return value * sortDir;
       };
 
       const render = () => {
-        const q = search.value.trim().toLowerCase();
-        const filtered = q
-          ? rows.filter(
-              (r) =>
-                r.name.toLowerCase().includes(q) || (r.country ?? '').toLowerCase().includes(q),
-            )
-          : rows;
-        const sorted = [...filtered].sort(cmp);
-
-        tbody.replaceChildren(
-          ...(sorted.length
-            ? sorted.map((r, i) => {
-                const tr = document.createElement('tr');
-                tr.className =
-                  'border-b border-slate-100 last:border-0 hover:bg-ice/60 dark:border-slate-800/60 dark:hover:bg-slate-800/40';
-                const cell = (text: string, extra = '') => {
-                  const td = document.createElement('td');
-                  td.className = `px-4 py-2.5 ${extra}`;
-                  td.textContent = text;
-                  return td;
-                };
-                tr.append(
-                  cell(String(i + 1), 'tabular-nums text-slate-400'),
-                  cell(r.name, 'font-semibold text-navy dark:text-white'),
-                  cell(r.country ?? '–', 'text-slate-600 dark:text-slate-300'),
-                  cell(r.world_ranking != null ? String(r.world_ranking) : '–', 'tabular-nums text-slate-600 dark:text-slate-300'),
-                  cell(r.type === 'team' ? 'Lag' : 'Spiller', 'text-slate-600 dark:text-slate-300'),
-                  cell(fmtDate.format(parseUtc(r.created_at)), 'whitespace-nowrap text-slate-500 dark:text-slate-400'),
-                );
-                return tr;
-              })
-            : [emptyRow(q ? 'Ingen treff på søket.' : 'Ingen påmeldinger ennå.')]),
-        );
+        const query = norm(search.value.trim());
+        const filtered = query ? rows.filter((row) => norm([
+          row.name, row.country ?? '', row.email, row.phone ?? '',
+          ...row.answers.flatMap((answer) => [answer.questionLabelNo, answer.labelNo]),
+        ].join(' ')).includes(query)) : rows;
+        const sorted = [...filtered].sort(compare);
+        tbody.replaceChildren(...(sorted.length ? sorted.map((row, index) => {
+          const tr = document.createElement('tr');
+          tr.className = 'border-b border-slate-100 last:border-0 hover:bg-ice/60 dark:border-slate-800/60 dark:hover:bg-slate-800/40';
+          const contact = cell(row.email, 'text-slate-600 dark:text-slate-300');
+          if (row.phone) {
+            const phone = document.createElement('div');
+            phone.className = 'text-xs text-slate-500';
+            phone.textContent = row.phone;
+            contact.appendChild(phone);
+          }
+          const answerText = row.answers.map((answer) => `${answer.questionLabelNo}: ${answer.labelNo}`).join('\n');
+          const actions = document.createElement('td');
+          actions.className = 'px-4 py-2.5 text-right';
+          const edit = document.createElement('button');
+          edit.type = 'button';
+          edit.className = 'min-h-11 px-2 font-semibold text-brand underline';
+          edit.textContent = 'Rediger';
+          edit.addEventListener('click', () => openEditor(row));
+          actions.appendChild(edit);
+          tr.append(
+            cell(String(index + 1), 'tabular-nums text-slate-400'),
+            cell(row.name, 'max-w-xs font-semibold text-navy dark:text-white'),
+            cell(row.country ?? '–', 'text-slate-600 dark:text-slate-300'),
+            cell(row.world_ranking == null ? '–' : String(row.world_ranking), 'tabular-nums'),
+            cell(row.ranking_points == null ? '–' : String(row.ranking_points), 'tabular-nums font-semibold'),
+            contact,
+            cell(answerText || '–', 'max-w-xs whitespace-pre-line text-slate-600 dark:text-slate-300'),
+            cell(fmtDate.format(parseUtc(row.created_at)), 'whitespace-nowrap text-slate-500'),
+            actions,
+          );
+          return tr;
+        }) : [emptyRow(query ? 'Ingen treff på søket.' : 'Ingen påmeldinger ennå.')]));
 
         statCount.textContent = String(rows.length);
         statCountLabel.textContent = rows.length === 1 ? 'påmeldt' : 'påmeldte';
-        statLast.textContent = rows.length
-          ? fmtDate.format(parseUtc(rows[rows.length - 1].created_at))
-          : '–';
-        statFiltered.classList.toggle('hidden', !q);
+        const latest = rows.reduce<string | null>((value, row) => value == null || row.created_at > value ? row.created_at : value, null);
+        statLast.textContent = latest ? fmtDate.format(parseUtc(latest)) : '–';
+        statFiltered.classList.toggle('hidden', !query);
         statFilteredCount.textContent = String(filtered.length);
-
-        for (const el of root.querySelectorAll<HTMLElement>('[data-sort-arrow]')) {
-          const key = el.dataset.sortArrow as SortKey;
-          el.textContent = key === sortKey ? (sortDir === 1 ? '↑' : '↓') : '';
-        }
+        root.querySelectorAll<HTMLElement>('[data-sort-arrow]').forEach((arrow) => {
+          const key = arrow.dataset.sortArrow as SortKey;
+          arrow.textContent = key === sortKey ? (sortDir === 1 ? '↑' : '↓') : '';
+        });
       };
 
       const load = async (slug: string) => {
@@ -218,22 +296,231 @@ const defaultSlug = views.find((v) => v.status === 'upcoming')?.entry.data.slug 
         render();
         tbody.replaceChildren(emptyRow('Henter påmeldinger …'));
         csvLink.href = `/api/admin/registrations.csv?slug=${encodeURIComponent(slug)}`;
-        setStatus('');
+        setTableStatus('');
         try {
-          const res = await fetch(`/api/admin/registrations.json?slug=${encodeURIComponent(slug)}`);
-          if (res.status === 403) {
+          const response = await fetch(`/api/admin/registrations.json?slug=${encodeURIComponent(slug)}`);
+          if (response.status === 403) {
             tbody.replaceChildren(emptyRow('Ingen tilgang.'));
-            setStatus('API-et svarte 403 — Cloudflare Access-innlogging mangler eller er utløpt.', true);
+            setTableStatus('Cloudflare Access-innlogging mangler eller er utløpt.', true);
             return;
           }
-          if (!res.ok) throw new Error(String(res.status));
-          rows = (await res.json()) as Row[];
+          if (!response.ok) throw new Error(String(response.status));
+          rows = (await response.json()) as Row[];
           render();
         } catch {
           tbody.replaceChildren(emptyRow('Kunne ikke hente påmeldinger.'));
-          setStatus('Noe gikk galt mot API-et. Prøv å laste siden på nytt.', true);
+          setTableStatus('Noe gikk galt mot API-et. Prøv å laste siden på nytt.', true);
         }
       };
+
+      function addPlayerEditor(existing?: Partial<RosterPlayer> & { playerId?: number | null }) {
+        const cfg = configs[select.value];
+        const max = cfg.playersPerTeam == null ? 1 : cfg.playersPerTeam + cfg.maxSubstitutes;
+        if (playerEditors.length >= max) return;
+        const index = playerEditors.length;
+        const box = document.createElement('div');
+        box.className = 'relative border-b border-slate-200 pb-4 last:border-0 dark:border-slate-700';
+        const header = document.createElement('div');
+        header.className = 'mb-1 flex items-center justify-between gap-3';
+        const label = document.createElement('label');
+        label.className = 'text-sm font-semibold';
+        label.textContent = cfg.playersPerTeam == null ? 'Spiller' : `Spiller ${index + 1}`;
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'hidden min-h-11 px-2 text-xs font-semibold text-red-700 underline dark:text-red-400';
+        remove.textContent = 'Fjern';
+        header.append(label, remove);
+        const input = document.createElement('input');
+        input.type = 'search';
+        input.autocomplete = 'off';
+        input.required = true;
+        input.placeholder = 'Søk i verdensrankingen, eller skriv fullt navn for urangert spiller';
+        input.value = existing?.name ?? '';
+        input.className = 'w-full rounded border border-slate-300 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-950';
+        const meta = document.createElement('p');
+        meta.className = 'mt-1 text-xs text-slate-500';
+        if (existing?.playerId) meta.textContent = `ITHF-ID ${existing.playerId}${existing.worldRanking ? ` · VR ${existing.worldRanking}` : ''}${existing.rankingPoints != null ? ` · ${existing.rankingPoints} poeng` : ''}`;
+        const matches = document.createElement('div');
+        matches.className = 'absolute right-0 left-0 z-20 mt-1 hidden max-h-56 overflow-auto rounded border border-slate-300 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-950';
+        box.append(header, input, meta, matches);
+        playerFields.appendChild(box);
+        const state = { box, input, playerId: existing?.playerId ?? null };
+        playerEditors.push(state);
+
+        let timer: ReturnType<typeof setTimeout>;
+        input.addEventListener('input', () => {
+          state.playerId = null;
+          meta.textContent = 'Lagres som urangert hvis du ikke velger et treff.';
+          clearTimeout(timer);
+          timer = setTimeout(async () => {
+            const query = norm(input.value.trim());
+            if (!query) { matches.classList.add('hidden'); return; }
+            try {
+              const ranking = await loadRanking();
+              const hits = ranking.filter((player) => norm(player[2]).includes(query)).slice(0, 20);
+              matches.replaceChildren(...hits.map((player) => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'block w-full border-b border-slate-100 px-3 py-2 text-left text-sm last:border-0 hover:bg-ice dark:border-slate-800 dark:hover:bg-slate-800';
+                button.textContent = `${player[2]} — ${player[3]} · ${player[4]} · VR ${player[0]}${player[5] != null ? ` · ${player[5]} poeng` : ''}`;
+                button.addEventListener('click', () => {
+                  state.playerId = player[1];
+                  input.value = player[2];
+                  meta.textContent = `ITHF-ID ${player[1]} · VR ${player[0]}${player[5] != null ? ` · ${player[5]} poeng` : ''}`;
+                  matches.classList.add('hidden');
+                });
+                return button;
+              }));
+              matches.classList.toggle('hidden', hits.length === 0);
+            } catch {
+              meta.textContent = 'Kunne ikke laste verdensrankingen. Navnet kan lagres som urangert.';
+            }
+          }, 120);
+        });
+        input.addEventListener('blur', () => setTimeout(() => matches.classList.add('hidden'), 150));
+        remove.addEventListener('click', () => {
+          const min = cfg.playersPerTeam ?? 1;
+          if (playerEditors.length <= min) return;
+          playerEditors = playerEditors.filter((candidate) => candidate !== state);
+          box.remove();
+          refreshEditorRows();
+        });
+        refreshEditorRows();
+      }
+
+      function refreshEditorRows() {
+        const cfg = configs[select.value];
+        const min = cfg.playersPerTeam ?? 1;
+        const max = cfg.playersPerTeam == null ? 1 : min + cfg.maxSubstitutes;
+        playerEditors.forEach((editor, index) => {
+          editor.box.querySelector('label')!.textContent = cfg.playersPerTeam == null ? 'Spiller' : `Spiller ${index + 1}`;
+          editor.box.querySelector('button')!.classList.toggle('hidden', playerEditors.length <= min || index !== playerEditors.length - 1);
+        });
+        addPlayerWrap.classList.toggle('hidden', playerEditors.length >= max);
+      }
+
+      function renderQuestions(row: Row | null) {
+        const cfg = configs[select.value];
+        const values = new Map((row?.answers ?? []).map((answer) => [answer.questionId, answer.value]));
+        questionFields.replaceChildren(...cfg.registrationQuestions.map((question) => {
+          const label = document.createElement('label');
+          label.className = 'grid gap-1 text-sm font-semibold';
+          label.textContent = question.labelNo;
+          const answer = document.createElement('select');
+          answer.dataset.answerId = question.id;
+          answer.required = question.required;
+          answer.className = 'rounded border border-slate-300 bg-white px-3 py-2 font-normal dark:border-slate-700 dark:bg-slate-950';
+          const blank = document.createElement('option');
+          blank.value = '';
+          blank.textContent = question.required ? 'Velg …' : 'Ikke besvart';
+          answer.append(blank, ...question.options.map((option) => {
+            const element = document.createElement('option');
+            element.value = option.value;
+            element.textContent = option.labelNo;
+            return element;
+          }));
+          answer.value = values.get(question.id) ?? '';
+          label.appendChild(answer);
+          return label;
+        }));
+        const currentIds = new Set(cfg.registrationQuestions.map((question) => question.id));
+        const removed = (row?.answers ?? []).filter((answer) => !currentIds.has(answer.questionId));
+        history.classList.toggle('hidden', removed.length === 0);
+        history.textContent = removed.length ? `Tidligere spørsmål (bevares): ${removed.map((answer) => `${answer.questionLabelNo}: ${answer.labelNo}`).join(' · ')}` : '';
+      }
+
+      function setEditorMessage(text: string, error = false) {
+        editorMessage.textContent = text;
+        editorMessage.classList.toggle('hidden', !text);
+        editorMessage.className = `mt-4 rounded px-3 py-2 text-sm font-semibold ${text ? '' : 'hidden'} ${error ? 'bg-red-100 text-red-900' : 'bg-green-100 text-green-900'}`;
+      }
+
+      function openEditor(row: Row | null) {
+        editing = row;
+        const cfg = configs[select.value];
+        editorForm.reset();
+        setEditorMessage('');
+        editorTitle.textContent = row ? 'Rediger påmelding' : 'Legg til påmelding';
+        editorKind.textContent = cfg.playersPerTeam == null
+          ? 'Individuell turnering'
+          : `${cfg.playersPerTeam} spillere teller${cfg.maxSubstitutes ? ` + opptil ${cfg.maxSubstitutes} innbyttere` : ''}`;
+        deleteButton.classList.toggle('hidden', !row);
+        emailInput.value = row?.email ?? '';
+        phoneInput.value = row?.phone ?? '';
+        playerEditors = [];
+        playerFields.replaceChildren();
+        if (row?.type === 'team') (row.roster ?? []).forEach((player) => addPlayerEditor(player));
+        else if (row) addPlayerEditor({ playerId: row.player_id, name: row.name, worldRanking: row.world_ranking, rankingPoints: row.ranking_points ?? undefined });
+        else Array.from({ length: cfg.playersPerTeam ?? 1 }, () => addPlayerEditor());
+        renderQuestions(row);
+        dialog.showModal();
+        playerEditors[0]?.input.focus();
+      }
+
+      async function saveEditor() {
+        if (!editorForm.reportValidity()) return;
+        const cfg = configs[select.value];
+        const players = playerEditors.map((editor) => editor.playerId != null
+          ? { playerId: editor.playerId }
+          : { name: editor.input.value.trim() });
+        if (players.some((player) => 'name' in player && !player.name)) {
+          setEditorMessage('Fyll inn alle spillerne.', true);
+          return;
+        }
+        const answers = Object.fromEntries(Array.from(questionFields.querySelectorAll<HTMLSelectElement>('[data-answer-id]'))
+          .filter((answer) => answer.value)
+          .map((answer) => [answer.dataset.answerId!, answer.value]));
+        const body = {
+          tournament_slug: select.value,
+          ...(editing ? { id: editing.id } : {}),
+          type: cfg.playersPerTeam == null ? 'player' : 'team',
+          ...(cfg.playersPerTeam == null ? { player: players[0] } : { players }),
+          email: emailInput.value,
+          phone: phoneInput.value || null,
+          answers,
+        };
+        saveButton.disabled = true;
+        saveButton.textContent = 'Lagrer …';
+        try {
+          const response = await fetch('/api/admin/registrations', {
+            method: editing ? 'PATCH' : 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
+          });
+          const data = (await response.json().catch(() => ({}))) as { error?: string };
+          if (!response.ok) throw new Error(data.error ?? 'Kunne ikke lagre.');
+          dialog.close();
+          await load(select.value);
+        } catch (error) {
+          setEditorMessage(error instanceof Error ? error.message : 'Kunne ikke lagre.', true);
+        } finally {
+          saveButton.disabled = false;
+          saveButton.textContent = 'Lagre';
+        }
+      }
+
+      editorForm.addEventListener('submit', (event) => { event.preventDefault(); void saveEditor(); });
+      addPlayerButton.addEventListener('click', () => addPlayerEditor());
+      root.querySelector('[data-add]')?.addEventListener('click', () => openEditor(null));
+      root.querySelectorAll('[data-editor-close], [data-editor-cancel]').forEach((button) => button.addEventListener('click', () => dialog.close()));
+      deleteButton.addEventListener('click', async () => {
+        if (!editing || !window.confirm(`Slette påmeldingen for ${editing.name}? Dette kan ikke angres.`)) return;
+        deleteButton.disabled = true;
+        try {
+          const response = await fetch('/api/admin/registrations', {
+            method: 'DELETE', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ tournament_slug: select.value, id: editing.id }),
+          });
+          const data = (await response.json().catch(() => ({}))) as { error?: string };
+          if (!response.ok) throw new Error(data.error ?? 'Kunne ikke slette.');
+          dialog.close();
+          await load(select.value);
+        } catch (error) {
+          setEditorMessage(error instanceof Error ? error.message : 'Kunne ikke slette.', true);
+        } finally {
+          deleteButton.disabled = false;
+        }
+      });
 
       select.addEventListener('change', () => {
         const url = new URL(window.location.href);
@@ -242,24 +529,16 @@ const defaultSlug = views.find((v) => v.status === 'upcoming')?.entry.data.slug 
         void load(select.value);
       });
       search.addEventListener('input', render);
-      for (const btn of root.querySelectorAll<HTMLButtonElement>('[data-sort]')) {
-        btn.addEventListener('click', () => {
-          const key = btn.dataset.sort as SortKey;
-          if (sortKey === key) sortDir = sortDir === 1 ? -1 : 1;
-          else {
-            sortKey = key;
-            sortDir = 1;
-          }
-          render();
-        });
-      }
+      root.querySelectorAll<HTMLButtonElement>('[data-sort]').forEach((button) => button.addEventListener('click', () => {
+        const key = button.dataset.sort as SortKey;
+        if (sortKey === key) sortDir = sortDir === 1 ? -1 : 1;
+        else { sortKey = key; sortDir = key === 'points' ? -1 : 1; }
+        render();
+      }));
 
       const initial = new URLSearchParams(window.location.search).get('slug');
-      if (initial && select.querySelector(`option[value="${CSS.escape(initial)}"]`)) {
-        select.value = initial;
-      } else if (root.dataset.defaultSlug) {
-        select.value = root.dataset.defaultSlug;
-      }
+      if (initial && select.querySelector(`option[value="${CSS.escape(initial)}"]`)) select.value = initial;
+      else if (root.dataset.defaultSlug) select.value = root.dataset.defaultSlug;
       void load(select.value);
     }
   </script>

@@ -4,84 +4,297 @@ import { t, type Lang } from '../lib/i18n';
 interface Player {
   name: string;
   country: string;
+  club?: string;
   world_ranking?: string;
+  ranking_points?: number;
 }
 
 interface Props {
   slug: string;
   players: Player[];
   lang: Lang;
+  playersPerTeam?: number | null;
 }
 
-const { slug, players, lang } = Astro.props;
+const { slug, players, lang, playersPerTeam = null } = Astro.props;
+const isTeam = playersPerTeam != null;
+const labels = lang === 'en'
+  ? {
+      club: 'Club', points: 'Points', team: 'Team', substitute: 'Substitute', refreshed: 'Ranking updated',
+      placementHeading: 'Calculated ITHF points by placement', placement: 'Placement', award: 'ITHF points',
+      calculationNote: 'Calculated with the ITHF World Ranking 2020 algorithm from the current entrants and their Player Value.',
+      emptyPoints: 'Points will be calculated when participants register.',
+      fewerThanFour: 'Fewer than four participants gives no ranking points.',
+      teamNoPoints: 'Level 10 team competitions do not give world-ranking points.',
+      incomplete: 'One or more ranked players are awaiting a Player Value refresh, so these values may increase.',
+    }
+  : {
+      club: 'Klubb', points: 'Poeng', team: 'Lag', substitute: 'Innbytter', refreshed: 'Ranking oppdatert',
+      placementHeading: 'Beregnede ITHF-poeng per plassering', placement: 'Plassering', award: 'ITHF-poeng',
+      calculationNote: 'Beregnet med ITHF World Ranking 2020-algoritmen fra dagens påmeldte og deres Player Value.',
+      emptyPoints: 'Poengene beregnes når deltakere melder seg på.',
+      fewerThanFour: 'Færre enn fire deltakere gir ingen rankingpoeng.',
+      teamNoPoints: 'Lagturneringer på nivå 10 gir ingen verdensrankingpoeng.',
+      incomplete: 'Én eller flere rangerte spillere venter på oppdatert Player Value, så poengene kan øke.',
+    };
+const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part) => part.trim()).filter(Boolean);
 ---
 
-<section aria-labelledby="registered-players" class="mt-10" data-participants data-slug={slug}>
-  <h2 id="registered-players" class="text-2xl font-bold text-navy">{t(lang, 'registeredPlayers')}</h2>
+<section
+  aria-labelledby="registered-players"
+  class="mt-10"
+  data-participants
+  data-slug={slug}
+  data-team={String(isTeam)}
+  data-players-per-team={playersPerTeam ?? ''}
+  data-lang={lang}
+  data-labels={JSON.stringify(labels)}
+>
+  <div class="flex flex-wrap items-baseline justify-between gap-2">
+    <h2 id="registered-players" class="text-2xl font-bold text-navy">{t(lang, 'registeredPlayers')}</h2>
+    <p class="text-xs text-slate-500" data-ranking-refreshed aria-live="polite"></p>
+  </div>
   <div class="mt-4 overflow-x-auto">
     <table class="w-full border-collapse text-sm">
       <thead>
         <tr>
           <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">#</th>
           <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t(lang, 'name')}</th>
+          <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{labels.club}</th>
           <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t(lang, 'country')}</th>
           <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t(lang, 'wr')}</th>
+          <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{labels.points}</th>
         </tr>
       </thead>
       <tbody data-participant-rows>
         {
-          players.map((player, i) => (
-            <tr class="odd:bg-white even:bg-ice">
-              <td class="border border-slate-300 px-3 py-2 tabular-nums">{i + 1}</td>
-              <td class="border border-slate-300 px-3 py-2">{player.name}</td>
-              <td class="border border-slate-300 px-3 py-2">{player.country}</td>
-              <td class="border border-slate-300 px-3 py-2 tabular-nums">{player.world_ranking ?? '–'}</td>
-            </tr>
-          ))
+          isTeam
+            ? players.flatMap((team, teamIndex) => {
+                const names = legacyRoster(team.name);
+                return [
+                  <tr class="border-t-2 border-slate-400 bg-ice font-semibold">
+                    <td class="border border-slate-300 px-3 py-2 tabular-nums">{teamIndex + 1}</td>
+                    <td class="border border-slate-300 px-3 py-2">{labels.team} {teamIndex + 1}</td>
+                    <td class="border border-slate-300 px-3 py-2"></td>
+                    <td class="border border-slate-300 px-3 py-2"></td>
+                    <td class="border border-slate-300 px-3 py-2"></td>
+                    <td class="border border-slate-300 px-3 py-2 tabular-nums">{team.ranking_points ?? '–'}</td>
+                  </tr>,
+                  ...names.map((name, playerIndex) => (
+                    <tr class="bg-white">
+                      <td class="border border-slate-300 px-3 py-2"></td>
+                      <td class="border border-slate-300 px-3 py-2 pl-6">
+                        {name}
+                        {playerIndex >= playersPerTeam! && <span class="ml-2 text-xs text-slate-500">({labels.substitute})</span>}
+                      </td>
+                      <td class="border border-slate-300 px-3 py-2"></td>
+                      <td class="border border-slate-300 px-3 py-2"></td>
+                      <td class="border border-slate-300 px-3 py-2"></td>
+                      <td class="border border-slate-300 px-3 py-2 tabular-nums">–</td>
+                    </tr>
+                  )),
+                ];
+              })
+            : players.map((player, index) => (
+                <tr class="odd:bg-white even:bg-ice">
+                  <td class="border border-slate-300 px-3 py-2 tabular-nums">{index + 1}</td>
+                  <td class="border border-slate-300 px-3 py-2">{player.name}</td>
+                  <td class="border border-slate-300 px-3 py-2">{player.club ?? ''}</td>
+                  <td class="border border-slate-300 px-3 py-2">{player.country}</td>
+                  <td class="border border-slate-300 px-3 py-2 tabular-nums">{player.world_ranking ?? '–'}</td>
+                  <td class="border border-slate-300 px-3 py-2 tabular-nums">{player.ranking_points ?? '–'}</td>
+                </tr>
+              ))
         }
       </tbody>
     </table>
   </div>
   <p class="mt-2 text-xs text-slate-500" data-participants-status aria-live="polite"></p>
+
+  <div data-placement-points-wrap class="mt-10 hidden border-t border-slate-200 pt-8">
+    <div class="flex flex-wrap items-baseline justify-between gap-2">
+      <h3 class="text-xl font-bold text-navy">{labels.placementHeading}</h3>
+      <p data-ranking-level class="text-sm font-semibold text-slate-600"></p>
+    </div>
+    <p class="mt-2 max-w-3xl text-sm text-slate-600">{labels.calculationNote}</p>
+    <p data-placement-note class="mt-2 text-sm font-semibold text-slate-700" aria-live="polite"></p>
+    <div data-placement-table class="mt-4 overflow-x-auto">
+      <table class="w-full border-collapse text-sm">
+        <thead>
+          <tr>
+            <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{labels.placement}</th>
+            <th class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{labels.award}</th>
+          </tr>
+        </thead>
+        <tbody data-placement-rows></tbody>
+      </table>
+    </div>
+  </div>
 </section>
 
 <script>
-  // Hydrate the static (build-time snapshot) participant list from the D1
-  // API so new registrations appear without a rebuild. Re-fetches when a
-  // registration succeeds on this page.
+  interface RosterPlayer {
+    name: string;
+    club: string | null;
+    country: string | null;
+    worldRanking: number | null;
+    rankingPoints: number;
+  }
+  interface Participant {
+    type: 'player' | 'team';
+    name: string;
+    club: string | null;
+    country: string | null;
+    world_ranking: number | null;
+    ranking_points: number | null;
+    roster: RosterPlayer[] | null;
+  }
+  interface ResponseBody {
+    participants: Participant[];
+    playersPerTeam: number | null;
+    rankingRefreshedAt: string | null;
+    rankingLevel: '1-world' | '1-continental' | '2' | '3' | '4' | '5' | '6' | '10' | null;
+    rankingAlgorithm: 'ithf-wr-2020' | null;
+    rankingValuesComplete: boolean;
+    placementPoints: Array<{ placement: number; points: number }> | null;
+  }
+
   const section = document.querySelector<HTMLElement>('[data-participants]');
   if (section) {
     const tbody = section.querySelector<HTMLTableSectionElement>('[data-participant-rows]')!;
-    const status = section.querySelector<HTMLElement>('[data-participants-status]');
+    const refreshed = section.querySelector<HTMLElement>('[data-ranking-refreshed]');
+    const placementWrap = section.querySelector<HTMLElement>('[data-placement-points-wrap]')!;
+    const placementRows = section.querySelector<HTMLTableSectionElement>('[data-placement-rows]')!;
+    const placementTable = section.querySelector<HTMLElement>('[data-placement-table]')!;
+    const placementNote = section.querySelector<HTMLElement>('[data-placement-note]')!;
+    const rankingLevel = section.querySelector<HTMLElement>('[data-ranking-level]')!;
     const slug = section.dataset.slug!;
+    const lang = section.dataset.lang === 'en' ? 'en' : 'no';
+    const labels = JSON.parse(section.dataset.labels ?? '{}') as Record<string, string>;
+    const levelLabels: Record<NonNullable<ResponseBody['rankingLevel']>, string> = lang === 'en'
+      ? {
+          '1-world': 'Level 1 · World Championship',
+          '1-continental': 'Level 1 · Continental Championship',
+          '2': 'Level 2', '3': 'Level 3', '4': 'Level 4', '5': 'Level 5', '6': 'Level 6',
+          '10': 'Level 10 · Team competition',
+        }
+      : {
+          '1-world': 'Nivå 1 · Verdensmesterskap',
+          '1-continental': 'Nivå 1 · Kontinentalmesterskap',
+          '2': 'Nivå 2', '3': 'Nivå 3', '4': 'Nivå 4', '5': 'Nivå 5', '6': 'Nivå 6',
+          '10': 'Nivå 10 · Lagturnering',
+        };
 
-    function row(cells: string[]): HTMLTableRowElement {
-      const tr = document.createElement('tr');
-      tr.className = 'odd:bg-white even:bg-ice';
-      for (const text of cells) {
-        const td = document.createElement('td');
-        td.className = 'border border-slate-300 px-3 py-2';
-        td.textContent = text;
-        tr.appendChild(td);
+    function cell(text = '', classes = ''): HTMLTableCellElement {
+      const td = document.createElement('td');
+      td.className = `border border-slate-300 px-3 py-2 ${classes}`;
+      td.textContent = text;
+      return td;
+    }
+
+    function renderIndividual(participants: Participant[]): DocumentFragment {
+      const frag = document.createDocumentFragment();
+      participants.forEach((player, index) => {
+        const tr = document.createElement('tr');
+        tr.className = 'odd:bg-white even:bg-ice';
+        tr.append(
+          cell(String(index + 1), 'tabular-nums'),
+          cell(player.name),
+          cell(player.club ?? ''),
+          cell(player.country ?? ''),
+          cell(player.world_ranking == null ? '–' : String(player.world_ranking), 'tabular-nums'),
+          cell(player.ranking_points == null ? '–' : String(player.ranking_points), 'tabular-nums'),
+        );
+        frag.appendChild(tr);
+      });
+      return frag;
+    }
+
+    function renderTeams(participants: Participant[], playersPerTeam: number): DocumentFragment {
+      const frag = document.createDocumentFragment();
+      participants.forEach((team, teamIndex) => {
+        const summary = document.createElement('tr');
+        summary.className = 'border-t-2 border-slate-400 bg-ice font-semibold';
+        summary.append(
+          cell(String(teamIndex + 1), 'tabular-nums'),
+          cell(`${labels.team ?? 'Lag'} ${teamIndex + 1}`),
+          cell(),
+          cell(),
+          cell(),
+          cell(String(team.ranking_points ?? 0), 'tabular-nums'),
+        );
+        frag.appendChild(summary);
+        (team.roster ?? []).forEach((player, playerIndex) => {
+          const tr = document.createElement('tr');
+          tr.className = 'bg-white';
+          const name = cell(player.name, 'pl-6');
+          if (playerIndex >= playersPerTeam) {
+            const substitute = document.createElement('span');
+            substitute.className = 'ml-2 text-xs text-slate-500';
+            substitute.textContent = `(${labels.substitute ?? 'Innbytter'})`;
+            name.appendChild(substitute);
+          }
+          tr.append(
+            cell(),
+            name,
+            cell(player.club ?? ''),
+            cell(player.country ?? ''),
+            cell(player.worldRanking == null ? '–' : String(player.worldRanking), 'tabular-nums'),
+            cell(String(player.rankingPoints), 'tabular-nums'),
+          );
+          frag.appendChild(tr);
+        });
+      });
+      return frag;
+    }
+
+    function renderPlacementPoints(data: ResponseBody) {
+      if (data.rankingLevel == null || data.placementPoints == null) {
+        placementWrap.classList.add('hidden');
+        return;
       }
-      return tr;
+      placementWrap.classList.remove('hidden');
+      rankingLevel.textContent = levelLabels[data.rankingLevel];
+      placementRows.replaceChildren(...data.placementPoints.map((row) => {
+        const tr = document.createElement('tr');
+        tr.className = 'odd:bg-white even:bg-ice';
+        tr.append(
+          cell(String(row.placement), 'tabular-nums'),
+          cell(String(row.points), 'tabular-nums font-semibold'),
+        );
+        return tr;
+      }));
+      placementTable.classList.toggle('hidden', data.placementPoints.length === 0);
+      const notes: string[] = [];
+      if (data.rankingLevel === '10') notes.push(labels.teamNoPoints ?? '');
+      else if (data.placementPoints.length === 0) notes.push(labels.emptyPoints ?? '');
+      else if (data.placementPoints.length < 4) notes.push(labels.fewerThanFour ?? '');
+      if (!data.rankingValuesComplete) notes.push(labels.incomplete ?? '');
+      placementNote.textContent = notes.filter(Boolean).join(' ');
+      placementNote.classList.toggle('hidden', notes.length === 0);
     }
 
     async function refresh() {
       try {
         const res = await fetch(`/api/tournaments/${encodeURIComponent(slug)}/players`);
-        if (!res.ok) return; // keep the static list
-        const players = (await res.json()) as { name: string; country: string | null; world_ranking: number | null }[];
-        const frag = document.createDocumentFragment();
-        players.forEach((p, i) => {
-          frag.appendChild(
-            row([String(i + 1), p.name, p.country ?? '', p.world_ranking != null ? String(p.world_ranking) : '–']),
-          );
-        });
-        tbody.replaceChildren(frag);
-        if (status) status.textContent = '';
+        if (!res.ok) return;
+        const data = (await res.json()) as ResponseBody;
+        tbody.replaceChildren(
+          data.playersPerTeam == null
+            ? renderIndividual(data.participants)
+            : renderTeams(data.participants, data.playersPerTeam),
+        );
+        if (refreshed && data.rankingRefreshedAt) {
+          const date = new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : 'nb-NO', {
+            timeZone: 'Europe/Oslo',
+            dateStyle: 'medium',
+            timeStyle: 'short',
+          }).format(new Date(data.rankingRefreshedAt));
+          refreshed.textContent = `${labels.refreshed ?? 'Ranking oppdatert'} ${date}`;
+        }
+        renderPlacementPoints(data);
       } catch {
-        /* offline/API down — keep the static list */
+        // Offline/API down: retain the committed static fallback.
       }
     }
 

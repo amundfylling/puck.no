@@ -34,6 +34,9 @@ const players =
     (p) => p.name && p.name.toLowerCase() !== 'name',
   ) ?? [];
 const priceList = entry.data.prices?.split(';').map((s) => s.trim()).filter(Boolean) ?? [];
+const noMirror = (await getCollection('tournaments', (t) => t.data.lang === 'no'))
+  .find((t) => t.data.slug === entry.data.slug);
+const registrationQuestions = noMirror?.data.registrationQuestions ?? entry.data.registrationQuestions;
 
 const allTournaments = await getCollection('tournaments', (t) => t.data.lang === 'en');
 const parentEntry = entry.data.parent
@@ -220,12 +223,18 @@ const jsonLd = {
 
     {
       registrationOpen && (
-        <RegistrationForm lang="en" slug={entry.data.slug} teamMin={entry.data.teamMin} teamMax={entry.data.teamMax} />
+        <RegistrationForm
+          lang="en"
+          slug={entry.data.slug}
+          playersPerTeam={entry.data.playersPerTeam}
+          maxSubstitutes={entry.data.maxSubstitutes}
+          registrationQuestions={registrationQuestions}
+        />
       )
     }
 
     <div id="participants" class="scroll-mt-6">
-      <ParticipantList slug={entry.data.slug} players={players} lang="en" />
+      <ParticipantList slug={entry.data.slug} players={players} lang="en" playersPerTeam={entry.data.playersPerTeam} />
     </div>
   </article>
 </BaseLayout>

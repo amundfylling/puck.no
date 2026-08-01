@@ -3,10 +3,8 @@
  * GET /api/admin/registrations.json?slug=… — registration rows for the admin
  * participant view (searchable/sortable table in the portal).
  *
- * Deliberately NO email/phone: contact details stay in the Access-protected
- * CSV export (registrations.csv). Everything here is a public field (the
- * participant lists show name/country/world_ranking) plus admin metadata
- * (id, type, created_at).
+ * Includes contact details, structured rosters and custom answers because
+ * administrators can add/edit/delete rows here. The route is Access-protected.
  *
  * Protected two ways (belt and braces), like registrations.csv:
  *  1. Application-level: the Cf-Access-Authenticated-User-Email header must
@@ -14,6 +12,7 @@
  *  2. Platform-level: Cloudflare Access in front of /api/admin/* (LAUNCH.md).
  */
 import { KNOWN_SLUGS } from '../../lib/tournaments';
+import { parseAnswers, parseRoster } from '../../lib/registration';
 
 interface Env {
   DB: D1Database;
@@ -40,12 +39,17 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     return json({ error: 'Ukjent turnering.' }, 400);
   }
   const { results } = await context.env.DB.prepare(
-    `SELECT id, type, name, country, world_ranking, created_at
+    `SELECT id, type, name, country, club, email, phone, world_ranking,
+            ranking_points, ranking_value, player_id, roster, answers, created_at
      FROM registrations WHERE tournament_slug = ? ORDER BY created_at ASC, id ASC`,
   )
     .bind(slug)
     .all();
-  return json(results);
+  return json(results.map((row) => ({
+    ...row,
+    roster: row.type === 'team' ? parseRoster(row.roster, String(row.name)) : null,
+    answers: parseAnswers(row.answers),
+  })));
 };
 
 export const onRequest: PagesFunction<Env> = async () =>

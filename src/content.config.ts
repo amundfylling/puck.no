@@ -31,6 +31,32 @@ const posts = defineCollection({
   }),
 });
 
+const registrationQuestion = z.object({
+  /** Stable machine key; changing labels must not invalidate stored answers. */
+  id: z.string().regex(/^[a-z0-9][a-z0-9-]*$/),
+  labelNo: z.string().min(1),
+  labelEn: z.string().min(1),
+  required: z.boolean().default(false),
+  options: z.array(
+    z.object({
+      value: z.string().min(1),
+      labelNo: z.string().min(1),
+      labelEn: z.string().min(1),
+    }),
+  ).min(2),
+});
+
+const rankingLevel = z.enum([
+  '1-world',
+  '1-continental',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '10',
+]);
+
 const tournaments = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/tournaments', generateId: byPath }),
   schema: z.object({
@@ -47,13 +73,21 @@ const tournaments = defineCollection({
     status: z.enum(['upcoming', 'past']),
     /** false = registration closed (form hidden, API rejects). Default: open. */
     registrationOpen: z.boolean().default(true),
-    /**
-     * Team tournament: both set => teams of teamMin..teamMax players may register.
-     * Both null (default) => individual tournament. Mirrored to the API via
-     * scripts/gen-tournament-config.mjs (runs in prebuild).
-     */
-    teamMin: z.number().int().min(1).nullable().default(null),
-    teamMax: z.number().int().min(1).nullable().default(null),
+    /** Exact number of highest-rated roster members whose points count. Null = individual. */
+    playersPerTeam: z.number().int().min(1).nullable().default(null),
+    /** Optional roster places beyond playersPerTeam; those players do not count for seeding. */
+    maxSubstitutes: z.number().int().min(0).default(0),
+    /** Registration-level, single-choice questions. Labels/options are bilingual. */
+    registrationQuestions: z.array(registrationQuestion).default([]),
+    /** ITHF WR tournament level; level 1 distinguishes World/Continental winner guarantees. */
+    rankingLevel: rankingLevel.nullable().default(null),
+  }).superRefine((data, ctx) => {
+    if (data.playersPerTeam != null && data.rankingLevel != null && data.rankingLevel !== '10') {
+      ctx.addIssue({ code: 'custom', path: ['rankingLevel'], message: 'Team tournaments can only use ranking level 10.' });
+    }
+    if (data.playersPerTeam == null && data.rankingLevel === '10') {
+      ctx.addIssue({ code: 'custom', path: ['rankingLevel'], message: 'Ranking level 10 is only for team tournaments.' });
+    }
   }),
 });
 

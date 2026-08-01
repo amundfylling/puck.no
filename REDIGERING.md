@@ -23,8 +23,10 @@ Forsiden av portalen gir et sanntidsbilde av påmeldingene:
 - **Åpne/stenge påmelding** – trykk på «Åpen»/«Stengt» ved en kommende
   turnering. Endringen trer i kraft etter neste bygg (2–4 minutter).
 - **Påmeldinger** – søkbar og sorterbar liste over påmeldte per turnering.
-  Her laster du også ned **CSV-filen** med e-post og telefonnummer
-  (håndteres etter personvernerklæringen).
+  Her kan du legge til en påmelding selv etter at påmeldingen er stengt,
+  redigere lag/spillere, kontaktinformasjon og tilleggssvar, eller slette en
+  påmelding. Her laster du også ned **CSV-filen** med kontaktinformasjon og
+  tilleggssvar (håndteres etter personvernerklæringen).
 - Mørkt tema: sol/måne-knappen øverst til høyre.
 
 ---
@@ -56,13 +58,30 @@ Forsiden av portalen gir et sanntidsbilde av påmeldingene:
      turneringen vises som «Kommende». Påmeldingsskjemaet vises bare for
      kommende turneringer.
    - **Sted**, **Priser**, **Spillsystem** – valgfritt.
-   - **Min./maks. spillere per lag** – la begge stå **tomme** for vanlig
-     (individuell) turnering. For lagturnering (f.eks. Duo-NM): fyll inn
-     begge, f.eks. 2 og 2.
+   - **ITHF-rankingnivå** – valgfritt. Velg nivå 1–6 når siden skal vise
+     beregnede rankingpoeng for hver plassering. Nivå 1 har egne valg for VM
+     og kontinentalmesterskap. Nivå 10 brukes for lagturneringer og gir null
+     poeng. La feltet stå tomt hvis tabellen ikke skal vises.
+   - **Spillere som teller per lag** – la feltet stå **tomt** for en vanlig
+     individuell turnering. For en lagturnering skriver du hvor mange av de
+     høyest rangerte spillerne som teller i lagets poengsum, f.eks. `3`.
+   - **Maks. antall innbyttere** – hvor mange ekstra spillere laget kan melde
+     på, f.eks. `2`. Et 3+2-lag kan dermed registrere 3–5 spillere, men bare de
+     tre høyeste ITHF-poengsummene teller. Bruk `0` hvis innbyttere ikke er lov.
+   - **Tilleggsspørsmål** – valgfrie enkeltvalgsspørsmål for akkurat denne
+     turneringen, f.eks. lunsj. Spørsmål og hvert svaralternativ må ha norsk
+     og engelsk tekst. Velg selv om spørsmålet er obligatorisk. Svarene er kun
+     synlige i den beskyttede adminportalen og CSV-filen.
    - **Innhold** – beskrivelse, tidsskjema osv.
 3. Trykk **Lagre**. Turneringen får egen side under `/turneringer/<slug>`
-   med påmeldingsskjema og liste over påmeldte spillere (henter navn fra
-   verdensrankingen automatisk).
+   med påmeldingsskjema og liste over påmeldte spillere. Rankingposisjon og
+   ITHF-poeng hentes automatisk; data for kommende turneringer oppdateres også
+   hver onsdag kl. 03:00. Hvis et ITHF-rankingnivå er valgt, vises også en
+   norsk/engelsk poengtabell basert på antall påmeldte og deres oppdaterte
+   `Player_Value` fra ITHF. Denne verdien er ikke spillerens totale
+   rankingpoeng. Færre enn fire påmeldte gir null poeng; for nivå 1–6 får
+   vinneren i tillegg 10 poeng. Tabellen kan derfor endre seg mens nye spillere
+   melder seg på.
 
 ## Oppdatere styremedlemmer
 

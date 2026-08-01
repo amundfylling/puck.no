@@ -4,14 +4,35 @@
  * content collection — do not edit tournament-config.json by hand.
  */
 import config from './tournament-config.json';
+import type { RankingLevel } from './ranking-points';
 
 export interface TournamentConfig {
-  /** Min players per team (null = individual tournament). */
-  teamMin: number | null;
-  /** Max players per team (null = individual tournament). */
-  teamMax: number | null;
+  /** Norwegian display date, used by the scheduled ranking refresh. */
+  date: string;
+  /** Exact number of highest-rated roster members whose points count. */
+  playersPerTeam: number | null;
+  /** Maximum optional substitutes in addition to playersPerTeam. */
+  maxSubstitutes: number;
+  /** ITHF WR 2020 tournament level used for placement-point calculations. */
+  rankingLevel: RankingLevel | null;
+  /** Registration-level, single-choice questions. */
+  registrationQuestions: RegistrationQuestion[];
   /** false = registration closed (absent = open). */
   registrationOpen?: boolean;
+}
+
+export interface RegistrationQuestionOption {
+  value: string;
+  labelNo: string;
+  labelEn: string;
+}
+
+export interface RegistrationQuestion {
+  id: string;
+  labelNo: string;
+  labelEn: string;
+  required: boolean;
+  options: RegistrationQuestionOption[];
 }
 
 export const TOURNAMENTS = config as unknown as Record<string, TournamentConfig>;
@@ -20,5 +41,5 @@ export const KNOWN_SLUGS: ReadonlySet<string> = new Set(Object.keys(TOURNAMENTS)
 
 export function isTeamTournament(slug: string): boolean {
   const c = TOURNAMENTS[slug];
-  return c != null && c.teamMin != null;
+  return c != null && c.playersPerTeam != null;
 }

@@ -6,21 +6,35 @@ interface Props {
   lang: Lang;
   /** Tournament slug — posted to the API. */
   slug: string;
-  /** Team tournament when both are set (min/max players per team). */
-  teamMin?: number | null;
-  teamMax?: number | null;
+  /** Team tournament when set: this many highest-rated roster members count. */
+  playersPerTeam?: number | null;
+  /** Optional roster places whose points do not count toward the team seed. */
+  maxSubstitutes?: number;
+  registrationQuestions?: Array<{
+    id: string;
+    labelNo: string;
+    labelEn: string;
+    required: boolean;
+    options: Array<{ value: string; labelNo: string; labelEn: string }>;
+  }>;
 }
 
-const { lang, slug, teamMin = null, teamMax = null } = Astro.props;
-const isTeam = teamMin != null && teamMax != null;
+const {
+  lang,
+  slug,
+  playersPerTeam = null,
+  maxSubstitutes = 0,
+  registrationQuestions = [],
+} = Astro.props;
+const isTeam = playersPerTeam != null;
 const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined;
 
 // PHASE 3: live registration form -> POST /api/registrations (Cloudflare
 // Pages Function + D1). Players are chosen from the live ITHF world ranking
 // (searchable combobox, /ranking.json loaded lazily); country + world
-// ranking are derived server-side. Team tournaments (teamMin/teamMax set in
-// the tournament's frontmatter) get one combobox per player (min shown,
-// extra rows revealed up to max); contact info is stored once per team.
+// ranking are derived server-side. A team's highest-rated playersPerTeam
+// members count for seeding; up to maxSubstitutes optional rows can be added.
+// Contact info and custom answers are stored once per registration/team.
 // Vanilla-JS island, no framework.
 const l =
   lang === 'en'
@@ -35,7 +49,9 @@ const l =
         fallbackLabel: 'Name (new player without world ranking)',
         addPlayer: 'Add player',
         removePlayer: 'Remove',
-        teamHint: isTeam && teamMin === teamMax ? `Teams of exactly ${teamMin} players.` : `Teams of ${teamMin}–${teamMax} players.`,
+        teamHint: isTeam
+          ? `${playersPerTeam} players count toward the team ranking.${maxSubstitutes ? ` Up to ${maxSubstitutes} optional ${maxSubstitutes === 1 ? 'substitute' : 'substitutes'}.` : ''}`
+          : '',
         email: 'Email',
         phone: 'Phone number',
         submit: 'Register',
@@ -47,6 +63,8 @@ const l =
           'We store your name, email and phone number to manage tournament registrations. Contact amund.fylling@puck.no for access or deletion.',
         noscript: 'Registration requires JavaScript.',
         noKey: 'Registration is not configured (missing Turnstile site key).',
+        choose: 'Choose…',
+        points: 'points',
       }
     : {
         heading: isTeam ? 'Registrer lag' : 'Registrer spiller',
@@ -59,7 +77,9 @@ const l =
         fallbackLabel: 'Navn (ny spiller uten verdensranking)',
         addPlayer: 'Legg til spiller',
         removePlayer: 'Fjern',
-        teamHint: isTeam && teamMin === teamMax ? `Lag med nøyaktig ${teamMin} spillere.` : `Lag med ${teamMin}–${teamMax} spillere.`,
+        teamHint: isTeam
+          ? `${playersPerTeam} spillere teller i lagrankingen.${maxSubstitutes ? ` Opptil ${maxSubstitutes} ${maxSubstitutes === 1 ? 'valgfri innbytter' : 'valgfrie innbyttere'}.` : ''}`
+          : '',
         email: 'Epost',
         phone: 'Telefonnummer',
         submit: 'Registrer',
@@ -71,11 +91,13 @@ const l =
           'Vi lagrer navn, e-post og telefonnummer for å administrere turneringspåmeldinger. Kontakt amund.fylling@puck.no for innsyn eller sletting.',
         noscript: 'Påmelding krever JavaScript.',
         noKey: 'Registreringen er ikke konfigurert (mangler Turnstile-nøkkel).',
+        choose: 'Velg …',
+        points: 'poeng',
       };
 
 const type = isTeam ? 'team' : 'player';
-const rowCount = isTeam ? teamMax! : 1;
-const visibleCount = isTeam ? teamMin! : 1;
+const rowCount = isTeam ? playersPerTeam! + maxSubstitutes : 1;
+const visibleCount = isTeam ? playersPerTeam! : 1;
 ---
 
 <section
@@ -86,7 +108,7 @@ const visibleCount = isTeam ? teamMin! : 1;
   data-slug={slug}
   data-type={type}
   data-visible={visibleCount}
-  data-messages={JSON.stringify({ pickPlayer: l.pickPlayer, pickAll: l.pickAll, loading: l.loading, noResults: l.noResults })}
+  data-messages={JSON.stringify({ pickPlayer: l.pickPlayer, pickAll: l.pickAll, loading: l.loading, noResults: l.noResults, points: l.points })}
 >
   <h2 id="pamelding-heading" class="text-xl font-bold text-navy">{l.heading}</h2>
   {isTeam && <p class="mt-1 text-sm text-slate-600">{l.teamHint}</p>}
@@ -130,7 +152,7 @@ const visibleCount = isTeam ? teamMin! : 1;
       ))
     }
     {
-      isTeam && teamMax! > teamMin! && (
+      isTeam && maxSubstitutes > 0 && (
         <div>
           <button type="button" data-add-row class="btn-outline !px-3 !py-1.5 text-sm">
             + {l.addPlayer}
@@ -146,6 +168,26 @@ const visibleCount = isTeam ? teamMin! : 1;
       {l.phone}
       <input name="phone" type="tel" maxlength="30" autocomplete="tel" class="rounded border border-slate-300 px-3 py-2 font-normal" />
     </label>
+    {
+      registrationQuestions.map((question) => (
+        <label class="grid gap-1 text-sm font-semibold text-navy">
+          <span>
+            {lang === 'en' ? question.labelEn : question.labelNo}
+            {question.required && <span aria-hidden="true" class="ml-1 text-brand">*</span>}
+          </span>
+          <select
+            data-question={question.id}
+            required={question.required}
+            class="rounded border border-slate-300 bg-white px-3 py-2 font-normal"
+          >
+            <option value="">{l.choose}</option>
+            {question.options.map((option) => (
+              <option value={option.value}>{lang === 'en' ? option.labelEn : option.labelNo}</option>
+            ))}
+          </select>
+        </label>
+      ))
+    }
     {siteKey && <div class="cf-turnstile" data-sitekey={siteKey}></div>}
     <div>
       <button type="submit" data-submit data-sending={l.sending} disabled={!siteKey} class="btn-primary disabled:cursor-not-allowed disabled:opacity-50">
@@ -168,7 +210,7 @@ const visibleCount = isTeam ? teamMin! : 1;
     const msgs = JSON.parse(root.dataset.messages ?? '{}') as Record<string, string>;
 
     /* ---------- ranking comboboxes ---------- */
-    type PlayerRow = [number, number, string, string, string]; // rank, id, name, club, nation
+    type PlayerRow = [number, number, string, string, string, number?, number?]; // rank, id, name, club, nation, points, player value
     let rankingPromise: Promise<PlayerRow[]> | null = null;
     function loadRanking(): Promise<PlayerRow[]> {
       rankingPromise ??= fetch('/ranking.json').then((r) => {
@@ -189,6 +231,7 @@ const visibleCount = isTeam ? teamMin! : 1;
     interface SelectState {
       playerId: number | null;
       fallback: boolean;
+      reset: () => void;
     }
 
     function initPlayerSelect(box: HTMLElement): SelectState {
@@ -199,7 +242,7 @@ const visibleCount = isTeam ? teamMin! : 1;
       const fallbackField = box.querySelector<HTMLElement>('[data-combo-fallback-field]')!;
       const fallbackInput = box.querySelector<HTMLInputElement>('[data-combo-fallback-input]')!;
       const toggle = box.querySelector<HTMLButtonElement>('[data-combo-fallback-toggle]')!;
-      const state: SelectState = { playerId: null, fallback: false };
+      const state = { playerId: null, fallback: false } as SelectState;
       let players: PlayerRow[] | null = null;
       let items: PlayerRow[] = [];
       let active = -1;
@@ -234,7 +277,7 @@ const visibleCount = isTeam ? teamMin! : 1;
           b.textContent = p[2];
           const meta = document.createElement('span');
           meta.className = 'ml-2 text-xs text-slate-500';
-          meta.textContent = `${p[3]} · ${p[4]} · WR ${p[0]}`;
+          meta.textContent = `${p[3]} · ${p[4]} · WR ${p[0]}${p[5] != null ? ` · ${p[5]} ${msgs.points ?? 'points'}` : ''}`;
           li.append(b, meta);
           li.addEventListener('pointerdown', (e) => {
             e.preventDefault(); // keep focus on input
@@ -259,7 +302,7 @@ const visibleCount = isTeam ? teamMin! : 1;
         if (!p) return;
         state.playerId = p[1];
         input.value = p[2];
-        chosen.textContent = `WR ${p[0]} · ${p[4]} · ${p[3]}`;
+        chosen.textContent = `WR ${p[0]}${p[5] != null ? ` · ${p[5]} ${msgs.points ?? 'points'}` : ''} · ${p[4]} · ${p[3]}`;
         chosen.classList.remove('hidden');
         close();
       }
@@ -321,6 +364,15 @@ const visibleCount = isTeam ? teamMin! : 1;
         if (state.fallback) fallbackInput.focus();
         else input.focus();
       });
+      state.reset = () => {
+        state.playerId = null;
+        state.fallback = false;
+        chosen.classList.add('hidden');
+        field.classList.remove('hidden');
+        fallbackField.classList.add('hidden');
+        fallbackField.classList.remove('grid');
+        fallbackInput.required = false;
+      };
       return state;
     }
 
@@ -383,17 +435,11 @@ const visibleCount = isTeam ? teamMin! : 1;
       const players = active.map((rowIdx) => readPlayer(rows[rowIdx], states[rowIdx]));
       let payload: Record<string, unknown>;
       if (type === 'team') {
-        const ids = players.map((p) => p.playerId);
-        if (ids.every((v): v is number => v != null)) {
-          payload = { playerIds: ids };
-        } else {
-          const names = players.map((p) => p.name?.trim() ?? '');
-          if (names.some((n) => !n)) {
-            showMessage(msgs.pickAll ?? 'Fyll inn alle spillerne.', false);
-            return;
-          }
-          payload = { names };
+        if (players.some((player) => player.playerId == null && !player.name?.trim())) {
+          showMessage(msgs.pickAll ?? 'Fyll inn alle spillerne.', false);
+          return;
         }
+        payload = { players };
       } else {
         if (players[0].playerId == null && !players[0].name) {
           showMessage(msgs.pickPlayer ?? 'Velg en spiller.', false);
@@ -407,6 +453,11 @@ const visibleCount = isTeam ? teamMin! : 1;
       try {
         const token = form.querySelector<HTMLInputElement>('[name="cf-turnstile-response"]')?.value ?? '';
         const data = Object.fromEntries(new FormData(form).entries());
+        const answers = Object.fromEntries(
+          Array.from(form.querySelectorAll<HTMLSelectElement>('[data-question]'))
+            .filter((select) => select.value)
+            .map((select) => [select.dataset.question!, select.value]),
+        );
         const res = await fetch('/api/registrations', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -416,6 +467,7 @@ const visibleCount = isTeam ? teamMin! : 1;
             ...payload,
             email: data.email,
             phone: data.phone || null,
+            answers,
             turnstileToken: token,
           }),
         });
@@ -423,10 +475,7 @@ const visibleCount = isTeam ? teamMin! : 1;
         if (res.ok) {
           showMessage(msg.dataset.success ?? 'Takk!', true);
           form.reset();
-          states.forEach((s) => {
-            s.playerId = null;
-          });
-          form.querySelectorAll('[data-combo-chosen]').forEach((el) => el.classList.add('hidden'));
+          states.forEach((state) => state.reset());
           active = rows.map((_, i) => i).slice(0, minRows);
           refreshRows();
           document.dispatchEvent(new CustomEvent('registrations:refresh'));

@@ -7,8 +7,9 @@ location: "Bergen"
 prices: "Team fee: 300 NOK per team"
 playingSystem: "Team matches in round robin format."
 status: "upcoming"
-teamMin: 2
-teamMax: 3
+playersPerTeam: 2
+maxSubstitutes: 1
+rankingLevel: "10"
 ---
 
 Test team tournament. Each team consists of 2 to 3 players.

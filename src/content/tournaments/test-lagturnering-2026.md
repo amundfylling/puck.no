@@ -6,8 +6,19 @@ location: "Bergen"
 prices: "Lagavgift: 300 NOK per lag"
 playingSystem: "Lagkamper i alle mot alle format."
 status: "upcoming"
-teamMin: 2
-teamMax: 3
+playersPerTeam: 2
+maxSubstitutes: 1
+rankingLevel: "10"
+registrationQuestions:
+  - id: lunsj-antall
+    labelNo: Hvor mange på laget ønsker lunsj?
+    labelEn: How many team members want lunch?
+    required: true
+    options:
+      - { value: "0", labelNo: "0", labelEn: "0" }
+      - { value: "1", labelNo: "1", labelEn: "1" }
+      - { value: "2", labelNo: "2", labelEn: "2" }
+      - { value: "3", labelNo: "3", labelEn: "3" }
 ---
 
 Testturnering for lag. Hvert lag består av 2 til 3 spillere.

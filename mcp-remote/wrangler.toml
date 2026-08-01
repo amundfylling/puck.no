@@ -2,6 +2,11 @@ name = "puck-no-mcp"
 main = "src/index.js"
 compatibility_date = "2026-07-01"
 
+[triggers]
+# 03:00 Europe/Oslo is 01:00 UTC in summer and 02:00 UTC in winter.
+# The handler checks local Oslo time so only one of the two runs performs work.
+crons = ["0 1,2 * * 3"]
+
 # Remote MCP server for puck.no admin (phone access via OAuth).
 # Secrets (never in git — set with `npx wrangler secret put <NAME>`):
 #   GITHUB_OAUTH_CLIENT_ID / GITHUB_OAUTH_CLIENT_SECRET — OAuth app for login
