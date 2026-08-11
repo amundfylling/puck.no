@@ -15,7 +15,7 @@ zone. Importing it would:
 - activate mail, DKIM, Brevo, Mailchimp, redirect and wildcard records that
   currently return no DNS answer.
 
-The safe staging import is `puck.no.cloudflare-stage.zone`. It contains only
+The safe dashboard import is `puck.no.cloudflare-stage.txt`. It contains only
 records confirmed on the live Wix nameserver and marks every A/CNAME as DNS
 only. The staged web records continue to serve Wix, so moving nameservers and
 moving the website are two separate, reversible operations.
@@ -29,6 +29,7 @@ moving the website are two separate, reversible operations.
 | Microsoft verification | `MS=ms38023782` |
 | Outgoing-mail SPF | `v=spf1 include:spf.protection.outlook.com -all` |
 | DMARC | `_dmarc` → `_dmarc.wixemails.com` (currently resolves to `p=none`) |
+| Wix DKIM | `s1._domainkey` and `s2._domainkey` CNAME records |
 | Other sites | `jarligatabell` and `wiki` → `amundfylling.github.io` |
 | DNSSEC | no DS record is currently published |
 
@@ -71,14 +72,16 @@ change should be a separate task after the migration is stable.
 
 1. Cloudflare dashboard → **Onboard a domain** → `puck.no` → Free plan.
 2. DNS → **Records** → **Import and Export** → import
-   `puck.no.cloudflare-stage.zone`.
+   `puck.no.cloudflare-stage.txt`. Cloudflare's macOS file picker only enables
+   the `.txt` version; the `.zone` copy contains the same records.
 3. Leave **Proxy imported DNS records** off. The file also explicitly marks
    all A/CNAME records DNS only.
-4. Confirm the Cloudflare zone contains exactly these ten staged records:
-   three A, four CNAME, one MX and two TXT records. Cloudflare's own NS/SOA do
+4. Confirm the Cloudflare zone contains exactly these twelve staged records:
+   three A, six CNAME, one MX and two TXT records. Cloudflare's own NS/SOA do
    not count.
-5. Confirm MX, both root TXT records, `_dmarc`, `jarligatabell` and `wiki`
-   exactly match the file. Do not add the wildcard or dormant Simply records.
+5. Confirm MX, both root TXT records, `_dmarc`, both `_domainkey` records,
+   `jarligatabell` and `wiki` exactly match the file. Do not add the wildcard
+   or dormant Simply records.
 6. Copy Cloudflare's two assigned nameservers. Do not guess them.
 7. Note the rollback nameservers: `ns6.wixdns.net` and `ns7.wixdns.net`.
 
@@ -107,6 +110,8 @@ dig +short NS puck.no @1.1.1.1
 dig +short MX puck.no @1.1.1.1
 dig +short TXT puck.no @1.1.1.1
 dig +short CNAME _dmarc.puck.no @1.1.1.1
+dig +short CNAME s1._domainkey.puck.no @1.1.1.1
+dig +short CNAME s2._domainkey.puck.no @1.1.1.1
 dig +short CNAME jarligatabell.puck.no @1.1.1.1
 dig +short CNAME wiki.puck.no @1.1.1.1
 ```

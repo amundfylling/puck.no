@@ -272,7 +272,8 @@ Wix-siden urørt.
 > **Domenespesifikk merknad (2026-08-11):** `puck.no` er registrert hos
 > Simply.com, men bruker fortsatt Wix-navnetjenerne. Følg den verifiserte,
 > e-postbevarende planen i `DNS-CUTOVER.md` og importer
-> `puck.no.cloudflare-stage.zone` før navnetjenerbyttet. Ikke importer den
+> `puck.no.cloudflare-stage.txt` før navnetjenerbyttet. Den inneholder 12
+> verifiserte poster, inkludert begge aktive DKIM-postene. Ikke importer den
 > inaktive Simply-eksporten direkte. Planen flytter først DNS uten å endre
 > noen tjenester, tester e-post, og bytter deretter bare webpostene til Pages.
 

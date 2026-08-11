@@ -18,7 +18,7 @@ $TTL 3600
 @                     3600 IN A     185.230.63.186 ; cf_tags=cf-proxied:false
 www                   3600 IN CNAME cdn1.wixdns.net. ; cf_tags=cf-proxied:false
 
-; Current Microsoft 365 mail and verification records -- preserve exactly.
+; Current Microsoft 365 mail and Wix email-authentication records -- preserve exactly.
 @                     3600 IN MX    0 puck-no.mail.protection.outlook.com.
 @                     3600 IN TXT   "MS=ms38023782"
 @                     3600 IN TXT   "v=spf1 include:spf.protection.outlook.com -all"
