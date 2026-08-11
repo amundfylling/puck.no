@@ -1,0 +1,46 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://www.puck.no/api/",
+      "service-desc": [
+        {
+          "href": "https://www.puck.no/openapi.json",
+          "type": "application/openapi+json"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://www.puck.no/api-docs.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://www.puck.no/api/health",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://www.puck.no/mcp",
+      "service-desc": [
+        {
+          "href": "https://www.puck.no/.well-known/mcp/server-card.json",
+          "type": "application/json"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://www.puck.no/auth.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://puck-no-mcp.amund-fylling.workers.dev/health",
+          "type": "application/json"
+        }
+      ]
+    }
+  ]
+}

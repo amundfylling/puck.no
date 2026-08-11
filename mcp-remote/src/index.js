@@ -4,6 +4,7 @@
  * Public endpoints (OAuth 2.1, per MCP auth spec):
  *   GET  /.well-known/oauth-protected-resource[/*]
  *   GET  /.well-known/oauth-authorization-server[/*]
+ *   GET  /.well-known/mcp/server-card.json
  *   POST /register   (RFC 7591 dynamic client registration)
  *   GET  /authorize  → GitHub OAuth (identity) + collaborator check (authz)
  *   GET  /callback
@@ -33,6 +34,28 @@ function withCors(res) {
   return next;
 }
 
+function serverCard(request) {
+  const base = baseUrl(request);
+  return jsonRes({
+    serverInfo: {
+      name: 'puck-no-admin-remote',
+      version: '1.0.0',
+      description: 'Authorized NBHF administration tools for tournaments, registrations, content and deployment status.',
+    },
+    transport: { type: 'streamable-http', endpoint: `${base}/mcp` },
+    remotes: [{
+      type: 'streamable-http',
+      url: `${base}/mcp`,
+      authentication: {
+        type: 'oauth2',
+        protectedResourceMetadata: `${base}/.well-known/oauth-protected-resource`,
+      },
+    }],
+    supportedProtocolVersions: ['2025-06-18', '2025-03-26', '2024-11-05'],
+    capabilities: { tools: { listChanged: false } },
+  });
+}
+
 export default {
   async fetch(request, env) {
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
@@ -48,6 +71,8 @@ export default {
         res = protectedResource(request);
       } else if (path === '/.well-known/oauth-authorization-server' || path.startsWith('/.well-known/oauth-authorization-server/')) {
         res = authorizationServerMetadata(request);
+      } else if (path === '/.well-known/mcp/server-card.json') {
+        res = serverCard(request);
       } else if (path === '/register' && request.method === 'POST') {
         res = await register(request, env);
       } else if (path === '/authorize' && request.method === 'GET') {

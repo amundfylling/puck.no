@@ -93,7 +93,9 @@ export function protectedResource(request) {
   return jsonRes({
     resource: `${base}/mcp`,
     authorization_servers: [base],
+    scopes_supported: ['admin'],
     bearer_methods_supported: ['header'],
+    resource_documentation: 'https://www.puck.no/auth.md',
   });
 }
 
@@ -107,8 +109,22 @@ export function authorizationServerMetadata(request) {
     registration_endpoint: `${base}/register`,
     grant_types_supported: ['authorization_code'],
     response_types_supported: ['code'],
+    scopes_supported: ['admin'],
     code_challenge_methods_supported: ['S256'],
     token_endpoint_auth_methods_supported: ['none'],
+    service_documentation: 'https://www.puck.no/auth.md',
+    // auth.md extension: this service intentionally supports only an
+    // interactive GitHub collaborator flow, never unattended identity claims.
+    agent_auth: {
+      skill: 'https://www.puck.no/auth.md',
+      register_uri: `${base}/register`,
+      identity_types_supported: ['interactive_user'],
+      interactive_user: {
+        identity_provider: 'github',
+        credential_types_supported: ['oauth2_access_token'],
+        user_interaction_required: true,
+      },
+    },
   });
 }
 

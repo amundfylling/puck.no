@@ -5,6 +5,13 @@ Worker. Gjør alle verktøyene fra den lokale MCP-serveren (`mcp/`) tilgjengelig
 fra f.eks. Claude-appen på telefonen — uten lokal maskin, git-klone eller
 wrangler-økt.
 
+Maskinlesbar oppdagelse publiseres på
+`/.well-known/mcp/server-card.json`,
+`/.well-known/oauth-protected-resource` og
+`/.well-known/oauth-authorization-server`. Nettstedets `/mcp`-fasade peker til
+den samme Workeren; den menneskelesbare flyten ligger på
+`https://www.puck.no/auth.md`.
+
 ```
 Telefon (Claude connector)
    │  HTTPS, MCP Streamable HTTP + OAuth 2.1 (PKCE)

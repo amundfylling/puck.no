@@ -1,0 +1,13 @@
+{
+  "resource": "https://www.puck.no/mcp",
+  "authorization_servers": [
+    "https://puck-no-mcp.amund-fylling.workers.dev"
+  ],
+  "scopes_supported": [
+    "admin"
+  ],
+  "bearer_methods_supported": [
+    "header"
+  ],
+  "resource_documentation": "https://www.puck.no/auth.md"
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Find table hockey events"
+  short_description: "Find NBHF tournaments and public participant details"
+  default_prompt: "Find an upcoming NBHF table hockey tournament and summarize its public details."

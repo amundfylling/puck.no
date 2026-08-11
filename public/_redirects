@@ -12,3 +12,8 @@
 /event-details/jaeren-open-2025 /turneringer/jæren-open-2025/ 301
 /event-details/norgesmesterskapet-i-bordhockey-2025 /turneringer/ 301
 /en/event-details/norgesmesterskapet-i-bordhockey-2025 /en/turneringer/ 301
+# RFC 9728 path-suffixed metadata for the protected /mcp resource.
+/.well-known/oauth-protected-resource/mcp /.well-known/oauth-protected-resource 200
+# The authorization server runs on the separately deployed MCP Worker. Keep
+# its issuer and well-known URL aligned instead of mirroring invalid metadata.
+/.well-known/oauth-authorization-server https://puck-no-mcp.amund-fylling.workers.dev/.well-known/oauth-authorization-server 302

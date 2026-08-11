@@ -69,6 +69,9 @@ const serializeJsonLd = (value: Record<string, unknown>) =>
     <title>{title}</title>
     <meta name="description" content={desc} />
     <link rel="canonical" href={canonical} />
+    <link rel="api-catalog" href="/.well-known/api-catalog" type="application/linkset+json" />
+    <link rel="service-desc" href="/openapi.json" type="application/openapi+json" />
+    <link rel="service-doc" href="/api-docs.md" type="text/markdown" />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -93,6 +96,7 @@ const serializeJsonLd = (value: Record<string, unknown>) =>
     {enUrlSlash && <link rel="alternate" hreflang="en" href={abs(enUrlSlash)} />}
     {noUrlSlash && <link rel="alternate" hreflang="x-default" href={abs(noUrlSlash)} />}
     {ld.map((obj) => <script is:inline type="application/ld+json" set:html={serializeJsonLd(obj)} />)}
+    <script is:inline defer src="/js/webmcp.js"></script>
     {slash(canonicalPath).includes('kombinasjoner') && <script is:inline defer src="/js/tricks.js" />}
   </head>
   <body class="flex min-h-screen flex-col">

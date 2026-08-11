@@ -200,6 +200,26 @@ configured custom-question answers and a timestamp.
 7. Configure the secret `CLOUDFLARE_PAGES_DEPLOY_HOOK`; the daily workflow
    rebuilds build-time tournament status even when no content commit occurs.
 
+## Agent and API discovery
+
+- The homepage returns RFC 8288 `Link` response headers for the RFC 9727 API
+  catalog, OpenAPI description, documentation and `llms.txt`.
+- `/.well-known/api-catalog`, `/openapi.json`,
+  `/.well-known/mcp/server-card.json`, OAuth protected-resource metadata,
+  `/auth.md`, and the Agent Skills v0.2.0 index are built as public discovery
+  documents. The MCP endpoint at `/mcp` is a same-origin facade for the
+  separately deployed OAuth-protected Worker.
+- Public HTML pages have build-generated Markdown variants. Pages Functions
+  returns one with `Content-Type: text/markdown` and `Vary: Accept` when the
+  request explicitly accepts `text/markdown`; this keeps the Free plan usable
+  without Cloudflare's paid Markdown for Agents setting.
+- `robots.txt` permits search and agent input but declares `ai-train=no` using
+  Content Signals. Read-only WebMCP tools expose the current page and public
+  tournament discovery in browsers that implement the experimental API.
+- DNS-AID and DNSSEC are infrastructure changes performed after the domain
+  moves from Wix DNS to Cloudflare; the exact records and verification steps
+  are in `LAUNCH.md` section B2a.
+
 ## Repository & workflow
 
 - **Branch protection (recommended):** GitHub → Settings → Branches → add

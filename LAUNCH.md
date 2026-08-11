@@ -302,6 +302,40 @@ Wix-siden urørt.
    dermed avløst. (Wix-abonnementet kan sies opp når du har sett at alt er
    stabilt noen dager — alt innhold er allerede migrert.)
 
+## B2a. Aktiver DNSSEC og agentoppdagelse (DNS-AID)
+
+Gjør dette først når navnetjenerbyttet er fullt propagert og nettstedet svarer
+stabilt gjennom Cloudflare. DNS-AID er fortsatt et aktivt IETF-utkast, så
+postene må kontrolleres mot nyeste utgave ved en senere endring.
+
+1. **DNS → Records → Add record**. Legg inn disse to `SVCB`-postene med TTL
+   `1 hour` (Cloudflare kan vise prioritet, mål og parametre som egne felt):
+
+   ```dns
+   _index._agents.puck.no. 3600 IN SVCB 1 www.puck.no. alpn="h2,h3" port=443
+   _mcp._agents.puck.no.   3600 IN SVCB 1 puck-no-mcp.amund-fylling.workers.dev. alpn="mcp,h2,h3" port=443
+   ```
+
+   `_index` peker til nettstedets `/.well-known/`-kataloger; `_mcp` peker til
+   den faktiske Streamable HTTP MCP-Workeren. `mcp` er et foreslått ALPN-ID i
+   DNS-AID-utkastet, ikke en ferdig IANA-standard.
+2. **DNS → Settings → DNSSEC → Enable DNSSEC**. Cloudflare signerer sonen og
+   viser en DS-post.
+3. Hos domeneregistraren: legg inn **hele DS-posten** Cloudflare viser. Ikke
+   bruk en gammel DS fra Wix. Vent på at Cloudflare viser DNSSEC som aktiv.
+4. Verifiser fra en validerende resolver (eldre `dig` kjenner ikke navnet
+   `SVCB`, derfor brukes typenummer 64):
+
+   ```bash
+   dig +dnssec puck.no DNSKEY @1.1.1.1
+   dig +dnssec _index._agents.puck.no TYPE64 @1.1.1.1
+   dig +dnssec _mcp._agents.puck.no TYPE64 @1.1.1.1
+   ```
+
+   Svarene skal inneholde postene og DNSSEC-signaturer, og en validerende
+   resolver skal markere svaret autentisert (`ad`). Kjør også en ny skann hos
+   isitagentready.com etter at DNS-cache/TTL har utløpt.
+
 ## B3. Oppdater tjenestene til det nye domenet
 
 1. **Turnstile** → widgeten → **Settings** → legg til hostname

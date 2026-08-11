@@ -137,6 +137,7 @@ for await (const file of walk(DIST)) {
 // Redirect targets must exist too.
 for (const { from, to } of redirectRules) {
   checked++;
+  if (/^https?:\/\//i.test(to)) continue;
   if (!(await existsForUrl(to, path.join(DIST, 'index.html'))) && !isRedirected(to)) {
     if (!broken.has(to)) broken.set(to, new Set());
     broken.get(to).add(`_redirects (${from})`);

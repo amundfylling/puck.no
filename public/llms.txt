@@ -37,6 +37,10 @@ Kontakt / contact: amund.fylling@puck.no
 ## Offentlig API
 
 - `GET https://www.puck.no/api/tournaments/{slug}/players` — JSON over påmeldte spillere. Kun offentlige felter: name, country, world_ranking. Ingen autentisering. Eksempel: /api/tournaments/norway-open-2026/players
+- [API-katalog](https://www.puck.no/.well-known/api-catalog): RFC 9727 linkset over offentlige API-er og MCP
+- [OpenAPI](https://www.puck.no/openapi.json): Maskinlesbar beskrivelse av det offentlige API-et
+- [Agent Skills](https://www.puck.no/.well-known/agent-skills/index.json): Offentlig ferdighetsindeks for turneringsoppslag
+- [MCP Server Card](https://www.puck.no/.well-known/mcp/server-card.json): Beskrivelse av det OAuth-beskyttede administrasjonsendepunktet
 
 ## Optional
 

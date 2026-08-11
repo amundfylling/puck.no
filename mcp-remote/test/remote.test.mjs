@@ -14,6 +14,7 @@ import {
 } from '../src/tools/contenttools.js';
 import * as oauth from '../src/oauth.js';
 import { auditSafe, handleMcp, TOOLS } from '../src/mcp.js';
+import worker from '../src/index.js';
 import { commitFiles, getTextFile, GitHubError, withGitSnapshot } from '../src/github.js';
 import { isOsloRefreshTime, refreshUpcomingRankings } from '../src/rankingSync.js';
 
@@ -380,6 +381,31 @@ test('metadata endpoints are well-formed', () => {
   assert.equal(pr.status, 200);
   const as = oauth.authorizationServerMetadata(req('/.well-known/oauth-authorization-server'));
   assert.equal(as.status, 200);
+});
+
+test('metadata advertises the admin scope and interactive auth.md flow', async () => {
+  const pr = await oauth.protectedResource(req('/.well-known/oauth-protected-resource')).json();
+  assert.deepEqual(pr.scopes_supported, ['admin']);
+  assert.equal(pr.resource_documentation, 'https://www.puck.no/auth.md');
+
+  const metadata = await oauth.authorizationServerMetadata(
+    req('/.well-known/oauth-authorization-server'),
+  ).json();
+  assert.deepEqual(metadata.scopes_supported, ['admin']);
+  assert.equal(metadata.agent_auth.skill, 'https://www.puck.no/auth.md');
+  assert.equal(metadata.agent_auth.interactive_user.user_interaction_required, true);
+});
+
+test('worker publishes an MCP Server Card for its deployed origin', async () => {
+  const response = await worker.fetch(
+    req('/.well-known/mcp/server-card.json'),
+    env,
+  );
+  assert.equal(response.status, 200);
+  const card = await response.json();
+  assert.equal(card.serverInfo.name, 'puck-no-admin-remote');
+  assert.equal(card.transport.endpoint, 'https://worker.example/mcp');
+  assert.ok(card.capabilities.tools);
 });
 
 test('full DCR → authorize → token flow (PKCE)', async () => {

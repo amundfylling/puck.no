@@ -1,0 +1,402 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "puck.no public API",
+    "version": "1.0.0",
+    "description": "Public NBHF tournament registration and participant data. Contact details and administration endpoints are not public."
+  },
+  "servers": [
+    {
+      "url": "https://www.puck.no"
+    }
+  ],
+  "paths": {
+    "/api/health": {
+      "get": {
+        "operationId": "getHealth",
+        "summary": "Check API health",
+        "responses": {
+          "200": {
+            "description": "Service is available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tournaments/{slug}/players": {
+      "get": {
+        "operationId": "listTournamentParticipants",
+        "summary": "List public tournament participants",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "description": "Decoded canonical tournament slug, including Nordic characters where applicable.",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Public participant and ranking data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParticipantList"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
+    "/api/registrations": {
+      "post": {
+        "operationId": "createRegistration",
+        "summary": "Register a player or team",
+        "description": "Requires a fresh Turnstile token. Agents should direct users to the canonical tournament form instead of collecting personal data themselves.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Registration"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Registration created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "id"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "const": true
+                    },
+                    "id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Health": {
+        "type": "object",
+        "required": [
+          "ok",
+          "service"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "service": {
+            "const": "puck.no-api"
+          }
+        }
+      },
+      "SubmittedPlayer": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "playerId"
+            ],
+            "properties": {
+              "playerId": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      },
+      "Registration": {
+        "type": "object",
+        "required": [
+          "tournament_slug",
+          "type",
+          "email",
+          "turnstileToken"
+        ],
+        "properties": {
+          "tournament_slug": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "player",
+              "team"
+            ]
+          },
+          "playerId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "players": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubmittedPlayer"
+            }
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 254
+          },
+          "phone": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 30
+          },
+          "answers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "turnstileToken": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "RosterPlayer": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "club": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "country": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "worldRanking": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "rankingPoints": {
+            "type": "number"
+          }
+        }
+      },
+      "Participant": {
+        "type": "object",
+        "required": [
+          "type",
+          "name"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "player",
+              "team"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "country": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "club": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "world_ranking": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "ranking_points": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "roster": {
+            "oneOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/RosterPlayer"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "ParticipantList": {
+        "type": "object",
+        "required": [
+          "participants",
+          "playersPerTeam",
+          "rankingValuesComplete"
+        ],
+        "properties": {
+          "participants": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Participant"
+            }
+          },
+          "playersPerTeam": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "rankingRefreshedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "rankingLevel": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "rankingAlgorithm": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "rankingValuesComplete": {
+            "type": "boolean"
+          },
+          "placementPoints": {
+            "oneOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "placement",
+                    "points"
+                  ],
+                  "properties": {
+                    "placement": {
+                      "type": "integer"
+                    },
+                    "points": {
+                      "type": "number"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "responses": {
+      "Error": {
+        "description": "Request failed",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      }
+    }
+  }
+}

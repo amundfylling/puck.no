@@ -4,8 +4,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "postbuild": "node scripts/add-csp-hashes.mjs",
-    "prebuild": "node scripts/gen-tournament-config.mjs && node scripts/fetch-ranking.mjs && node scripts/optimize-media.mjs",
+    "postbuild": "node scripts/add-csp-hashes.mjs && node scripts/generate-agent-markdown.mjs",
+    "prebuild": "node scripts/gen-agent-skills-index.mjs && node scripts/gen-tournament-config.mjs && node scripts/fetch-ranking.mjs && node scripts/optimize-media.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "check-links": "node scripts/check-links.mjs",
@@ -32,6 +32,7 @@
     "@astrojs/markdown-satteri": "^0.3.4",
     "@cloudflare/workers-types": "^5.20260718.1",
     "marked": "^18.0.6",
+    "turndown": "^7.2.0",
     "typescript": "^6.0.3",
     "wrangler": "^4.112.0"
   }

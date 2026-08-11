@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "find-table-hockey-events",
+      "type": "skill-md",
+      "description": "Find Norges Bordhockeyforbund (NBHF) tournaments and public participant details on puck.no. Use when an agent needs upcoming or past Norwegian table hockey events, schedules, locations, prices, registration availability, or public entrant lists.",
+      "url": "/.well-known/agent-skills/find-table-hockey-events/SKILL.md",
+      "digest": "sha256:d9252196e1d6f8e01c6c81489d436b9551748ba5dfa72f03a3da9dd5641cb2e5"
+    }
+  ]
+}
