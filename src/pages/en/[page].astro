@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Arsmoter from '../../components/Arsmoter.astro';
-import { renamedPages } from '../../lib/i18n';
+import { pageMirrorsEnToNo, pagePath, renamedPages } from '../../lib/i18n';
 import { seoForContent } from '../../lib/seo';
 import type { GetStaticPaths } from 'astro';
 
@@ -26,8 +26,8 @@ const seo = seoForContent(path, entry.data);
   title={seo.title}
   description={seo.description}
   canonicalPath={path}
-  noUrl={path.replace(/^\/en/, '')}
-  enUrl={path}
+  noUrl={pagePath(pageMirrorsEnToNo[entry.data.slug] ?? entry.data.slug, 'no')}
+  enUrl={pagePath(entry.data.slug, 'en')}
 >
   <div class="border-b border-slate-200 bg-ice">
     <div class="mx-auto max-w-4xl px-4 py-10">

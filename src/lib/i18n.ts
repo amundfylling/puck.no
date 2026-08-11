@@ -210,6 +210,14 @@ export const postMirrorsEnToNo: Record<string, string> = Object.fromEntries(
   Object.entries(postMirrorsNoToEn).map(([no, en]) => [en, no]),
 );
 
+/** Static page slug pairs when the Norwegian and English routes differ. */
+export const pageMirrorsNoToEn: Record<string, string> = {
+  personvern: 'privacy',
+};
+export const pageMirrorsEnToNo: Record<string, string> = Object.fromEntries(
+  Object.entries(pageMirrorsNoToEn).map(([no, en]) => [en, no]),
+);
+
 /** Page slugs whose route differs from the old Wix slug (old -> new). */
 export const renamedPages: Record<string, string> = {
   'services-1': 'spill-bordhockey',
