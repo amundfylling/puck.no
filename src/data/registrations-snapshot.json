@@ -1,5 +1,5 @@
 {
- "snapshot_date": "2026-07-22",
+ "snapshot_date": "2026-08-11",
  "tournaments": {
   "norgesmesterskapet-2026-dame": [
    {
@@ -318,6 +318,143 @@
     "name": "Nicolas Trae",
     "country": "NOR",
     "world_ranking": "2270"
+   }
+  ],
+  "norway-open-2026": [
+   {
+    "name": "Rainers Kalnins",
+    "country": "LAT",
+    "world_ranking": "1"
+   },
+   {
+    "name": "Magnus Klippen",
+    "country": "NOR",
+    "world_ranking": "29"
+   },
+   {
+    "name": "James-John Forsberg",
+    "country": "SWE",
+    "world_ranking": "69"
+   },
+   {
+    "name": "Andreas Fjermestad",
+    "country": "NOR",
+    "world_ranking": "74"
+   },
+   {
+    "name": "Ville Henttonen",
+    "country": "FIN",
+    "world_ranking": "75"
+   },
+   {
+    "name": "Amund Risa Fylling",
+    "country": "NOR",
+    "world_ranking": "83"
+   },
+   {
+    "name": "Joachim Thyzell",
+    "country": "SWE",
+    "world_ranking": "101"
+   },
+   {
+    "name": "Vegard Klippen",
+    "country": "NOR",
+    "world_ranking": "137"
+   },
+   {
+    "name": "Oystein Klippen",
+    "country": "NOR",
+    "world_ranking": "150"
+   },
+   {
+    "name": "Bie Karlsson",
+    "country": "SWE",
+    "world_ranking": "161"
+   },
+   {
+    "name": "Zdenek Lopaur",
+    "country": "CZE",
+    "world_ranking": "211"
+   },
+   {
+    "name": "Lars Ulfvensjo",
+    "country": "SWE",
+    "world_ranking": "215"
+   },
+   {
+    "name": "Gustav Bradland",
+    "country": "NOR",
+    "world_ranking": "302"
+   },
+   {
+    "name": "Ane Skadsem",
+    "country": "NOR",
+    "world_ranking": "313"
+   },
+   {
+    "name": "Robert Forsberg",
+    "country": "SWE",
+    "world_ranking": "357"
+   },
+   {
+    "name": "Sinus Moberg",
+    "country": "NOR",
+    "world_ranking": "363"
+   },
+   {
+    "name": "Wilhelm Possl",
+    "country": "SWE",
+    "world_ranking": "384"
+   },
+   {
+    "name": "Sondre Efteland Johansen",
+    "country": "NOR",
+    "world_ranking": "441"
+   },
+   {
+    "name": "Kristin Fjermestad",
+    "country": "NOR",
+    "world_ranking": "569"
+   },
+   {
+    "name": "Daniel Kadlec",
+    "country": "CZE",
+    "world_ranking": "620"
+   },
+   {
+    "name": "Kjartan Moberg",
+    "country": "NOR",
+    "world_ranking": "702"
+   },
+   {
+    "name": "Jonas Bolstad",
+    "country": "NOR",
+    "world_ranking": "786"
+   },
+   {
+    "name": "Jiri Posik st.",
+    "country": "CZE",
+    "world_ranking": "792"
+   },
+   {
+    "name": "Vojtech Posik",
+    "country": "CZE",
+    "world_ranking": "881"
+   },
+   {
+    "name": "Julia Forsberg",
+    "country": "SWE",
+    "world_ranking": "1223"
+   },
+   {
+    "name": "Morten Aarflot",
+    "country": "NOR",
+    "world_ranking": "1437"
+   },
+   {
+    "name": "Anna-Maria Israelsson",
+    "country": "SWE",
+    "world_ranking": "1619"
    }
   ],
   "norgesmesterskapet-2026-u13": [
@@ -701,68 +838,6 @@
     "name": "Asbjorn Fossli",
     "country": "NOR",
     "world_ranking": "1711"
-   }
-  ],
-  "norway-open-2026": [
-   {
-    "name": "Rainers Kalnins",
-    "country": "LAT",
-    "world_ranking": "1"
-   },
-   {
-    "name": "Magnus Klippen",
-    "country": "NOR",
-    "world_ranking": "29"
-   },
-   {
-    "name": "Andreas Fjermestad",
-    "country": "NOR",
-    "world_ranking": "74"
-   },
-   {
-    "name": "Amund Risa Fylling",
-    "country": "NOR",
-    "world_ranking": "83"
-   },
-   {
-    "name": "Oystein Klippen",
-    "country": "NOR",
-    "world_ranking": "150"
-   },
-   {
-    "name": "Ane Skadsem",
-    "country": "NOR",
-    "world_ranking": "313"
-   },
-   {
-    "name": "Sinus Moberg",
-    "country": "NOR",
-    "world_ranking": "363"
-   },
-   {
-    "name": "Wilhelm Possl",
-    "country": "SWE",
-    "world_ranking": "384"
-   },
-   {
-    "name": "Sondre Efteland Johansen",
-    "country": "NOR",
-    "world_ranking": "441"
-   },
-   {
-    "name": "Kristin Fjermestad",
-    "country": "NOR",
-    "world_ranking": "569"
-   },
-   {
-    "name": "Kjartan Moberg",
-    "country": "NOR",
-    "world_ranking": "702"
-   },
-   {
-    "name": "Morten Aarflot",
-    "country": "NOR",
-    "world_ranking": "1437"
    }
   ],
   "norgesmesterskapet-2026-junior": [
