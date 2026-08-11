@@ -5,6 +5,7 @@ import { pagePath, t, type Lang } from '../lib/i18n';
 import type { Page, Post, TournamentView } from '../lib/content';
 import { formatNoDate } from '../lib/dates';
 import PostCard from './PostCard.astro';
+import TopNorwegianPlayers from './TopNorwegianPlayers.astro';
 import TournamentCard from './TournamentCard.astro';
 
 interface Props {
@@ -115,3 +116,5 @@ const l = {
     {posts.map((post, i) => <PostCard post={post} lang={lang} eager={i === 0} />)}
   </div>
 </section>
+
+<TopNorwegianPlayers lang={lang} />
