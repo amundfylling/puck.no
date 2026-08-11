@@ -2,6 +2,7 @@
 title: "NBHF's adventskalender 2024 - Luke 22"
 slug: "adventskalender-2024-luke-22"
 lang: "no"
+author: "amundrf"
 pubDate: "2024-12-22T09:00:13.772Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-22-780b4615.webp"

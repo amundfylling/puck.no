@@ -24,6 +24,7 @@ const posts = defineCollection({
     title: z.string(),
     slug: z.string(),
     lang: z.enum(['no', 'en']),
+    author: z.string().min(1),
     pubDate: z.coerce.date(),
     categories: z.array(z.string()),
     cover: z.string().nullable().optional(),

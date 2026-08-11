@@ -2,6 +2,7 @@
 title: "Caics dominant in Trondheim Open"
 slug: "caics-dominant-in-trondheim-open"
 lang: "en"
+author: "Styret"
 pubDate: "2025-03-02T22:09:21.920Z"
 categories: []
 cover: "/media/images/caics-suveren-i-trondheim-open-86a548a1.webp"

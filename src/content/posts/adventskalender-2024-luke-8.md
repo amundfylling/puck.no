@@ -2,6 +2,7 @@
 title: "NBHF's adventskalender 2024 - Luke 8"
 slug: "adventskalender-2024-luke-8"
 lang: "no"
+author: "amundrf"
 pubDate: "2024-12-08T08:05:00.000Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-8-4208e029.webp"

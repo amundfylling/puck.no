@@ -226,7 +226,7 @@ can see them; duplicate relative paths across the two source roots fail builds.
 - Pages: `title`, `slug`, `lang` (`no`|`en`), `description` (meta
   description), `seoTitle` (original `<title>`), `menuOrder` (from the old
   site nav; front page is `0`; `null` = not in nav).
-- Posts: `title`, `slug`, `lang`, `pubDate` (ISO), `categories` (array),
+- Posts: `title`, `slug`, `lang`, `author`, `pubDate` (ISO), `categories` (array),
   `cover` (local path), `description` (excerpt).
 - Tournaments: `name`, `slug`, `date`, `location`, `prices`,
   `playingSystem`, `status` (`upcoming`|`past` — display status is computed

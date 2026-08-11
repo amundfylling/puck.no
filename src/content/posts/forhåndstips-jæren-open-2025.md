@@ -2,6 +2,7 @@
 title: "Forhåndstips: Jæren Open 2025"
 slug: "forhåndstips-jæren-open-2025"
 lang: "no"
+author: "Magnus Klippen"
 pubDate: "2025-01-17T14:07:09.514Z"
 categories: ["Forhåndstips"]
 cover: "/media/images/forhåndstips-jæren-open-2025-be4dea47.webp"

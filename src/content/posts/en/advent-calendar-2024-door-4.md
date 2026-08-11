@@ -2,6 +2,7 @@
 title: "NBHF's advent calendar 2024 - Door 4"
 slug: "advent-calendar-2024-door-4"
 lang: "en"
+author: "amundrf"
 pubDate: "2024-12-04T09:00:15.652Z"
 categories: ["Advent calendar 2024"]
 cover: "/media/images/adventskalender-2024-luke-4-ad6956d9.webp"

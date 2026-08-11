@@ -2,6 +2,7 @@
 title: "NM 2026: Dabs, drama og 10 gull på rad"
 slug: "nm-2026-dabs-drama-og-10-gull-på-rad"
 lang: "no"
+author: "Daniel Nygård"
 pubDate: "2026-05-07T15:29:05.204Z"
 categories: ["Turneringsreferat"]
 cover: "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-3882cbb5.webp"

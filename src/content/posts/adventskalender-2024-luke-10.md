@@ -2,6 +2,7 @@
 title: "NBHF's adventskalender 2024 - Luke 10"
 slug: "adventskalender-2024-luke-10"
 lang: "no"
+author: "amundrf"
 pubDate: "2024-12-10T09:00:39.018Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-10-3d71095d.webp"

@@ -2,6 +2,7 @@
 title: "Profetien på Singsaker: Trondheim Open 2026 oppsummert"
 slug: "profetien-på-singsaker-trondheim-open-2026-oppsummert"
 lang: "no"
+author: "Gustav Brådland"
 pubDate: "2026-03-14T09:24:08.261Z"
 categories: []
 cover: "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-58730dfa.jpg"

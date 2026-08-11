@@ -2,6 +2,7 @@
 title: "Results from Jæren Open 2025"
 slug: "medalists-from-jæren-open-2025"
 lang: "en"
+author: "Styret"
 pubDate: "2025-01-20T22:09:21.920Z"
 categories: []
 cover: "/media/images/medaljister-fra-jæren-open-2025-41b7c3f5.webp"

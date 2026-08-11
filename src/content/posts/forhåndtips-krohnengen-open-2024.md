@@ -2,6 +2,7 @@
 title: "Forhåndstips: Krohnengen Open 2024"
 slug: "forhåndtips-krohnengen-open-2024"
 lang: "no"
+author: "Magnus Klippen"
 pubDate: "2024-10-11T18:22:59.091Z"
 categories: ["Forhåndstips"]
 cover: "/media/images/forhåndtips-krohnengen-open-2024-f4c0e913.webp"

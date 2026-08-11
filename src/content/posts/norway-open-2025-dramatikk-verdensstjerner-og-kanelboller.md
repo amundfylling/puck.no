@@ -2,6 +2,7 @@
 title: "Norway Open 2025: Dramatikk, verdensstjerner og kanelboller"
 slug: "norway-open-2025-dramatikk-verdensstjerner-og-kanelboller"
 lang: "no"
+author: "Gustav Brådland"
 pubDate: "2025-09-06T09:45:20.267Z"
 categories: []
 cover: "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.webp"

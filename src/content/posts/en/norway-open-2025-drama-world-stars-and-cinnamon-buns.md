@@ -2,6 +2,7 @@
 title: "Norway Open 2025: Drama, world stars and cinnamon buns"
 slug: "norway-open-2025-drama-world-stars-and-cinnamon-buns"
 lang: "en"
+author: "Gustav Brådland"
 pubDate: "2025-09-06T10:01:34.775Z"
 categories: []
 cover: "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.webp"

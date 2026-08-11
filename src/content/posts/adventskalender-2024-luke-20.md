@@ -2,6 +2,7 @@
 title: "NBHF's adventskalender 2024 - Luke 20"
 slug: "adventskalender-2024-luke-20"
 lang: "no"
+author: "amundrf"
 pubDate: "2024-12-20T09:00:19.872Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-20-d7cd0703.webp"

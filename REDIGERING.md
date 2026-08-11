@@ -40,6 +40,7 @@ Forsiden av portalen gir et sanntidsbilde av påmeldingene:
    - **Tittel** – overskriften på artikkelen.
    - **Slug (URL)** – kort adresse, f.eks. `nm-2027-forhandstips`. Kun små
      bokstaver, tall og bindestreker.
+   - **Forfatter** – navnet som vises på nyhetskortet og artikkelsiden.
    - **Publiseringsdato** – styrer sorteringen på nyhetssiden.
    - **Kategorier** – velg en eller flere (valgfritt).
    - **Forsidebilde** – last opp eller velg et bilde (vises i nyhetslisten).

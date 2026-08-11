@@ -2,6 +2,7 @@
 title: "NBHF's adventskalender 2024 - Luke 6"
 slug: "adventskalender-2024-luke-6"
 lang: "no"
+author: "amundrf"
 pubDate: "2024-12-06T09:00:07.498Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-6-d2bfac6c.webp"

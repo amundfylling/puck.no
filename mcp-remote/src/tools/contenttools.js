@@ -494,7 +494,7 @@ export async function assertMediaPathsAvailable(env, candidatePaths) {
 }
 
 async function createNewsPost(env, args) {
-  const { title, slug } = args;
+  const { title, slug, author } = args;
   assertSlug(slug);
   env = await withGitSnapshot(env);
   const noPath = `${POSTS_DIR}/${slug}.md`;
@@ -525,7 +525,7 @@ async function createNewsPost(env, args) {
   files.push({
     path: noPath,
     text: createMdText({
-      title, slug, lang: 'no', pubDate,
+      title, slug, lang: 'no', author, pubDate,
       categories: args.categories ?? [],
       ...(cover ? { cover } : {}),
       description: args.description ?? null,
@@ -536,7 +536,7 @@ async function createNewsPost(env, args) {
     files.push({
       path: `${POSTS_DIR}/en/${en.slug}.md`,
       text: createMdText({
-        title: en.title, slug: en.slug, lang: 'en', pubDate,
+        title: en.title, slug: en.slug, lang: 'en', author, pubDate,
         categories: args.categories ?? [],
         ...(cover ? { cover } : {}),
         description: en.description ?? null,
@@ -750,6 +750,7 @@ export const contentTools = [
       properties: {
         title: { type: 'string' },
         slug: { type: 'string' },
+        author: { type: 'string', minLength: 1, description: 'Author display name' },
         pubDate: { type: 'string', description: 'ISO datetime (default: now)' },
         categories: { type: 'array', items: { type: 'string' } },
         body: { type: 'string' },
@@ -766,7 +767,7 @@ export const contentTools = [
           required: ['slug', 'title', 'body'],
         },
       },
-      required: ['title', 'slug', 'body'],
+      required: ['title', 'slug', 'author', 'body'],
     },
     run: createNewsPost,
   },

@@ -2,6 +2,7 @@
 title: "NBHF's advent calendar 2024 - Results"
 slug: "advent-calendar-2024-results"
 lang: "en"
+author: "amundrf"
 pubDate: "2024-12-25T17:49:12.194Z"
 categories: ["Advent calendar 2024"]
 cover: "/media/images/adventskalender-2024-resultater-0b27c9ba.webp"

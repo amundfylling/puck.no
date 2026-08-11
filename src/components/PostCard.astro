@@ -42,6 +42,7 @@ const coverDimensions = await getPublicImageDimensions(post.data.cover);
       <div class="flex flex-1 flex-col justify-center p-6">
         <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">
           <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate, lang)}</time>
+          <span aria-hidden="true"> · </span><span class="normal-case">{post.data.author}</span>
         </p>
         <Heading class="mt-1.5 text-2xl font-bold leading-snug">
           <a href={href} class="text-navy no-underline hover:text-brand">{post.data.title}</a>
@@ -84,6 +85,7 @@ const coverDimensions = await getPublicImageDimensions(post.data.cover);
       <div class="flex flex-1 flex-col p-4">
         <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">
           <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate, lang)}</time>
+          <span aria-hidden="true"> · </span><span class="normal-case">{post.data.author}</span>
         </p>
         <Heading class="mt-1 text-lg font-bold leading-snug">
           <a href={href} class="text-navy no-underline hover:text-brand">{post.data.title}</a>

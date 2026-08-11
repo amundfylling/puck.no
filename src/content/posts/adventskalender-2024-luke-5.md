@@ -2,6 +2,7 @@
 title: "NBHF's adventskalender 2024 - Luke 5"
 slug: "adventskalender-2024-luke-5"
 lang: "no"
+author: "amundrf"
 pubDate: "2024-12-05T09:00:12.093Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-5-e746f904.webp"

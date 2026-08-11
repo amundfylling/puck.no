@@ -2,6 +2,7 @@
 title: "Norge med gull og bronse i VM i Umeå"
 slug: "norge-med-gull-og-bronse-i-vm-i-umeå"
 lang: "no"
+author: "Styret"
 pubDate: "2025-08-01T21:16:41.996Z"
 categories: []
 cover: "/media/images/norge-med-gull-og-bronse-i-vm-i-umeå-21731431.jpg"

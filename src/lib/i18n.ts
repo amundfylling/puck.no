@@ -138,6 +138,7 @@ export const ui = {
   previous: { no: 'Forrige', en: 'Previous' },
   next: { no: 'Neste', en: 'Next' },
   published: { no: 'Publisert', en: 'Published' },
+  by: { no: 'av', en: 'by' },
   play: { no: 'Spill av', en: 'Play' },
   pause: { no: 'Sett på pause', en: 'Pause' },
   images: { no: 'bilder', en: 'images' },

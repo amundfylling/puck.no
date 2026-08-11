@@ -48,6 +48,7 @@ collections:
         pattern: [*slug_pattern, *slug_message]
         hint: 'Kun små bokstaver, tall og bindestreker — f.eks. nm-2027-forhandstips'
       - { label: Språk, name: lang, widget: hidden, default: 'no' }
+      - { label: Forfatter, name: author, widget: string }
       - { label: Publiseringsdato, name: pubDate, widget: datetime, date_format: 'YYYY-MM-DD', time_format: 'HH:mm', picker_utc: false }
       - label: Kategorier
         name: categories
@@ -78,6 +79,7 @@ collections:
         pattern: [*slug_pattern, *slug_message]
         hint: 'Engelsk variant av den norske slugen; legg paret til i postMirrorsNoToEn (utvikler)'
       - { label: Språk, name: lang, widget: hidden, default: 'en' }
+      - { label: Forfatter, name: author, widget: string }
       - { label: Publiseringsdato, name: pubDate, widget: datetime, date_format: 'YYYY-MM-DD', time_format: 'HH:mm', picker_utc: false }
       - label: Kategorier
         name: categories

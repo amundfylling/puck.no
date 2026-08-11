@@ -2,6 +2,7 @@
 title: "NBHF's adventskalender 2024 - Luke 17"
 slug: "adventskalender-2024-luke-17"
 lang: "no"
+author: "amundrf"
 pubDate: "2024-12-17T09:00:20.624Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-17-373fe9aa.webp"

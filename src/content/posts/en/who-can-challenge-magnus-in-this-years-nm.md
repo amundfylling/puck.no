@@ -2,6 +2,7 @@
 title: "Who can challenge Magnus in this year's Norwegian Championship?"
 slug: "who-can-challenge-magnus-in-this-years-nm"
 lang: "en"
+author: "Øystein Klippen"
 pubDate: "2026-05-01T21:07:18.206Z"
 categories: []
 cover: "/media/images/hvem-kan-utfordre-magnus-i-årets-nm-c402f994.jpg"

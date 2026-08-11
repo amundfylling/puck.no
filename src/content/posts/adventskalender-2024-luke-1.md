@@ -2,6 +2,7 @@
 title: "NBHF's adventskalender 2024 - Luke 1"
 slug: "adventskalender-2024-luke-1"
 lang: "no"
+author: "amundrf"
 pubDate: "2024-12-01T09:00:07.031Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-1-680cea35.webp"

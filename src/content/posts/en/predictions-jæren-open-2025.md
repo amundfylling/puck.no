@@ -2,6 +2,7 @@
 title: "Predictions: Jæren Open 2025"
 slug: "predictions-jæren-open-2025"
 lang: "en"
+author: "Magnus Klippen"
 pubDate: "2025-01-17T14:07:09.514Z"
 categories: ["Predictions"]
 cover: "/media/images/forhåndstips-jæren-open-2025-be4dea47.webp"

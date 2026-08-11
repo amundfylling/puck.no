@@ -2,6 +2,7 @@
 title: "Who will win the Norwegian Championship 2025?"
 slug: "who-will-win-the-norwegian-championship-2025"
 lang: "en"
+author: "Styret"
 pubDate: "2025-06-16T14:39:10.998Z"
 categories: []
 cover: "/media/images/hvem-vinner-bordhockey-nm-2025-71abf4ce.webp"

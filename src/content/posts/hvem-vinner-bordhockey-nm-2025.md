@@ -2,6 +2,7 @@
 title: "Hvem vinner norgesmesterskapet 2025?"
 slug: "hvem-vinner-bordhockey-nm-2025"
 lang: "no"
+author: "Styret"
 pubDate: "2025-03-28T12:50:10.809Z"
 categories: ["Forhåndstips"]
 cover: "/media/images/hvem-vinner-bordhockey-nm-2025-71abf4ce.webp"

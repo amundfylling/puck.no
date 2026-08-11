@@ -22,7 +22,7 @@ function detectIndent(raw) {
 }
 
 async function createNewsPost(args) {
-  const { title, slug } = args;
+  const { title, slug, author } = args;
   assertSlug(slug);
   const noPath = `${PATHS.postsDir}/${slug}.md`;
   if (existsSync(noPath)) throw new ValidationError(`Innlegget «${slug}» finnes allerede.`);
@@ -55,6 +55,7 @@ async function createNewsPost(args) {
     title,
     slug,
     lang: 'no',
+    author,
     pubDate,
     categories: args.categories ?? [],
     ...(cover ? { cover } : {}),
@@ -67,6 +68,7 @@ async function createNewsPost(args) {
       title: en.title,
       slug: en.slug,
       lang: 'en',
+      author,
       pubDate,
       categories: args.categories ?? [],
       ...(cover ? { cover } : {}),
@@ -163,6 +165,7 @@ export function registerContentTools(server) {
       inputSchema: {
         title: z.string(),
         slug: z.string(),
+        author: z.string().min(1).describe('Author display name'),
         pubDate: z.string().optional().describe('ISO datetime (default: now)'),
         categories: z.array(z.string()).optional().describe('e.g. ["Turneringsreferat"]'),
         body: z.string().describe('Markdown body'),

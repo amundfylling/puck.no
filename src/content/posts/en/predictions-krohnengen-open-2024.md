@@ -2,6 +2,7 @@
 title: "Predictions: Krohnengen Open 2024"
 slug: "predictions-krohnengen-open-2024"
 lang: "en"
+author: "Magnus Klippen"
 pubDate: "2024-10-11T18:22:59.091Z"
 categories: ["Predictions"]
 cover: "/media/images/forhåndtips-krohnengen-open-2024-f4c0e913.webp"

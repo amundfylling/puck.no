@@ -2,6 +2,7 @@
 title: "NBHF's adventskalender 2024 - Luke 15"
 slug: "adventskalender-2024-luke-15"
 lang: "no"
+author: "amundrf"
 pubDate: "2024-12-15T09:00:09.502Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-15-6284b5c8.webp"

@@ -2,6 +2,7 @@
 title: "NBHF's adventskalender 2024 - Luke 3"
 slug: "nbhf-s-adventskalender-2024-luke-3"
 lang: "no"
+author: "amundrf"
 pubDate: "2024-12-03T09:00:15.283Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/nbhf-s-adventskalender-2024-luke-3-b4eb6ef2.webp"

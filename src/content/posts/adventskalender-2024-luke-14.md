@@ -2,6 +2,7 @@
 title: "NBHF's adventskalender 2024 - Luke 14"
 slug: "adventskalender-2024-luke-14"
 lang: "no"
+author: "amundrf"
 pubDate: "2024-12-14T09:00:09.791Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-14-5cb60c87.webp"

@@ -2,6 +2,7 @@
 title: "The Prophecy of Singsaker: Trondheim Open 2026 Reviewed"
 slug: "the-prophecy-of-singsaker-trondheim-open-2026-reviewed"
 lang: "en"
+author: "Gustav Brådland"
 pubDate: "2026-03-14T09:24:08.261Z"
 categories: []
 cover: "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-58730dfa.jpg"

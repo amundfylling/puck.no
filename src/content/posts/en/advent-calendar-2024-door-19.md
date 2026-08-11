@@ -2,6 +2,7 @@
 title: "NBHF's Advent Calendar 2024 - Door 19"
 slug: "advent-calendar-2024-door-19"
 lang: "en"
+author: "amundrf"
 pubDate: "2024-12-19T09:00:18.184Z"
 categories: ["Advent calendar 2024"]
 cover: "/media/images/adventskalender-2024-luke-19-42c5cb92.webp"

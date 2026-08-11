@@ -2,6 +2,7 @@
 title: "NBHF's adventskalender 2024 - Luke 18"
 slug: "adventskalender-2024-luke-18"
 lang: "no"
+author: "amundrf"
 pubDate: "2024-12-18T09:00:13.684Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-18-0e4f4e50.webp"

@@ -2,6 +2,7 @@
 title: "Hvem kan utfordre Magnus i årets NM?"
 slug: "hvem-kan-utfordre-magnus-i-årets-nm"
 lang: "no"
+author: "Øystein Klippen"
 pubDate: "2026-05-01T21:07:18.206Z"
 categories: []
 cover: "/media/images/hvem-kan-utfordre-magnus-i-årets-nm-c402f994.jpg"

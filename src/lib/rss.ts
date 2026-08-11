@@ -58,6 +58,7 @@ export function buildFeed(posts: Post[], lang: Lang): string {
 <link>${url}</link>
 <guid isPermaLink="true">${url}</guid>
 <pubDate>${post.data.pubDate.toUTCString()}</pubDate>
+<dc:creator>${escapeXml(post.data.author)}</dc:creator>
 ${cats}
 <description>${escapeXml(post.data.description ?? '')}</description>
 <content:encoded>${cdata(bodyHtml(post))}</content:encoded>
@@ -67,7 +68,7 @@ ${post.data.cover ? enclosure(post.data.cover) : ''}
     .join('\n');
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
 <channel>
 <title>${lang === 'en' ? 'NBHF news' : 'NYHETER | Bordhockeyforbundet'}</title>
 <link>${SITE}${prefix}/blog/</link>

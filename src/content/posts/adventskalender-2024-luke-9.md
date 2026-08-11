@@ -2,6 +2,7 @@
 title: "NBHF's adventskalender 2024 - Luke 9"
 slug: "adventskalender-2024-luke-9"
 lang: "no"
+author: "amundrf"
 pubDate: "2024-12-09T09:00:14.995Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-9-5e6305bb.webp"

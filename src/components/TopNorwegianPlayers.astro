@@ -22,8 +22,30 @@ const players = (ranking as unknown as RankingRow[])
   .sort((a, b) => a[0] - b[0])
   .slice(0, 10);
 
+const portraitsByPlayerId: Record<number, string> = {
+  660648: '/media/images/index-4cc0ec37.webp',
+  668143: '/media/images/index-b7d657df.webp',
+  660870: '/media/images/index-8730af0c.webp',
+  660869: '/media/images/index-d5bf3d3e.jpg',
+  220035: '/media/images/index-18d51b20.jpg',
+  659341: '/media/images/index-82b9f188.webp',
+  660637: '/media/galleries/vm-2023/thumbs/92733346.jpg',
+  220135: '/media/images/om-oss-be83385b-400.webp',
+  220019: '/media/galleries/norway-open-2024/thumbs/2b91ed85.jpg',
+  220094: '/media/galleries/vm-2023/thumbs/7bbd7fcc.jpg',
+};
+
+const topAlignedPortraitIds = new Set([668143, 660870, 659341, 220019]);
+
 if (players.length < 10) {
   throw new Error(`Ranking snapshot contains only ${players.length} Norwegian players; expected at least 10`);
+}
+
+const missingPortraits = players.filter(([, playerId]) => !portraitsByPlayerId[playerId]);
+if (missingPortraits.length > 0) {
+  throw new Error(
+    `Missing portraits for Norwegian top-10 player IDs: ${missingPortraits.map(([, playerId]) => playerId).join(', ')}`,
+  );
 }
 
 const numberLocale = lang === 'en' ? 'en-GB' : 'nb-NO';
@@ -60,7 +82,7 @@ const l = lang === 'en'
   </div>
 
   <div class="mt-4 overflow-x-auto border-y border-slate-200">
-    <table class="w-full min-w-[36rem] border-collapse text-left">
+    <table class="w-full min-w-[40rem] border-collapse text-left">
       <caption class="sr-only">{l.caption}</caption>
       <thead class="border-b border-slate-200 text-sm text-slate-600">
         <tr>
@@ -72,21 +94,41 @@ const l = lang === 'en'
       </thead>
       <tbody>
         {
-          players.map(([worldRank, , name, club, , points], index) => (
-            <tr class="border-b border-slate-100 last:border-b-0">
-              <td class="px-2 py-3 font-semibold tabular-nums text-navy sm:px-3">{index + 1}</td>
-              <th scope="row" class="px-2 py-3 font-semibold text-navy sm:px-3">
-                <span class="block">{name}</span>
-                {club && <span class="mt-0.5 block text-sm font-normal text-slate-500">{club}</span>}
-              </th>
-              <td class="px-2 py-3 text-right tabular-nums text-slate-700 sm:px-3">
-                {worldRank.toLocaleString(numberLocale)}
-              </td>
-              <td class="px-2 py-3 text-right tabular-nums text-slate-700 sm:px-3">
-                {points.toLocaleString(numberLocale)}
-              </td>
-            </tr>
-          ))
+          players.map(([worldRank, playerId, name, club, , points], index) => {
+            const profileUrl = `https://stiga.trefik.cz/ithf/ranking/player.aspx?id=${playerId}`;
+
+            return (
+              <tr class="border-b border-slate-100 last:border-b-0">
+                <td class="px-2 py-3 font-semibold tabular-nums text-navy sm:px-3">{index + 1}</td>
+                <th scope="row" class="px-2 py-2 sm:px-3">
+                  <a href={profileUrl} class="group flex items-center gap-3 no-underline">
+                    <img
+                      src={portraitsByPlayerId[playerId]}
+                      alt=""
+                      width="56"
+                      height="56"
+                      loading="lazy"
+                      decoding="async"
+                      style={topAlignedPortraitIds.has(playerId) ? 'object-position: center top' : undefined}
+                      class="h-14 w-14 shrink-0 rounded-full object-cover ring-1 ring-slate-200"
+                    />
+                    <span class="min-w-0">
+                      <span class="block font-semibold text-navy group-hover:text-brand group-hover:underline">
+                        {name}
+                      </span>
+                      {club && <span class="mt-0.5 block text-sm font-normal text-slate-500">{club}</span>}
+                    </span>
+                  </a>
+                </th>
+                <td class="px-2 py-3 text-right tabular-nums text-slate-700 sm:px-3">
+                  {worldRank.toLocaleString(numberLocale)}
+                </td>
+                <td class="px-2 py-3 text-right tabular-nums text-slate-700 sm:px-3">
+                  {points.toLocaleString(numberLocale)}
+                </td>
+              </tr>
+            );
+          })
         }
       </tbody>
     </table>

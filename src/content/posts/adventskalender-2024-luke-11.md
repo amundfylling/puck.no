@@ -2,6 +2,7 @@
 title: "NBHF's adventskalender 2024 - Luke 11"
 slug: "adventskalender-2024-luke-11"
 lang: "no"
+author: "amundrf"
 pubDate: "2024-12-11T09:00:13.339Z"
 categories: ["Adventskalender 2024"]
 cover: "/media/images/adventskalender-2024-luke-11-8cd20903.webp"

@@ -2,6 +2,7 @@
 title: "NM 2026: Dabs, drama and 10 titles in a row"
 slug: "nm-2026-dabs-drama-and-10-titles-in-a-row"
 lang: "en"
+author: "Daniel Nygård"
 pubDate: "2026-05-07T15:29:05.204Z"
 categories: ["Tournament report"]
 cover: "/media/images/nm-2026-dabs-drama-og-10-gull-på-rad-3882cbb5.webp"
