@@ -5,13 +5,14 @@
     "dev": "astro dev",
     "build": "astro build",
     "postbuild": "node scripts/add-csp-hashes.mjs && node scripts/generate-agent-markdown.mjs",
-    "prebuild": "node scripts/gen-agent-skills-index.mjs && node scripts/gen-tournament-config.mjs && node scripts/fetch-ranking.mjs && node scripts/optimize-media.mjs",
+    "prebuild": "node scripts/gen-agent-skills-index.mjs && node scripts/gen-tournament-config.mjs && node scripts/fetch-ranking.mjs && node scripts/fetch-qualification.mjs && node scripts/optimize-media.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "check-links": "node scripts/check-links.mjs",
     "audit-generated": "node scripts/audit-generated.mjs",
     "test": "node --test functions/lib/*.test.ts scripts/lib/*.test.mjs scripts/seed-d1.test.mjs",
-    "backfill-ranking": "node scripts/backfill-ranking-values.mjs"
+    "backfill-ranking": "node scripts/backfill-ranking-values.mjs",
+    "refresh-qualification": "QUALIFICATION_FORCE_REFRESH=1 node scripts/fetch-qualification.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

@@ -4,6 +4,7 @@ on:
   schedule:
     # Tournament status is computed at build time. One daily rebuild keeps the
     # upcoming/past lists accurate even during weeks without content commits.
+    # The Wednesday build also refreshes the VM 2027 qualification standings.
     - cron: '17 2 * * *'
   workflow_dispatch:
 

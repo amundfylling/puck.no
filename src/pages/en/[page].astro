@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Arsmoter from '../../components/Arsmoter.astro';
+import QualificationStandings from '../../components/QualificationStandings.astro';
 import { pageMirrorsEnToNo, pagePath, renamedPages } from '../../lib/i18n';
 import { seoForContent } from '../../lib/seo';
 import type { GetStaticPaths } from 'astro';
@@ -38,6 +39,13 @@ const seo = seoForContent(path, entry.data);
     {
       entry.data.slug === 'årsmøter' ? (
         <Arsmoter lang="en" />
+      ) : entry.data.slug === 'kvalifisering-mesterskap' ? (
+        <>
+          <div class="rich-text flow-root mb-8">
+            <Content />
+          </div>
+          <QualificationStandings lang="en" />
+        </>
       ) : (
         <div class="rich-text flow-root">
           <Content />

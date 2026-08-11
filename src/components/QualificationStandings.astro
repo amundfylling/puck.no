@@ -1,0 +1,289 @@
+---
+import qualificationJson from '../data/kvalifisering-vm27.json';
+import type { Lang } from '../lib/i18n';
+
+interface Result {
+  tournamentId: number;
+  name: string;
+  date: string;
+  position: number;
+  points: number;
+  type: 'NBHF' | 'ITHF';
+}
+
+interface Player {
+  rank: number;
+  qualified: boolean;
+  playerId: number;
+  name: string;
+  points: number;
+  results: Result[];
+}
+
+interface Category {
+  id: 'open' | 'women' | 'junior' | 'veteran' | 'kids' | 'superveteran';
+  quota: number;
+  players: Player[];
+}
+
+interface QualificationData {
+  generatedAt: string;
+  championship: {
+    startsOn: string;
+    endsOn: string;
+    qualificationStartsOn: string;
+    qualificationEndsOn: string;
+  };
+  categories: Category[];
+}
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const qualification = qualificationJson as QualificationData;
+const locale = lang === 'en' ? 'en-GB' : 'nb-NO';
+const date = (value: string) => new Intl.DateTimeFormat(locale, {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'Europe/Oslo',
+}).format(new Date(`${value.slice(0, 10)}T12:00:00Z`));
+const shortDate = (value: string) => new Intl.DateTimeFormat(locale, {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+  timeZone: 'Europe/Oslo',
+}).format(new Date(`${value.slice(0, 10)}T12:00:00Z`));
+const points = new Intl.NumberFormat(locale);
+
+const labels = lang === 'en'
+  ? {
+      categories: {
+        open: 'Open', women: 'Women', junior: 'Juniors', veteran: 'Veterans',
+        kids: 'Kids', superveteran: 'Superveterans',
+      },
+      eligibility: {
+        open: 'All Norwegian players', women: 'Players in the ITHF women ranking',
+        junior: 'Born in 2009 or later', veteran: 'Born in 1982 or earlier',
+        kids: 'Born in 2014 or later', superveteran: 'Born in 1972 or earlier',
+      },
+      event: 'Championship', eventValue: 'World Championship 2027 · Valmiera, Latvia',
+      eventDate: 'Dates', period: 'Qualification period', updated: 'Last updated',
+      updateNote: 'The standings are refreshed automatically every Wednesday morning.',
+      source: 'Source: public ITHF results', qualified: 'Qualified',
+      quota: (quota: number) => `${quota} Norwegian places`,
+      points: 'Points', results: 'Counting results', result: 'result', resultsPlural: 'results',
+      tournament: 'Tournament', position: 'Position', type: 'Type',
+      profile: 'Open ITHF player profile', empty: 'No eligible results yet.',
+      rulesTitle: 'How the standings are calculated',
+      rules: 'The eight best eligible results count, with no more than three results from tournaments outside Norway. ITHF levels 2–5 are included. World and European Championships do not count. For open Norwegian tournaments, the higher of the ITHF points and NBHF guarantee is used; a shared third place gives 475 guarantee points.',
+      categoryRule: 'Open results and results from the selected class count for eligible players.',
+    }
+  : {
+      categories: {
+        open: 'Åpen', women: 'Kvinner', junior: 'Junior', veteran: 'Veteran',
+        kids: 'Barn', superveteran: 'Superveteran',
+      },
+      eligibility: {
+        open: 'Alle norske spillere', women: 'Spillere i ITHFs kvinneranking',
+        junior: 'Født i 2009 eller senere', veteran: 'Født i 1982 eller tidligere',
+        kids: 'Født i 2014 eller senere', superveteran: 'Født i 1972 eller tidligere',
+      },
+      event: 'Mesterskap', eventValue: 'VM 2027 · Valmiera, Latvia',
+      eventDate: 'Dato', period: 'Kvalifiseringsperiode', updated: 'Sist oppdatert',
+      updateNote: 'Oversikten oppdateres automatisk hver onsdag morgen.',
+      source: 'Kilde: offentlige ITHF-resultater', qualified: 'Kvalifisert',
+      quota: (quota: number) => `${quota} norske plasser`,
+      points: 'Poeng', results: 'Tellende resultater', result: 'resultat', resultsPlural: 'resultater',
+      tournament: 'Turnering', position: 'Plass', type: 'Type',
+      profile: 'Åpne spillerprofil hos ITHF', empty: 'Ingen tellende resultater ennå.',
+      rulesTitle: 'Slik beregnes listen',
+      rules: 'De åtte beste tellende resultatene brukes, med maksimalt tre resultater fra turneringer utenfor Norge. ITHF-nivå 2–5 er med. VM og EM teller ikke. I åpne norske turneringer brukes den høyeste verdien av ITHF-poeng og NBHFs garantisum; delt tredjeplass gir 475 garantipoeng.',
+      categoryRule: 'Åpne resultater og resultater fra den valgte klassen teller for spillere som oppfyller klassekravene.',
+    };
+---
+
+<section data-qualification>
+  <dl class="grid gap-x-8 gap-y-5 border-y border-slate-200 py-6 sm:grid-cols-2">
+    <div>
+      <dt class="text-sm font-semibold text-slate-600">{labels.event}</dt>
+      <dd class="mt-1 font-semibold text-navy">{labels.eventValue}</dd>
+    </div>
+    <div>
+      <dt class="text-sm font-semibold text-slate-600">{labels.eventDate}</dt>
+      <dd class="mt-1 text-slate-800">
+        {date(qualification.championship.startsOn)}–{date(qualification.championship.endsOn)}
+      </dd>
+    </div>
+    <div>
+      <dt class="text-sm font-semibold text-slate-600">{labels.period}</dt>
+      <dd class="mt-1 text-slate-800">
+        {date(qualification.championship.qualificationStartsOn)}–{date(qualification.championship.qualificationEndsOn)}
+      </dd>
+    </div>
+    <div>
+      <dt class="text-sm font-semibold text-slate-600">{labels.updated}</dt>
+      <dd class="mt-1 text-slate-800">
+        {date(qualification.generatedAt)}
+        <span class="block text-sm text-slate-600">{labels.updateNote}</span>
+      </dd>
+    </div>
+  </dl>
+
+  <details class="border-b border-slate-200 py-5">
+    <summary class="cursor-pointer font-semibold text-navy">{labels.rulesTitle}</summary>
+    <div class="mt-3 space-y-3 text-sm leading-relaxed text-slate-700">
+      <p>{labels.rules}</p>
+      <p>{labels.categoryRule}</p>
+      <a
+        href="https://stiga.trefik.cz/ithf/ranking/index.aspx"
+        target="_blank"
+        rel="noopener"
+        class="font-semibold text-brand underline underline-offset-2 hover:text-brand-dark"
+      >{labels.source}<span class="sr-only"> ({lang === 'en' ? 'opens in a new tab' : 'åpnes i ny fane'})</span></a>
+    </div>
+  </details>
+
+  <div class="mt-8 hidden flex-wrap gap-2" role="tablist" aria-label={labels.rulesTitle} data-qualification-tabs>
+    {
+      qualification.categories.map((category, index) => (
+        <button
+          type="button"
+          role="tab"
+          id={`qualification-tab-${lang}-${category.id}`}
+          aria-controls={`qualification-panel-${lang}-${category.id}`}
+          aria-selected={index === 0 ? 'true' : 'false'}
+          tabindex={index === 0 ? '0' : '-1'}
+          data-qualification-tab={category.id}
+          class="rounded-md border border-slate-300 px-3 py-2 text-sm font-semibold text-navy transition-colors hover:border-navy aria-selected:border-navy aria-selected:bg-navy aria-selected:text-white"
+        >
+          {labels.categories[category.id]}
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="mt-8 space-y-12">
+    {
+      qualification.categories.map((category) => (
+        <section
+          role="tabpanel"
+          id={`qualification-panel-${lang}-${category.id}`}
+          aria-labelledby={`qualification-tab-${lang}-${category.id}`}
+          data-qualification-panel={category.id}
+        >
+          <div class="flex flex-wrap items-baseline justify-between gap-2 border-b-2 border-navy pb-3">
+            <div>
+              <h2 class="text-2xl font-bold text-navy">{labels.categories[category.id]}</h2>
+              <p class="mt-1 text-sm text-slate-600">{labels.eligibility[category.id]}</p>
+            </div>
+            <p class="text-sm font-semibold text-slate-600">{labels.quota(category.quota)}</p>
+          </div>
+
+          {category.players.length === 0 ? (
+            <p class="py-6 text-slate-600">{labels.empty}</p>
+          ) : (
+            <ol class="divide-y divide-slate-200">
+              {category.players.map((player) => (
+                <li class="py-4">
+                  <div class="grid grid-cols-[2rem_minmax(0,1fr)] items-center gap-x-3 gap-y-1 sm:grid-cols-[2rem_minmax(0,1fr)_8rem_7rem]">
+                    <span class="row-span-2 text-lg font-bold tabular-nums text-slate-500 sm:row-span-1">{player.rank}.</span>
+                    <a
+                      href={`https://stiga.trefik.cz/ithf/ranking/player.aspx?id=${player.playerId}`}
+                      target="_blank"
+                      rel="noopener"
+                      class="font-semibold text-navy underline decoration-slate-300 underline-offset-2 hover:text-brand hover:decoration-brand"
+                    >
+                      {player.name}<span class="sr-only"> – {labels.profile}</span>
+                    </a>
+                    <span class="col-start-2 text-sm sm:col-start-auto">
+                      {player.qualified && (
+                        <span class="inline-flex items-center gap-2 font-semibold text-emerald-800">
+                          <span class="h-2 w-2 rounded-full bg-emerald-600" aria-hidden="true"></span>
+                          {labels.qualified}
+                        </span>
+                      )}
+                    </span>
+                    <span class="col-start-2 font-semibold tabular-nums text-slate-800 sm:col-start-auto sm:text-right">
+                      {points.format(player.points)} {labels.points.toLowerCase()}
+                    </span>
+                  </div>
+
+                  <details class="ml-11 mt-3">
+                    <summary class="cursor-pointer text-sm font-semibold text-brand hover:text-brand-dark">
+                      {labels.results}: {player.results.length}/8 {player.results.length === 1 ? labels.result : labels.resultsPlural}
+                    </summary>
+                    <div class="mt-3 overflow-x-auto">
+                      <table class="w-full min-w-[36rem] border-collapse text-sm">
+                        <thead>
+                          <tr class="border-b border-slate-300 text-left text-slate-600">
+                            <th scope="col" class="px-2 py-2 font-semibold">{labels.tournament}</th>
+                            <th scope="col" class="px-2 py-2 font-semibold">{labels.eventDate}</th>
+                            <th scope="col" class="px-2 py-2 text-right font-semibold">{labels.position}</th>
+                            <th scope="col" class="px-2 py-2 text-right font-semibold">{labels.points}</th>
+                            <th scope="col" class="px-2 py-2 font-semibold">{labels.type}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {player.results.map((result) => (
+                            <tr class="border-b border-slate-200 last:border-0">
+                              <td class="px-2 py-2">{result.name}</td>
+                              <td class="whitespace-nowrap px-2 py-2 tabular-nums">{shortDate(result.date)}</td>
+                              <td class="px-2 py-2 text-right tabular-nums">{result.position}.</td>
+                              <td class="px-2 py-2 text-right font-medium tabular-nums">{points.format(result.points)}</td>
+                              <td class="px-2 py-2">{result.type}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </details>
+                </li>
+              ))}
+            </ol>
+          )}
+        </section>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-qualification]').forEach((root) => {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[data-qualification-tab]')];
+    const panels = [...root.querySelectorAll<HTMLElement>('[data-qualification-panel]')];
+    const tabList = root.querySelector<HTMLElement>('[data-qualification-tabs]');
+    if (!tabList || tabs.length === 0) return;
+
+    const activate = (selected: HTMLButtonElement, moveFocus = false) => {
+      const category = selected.dataset.qualificationTab;
+      tabs.forEach((tab) => {
+        const active = tab === selected;
+        tab.setAttribute('aria-selected', String(active));
+        tab.tabIndex = active ? 0 : -1;
+      });
+      panels.forEach((panel) => panel.classList.toggle('hidden', panel.dataset.qualificationPanel !== category));
+      if (moveFocus) selected.focus();
+    };
+
+    tabList.classList.remove('hidden');
+    tabList.classList.add('flex');
+    activate(tabs[0]);
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activate(tab));
+      tab.addEventListener('keydown', (event) => {
+        let next = index;
+        if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = tabs.length - 1;
+        else return;
+        event.preventDefault();
+        activate(tabs[next], true);
+      });
+    });
+  });
+</script>

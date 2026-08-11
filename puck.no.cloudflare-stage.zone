@@ -1,0 +1,29 @@
+; Cloudflare staging zone for puck.no
+; Audited against the authoritative Wix nameserver ns6.wixdns.net on 2026-08-11.
+;
+; Purpose: preserve the CURRENT public website, email and working subdomains
+; while authoritative DNS moves from Wix to Cloudflare. Import this file before
+; changing nameservers. After Cloudflare is authoritative and mail is verified,
+; the Pages custom-domain wizard replaces only the @ and www web records.
+;
+; Do not re-import this file after the Pages cutover.
+; Cloudflare creates its own SOA and NS records, so they are intentionally absent.
+
+$ORIGIN puck.no.
+$TTL 3600
+
+; Current Wix website -- DNS only during the nameserver migration.
+@                     3600 IN A     185.230.63.107 ; cf_tags=cf-proxied:false
+@                     3600 IN A     185.230.63.171 ; cf_tags=cf-proxied:false
+@                     3600 IN A     185.230.63.186 ; cf_tags=cf-proxied:false
+www                   3600 IN CNAME cdn1.wixdns.net. ; cf_tags=cf-proxied:false
+
+; Current Microsoft 365 mail and verification records -- preserve exactly.
+@                     3600 IN MX    0 puck-no.mail.protection.outlook.com.
+@                     3600 IN TXT   "MS=ms38023782"
+@                     3600 IN TXT   "v=spf1 include:spf.protection.outlook.com -all"
+_dmarc                3600 IN CNAME _dmarc.wixemails.com. ; cf_tags=cf-proxied:false
+
+; Current working non-site subdomains -- preserve exactly and keep DNS only.
+jarligatabell         3600 IN CNAME amundfylling.github.io. ; cf_tags=cf-proxied:false
+wiki                  3600 IN CNAME amundfylling.github.io. ; cf_tags=cf-proxied:false

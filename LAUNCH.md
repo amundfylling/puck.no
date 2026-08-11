@@ -269,16 +269,22 @@ sluttdato, men dette daglige bygget holder lister og statustekst oppdatert.
 **Gjør dette først når A9 er krysset av.** Frem til nå er den gamle
 Wix-siden urørt.
 
+> **Domenespesifikk merknad (2026-08-11):** `puck.no` er registrert hos
+> Simply.com, men bruker fortsatt Wix-navnetjenerne. Følg den verifiserte,
+> e-postbevarende planen i `DNS-CUTOVER.md` og importer
+> `puck.no.cloudflare-stage.zone` før navnetjenerbyttet. Ikke importer den
+> inaktive Simply-eksporten direkte. Planen flytter først DNS uten å endre
+> noen tjenester, tester e-post, og bytter deretter bare webpostene til Pages.
+
 ## B1. Legg puck.no inn i Cloudflare
 
 1. Dashbord → **Add a site** (eller **Onboard a domain**) → skriv `puck.no`
    → velg **Free**-plan.
 2. Cloudflare scanner DNS og viser to **Cloudflare-navnetjenere**
    (f.eks. `dana.ns.cloudflare.com`).
-3. Hos domeneregistraren for puck.no (f.eks. Domeneshop — logg inn der
-   domenet forvaltes): bytt navnetjenere til de to Cloudflare ga.
-   - Domeneshop: **Mine domener** → puck.no → **Navnetjenere** →
-     egendefinerte → lim inn begge → lagre.
+3. Hos Simply.com: velg `puck.no` → **DNS** → **Sæt navneservere** og bytt
+   fra Wix-navnetjenerne til de to Cloudflare ga. Se `DNS-CUTOVER.md` for
+   forhåndskontroll av DNSSEC, eksakt staging-sone og verifisering av e-post.
 4. Vent på at Cloudflare bekrefter (typisk 5–60 min, kan ta noen timer).
    Du får e-post når domenet er aktivt.
    - **Merk:** puck.no peker nå til Cloudflare, men gamle DNS-poster

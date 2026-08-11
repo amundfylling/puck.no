@@ -133,7 +133,7 @@ dist/                    # build output (git-ignored)
 
 `src/data/` (unchanged from Phase 1): `timers.json`, `galleries.json`,
 `documents.json`, `registrations-snapshot.json`, `seo.json`, `tricks.json`,
-`kvalifisering-em26.json`.
+`kvalifisering-vm27.json`.
 
 ## Routing
 
