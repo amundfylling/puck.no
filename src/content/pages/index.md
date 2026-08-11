@@ -2,7 +2,7 @@
 title: "Norges Bordhockeyforbund"
 slug: "index"
 lang: "no"
-description: "Norges Bordhockeyforbund (NBHF) har arrangert bordhockeyturneringer i Norge siden 1994. Forbundet arbeider for å fremme bordhockeysporten gjennom å organisere turneringer, støtte lokalligaer og gjøre sporten mer tilgjengelig for alle som ønsker å delta."
+description: "Norges Bordhockeyforbund (NBHF) har arrangert bordhockeyturneringer i Norge siden 1991. Forbundet arbeider for å fremme bordhockeysporten gjennom å organisere turneringer, støtte lokalligaer og gjøre sporten mer tilgjengelig for alle som ønsker å delta."
 seoTitle: "Norges Bordhockeyforbund"
 menuOrder: 0
 ---
