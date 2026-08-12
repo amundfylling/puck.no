@@ -141,7 +141,7 @@ const labels = lang === 'en'
         href="https://stiga.trefik.cz/ithf/ranking/index.aspx"
         target="_blank"
         rel="noopener"
-        class="font-semibold text-brand underline underline-offset-2 hover:text-brand-dark"
+        class="inline-flex min-h-11 items-center font-semibold text-brand underline underline-offset-2 hover:text-brand-dark"
       >{labels.source}<span class="sr-only"> ({lang === 'en' ? 'opens in a new tab' : 'åpnes i ny fane'})</span></a>
     </div>
   </details>
@@ -157,7 +157,7 @@ const labels = lang === 'en'
           aria-selected={index === 0 ? 'true' : 'false'}
           tabindex={index === 0 ? '0' : '-1'}
           data-qualification-tab={category.id}
-          class="rounded-md border border-slate-300 px-3 py-2 text-sm font-semibold text-navy transition-colors hover:border-navy aria-selected:border-navy aria-selected:bg-navy aria-selected:text-white"
+          class="min-h-11 rounded-md border border-slate-300 px-3 py-2 text-sm font-semibold text-navy transition-colors hover:border-navy aria-selected:border-navy aria-selected:bg-navy aria-selected:text-white"
         >
           {labels.categories[category.id]}
         </button>
@@ -194,7 +194,7 @@ const labels = lang === 'en'
                       href={`https://stiga.trefik.cz/ithf/ranking/player.aspx?id=${player.playerId}`}
                       target="_blank"
                       rel="noopener"
-                      class="font-semibold text-navy underline decoration-slate-300 underline-offset-2 hover:text-brand hover:decoration-brand"
+                      class="inline-flex min-h-11 items-center font-semibold text-navy underline decoration-slate-300 underline-offset-2 hover:text-brand hover:decoration-brand"
                     >
                       {player.name}<span class="sr-only"> – {labels.profile}</span>
                     </a>
@@ -215,7 +215,7 @@ const labels = lang === 'en'
                     <summary class="cursor-pointer text-sm font-semibold text-brand hover:text-brand-dark">
                       {labels.results}: {player.results.length}/8 {player.results.length === 1 ? labels.result : labels.resultsPlural}
                     </summary>
-                    <div class="mt-3 overflow-x-auto">
+                    <div class="scroll-region mt-3" role="region" aria-label={`${player.name}: ${labels.results}`} tabindex="0">
                       <table class="w-full min-w-[36rem] border-collapse text-sm">
                         <thead>
                           <tr class="border-b border-slate-300 text-left text-slate-600">

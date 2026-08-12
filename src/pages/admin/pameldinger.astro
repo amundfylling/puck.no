@@ -12,7 +12,7 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
 ---
 
 <AdminLayout title="Påmeldinger | Admin | Bordhockeyforbundet" heading="Påmeldinger" active="pameldinger">
-  <div data-registrations data-default-slug={defaultSlug} data-configs={JSON.stringify(configs)}>
+  <div class="min-w-0 max-w-full overflow-x-hidden" data-registrations data-default-slug={defaultSlug} data-configs={JSON.stringify(configs)}>
     <p class="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
       Sanntidsdata fra påmeldingssystemet. Kontaktdata og tilleggssvar er personopplysninger og må håndteres etter personvernerklæringen.
     </p>
@@ -28,7 +28,7 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
         ))}
       </select>
       <div class="relative flex-1">
-        <svg class="pointer-events-none absolute top-2.5 left-3 h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
+        <svg class="pointer-events-none absolute top-3.5 left-3 h-4 w-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
         <input
           type="search"
           data-search
@@ -57,23 +57,23 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
       </span>
     </div>
 
-    <div class="mt-4 overflow-x-auto rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+    <div class="scroll-region mt-4 rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900" role="region" aria-label="Påmeldinger" tabindex="0">
       <table class="w-full min-w-[76rem] text-sm">
         <thead>
           <tr class="border-b border-slate-200 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:border-slate-800 dark:text-slate-400">
             <th class="px-4 py-3">#</th>
-            <th class="px-4 py-3"><button type="button" data-sort="name" class="uppercase hover:text-navy dark:hover:text-white">Navn <span data-sort-arrow="name"></span></button></th>
-            <th class="px-4 py-3"><button type="button" data-sort="country" class="uppercase hover:text-navy dark:hover:text-white">Land <span data-sort-arrow="country"></span></button></th>
-            <th class="px-4 py-3"><button type="button" data-sort="wr" class="uppercase hover:text-navy dark:hover:text-white">VR <span data-sort-arrow="wr"></span></button></th>
-            <th class="px-4 py-3"><button type="button" data-sort="points" class="uppercase hover:text-navy dark:hover:text-white">Poeng <span data-sort-arrow="points"></span></button></th>
+            <th class="px-4 py-3" data-sort-header="name" aria-sort="none"><button type="button" data-sort="name" class="uppercase hover:text-navy dark:hover:text-white">Navn <span data-sort-arrow="name"></span></button></th>
+            <th class="px-4 py-3" data-sort-header="country" aria-sort="none"><button type="button" data-sort="country" class="uppercase hover:text-navy dark:hover:text-white">Land <span data-sort-arrow="country"></span></button></th>
+            <th class="px-4 py-3" data-sort-header="wr" aria-sort="none"><button type="button" data-sort="wr" class="uppercase hover:text-navy dark:hover:text-white">VR <span data-sort-arrow="wr"></span></button></th>
+            <th class="px-4 py-3" data-sort-header="points" aria-sort="descending"><button type="button" data-sort="points" class="uppercase hover:text-navy dark:hover:text-white">Poeng <span data-sort-arrow="points"></span></button></th>
             <th class="px-4 py-3">Kontakt</th>
             <th class="px-4 py-3">Tilleggssvar</th>
-            <th class="px-4 py-3"><button type="button" data-sort="at" class="uppercase hover:text-navy dark:hover:text-white">Påmeldt <span data-sort-arrow="at"></span></button></th>
+            <th class="px-4 py-3" data-sort-header="at" aria-sort="none"><button type="button" data-sort="at" class="uppercase hover:text-navy dark:hover:text-white">Påmeldt <span data-sort-arrow="at"></span></button></th>
             <th class="px-4 py-3"><span class="sr-only">Handlinger</span></th>
           </tr>
         </thead>
         <tbody data-rows>
-          <tr><td colspan="9" class="px-4 py-10 text-center text-slate-400 dark:text-slate-500">Henter påmeldinger …</td></tr>
+          <tr><td colspan="9" class="px-4 py-10 text-center text-slate-600 dark:text-slate-400">Henter påmeldinger …</td></tr>
         </tbody>
       </table>
     </div>
@@ -188,6 +188,7 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
       let sortKey: SortKey = 'points';
       let sortDir: 1 | -1 = -1;
       let editing: Row | null = null;
+      let editorOpener: HTMLElement | null = null;
       let rankingPromise: Promise<RankingRow[]> | null = null;
       let playerEditors: Array<{ box: HTMLElement; input: HTMLInputElement; playerId: number | null }> = [];
 
@@ -212,7 +213,7 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
         const tr = document.createElement('tr');
         const td = document.createElement('td');
         td.colSpan = 9;
-        td.className = 'px-4 py-10 text-center text-slate-400 dark:text-slate-500';
+        td.className = 'px-4 py-10 text-center text-slate-600 dark:text-slate-400';
         td.textContent = text;
         tr.appendChild(td);
         return tr;
@@ -266,7 +267,7 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
           edit.addEventListener('click', () => openEditor(row));
           actions.appendChild(edit);
           tr.append(
-            cell(String(index + 1), 'tabular-nums text-slate-400'),
+            cell(String(index + 1), 'tabular-nums text-slate-600 dark:text-slate-400'),
             cell(row.name, 'max-w-xs font-semibold text-navy dark:text-white'),
             cell(row.country ?? '–', 'text-slate-600 dark:text-slate-300'),
             cell(row.world_ranking == null ? '–' : String(row.world_ranking), 'tabular-nums'),
@@ -288,6 +289,13 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
         root.querySelectorAll<HTMLElement>('[data-sort-arrow]').forEach((arrow) => {
           const key = arrow.dataset.sortArrow as SortKey;
           arrow.textContent = key === sortKey ? (sortDir === 1 ? '↑' : '↓') : '';
+        });
+        root.querySelectorAll<HTMLElement>('[data-sort-header]').forEach((header) => {
+          const key = header.dataset.sortHeader as SortKey;
+          header.setAttribute(
+            'aria-sort',
+            key === sortKey ? (sortDir === 1 ? 'ascending' : 'descending') : 'none',
+          );
         });
       };
 
@@ -436,6 +444,7 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
       }
 
       function openEditor(row: Row | null) {
+        editorOpener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
         editing = row;
         const cfg = configs[select.value];
         editorForm.reset();
@@ -503,6 +512,11 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
       addPlayerButton.addEventListener('click', () => addPlayerEditor());
       root.querySelector('[data-add]')?.addEventListener('click', () => openEditor(null));
       root.querySelectorAll('[data-editor-close], [data-editor-cancel]').forEach((button) => button.addEventListener('click', () => dialog.close()));
+      dialog.addEventListener('close', () => {
+        const fallback = root.querySelector<HTMLElement>('[data-add]');
+        (editorOpener?.isConnected ? editorOpener : fallback)?.focus();
+        editorOpener = null;
+      });
       deleteButton.addEventListener('click', async () => {
         if (!editing || !window.confirm(`Slette påmeldingen for ${editing.name}? Dette kan ikke angres.`)) return;
         deleteButton.disabled = true;

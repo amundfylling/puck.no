@@ -20,7 +20,7 @@ const shortName = lang === 'en' ? 'NTHF' : 'NBHF';
     class="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr]"
   >
     <div>
-      <a href={home} class="flex items-center gap-3 no-underline" aria-label={`${shortName} – ${orgName}`}>
+      <a href={home} class="flex min-h-11 items-center gap-3 no-underline" aria-label={`${shortName} – ${orgName}`}>
         <img
           src="/media/images/nbhf-logo.png"
           alt=""
@@ -48,7 +48,7 @@ const shortName = lang === 'en' ? 'NTHF' : 'NBHF';
       groups.map((group) => (
         <nav aria-label={group.label}>
           <p class="text-xs font-bold uppercase tracking-wider">
-            <a href={group.href} class="text-slate-400 no-underline hover:text-white">
+            <a href={group.href} class="inline-flex min-h-11 min-w-11 items-center text-slate-400 no-underline hover:text-white">
               {group.label}
             </a>
           </p>
@@ -58,7 +58,7 @@ const shortName = lang === 'en' ? 'NTHF' : 'NBHF';
                 <a
                   href={child.href}
                   {...(child.external ? { target: '_blank', rel: 'noopener' } : {})}
-                  class="text-slate-300 no-underline hover:text-white hover:underline"
+                  class="inline-flex min-h-11 min-w-11 items-center text-slate-300 no-underline hover:text-white hover:underline"
                 >
                   {child.label}
                   {child.external && <span class="sr-only"> {t(lang, 'opensInNewTab')}</span>}
@@ -78,7 +78,7 @@ const shortName = lang === 'en' ? 'NTHF' : 'NBHF';
         {
           singles.map((item) => (
             <li>
-              <a href={item.href} class="text-slate-300 no-underline hover:text-white hover:underline">
+              <a href={item.href} class="inline-flex min-h-11 min-w-11 items-center text-slate-300 no-underline hover:text-white hover:underline">
                 {item.label}
               </a>
             </li>
@@ -87,7 +87,7 @@ const shortName = lang === 'en' ? 'NTHF' : 'NBHF';
         <li>
           <a
             href={lang === 'en' ? '/en/blog-feed.xml' : '/blog-feed.xml'}
-            class="text-slate-300 no-underline hover:text-white hover:underline">RSS</a
+            class="inline-flex min-h-11 min-w-11 items-center text-slate-300 no-underline hover:text-white hover:underline">RSS</a
           >
         </li>
         <li>
@@ -95,7 +95,7 @@ const shortName = lang === 'en' ? 'NTHF' : 'NBHF';
             href="https://www.ithf.info/stiga/ithf/ithf.asp"
             target="_blank"
             rel="noopener"
-            class="text-slate-300 no-underline hover:text-white hover:underline"
+            class="inline-flex min-h-11 min-w-11 items-center text-slate-300 no-underline hover:text-white hover:underline"
             >ITHF<span class="sr-only"> {t(lang, 'opensInNewTab')}</span></a
           >
         </li>

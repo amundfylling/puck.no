@@ -16,11 +16,12 @@ const shortName = lang === 'en' ? 'NTHF' : 'NBHF';
 
 const isActive = (href: string) =>
   href === home ? currentPath === home : currentPath === href || currentPath.startsWith(href);
+const isCurrent = (href: string) => currentPath === href;
 ---
 
 <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
   <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-3 gap-y-1 px-3 py-2 sm:gap-x-6 sm:gap-y-2 sm:px-4 sm:py-3">
-    <a href={home} class="flex items-center gap-3 no-underline" aria-label={`${shortName} – ${orgName}`}>
+    <a href={home} class="flex min-h-11 items-center gap-3 no-underline" aria-label={`${shortName} – ${orgName}`}>
       <img
         src="/media/images/nbhf-logo.png"
         alt=""
@@ -31,7 +32,7 @@ const isActive = (href: string) =>
       />
       <span class="leading-tight">
         <span class="block text-sm font-extrabold tracking-wide text-navy">{shortName}</span>
-        <span class="hidden text-xs text-slate-600 sm:block">{orgName}</span>
+        <span class="hidden text-xs text-slate-600 xl:block">{orgName}</span>
       </span>
     </a>
 
@@ -44,7 +45,7 @@ const isActive = (href: string) =>
               hreflang="no"
               aria-current={lang === 'no' ? 'true' : undefined}
               class:list={[
-                'inline-flex items-center min-h-[44px] rounded px-2 no-underline sm:px-3',
+                'inline-flex min-h-11 min-w-11 items-center justify-center rounded px-2 no-underline sm:px-3',
                 lang === 'no' ? 'bg-navy text-white' : 'text-navy hover:bg-ice',
               ]}>NO</a
             >
@@ -56,7 +57,7 @@ const isActive = (href: string) =>
               hreflang="en"
               aria-current={lang === 'en' ? 'true' : undefined}
               class:list={[
-                'inline-flex items-center min-h-[44px] rounded px-2 no-underline sm:px-3',
+                'inline-flex min-h-11 min-w-11 items-center justify-center rounded px-2 no-underline sm:px-3',
                 lang === 'en' ? 'bg-navy text-white' : 'text-navy hover:bg-ice',
               ]}>EN</a
             >
@@ -71,7 +72,7 @@ const isActive = (href: string) =>
         aria-label={t(lang, 'openMenu')}
         data-open-label={t(lang, 'openMenu')}
         data-close-label={t(lang, 'closeMenu')}
-        class="flex h-11 w-11 items-center justify-center rounded text-navy hover:bg-ice md:hidden"
+        class="flex h-11 w-11 items-center justify-center rounded text-navy hover:bg-ice lg:hidden"
       >
         <svg data-icon-open width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"></path>
@@ -82,14 +83,14 @@ const isActive = (href: string) =>
       </button>
     </div>
 
-    <nav id="main-nav" aria-label={t(lang, 'menuLabel')} class="hidden w-full md:block md:w-auto" data-nav>
-      <ul class="flex flex-col gap-1 pb-2 md:flex-row md:flex-wrap md:items-center md:gap-0 md:pb-0">
+    <nav id="main-nav" aria-label={t(lang, 'menuLabel')} class="hidden w-full lg:block lg:w-auto" data-nav>
+      <ul class="flex flex-col gap-1 pb-2 lg:flex-row lg:flex-wrap lg:items-center lg:gap-0 lg:pb-0">
         {
           items.map((item) => (
-            <li class:list={['md:relative', item.children && 'group']}>
+            <li class:list={['lg:relative', item.children && 'group']}>
               <a
                 href={item.href}
-                aria-current={isActive(item.href) ? 'page' : undefined}
+                aria-current={isCurrent(item.href) ? 'page' : undefined}
                 class:list={[
                   'flex min-h-[44px] items-center rounded px-3 py-2 text-sm font-semibold no-underline',
                   isActive(item.href) ? 'text-brand' : 'text-navy hover:bg-ice hover:text-brand',
@@ -103,15 +104,15 @@ const isActive = (href: string) =>
                 )}
               </a>
               {item.children && (
-                <ul class="border-l-2 border-ice pl-3 md:invisible md:absolute md:left-0 md:top-full md:z-40 md:min-w-56 md:border md:border-slate-200 md:bg-white md:py-2 md:pl-0 md:opacity-0 md:shadow-lg md:transition-opacity md:group-hover:visible md:group-hover:opacity-100 md:group-focus-within:visible md:group-focus-within:opacity-100">
+                <ul class="border-l-2 border-ice pl-3 lg:invisible lg:absolute lg:left-0 lg:top-full lg:z-40 lg:min-w-56 lg:border lg:border-slate-200 lg:bg-white lg:py-2 lg:pl-0 lg:opacity-0 lg:shadow-lg lg:transition-opacity lg:group-hover:visible lg:group-hover:opacity-100 lg:group-focus-within:visible lg:group-focus-within:opacity-100">
                   {item.children.map((child) => (
                     <li>
                       <a
                         href={child.href}
-                        aria-current={!child.external && isActive(child.href) ? 'page' : undefined}
+                        aria-current={!child.external && isCurrent(child.href) ? 'page' : undefined}
                         {...(child.external ? { target: '_blank', rel: 'noopener' } : {})}
                         class:list={[
-                          'flex min-h-[44px] items-center rounded px-3 py-1.5 text-sm no-underline md:rounded-none',
+                          'flex min-h-11 items-center rounded px-3 py-1.5 text-sm no-underline lg:rounded-none',
                           !child.external && isActive(child.href)
                             ? 'font-semibold text-brand'
                             : 'text-slate-700 hover:bg-ice hover:text-brand',
@@ -136,8 +137,9 @@ const isActive = (href: string) =>
   const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
   const nav = document.querySelector<HTMLElement>('[data-nav]');
   if (toggle && nav) {
-    toggle.addEventListener('click', () => {
-      const open = nav.classList.toggle('hidden') === false;
+    const desktop = window.matchMedia('(min-width: 1024px)');
+    const setOpen = (open: boolean, restoreFocus = false) => {
+      nav.classList.toggle('hidden', !open);
       toggle.setAttribute('aria-expanded', String(open));
       toggle.setAttribute(
         'aria-label',
@@ -145,6 +147,23 @@ const isActive = (href: string) =>
       );
       toggle.querySelector('[data-icon-open]')?.classList.toggle('hidden', open);
       toggle.querySelector('[data-icon-close]')?.classList.toggle('hidden', !open);
+      if (!open && restoreFocus) toggle.focus();
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(nav.classList.contains('hidden'));
+    });
+    nav.addEventListener('click', (event) => {
+      if (!desktop.matches && (event.target as Element).closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        event.preventDefault();
+        setOpen(false, true);
+      }
+    });
+    desktop.addEventListener('change', () => {
+      setOpen(false);
     });
   }
 </script>

@@ -144,7 +144,7 @@ const jsonLd = {
                   return (
                     <a
                       href={`/turneringer/${child.data.slug}/`}
-                      class="group flex items-center gap-2.5 border-b border-slate-100 py-2 no-underline last:border-b-0 hover:bg-ice/50"
+                      class="group flex min-h-11 items-center gap-2.5 border-b border-slate-100 py-2 no-underline last:border-b-0 hover:bg-ice/50"
                     >
                       <span
                         class:list={[
@@ -233,7 +233,7 @@ const jsonLd = {
       )
     }
 
-    <div id="deltakere" class="scroll-mt-6">
+    <div id="deltakere">
       <ParticipantList
         slug={entry.data.slug}
         players={players}

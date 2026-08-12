@@ -16,6 +16,7 @@
 /* ---------- base ---------- */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
   overflow-x: clip;
 }
 
@@ -39,6 +40,27 @@ h4 {
   letter-spacing: -0.01em;
 }
 
+a,
+button,
+input,
+select,
+textarea,
+summary {
+  touch-action: manipulation;
+}
+
+button {
+  min-block-size: 2.75rem;
+  min-inline-size: 2.75rem;
+}
+
+input:not([type='checkbox']):not([type='radio']):not([type='hidden']),
+select,
+textarea,
+summary {
+  min-block-size: 2.75rem;
+}
+
 @keyframes hero-fade-up {
   from {
     opacity: 0;
@@ -56,6 +78,17 @@ h4 {
   animation-delay: 0.12s;
 }
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
   .hero-reveal,
   .hero-reveal-delay {
     animation: none;
@@ -69,7 +102,7 @@ h4 {
 }
 
 .skip-link {
-  @apply absolute left-4 top-4 z-50 -translate-y-24 rounded bg-navy px-4 py-2 font-semibold text-white transition-transform;
+  @apply absolute left-4 top-4 z-[60] inline-flex min-h-11 -translate-y-24 items-center rounded bg-navy px-4 py-2 font-semibold text-white transition-transform;
 }
 .skip-link:focus {
   transform: translateY(0);
@@ -77,7 +110,7 @@ h4 {
 
 /* ---------- buttons ---------- */
 @utility btn {
-  @apply inline-block rounded-md px-5 py-2.5 font-semibold no-underline transition-colors;
+  @apply inline-flex min-h-11 min-w-11 items-center justify-center rounded-md px-5 py-2.5 font-semibold no-underline transition-colors;
 }
 .btn-primary {
   @apply btn bg-brand text-white hover:bg-brand-dark;
@@ -85,6 +118,13 @@ h4 {
 .btn-outline {
   @apply btn border-2 border-navy text-navy hover:bg-navy hover:text-white;
   @apply dark:border-slate-500 dark:text-slate-200 dark:hover:bg-slate-200 dark:hover:text-slate-900;
+}
+
+.scroll-region {
+  max-inline-size: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  contain: inline-size paint;
 }
 
 /* ---------- rendered markdown content ---------- */
@@ -111,8 +151,17 @@ h4 {
 .rich-text p {
   @apply my-4 leading-relaxed;
 }
+.rich-text > p,
+.rich-text > ul,
+.rich-text > ol,
+.rich-text > blockquote {
+  max-width: 70ch;
+}
 .rich-text a:not(.btn-primary):not(.btn-outline) {
   @apply text-brand underline underline-offset-2 hover:text-brand-dark;
+}
+.rich-text > p > a:only-child {
+  @apply inline-flex min-h-11 min-w-11 items-center;
 }
 .rich-text ul {
   @apply my-4 list-disc pl-6;
@@ -184,6 +233,7 @@ h4 {
 .rich-text .hub-card .hub-body {
   @apply flex flex-1 flex-col p-5;
 }
+.rich-text .hub-card h2,
 .rich-text .hub-card h3 {
   @apply m-0 text-xl font-bold text-navy;
 }
@@ -224,6 +274,12 @@ h4 {
 }
 
 @media (max-width: 640px) {
+  input:not([type='checkbox']):not([type='radio']):not([type='hidden']),
+  select,
+  textarea {
+    font-size: 1rem;
+  }
+
   /* Tricks table becomes stacked cards */
   table.tricks-table, table.tricks-table tbody { display: block; width: 100%; }
   table.tricks-table thead { display: none; }
@@ -249,7 +305,12 @@ h4 {
   table.tricks-table td:nth-child(4) img { display: block; margin: 0 auto; max-width: 240px; height: auto; }
 
   /* Every OTHER table stays a table but can scroll sideways if needed */
-  .rich-text table:not(.tricks-table) { display: block; overflow-x: auto; }
+  .rich-text table:not(.tricks-table) {
+    display: block;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    contain: inline-size paint;
+  }
 }
 .rich-text strong {
   @apply font-semibold text-slate-900;

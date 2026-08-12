@@ -30,7 +30,7 @@ const l = {
 ---
 
 <section class="border-b border-slate-200 bg-ice">
-  <div class="mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 md:grid-cols-2">
+  <div class="mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 lg:grid-cols-2">
     <div class="hero-reveal">
       <h1 class="text-4xl font-extrabold leading-tight text-navy sm:text-5xl">{entry.data.title}</h1>
       {entry.data.description && <p class="mt-4 text-lg leading-relaxed text-slate-700">{entry.data.description}</p>}
@@ -44,7 +44,7 @@ const l = {
       src={heroImg}
       formats={['avif', 'webp']}
       widths={[480, 768, 1024, 1280, 1600]}
-      sizes="(min-width: 1152px) 544px, (min-width: 768px) calc(50vw - 2rem), calc(100vw - 2rem)"
+      sizes="(min-width: 1152px) 544px, (min-width: 1024px) calc(50vw - 2rem), calc(100vw - 2rem)"
       fallbackFormat="jpg"
       alt={l.heroAlt}
       class="hero-reveal hero-reveal-delay w-full rounded-xl shadow-lg ring-1 ring-slate-900/10"
@@ -59,7 +59,7 @@ const l = {
     <h2 id="terminliste" class="text-2xl font-bold text-navy">
       {t(lang, 'nextTournament')}
     </h2>
-    <a href={pagePath('turneringer', lang)} class="text-sm font-semibold text-brand no-underline hover:underline">
+    <a href={pagePath('turneringer', lang)} class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
       {l.allTournaments}
     </a>
   </div>
@@ -75,7 +75,7 @@ const l = {
               item.isChild ? (
                 <a
                   href={lang === 'en' ? `/en/turneringer/${item.entry.data.slug}/` : `/turneringer/${item.entry.data.slug}/`}
-                  class="group flex flex-wrap items-baseline gap-x-2 border-b border-slate-100 py-1.5 pl-8 no-underline last:border-b-0 hover:bg-ice/50 sm:flex-nowrap sm:gap-x-3"
+                  class="group flex min-h-11 flex-wrap items-baseline gap-x-2 border-b border-slate-100 py-1.5 pl-4 no-underline last:border-b-0 hover:bg-ice/50 sm:flex-nowrap sm:gap-x-3 sm:pl-8"
                 >
                   <span class="text-sm font-medium text-slate-700 group-hover:underline sm:order-2 sm:grow">
                     <span class="mr-1.5 text-slate-400" aria-hidden="true">↳</span>{item.name}
@@ -110,7 +110,7 @@ const l = {
 <section aria-labelledby="latest-news" class="mx-auto max-w-6xl px-4 pt-10">
   <div class="flex flex-wrap items-baseline justify-between gap-2">
     <h2 id="latest-news" class="text-2xl font-bold text-navy">{t(lang, 'latestNews')}</h2>
-    <a href={pagePath('blog', lang)} class="text-sm font-semibold text-brand no-underline hover:underline">{l.allNews}</a>
+    <a href={pagePath('blog', lang)} class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">{l.allNews}</a>
   </div>
   <div class="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
     {posts.map((post, i) => <PostCard post={post} lang={lang} eager={i === 0} />)}

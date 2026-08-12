@@ -71,7 +71,7 @@ const pageUrl = (n: number) => (n === 1 ? `${prefix}/blog/` : `${prefix}/blog/${
                 aria-current={n === page ? 'page' : undefined}
                 aria-label={`${t(lang, 'pageOf')} ${n}`}
                 class:list={[
-                  'rounded px-3 py-1.5 text-sm font-semibold no-underline',
+                  'inline-flex min-h-11 min-w-11 items-center justify-center rounded px-3 py-1.5 text-sm font-semibold no-underline',
                   n === page ? 'bg-brand text-white' : 'text-navy hover:bg-ice',
                 ]}
               >

@@ -15,8 +15,6 @@ Brent Plast Bordhockeyklubb har laget en videoserie som går gjennom det grunnle
 
 ## Har du lyst å lære deg en ny kombinasjon?
 
-##
-
 Her har vi forsøkt å samle alle kjente kombinasjoner med beskrivelser og navn. Gjerne kom med forslag til kombinasjoner som mangler her!
 
 [Kombinasjoner](/lær-bordhockey-kombinasjoner)

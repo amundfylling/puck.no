@@ -50,7 +50,8 @@
       table.classList.add('tricks-table');
       const thead = table.querySelector('thead');
       if (thead) {
-        thead.classList.add('sticky', 'top-14', 'z-10', 'bg-slate-50', 'shadow-xs');
+        thead.classList.add('sticky', 'z-10', 'bg-slate-50', 'shadow-xs');
+        thead.style.top = 'calc(4rem + var(--tricks-controls-height, 0px))';
       }
     });
 
@@ -80,29 +81,29 @@
     // Create Sticky Controls Container
     const controls = document.createElement('div');
     controls.className =
-      'tricks-controls sticky top-0 z-20 bg-slate-50/95 backdrop-blur-sm border-b border-slate-200 py-3 mb-6 flex flex-wrap items-center justify-between gap-3 text-sm';
+      'tricks-controls sticky top-16 z-20 mb-6 flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 bg-slate-50/95 py-2 text-sm backdrop-blur-sm lg:gap-3 lg:py-3';
 
     // Left group: Search input & Chips
     const leftGroup = document.createElement('div');
-    leftGroup.className = 'flex flex-wrap items-center gap-3 w-full lg:w-auto';
+    leftGroup.className = 'flex w-full flex-col items-stretch gap-2 md:flex-row md:items-center md:gap-3 lg:w-auto';
 
     // Search Input
     const searchWrapper = document.createElement('div');
-    searchWrapper.className = 'relative flex-1 sm:flex-none';
+    searchWrapper.className = 'relative w-full md:w-auto';
 
     const searchInput = document.createElement('input');
     searchInput.type = 'search';
     searchInput.placeholder = t.placeholder;
     searchInput.setAttribute('aria-label', t.ariaSearch);
     searchInput.className =
-      'w-full sm:w-64 px-3 py-1.5 border border-slate-300 rounded-md text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600';
+      'w-full md:w-64 px-3 py-1.5 border border-slate-300 rounded-md text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600';
 
     searchWrapper.appendChild(searchInput);
     leftGroup.appendChild(searchWrapper);
 
     // Filter Chips
     const chipGroup = document.createElement('div');
-    chipGroup.className = 'flex flex-wrap items-center gap-1.5';
+    chipGroup.className = 'flex w-full items-center gap-2 overflow-x-auto pb-1 md:w-auto md:overflow-visible md:pb-0';
     chipGroup.setAttribute('role', 'group');
     chipGroup.setAttribute('aria-label', t.ariaDifficulty);
 
@@ -118,8 +119,8 @@
 
     const chipClass = (selected) =>
       selected
-        ? 'inline-flex items-center min-h-[44px] px-2.5 py-1 text-xs font-medium rounded-full bg-red-600 text-white transition-colors cursor-pointer'
-        : 'inline-flex items-center min-h-[44px] px-2.5 py-1 text-xs font-medium rounded-full bg-slate-200 text-slate-700 hover:bg-slate-300 transition-colors cursor-pointer';
+        ? 'inline-flex min-h-[44px] shrink-0 items-center px-2.5 py-1 text-xs font-medium rounded-full bg-red-600 text-white transition-colors cursor-pointer'
+        : 'inline-flex min-h-[44px] shrink-0 items-center px-2.5 py-1 text-xs font-medium rounded-full bg-slate-200 text-slate-700 hover:bg-slate-300 transition-colors cursor-pointer';
 
     const syncChips = () => {
       chipButtons.forEach((b, idx) => {
@@ -178,6 +179,20 @@
     // Insert controls before the first trick table
     const firstTrickTable = trickTables[0];
     firstTrickTable.parentNode.insertBefore(controls, firstTrickTable);
+    const syncStickyOffset = () => {
+      document.documentElement.style.setProperty('--tricks-controls-height', `${controls.offsetHeight}px`);
+    };
+    mainContent.querySelectorAll('[id]').forEach((element) => {
+      const followsControls = Boolean(
+        controls.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_FOLLOWING,
+      );
+      element.style.scrollMarginTop = followsControls
+        ? 'calc(5rem + var(--tricks-controls-height, 0px))'
+        : '5rem';
+    });
+    syncStickyOffset();
+    if ('ResizeObserver' in window) new ResizeObserver(syncStickyOffset).observe(controls);
+    else window.addEventListener('resize', syncStickyOffset);
 
     // Filter Logic
     let debounceTimer;
@@ -241,7 +256,8 @@
       const targetId = window.location.hash.substring(1);
       const targetRow = document.getElementById(targetId);
       if (targetRow) {
-        targetRow.scrollIntoView({ behavior: 'smooth' });
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        targetRow.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
       }
     }
   }

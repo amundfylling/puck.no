@@ -73,7 +73,7 @@ const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part)
     <h2 id="registered-players" class="text-2xl font-bold text-navy">{t(lang, 'registeredPlayers')}</h2>
     <p class="text-xs text-slate-500" data-ranking-refreshed aria-live="polite"></p>
   </div>
-  <div class="mt-4 overflow-x-auto">
+  <div class="scroll-region mt-4" role="region" aria-label={labels.participantsCaption} tabindex="0">
     <table class="w-full border-collapse text-sm">
       <caption class="sr-only">{labels.participantsCaption}</caption>
       <thead>
@@ -138,7 +138,7 @@ const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part)
     </div>
     <p class="mt-2 max-w-3xl text-sm text-slate-600">{labels.calculationNote}</p>
     <p data-placement-note class="mt-2 text-sm font-semibold text-slate-700" aria-live="polite"></p>
-    <div data-placement-table class="mt-4 overflow-x-auto">
+    <div data-placement-table class="scroll-region mt-4" role="region" aria-label={labels.placementCaption} tabindex="0">
       <table class="w-full border-collapse text-sm">
         <caption class="sr-only">{labels.placementCaption}</caption>
         <thead>

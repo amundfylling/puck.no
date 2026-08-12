@@ -24,7 +24,7 @@ const { value, label, hint, icon, valueId } = Astro.props;
         {value}
       </p>
       <p class="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">{label}</p>
-      {hint && <p class="mt-0.5 text-xs text-slate-400 dark:text-slate-500">{hint}</p>}
+      {hint && <p class="mt-0.5 text-xs text-slate-600 dark:text-slate-400">{hint}</p>}
     </div>
     <span class="rounded-lg bg-ice p-2 text-navy dark:bg-slate-800 dark:text-slate-300">
       <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d={icon} /></svg>

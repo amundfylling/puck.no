@@ -43,7 +43,7 @@ const pastFamilies = groupByParent(past, allSlugs);
               {family.children.map((item) => (
                 <a
                   href={lang === 'en' ? `/en/turneringer/${item.entry.data.slug}/` : `/turneringer/${item.entry.data.slug}/`}
-                  class="group flex items-baseline gap-3 border-b border-slate-100 py-2 pl-4 no-underline last:border-b-0 hover:bg-ice/50"
+                  class="group flex min-h-11 items-baseline gap-3 border-b border-slate-100 py-2 pl-4 no-underline last:border-b-0 hover:bg-ice/50"
                 >
                   <span class="grow text-[15px] text-navy">
                     <span class="mr-1.5 text-slate-400" aria-hidden="true">↳</span>
@@ -76,7 +76,7 @@ const pastFamilies = groupByParent(past, allSlugs);
         {family.children.map((item) => (
           <a
             href={lang === 'en' ? `/en/turneringer/${item.entry.data.slug}/` : `/turneringer/${item.entry.data.slug}/`}
-            class="group flex items-baseline gap-3 border-b border-slate-100 py-2 pl-20 no-underline last:border-b-0 hover:bg-ice/50"
+            class="group flex min-h-11 items-baseline gap-3 border-b border-slate-100 py-2 pl-4 no-underline last:border-b-0 hover:bg-ice/50 sm:pl-20"
           >
             <span class="grow text-[15px] text-navy">
               <span class="mr-1.5 text-slate-400" aria-hidden="true">↳</span>

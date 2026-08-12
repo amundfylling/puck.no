@@ -97,12 +97,13 @@ const serializeJsonLd = (value: Record<string, unknown>) =>
     {noUrlSlash && <link rel="alternate" hreflang="x-default" href={abs(noUrlSlash)} />}
     {ld.map((obj) => <script is:inline type="application/ld+json" set:html={serializeJsonLd(obj)} />)}
     <script is:inline defer src="/js/webmcp.js"></script>
+    <script is:inline defer src="/js/scroll-regions.js"></script>
     {slash(canonicalPath).includes('kombinasjoner') && <script is:inline defer src="/js/tricks.js" />}
   </head>
   <body class="flex min-h-screen flex-col">
     <a href="#innhold" class="skip-link">{t(lang, 'skipLink')}</a>
     <Header lang={lang} currentPath={slash(canonicalPath)} noUrl={noUrlSlash} enUrl={enUrlSlash} />
-    <main id="innhold" class="flex-1">
+    <main id="innhold" tabindex="-1" class="flex-1">
       <slot />
     </main>
     <Footer lang={lang} />
