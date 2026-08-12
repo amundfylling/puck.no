@@ -25,69 +25,77 @@ const upcomingFamilies = groupByParent(upcoming, allSlugs);
 const pastFamilies = groupByParent(past, allSlugs);
 ---
 
-<section class="mx-auto max-w-4xl px-4 py-10">
-  <h1 class="text-3xl font-extrabold text-navy">{title}</h1>
-  {description && <p class="mt-3 max-w-2xl text-slate-600">{description}</p>}
+<section class="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
+  <header class="max-w-3xl">
+    <h1 class="text-3xl font-extrabold text-navy sm:text-4xl">{title}</h1>
+    {description && <p class="mt-4 text-lg leading-relaxed text-slate-600">{description}</p>}
+  </header>
 
-  <div class="mt-8 flex items-baseline gap-3">
-    <h2 class="text-xl font-bold text-navy">{t(lang, 'upcomingTournaments')}</h2>
-    <span class="text-sm text-slate-500">({upcoming.length})</span>
-  </div>
-  <div class="mt-4">
-    {
-      upcomingFamilies.length > 0 ? (
-        <div class="space-y-4">
-          {upcomingFamilies.map((family) => (
-            <div>
-              <TournamentCard view={family.main} lang={lang} featured />
+  <section class="mt-10 sm:mt-12" aria-labelledby="upcoming-tournaments">
+    <div class="flex items-baseline justify-between gap-4 border-b border-slate-200 pb-3">
+      <h2 id="upcoming-tournaments" class="text-2xl font-bold text-navy">{t(lang, 'upcomingTournaments')}</h2>
+      <span class="text-sm tabular-nums text-slate-600">{upcoming.length}</span>
+    </div>
+    <div class="mt-5">
+      {
+        upcomingFamilies.length > 0 ? (
+          <div class="space-y-8">
+            {upcomingFamilies.map((family) => (
+              <div>
+                <TournamentCard view={family.main} lang={lang} featured />
+                {family.children.length > 0 && (
+                  <div class="border-l-2 border-slate-200 pl-4 sm:ml-[19.5rem] lg:ml-[25.5rem]">
+                    {family.children.map((item) => (
+                      <a
+                        href={lang === 'en' ? `/en/turneringer/${item.entry.data.slug}/` : `/turneringer/${item.entry.data.slug}/`}
+                        class="group grid min-h-11 grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-b border-slate-100 py-2 no-underline last:border-b-0 hover:bg-ice/50"
+                      >
+                        <span class="font-semibold text-navy group-hover:underline">{item.name}</span>
+                        <time datetime={item.date?.toISOString().slice(0, 10)} class="shrink-0 text-[13px] tabular-nums text-slate-600">
+                          {formatNoDate(item.entry.data.date, lang)}
+                        </time>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p class="border-y border-dashed border-slate-300 py-4 text-sm text-slate-600">
+            {t(lang, 'noUpcomingTournaments')}
+          </p>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="mt-12 sm:mt-16" aria-labelledby="past-tournaments">
+    <div class="flex items-baseline justify-between gap-4 border-b border-slate-200 pb-3">
+      <h2 id="past-tournaments" class="text-2xl font-bold text-navy">{t(lang, 'pastTournaments')}</h2>
+      <span class="text-sm tabular-nums text-slate-600">{past.length}</span>
+    </div>
+    <div class="divide-y divide-slate-200">
+      {pastFamilies.map((family) => (
+        <div>
+          <TournamentCard view={family.main} lang={lang} />
+          {family.children.length > 0 && (
+            <div class="mb-3 border-l-2 border-slate-200 pl-4 sm:ml-[5.5rem]">
               {family.children.map((item) => (
                 <a
                   href={lang === 'en' ? `/en/turneringer/${item.entry.data.slug}/` : `/turneringer/${item.entry.data.slug}/`}
-                  class="group flex min-h-11 items-baseline gap-3 border-b border-slate-100 py-2 pl-4 no-underline last:border-b-0 hover:bg-ice/50"
+                  class="group grid min-h-11 grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-b border-slate-100 py-2 no-underline last:border-b-0 hover:bg-ice/50"
                 >
-                  <span class="grow text-[15px] text-navy">
-                    <span class="mr-1.5 text-slate-400" aria-hidden="true">↳</span>
-                    <span class="group-hover:underline">{item.name}</span>
-                  </span>
-                  <span class="shrink-0 text-[13px] tabular-nums text-slate-500">
+                  <span class="font-semibold text-navy group-hover:underline">{item.name}</span>
+                  <time datetime={item.date?.toISOString().slice(0, 10)} class="shrink-0 text-[13px] tabular-nums text-slate-600">
                     {formatNoDate(item.entry.data.date, lang)}
-                  </span>
+                  </time>
                 </a>
               ))}
             </div>
-          ))}
+          )}
         </div>
-      ) : (
-        <p class="rounded-lg border border-dashed border-slate-300 p-4 text-sm text-slate-500">
-          {t(lang, 'noUpcomingTournaments')}
-        </p>
-      )
-    }
-  </div>
-
-  <div class="mt-10 flex items-baseline gap-3">
-    <h2 class="text-xl font-bold text-navy">{t(lang, 'pastTournaments')}</h2>
-    <span class="text-sm text-slate-500">({past.length})</span>
-  </div>
-  <div class="mt-4 divide-y divide-slate-200 border-y border-slate-200">
-    {pastFamilies.map((family) => (
-      <div>
-        <TournamentCard view={family.main} lang={lang} />
-        {family.children.map((item) => (
-          <a
-            href={lang === 'en' ? `/en/turneringer/${item.entry.data.slug}/` : `/turneringer/${item.entry.data.slug}/`}
-            class="group flex min-h-11 items-baseline gap-3 border-b border-slate-100 py-2 pl-4 no-underline last:border-b-0 hover:bg-ice/50 sm:pl-20"
-          >
-            <span class="grow text-[15px] text-navy">
-              <span class="mr-1.5 text-slate-400" aria-hidden="true">↳</span>
-              <span class="group-hover:underline">{item.name}</span>
-            </span>
-            <span class="shrink-0 text-[13px] tabular-nums text-slate-500">
-              {formatNoDate(item.entry.data.date, lang)}
-            </span>
-          </a>
-        ))}
-      </div>
-    ))}
-  </div>
+      ))}
+    </div>
+  </section>
 </section>

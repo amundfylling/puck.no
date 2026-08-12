@@ -4,18 +4,20 @@ interface Props {
   id: string;
   label: string;
   placeholder: string;
+  hint: string;
   fallbackToggle: string;
   fallbackLabel: string;
 }
 
-const { id, label, placeholder, fallbackToggle, fallbackLabel } = Astro.props;
+const { id, label, placeholder, hint, fallbackToggle, fallbackLabel } = Astro.props;
 const listId = `${id}-listbox`;
+const hintId = `${id}-hint`;
+const chosenId = `${id}-chosen`;
 ---
 
 <div class="player-select relative" data-player-select>
   <label class="grid gap-1 text-sm font-semibold text-navy" data-combo-field>
-    {label}
-    <span aria-hidden="true" class="text-brand">*</span>
+    <span>{label} <span aria-hidden="true" class="text-brand">*</span></span>
     <input
       data-combo-input
       type="text"
@@ -23,12 +25,15 @@ const listId = `${id}-listbox`;
       aria-expanded="false"
       aria-autocomplete="list"
       aria-controls={listId}
+      aria-describedby={`${hintId} ${chosenId}`}
+      aria-required="true"
       autocomplete="off"
       spellcheck="false"
       placeholder={placeholder}
       class="rounded border border-slate-300 px-3 py-2 font-normal"
     />
   </label>
+  <p id={hintId} class="mt-1 text-xs leading-relaxed text-slate-600">{hint}</p>
   <ul
     id={listId}
     data-combo-list
@@ -37,11 +42,11 @@ const listId = `${id}-listbox`;
     class="absolute left-0 right-0 z-20 mt-1 hidden max-h-64 overflow-auto rounded-md border border-slate-300 bg-white shadow-lg"
   >
   </ul>
-  <p data-combo-chosen class="mt-1 hidden text-xs font-semibold text-green-800"></p>
+  <p id={chosenId} data-combo-chosen role="status" aria-live="polite" class="mt-1 hidden text-xs font-semibold text-green-800"></p>
   <button
     type="button"
     data-combo-fallback-toggle
-    class="mt-1 inline-block py-3 text-xs font-semibold text-navy underline underline-offset-2 hover:text-brand"
+    class="mt-1 inline-flex min-h-11 items-center text-xs font-semibold text-navy underline underline-offset-2 hover:text-brand"
   >
     {fallbackToggle}
   </button>

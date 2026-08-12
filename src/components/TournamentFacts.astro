@@ -1,0 +1,73 @@
+---
+import type { Tournament } from '../lib/content';
+import { formatNoDate } from '../lib/dates';
+import { t, type Lang } from '../lib/i18n';
+
+interface Props {
+  entry: Tournament;
+  lang: Lang;
+  parentEntry: Tournament | null | undefined;
+  priceList: string[];
+  isoDate?: string;
+  registrationOpen: boolean;
+}
+
+const { entry, lang, parentEntry, priceList, isoDate, registrationOpen } = Astro.props;
+const prefix = lang === 'en' ? '/en' : '';
+const registrationId = lang === 'en' ? 'registration' : 'pamelding';
+---
+
+<aside class="h-fit border-y border-slate-200 bg-white lg:sticky lg:top-24 lg:order-2">
+  <h2 class="border-b border-slate-200 py-4 text-lg font-bold text-navy">
+    {lang === 'en' ? 'Facts' : 'Fakta'}
+  </h2>
+  <dl class="text-sm">
+    {
+      parentEntry && (
+        <div class="grid grid-cols-[5rem_minmax(0,1fr)] gap-4 border-b border-slate-100 py-3">
+          <dt class="text-slate-500">{t(lang, 'partOf')}</dt>
+          <dd class="text-right font-semibold text-brand">
+            <a href={`${prefix}/turneringer/${parentEntry.data.slug}/`} class="no-underline hover:underline">
+              {parentEntry.data.name}
+            </a>
+          </dd>
+        </div>
+      )
+    }
+    <div class="grid grid-cols-[5rem_minmax(0,1fr)] gap-4 border-b border-slate-100 py-3">
+      <dt class="text-slate-500">{t(lang, 'date')}</dt>
+      <dd class="text-right font-semibold text-navy">
+        <time datetime={isoDate}>{formatNoDate(entry.data.date, lang)}</time>
+      </dd>
+    </div>
+    {
+      entry.data.location && (
+        <div class="grid grid-cols-[5rem_minmax(0,1fr)] gap-4 border-b border-slate-100 py-3">
+          <dt class="text-slate-500">{t(lang, 'location')}</dt>
+          <dd class="text-right font-semibold text-navy">{entry.data.location}</dd>
+        </div>
+      )
+    }
+    {
+      priceList.length > 0 && (
+        <div class="grid grid-cols-[5rem_minmax(0,1fr)] gap-4 py-3">
+          <dt class="text-slate-500">{t(lang, 'prices')}</dt>
+          <dd class="space-y-0.5 font-semibold text-navy">
+            {priceList.map((price) => (
+              <div>{price}</div>
+            ))}
+          </dd>
+        </div>
+      )
+    }
+  </dl>
+  {
+    registrationOpen && (
+      <div class="border-t border-slate-200 py-4">
+        <a href={`#${registrationId}`} class="btn-outline w-full text-center no-underline">
+          {t(lang, 'registerPlayer')}
+        </a>
+      </div>
+    )
+  }
+</aside>

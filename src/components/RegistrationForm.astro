@@ -40,6 +40,10 @@ const l =
   lang === 'en'
     ? {
         heading: isTeam ? 'Register team' : 'Register player',
+        intro: isTeam
+          ? 'Select every team member from the world ranking before adding contact details.'
+          : 'Search for your name in the world ranking, then add your contact details.',
+        requiredFields: 'Required fields are marked with *.',
         name: 'Name',
         playerN: (n: number) => `Player ${n}`,
         searchPlaceholder: 'Search the world ranking…',
@@ -70,6 +74,10 @@ const l =
       }
     : {
         heading: isTeam ? 'Registrer lag' : 'Registrer spiller',
+        intro: isTeam
+          ? 'Velg alle lagmedlemmene fra verdensrankingen før du legger inn kontaktinformasjon.'
+          : 'Søk etter navnet ditt i verdensrankingen, og legg deretter inn kontaktinformasjon.',
+        requiredFields: 'Obligatoriske felt er merket med *.',
         name: 'Navn',
         playerN: (n: number) => `Spiller ${n}`,
         searchPlaceholder: 'Søk i verdensrankingen…',
@@ -107,7 +115,7 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
 <section
   id={lang === 'en' ? 'registration' : 'pamelding'}
   aria-labelledby="pamelding-heading"
-  class="my-10 rounded-lg border border-slate-200 bg-white p-6"
+  class="my-14 border-y border-slate-200 py-8 sm:my-16 sm:py-10"
   data-registration
   data-slug={slug}
   data-type={type}
@@ -122,20 +130,26 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
     networkError: l.networkError,
   })}
 >
-  <h2 id="pamelding-heading" class="text-xl font-bold text-navy">{l.heading}</h2>
-  {isTeam && <p class="mt-1 text-sm text-slate-600">{l.teamHint}</p>}
+  <div class="grid gap-8 md:grid-cols-[14rem_minmax(0,1fr)] md:gap-12">
+    <div>
+      <h2 id="pamelding-heading" class="text-2xl font-bold text-navy">{l.heading}</h2>
+      <p class="mt-3 text-sm leading-relaxed text-slate-600">{l.intro}</p>
+      {isTeam && <p class="mt-3 text-sm leading-relaxed text-slate-600">{l.teamHint}</p>}
+      <p class="mt-3 text-xs text-slate-600">{l.requiredFields}</p>
+    </div>
 
-  <noscript>
-    <p class="mt-2 font-semibold text-brand">{l.noscript}</p>
-  </noscript>
+    <div class="min-w-0">
+      <noscript>
+        <p class="mb-4 font-semibold text-brand">{l.noscript}</p>
+      </noscript>
 
-  {
-    !siteKey && (
-      <p class="mt-2 rounded bg-yellow-100 px-3 py-2 text-sm text-yellow-900">{l.noKey}</p>
-    )
-  }
+      {
+        !siteKey && (
+          <p class="mb-5 border-l-4 border-yellow-500 bg-yellow-100 px-4 py-3 text-sm text-yellow-900">{l.noKey}</p>
+        )
+      }
 
-  <form data-form class="mt-4 grid max-w-lg gap-3">
+      <form data-form class="grid max-w-2xl gap-5">
     {
       Array.from({ length: rowCount }, (_, i) => (
         <div data-player-row={i} class:list={[i >= visibleCount && 'hidden']}>
@@ -145,6 +159,7 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
                 id={`reg-${type}-${i}`}
                 label={isTeam ? l.playerN(i + 1) : l.name}
                 placeholder={l.searchPlaceholder}
+                hint={l.pickPlayer}
                 fallbackToggle={l.fallbackToggle}
                 fallbackLabel={l.fallbackLabel}
               />
@@ -154,7 +169,7 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
                 type="button"
                 data-remove-row={i}
                 aria-label={`${l.removePlayer} ${isTeam ? l.playerN(i + 1) : ''}`}
-                class="mb-1 shrink-0 rounded border border-slate-300 px-2 py-1 text-xs font-semibold text-slate-600 hover:border-brand hover:text-brand"
+                class="mb-1 shrink-0 rounded border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-600 hover:border-brand hover:text-brand"
               >
                 {l.removePlayer}
               </button>
@@ -172,14 +187,16 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
         </div>
       )
     }
-    <label class="grid gap-1 text-sm font-semibold text-navy">
-      {l.email} <span aria-hidden="true" class="text-brand">*</span>
-      <input name="email" type="email" required maxlength="254" autocomplete="email" class="rounded border border-slate-300 px-3 py-2 font-normal" />
-    </label>
-    <label class="grid gap-1 text-sm font-semibold text-navy">
-      {l.phone}
-      <input name="phone" type="tel" maxlength="30" autocomplete="tel" class="rounded border border-slate-300 px-3 py-2 font-normal" />
-    </label>
+    <div class="grid gap-5 sm:grid-cols-2">
+      <label class="grid gap-1 text-sm font-semibold text-navy">
+        <span>{l.email} <span aria-hidden="true" class="text-brand">*</span></span>
+        <input name="email" type="email" required maxlength="254" autocomplete="email" class="rounded border border-slate-300 px-3 py-2 font-normal" />
+      </label>
+      <label class="grid gap-1 text-sm font-semibold text-navy">
+        {l.phone}
+        <input name="phone" type="tel" maxlength="30" autocomplete="tel" class="rounded border border-slate-300 px-3 py-2 font-normal" />
+      </label>
+    </div>
     {
       registrationQuestions.map((question) => (
         <label class="grid gap-1 text-sm font-semibold text-navy">
@@ -206,10 +223,11 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
         {l.submit}
       </button>
     </div>
-    <p data-message data-success={l.success} role="status" aria-live="polite" class="hidden rounded px-3 py-2 text-sm font-semibold"></p>
-  </form>
-
-  <p class="mt-4 text-xs text-slate-500">{l.privacy}</p>
+        <p data-message data-success={l.success} role="status" aria-live="polite" aria-atomic="true" tabindex="-1" class="hidden rounded px-3 py-2 text-sm font-semibold"></p>
+        <p class="text-xs leading-relaxed text-slate-600">{l.privacy}</p>
+      </form>
+    </div>
+  </div>
 </section>
 
 {siteKey && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>}
@@ -243,6 +261,8 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
     interface SelectState {
       playerId: number | null;
       fallback: boolean;
+      focus: () => void;
+      setInvalid: (invalid: boolean) => void;
       reset: () => void;
     }
 
@@ -283,7 +303,7 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
           li.id = `${list.id}-opt-${i}`;
           li.setAttribute('role', 'option');
           li.setAttribute('aria-selected', 'false');
-          li.className = 'cursor-pointer px-3 py-2 text-sm hover:bg-ice aria-selected:bg-ice';
+          li.className = 'flex min-h-11 cursor-pointer flex-wrap items-center px-3 py-2 text-sm hover:bg-ice aria-selected:bg-ice';
           const b = document.createElement('span');
           b.className = 'font-semibold text-navy';
           b.textContent = p[2];
@@ -314,6 +334,7 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
         if (!p) return;
         state.playerId = p[1];
         input.value = p[2];
+        state.setInvalid(false);
         chosen.textContent = `WR ${p[0]}${p[5] != null ? ` · ${p[5]} ${msgs.points ?? 'points'}` : ''} · ${p[4]} · ${p[3]}`;
         chosen.classList.remove('hidden');
         close();
@@ -340,6 +361,7 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
         'input',
         debounce(() => {
           state.playerId = null;
+          state.setInvalid(false);
           chosen.classList.add('hidden');
           search();
         }, 150),
@@ -368,6 +390,7 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
       toggle.addEventListener('click', () => {
         state.fallback = !state.fallback;
         state.playerId = null;
+        state.setInvalid(false);
         chosen.classList.add('hidden');
         field.classList.toggle('hidden', state.fallback);
         fallbackField.classList.toggle('hidden', !state.fallback);
@@ -376,9 +399,16 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
         if (state.fallback) fallbackInput.focus();
         else input.focus();
       });
+      fallbackInput.addEventListener('input', () => state.setInvalid(false));
+      state.focus = () => (state.fallback ? fallbackInput : input).focus();
+      state.setInvalid = (invalid) => {
+        input.setAttribute('aria-invalid', String(invalid && !state.fallback));
+        fallbackInput.setAttribute('aria-invalid', String(invalid && state.fallback));
+      };
       state.reset = () => {
         state.playerId = null;
         state.fallback = false;
+        state.setInvalid(false);
         chosen.classList.add('hidden');
         field.classList.remove('hidden');
         fallbackField.classList.add('hidden');
@@ -451,25 +481,33 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
 
     function showMessage(text: string, ok: boolean) {
       msg.textContent = text;
+      msg.setAttribute('role', ok ? 'status' : 'alert');
       msg.classList.remove('hidden', 'bg-green-100', 'text-green-900', 'bg-red-100', 'text-red-900');
       msg.classList.add(ok ? 'bg-green-100' : 'bg-red-100', ok ? 'text-green-900' : 'text-red-900');
+      msg.focus();
     }
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       if (!form.reportValidity()) return;
+      states.forEach((state) => state.setInvalid(false));
 
       const players = active.map((rowIdx) => readPlayer(rows[rowIdx], states[rowIdx]));
       let payload: Record<string, unknown>;
       if (type === 'team') {
-        if (players.some((player) => player.playerId == null && !player.name?.trim())) {
+        const missingIndex = players.findIndex((player) => player.playerId == null && !player.name?.trim());
+        if (missingIndex !== -1) {
           showMessage(msgs.pickAll ?? 'Fyll inn alle spillerne.', false);
+          states[active[missingIndex]].setInvalid(true);
+          states[active[missingIndex]].focus();
           return;
         }
         payload = { players };
       } else {
         if (players[0].playerId == null && !players[0].name) {
           showMessage(msgs.pickPlayer ?? 'Velg en spiller.', false);
+          states[0].setInvalid(true);
+          states[0].focus();
           return;
         }
         payload = players[0].playerId != null ? { playerId: players[0].playerId } : { name: players[0].name };
@@ -477,6 +515,7 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
 
       btn.disabled = true;
       btn.textContent = btn.dataset.sending ?? btnLabel;
+      btn.setAttribute('aria-busy', 'true');
       try {
         const token = form.querySelector<HTMLInputElement>('[name="cf-turnstile-response"]')?.value ?? '';
         const data = Object.fromEntries(new FormData(form).entries());
@@ -514,6 +553,7 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
       } finally {
         btn.disabled = false;
         btn.textContent = btnLabel;
+        btn.removeAttribute('aria-busy');
         const w = (window as unknown as { turnstile?: { reset: (el?: HTMLElement) => void } }).turnstile;
         form.querySelectorAll<HTMLElement>('.cf-turnstile').forEach((el) => w?.reset(el));
       }

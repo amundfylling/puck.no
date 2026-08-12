@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import RegistrationForm from '../../components/RegistrationForm.astro';
 import ParticipantList from '../../components/ParticipantList.astro';
+import TournamentFacts from '../../components/TournamentFacts.astro';
 import { tournamentImage, tournamentStatus } from '../../lib/content';
 import { formatIsoDate, formatNoDate, parseNoDate } from '../../lib/dates';
 import { seoForContent } from '../../lib/seo';
@@ -95,16 +96,16 @@ const jsonLd = {
   ogImage={hero}
   jsonLd={jsonLd}
 >
-  <article class="mx-auto max-w-4xl px-4 py-10">
+  <article class="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
     <p class="text-sm">
       <a href="/turneringer/" class="inline-flex items-center min-h-[44px] text-sm font-semibold text-brand no-underline hover:underline"
         >&larr; {t('no', 'tournaments')}</a
       >
     </p>
 
-    <header class="mt-4 border-b border-slate-200 pb-6">
-      <h1 class="text-3xl font-extrabold text-navy sm:text-4xl">{entry.data.name}</h1>
-      <p class="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-navy">
+    <header class="mt-3 border-b border-slate-200 pb-6 sm:pb-8">
+      <h1 class="max-w-4xl text-3xl font-extrabold text-navy sm:text-4xl lg:text-5xl">{entry.data.name}</h1>
+      <p class="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-navy">
         <span
           class:list={[
             'h-2 w-2 rounded-full',
@@ -117,7 +118,7 @@ const jsonLd = {
 
     {
       hero && (
-        <figure class="mt-6">
+        <figure class="mt-6 sm:mt-8">
           <img
             src={hero}
             alt={entry.data.name}
@@ -126,25 +127,54 @@ const jsonLd = {
             decoding="async"
             width={heroDimensions?.width}
             height={heroDimensions?.height}
-            class="aspect-[21/9] w-full rounded-lg object-cover"
+            class="aspect-[16/7] w-full rounded-lg object-cover"
           />
         </figure>
       )
     }
 
-    <div class="mt-8 grid gap-10 lg:grid-cols-[1fr_20rem]">
-      <div class:list={['rich-text tournament-body order-2 lg:order-1', hero && 'hide-first-image']}>
+    <nav aria-label={t('no', 'onThisPage')} class="mt-6 flex flex-wrap items-center gap-x-6 border-y border-slate-200 py-2">
+      <span class="w-full py-2 text-sm font-semibold text-navy sm:w-auto">{t('no', 'onThisPage')}</span>
+      <a href="#oversikt" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
+        {t('no', 'overview')}
+      </a>
+      <a href="#tidsskjema" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
+        {t('no', 'schedule')}
+      </a>
+      {
+        registrationOpen && (
+          <a href="#pamelding" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
+            {t('no', 'registration')}
+          </a>
+        )
+      }
+      <a href="#deltakere" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
+        {t('no', 'registeredPlayers')}
+      </a>
+    </nav>
+
+    <div id="oversikt" class="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-14">
+      <TournamentFacts
+        entry={entry}
+        lang="no"
+        parentEntry={parentEntry}
+        priceList={priceList}
+        isoDate={isoDate}
+        registrationOpen={registrationOpen}
+      />
+
+      <div class:list={['rich-text tournament-body min-w-0 lg:order-1', hero && 'hide-first-image']}>
         {
           childrenEntries.length > 0 && (
-            <div class="mb-6">
-              <h2 class="text-lg font-bold text-navy">{t('no', 'classes')}</h2>
+            <section class="mb-8 border-y border-slate-200 py-4" aria-labelledby="tournament-classes">
+              <h2 id="tournament-classes" class="text-lg font-bold text-navy">{t('no', 'classes')}</h2>
               <div class="mt-2 border-t border-slate-200">
                 {childrenEntries.map((child) => {
                   const childStatus = tournamentStatus(child);
                   return (
                     <a
                       href={`/turneringer/${child.data.slug}/`}
-                      class="group flex min-h-11 items-center gap-2.5 border-b border-slate-100 py-2 no-underline last:border-b-0 hover:bg-ice/50"
+                      class="group grid min-h-11 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2.5 border-b border-slate-100 py-2 no-underline last:border-b-0 hover:bg-ice/50"
                     >
                       <span
                         class:list={[
@@ -154,71 +184,19 @@ const jsonLd = {
                         aria-hidden="true"
                       />
                       <span class="font-semibold text-navy group-hover:underline">{child.data.name}</span>
-                      <span class="text-[13px] tabular-nums text-slate-500">{formatNoDate(child.data.date, 'no')}</span>
+                      <time datetime={parseNoDate(child.data.date) ? formatIsoDate(parseNoDate(child.data.date)!) : undefined} class="text-[13px] tabular-nums text-slate-600">
+                        {formatNoDate(child.data.date, 'no')}
+                      </time>
                     </a>
                   );
                 })}
               </div>
-            </div>
+            </section>
           )
         }
         <Content />
       </div>
 
-      <aside class="order-1 h-fit rounded-lg border border-slate-200 bg-white lg:order-2">
-        <h2 class="border-b border-slate-200 px-5 py-3 text-xs font-bold uppercase tracking-wide text-slate-500">
-          Fakta
-        </h2>
-        <dl class="px-5 text-sm">
-          {
-            parentEntry && (
-              <div class="flex justify-between gap-4 border-b border-slate-100 py-3">
-                <dt class="text-slate-500">{t('no', 'partOf')}</dt>
-                <dd class="text-right font-semibold text-brand">
-                  <a href={`/turneringer/${parentEntry.data.slug}/`} class="no-underline hover:underline">
-                    {parentEntry.data.name}
-                  </a>
-                </dd>
-              </div>
-            )
-          }
-          <div class="flex justify-between gap-4 border-b border-slate-100 py-3">
-            <dt class="text-slate-500">{t('no', 'date')}</dt>
-            <dd class="text-right font-semibold text-navy">
-              <time datetime={isoDate}>{formatNoDate(entry.data.date, 'no')}</time>
-            </dd>
-          </div>
-          {
-            entry.data.location && (
-              <div class="flex justify-between gap-4 border-b border-slate-100 py-3">
-                <dt class="text-slate-500">{t('no', 'location')}</dt>
-                <dd class="text-right font-semibold text-navy">{entry.data.location}</dd>
-              </div>
-            )
-          }
-          {
-            priceList.length > 0 && (
-              <div class="py-3">
-                <dt class="text-slate-500">{t('no', 'prices')}</dt>
-                <dd class="mt-1 space-y-0.5 font-semibold text-navy">
-                  {priceList.map((price) => (
-                    <div>{price}</div>
-                  ))}
-                </dd>
-              </div>
-            )
-          }
-        </dl>
-        {
-          registrationOpen && (
-            <div class="border-t border-slate-200 p-5">
-              <a href="#pamelding" class="btn-outline block text-center no-underline">
-                {t('no', 'registerPlayer')}
-              </a>
-            </div>
-          )
-        }
-      </aside>
     </div>
 
     {

@@ -28,6 +28,7 @@ const snapshotDisplay = snapshotDate
 const labels = lang === 'en'
   ? {
       club: 'Club', points: 'Points', team: 'Team', substitute: 'Substitute', refreshed: 'Ranking updated',
+      noParticipants: 'No participants are registered yet.',
       participantsCaption: 'Registered participants and their current ranking details.',
       placementCaption: 'Calculated ITHF points by finishing position.',
       liveUnavailable: 'Live updates are temporarily unavailable. The displayed list may be outdated.',
@@ -43,6 +44,7 @@ const labels = lang === 'en'
     }
   : {
       club: 'Klubb', points: 'Poeng', team: 'Lag', substitute: 'Innbytter', refreshed: 'Ranking oppdatert',
+      noParticipants: 'Ingen deltakere er påmeldt ennå.',
       participantsCaption: 'Påmeldte deltakere og gjeldende rankingopplysninger.',
       placementCaption: 'Beregnede ITHF-poeng etter sluttplassering.',
       liveUnavailable: 'Direkteoppdateringen er midlertidig utilgjengelig. Listen kan være utdatert.',
@@ -57,11 +59,17 @@ const labels = lang === 'en'
       incomplete: 'Én eller flere rangerte spillere venter på oppdatert Player Value, så poengene kan øke.',
     };
 const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part) => part.trim()).filter(Boolean);
+const participantMeta = (player: Player) => [
+  player.club,
+  player.country,
+  `WR ${player.world_ranking ?? '–'}`,
+  `${labels.points}: ${player.ranking_points ?? '–'}`,
+].filter(Boolean).join(' · ');
 ---
 
 <section
   aria-labelledby="registered-players"
-  class="mt-10"
+  class="mt-14 border-t border-slate-200 pt-10 sm:mt-16 sm:pt-12"
   data-participants
   data-slug={slug}
   data-team={String(isTeam)}
@@ -70,20 +78,58 @@ const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part)
   data-labels={JSON.stringify(labels)}
 >
   <div class="flex flex-wrap items-baseline justify-between gap-2">
-    <h2 id="registered-players" class="text-2xl font-bold text-navy">{t(lang, 'registeredPlayers')}</h2>
+    <h2 id="registered-players" class="text-2xl font-bold text-navy">
+      {t(lang, 'registeredPlayers')} <span data-participant-count class="text-lg font-semibold text-slate-500">({players.length})</span>
+    </h2>
     <p class="text-xs text-slate-500" data-ranking-refreshed aria-live="polite"></p>
   </div>
-  <div class="scroll-region mt-4" role="region" aria-label={labels.participantsCaption} tabindex="0">
-    <table class="w-full border-collapse text-sm">
+  <p class="mt-3 hidden text-xs font-medium text-amber-800" data-participants-status role="status" aria-live="polite"></p>
+  <p data-participant-empty class:list={['mt-4 border-y border-dashed border-slate-300 py-5 text-sm text-slate-600', players.length > 0 && 'hidden']}>
+    {labels.noParticipants}
+  </p>
+  <div data-participant-mobile class:list={['mt-4 border-y border-slate-200 md:hidden', players.length === 0 && 'hidden']}>
+    <ol data-participant-mobile-rows class="divide-y divide-slate-200" aria-label={labels.participantsCaption}>
+      {
+        isTeam
+          ? players.map((team, teamIndex) => (
+              <li class="py-4">
+                <div class="flex items-baseline justify-between gap-4">
+                  <h3 class="font-semibold text-navy">{labels.team} {teamIndex + 1}</h3>
+                  <span class="shrink-0 text-xs tabular-nums text-slate-600">{labels.points}: {team.ranking_points ?? '–'}</span>
+                </div>
+                <ul class="mt-2 divide-y divide-slate-100">
+                  {legacyRoster(team.name).map((name, playerIndex) => (
+                    <li class="py-2 text-sm">
+                      <span class="font-medium text-navy">{name}</span>
+                      {playerIndex >= playersPerTeam! && <span class="ml-2 text-xs text-slate-500">({labels.substitute})</span>}
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))
+          : players.map((player, index) => (
+              <li class="grid grid-cols-[2rem_minmax(0,1fr)] gap-3 py-3">
+                <span class="pt-0.5 text-sm tabular-nums text-slate-500" aria-hidden="true">{index + 1}</span>
+                <div class="min-w-0">
+                  <p class="font-medium text-navy">{player.name}</p>
+                  <p class="mt-1 break-words text-xs leading-5 text-slate-600">{participantMeta(player)}</p>
+                </div>
+              </li>
+            ))
+      }
+    </ol>
+  </div>
+  <div data-participant-table class:list={['scroll-region mt-4 hidden border-y border-slate-200', players.length > 0 && 'md:block']} role="region" aria-label={labels.participantsCaption} tabindex="0">
+    <table class="w-full min-w-[40rem] border-collapse text-sm">
       <caption class="sr-only">{labels.participantsCaption}</caption>
       <thead>
         <tr>
-          <th scope="col" class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">#</th>
-          <th scope="col" class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t(lang, 'name')}</th>
-          <th scope="col" class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{labels.club}</th>
-          <th scope="col" class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t(lang, 'country')}</th>
-          <th scope="col" class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{t(lang, 'wr')}</th>
-          <th scope="col" class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{labels.points}</th>
+          <th scope="col" class="border-b-2 border-navy bg-ice px-3 py-3 text-left font-semibold text-navy">#</th>
+          <th scope="col" class="border-b-2 border-navy bg-ice px-3 py-3 text-left font-semibold text-navy">{t(lang, 'name')}</th>
+          <th scope="col" class="border-b-2 border-navy bg-ice px-3 py-3 text-left font-semibold text-navy">{labels.club}</th>
+          <th scope="col" class="border-b-2 border-navy bg-ice px-3 py-3 text-left font-semibold text-navy">{t(lang, 'country')}</th>
+          <th scope="col" class="border-b-2 border-navy bg-ice px-3 py-3 text-left font-semibold text-navy">{t(lang, 'wr')}</th>
+          <th scope="col" class="border-b-2 border-navy bg-ice px-3 py-3 text-left font-semibold text-navy">{labels.points}</th>
         </tr>
       </thead>
       <tbody data-participant-rows>
@@ -93,44 +139,42 @@ const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part)
                 const names = legacyRoster(team.name);
                 return [
                   <tr class="border-t-2 border-slate-400 bg-ice font-semibold">
-                    <td class="border border-slate-300 px-3 py-2 tabular-nums">{teamIndex + 1}</td>
-                    <td class="border border-slate-300 px-3 py-2">{labels.team} {teamIndex + 1}</td>
-                    <td class="border border-slate-300 px-3 py-2"></td>
-                    <td class="border border-slate-300 px-3 py-2"></td>
-                    <td class="border border-slate-300 px-3 py-2"></td>
-                    <td class="border border-slate-300 px-3 py-2 tabular-nums">{team.ranking_points ?? '–'}</td>
+                    <td class="border-b border-slate-200 px-3 py-3 tabular-nums">{teamIndex + 1}</td>
+                    <td class="border-b border-slate-200 px-3 py-3">{labels.team} {teamIndex + 1}</td>
+                    <td class="border-b border-slate-200 px-3 py-3"></td>
+                    <td class="border-b border-slate-200 px-3 py-3"></td>
+                    <td class="border-b border-slate-200 px-3 py-3"></td>
+                    <td class="border-b border-slate-200 px-3 py-3 tabular-nums">{team.ranking_points ?? '–'}</td>
                   </tr>,
                   ...names.map((name, playerIndex) => (
                     <tr class="bg-white">
-                      <td class="border border-slate-300 px-3 py-2"></td>
-                      <td class="border border-slate-300 px-3 py-2 pl-6">
+                      <td class="border-b border-slate-200 px-3 py-3"></td>
+                      <td class="border-b border-slate-200 px-3 py-3 pl-6">
                         {name}
                         {playerIndex >= playersPerTeam! && <span class="ml-2 text-xs text-slate-500">({labels.substitute})</span>}
                       </td>
-                      <td class="border border-slate-300 px-3 py-2"></td>
-                      <td class="border border-slate-300 px-3 py-2"></td>
-                      <td class="border border-slate-300 px-3 py-2"></td>
-                      <td class="border border-slate-300 px-3 py-2 tabular-nums">–</td>
+                      <td class="border-b border-slate-200 px-3 py-3"></td>
+                      <td class="border-b border-slate-200 px-3 py-3"></td>
+                      <td class="border-b border-slate-200 px-3 py-3"></td>
+                      <td class="border-b border-slate-200 px-3 py-3 tabular-nums">–</td>
                     </tr>
                   )),
                 ];
               })
             : players.map((player, index) => (
-                <tr class="odd:bg-white even:bg-ice">
-                  <td class="border border-slate-300 px-3 py-2 tabular-nums">{index + 1}</td>
-                  <td class="border border-slate-300 px-3 py-2">{player.name}</td>
-                  <td class="border border-slate-300 px-3 py-2">{player.club ?? ''}</td>
-                  <td class="border border-slate-300 px-3 py-2">{player.country}</td>
-                  <td class="border border-slate-300 px-3 py-2 tabular-nums">{player.world_ranking ?? '–'}</td>
-                  <td class="border border-slate-300 px-3 py-2 tabular-nums">{player.ranking_points ?? '–'}</td>
+                <tr class="odd:bg-white even:bg-ice/50 hover:bg-ice">
+                  <td class="border-b border-slate-200 px-3 py-3 tabular-nums">{index + 1}</td>
+                  <td class="border-b border-slate-200 px-3 py-3 font-medium text-navy">{player.name}</td>
+                  <td class="border-b border-slate-200 px-3 py-3">{player.club ?? ''}</td>
+                  <td class="border-b border-slate-200 px-3 py-3">{player.country}</td>
+                  <td class="border-b border-slate-200 px-3 py-3 tabular-nums">{player.world_ranking ?? '–'}</td>
+                  <td class="border-b border-slate-200 px-3 py-3 tabular-nums">{player.ranking_points ?? '–'}</td>
                 </tr>
               ))
         }
       </tbody>
     </table>
   </div>
-  <p class="mt-2 hidden text-xs font-medium text-amber-800" data-participants-status role="status" aria-live="polite"></p>
-
   <div data-placement-points-wrap class="mt-10 hidden border-t border-slate-200 pt-8">
     <div class="flex flex-wrap items-baseline justify-between gap-2">
       <h3 class="text-xl font-bold text-navy">{labels.placementHeading}</h3>
@@ -138,13 +182,13 @@ const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part)
     </div>
     <p class="mt-2 max-w-3xl text-sm text-slate-600">{labels.calculationNote}</p>
     <p data-placement-note class="mt-2 text-sm font-semibold text-slate-700" aria-live="polite"></p>
-    <div data-placement-table class="scroll-region mt-4" role="region" aria-label={labels.placementCaption} tabindex="0">
+    <div data-placement-table class="mt-4 border-y border-slate-200">
       <table class="w-full border-collapse text-sm">
         <caption class="sr-only">{labels.placementCaption}</caption>
         <thead>
           <tr>
-            <th scope="col" class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{labels.placement}</th>
-            <th scope="col" class="border border-slate-300 bg-navy px-3 py-2 text-left text-white">{labels.award}</th>
+            <th scope="col" class="border-b-2 border-navy bg-ice px-3 py-3 text-left font-semibold text-navy">{labels.placement}</th>
+            <th scope="col" class="border-b-2 border-navy bg-ice px-3 py-3 text-left font-semibold text-navy">{labels.award}</th>
           </tr>
         </thead>
         <tbody data-placement-rows></tbody>
@@ -183,6 +227,11 @@ const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part)
   const section = document.querySelector<HTMLElement>('[data-participants]');
   if (section) {
     const tbody = section.querySelector<HTMLTableSectionElement>('[data-participant-rows]')!;
+    const mobile = section.querySelector<HTMLElement>('[data-participant-mobile]')!;
+    const mobileRows = section.querySelector<HTMLOListElement>('[data-participant-mobile-rows]')!;
+    const count = section.querySelector<HTMLElement>('[data-participant-count]')!;
+    const table = section.querySelector<HTMLElement>('[data-participant-table]')!;
+    const empty = section.querySelector<HTMLElement>('[data-participant-empty]')!;
     const refreshed = section.querySelector<HTMLElement>('[data-ranking-refreshed]');
     const status = section.querySelector<HTMLElement>('[data-participants-status]')!;
     const placementWrap = section.querySelector<HTMLElement>('[data-placement-points-wrap]')!;
@@ -210,16 +259,105 @@ const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part)
 
     function cell(text = '', classes = ''): HTMLTableCellElement {
       const td = document.createElement('td');
-      td.className = `border border-slate-300 px-3 py-2 ${classes}`;
+      td.className = `border-b border-slate-200 px-3 py-3 ${classes}`;
       td.textContent = text;
       return td;
+    }
+
+    function updateParticipantCount(participants: Participant[]) {
+      count.textContent = `(${participants.length})`;
+      table.classList.toggle('md:block', participants.length > 0);
+      mobile.classList.toggle('hidden', participants.length === 0);
+      empty.classList.toggle('hidden', participants.length > 0);
+    }
+
+    function mobileMeta(parts: Array<string | null | undefined>): HTMLParagraphElement {
+      const meta = document.createElement('p');
+      meta.className = 'mt-1 break-words text-xs leading-5 text-slate-600';
+      meta.textContent = parts.filter(Boolean).join(' · ');
+      return meta;
+    }
+
+    function renderIndividualMobile(participants: Participant[]): DocumentFragment {
+      const frag = document.createDocumentFragment();
+      participants.forEach((player, index) => {
+        const li = document.createElement('li');
+        li.className = 'grid grid-cols-[2rem_minmax(0,1fr)] gap-3 py-3';
+        const number = document.createElement('span');
+        number.className = 'pt-0.5 text-sm tabular-nums text-slate-500';
+        number.ariaHidden = 'true';
+        number.textContent = String(index + 1);
+        const details = document.createElement('div');
+        details.className = 'min-w-0';
+        const name = document.createElement('p');
+        name.className = 'font-medium text-navy';
+        name.textContent = player.name;
+        details.append(
+          name,
+          mobileMeta([
+            player.club,
+            player.country,
+            `WR ${player.world_ranking ?? '–'}`,
+            `${labels.points ?? 'Poeng'}: ${player.ranking_points ?? '–'}`,
+          ]),
+        );
+        li.append(number, details);
+        frag.appendChild(li);
+      });
+      return frag;
+    }
+
+    function renderTeamsMobile(participants: Participant[], playersPerTeam: number): DocumentFragment {
+      const frag = document.createDocumentFragment();
+      participants.forEach((team, teamIndex) => {
+        const teamItem = document.createElement('li');
+        teamItem.className = 'py-4';
+        const header = document.createElement('div');
+        header.className = 'flex items-baseline justify-between gap-4';
+        const heading = document.createElement('h3');
+        heading.className = 'font-semibold text-navy';
+        heading.textContent = `${labels.team ?? 'Lag'} ${teamIndex + 1}`;
+        const points = document.createElement('span');
+        points.className = 'shrink-0 text-xs tabular-nums text-slate-600';
+        points.textContent = `${labels.points ?? 'Poeng'}: ${team.ranking_points ?? 0}`;
+        header.append(heading, points);
+
+        const roster = document.createElement('ul');
+        roster.className = 'mt-2 divide-y divide-slate-100';
+        (team.roster ?? []).forEach((player, playerIndex) => {
+          const playerItem = document.createElement('li');
+          playerItem.className = 'py-2';
+          const name = document.createElement('p');
+          name.className = 'text-sm font-medium text-navy';
+          name.textContent = player.name;
+          if (playerIndex >= playersPerTeam) {
+            const substitute = document.createElement('span');
+            substitute.className = 'ml-2 text-xs font-normal text-slate-500';
+            substitute.textContent = `(${labels.substitute ?? 'Innbytter'})`;
+            name.appendChild(substitute);
+          }
+          playerItem.append(
+            name,
+            mobileMeta([
+              player.club,
+              player.country,
+              `WR ${player.worldRanking ?? '–'}`,
+              `${labels.points ?? 'Poeng'}: ${player.rankingPoints}`,
+            ]),
+          );
+          roster.appendChild(playerItem);
+        });
+        teamItem.append(header, roster);
+        frag.appendChild(teamItem);
+      });
+      return frag;
     }
 
     function renderIndividual(participants: Participant[]): DocumentFragment {
       const frag = document.createDocumentFragment();
       participants.forEach((player, index) => {
         const tr = document.createElement('tr');
-        tr.className = 'odd:bg-white even:bg-ice';
+        tr.className = 'odd:bg-white even:bg-ice/50 hover:bg-ice';
         tr.append(
           cell(String(index + 1), 'tabular-nums'),
           cell(player.name),
@@ -250,7 +388,7 @@ const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part)
         (team.roster ?? []).forEach((player, playerIndex) => {
           const tr = document.createElement('tr');
           tr.className = 'bg-white';
-          const name = cell(player.name, 'pl-6');
+          const name = cell(player.name, 'pl-6 font-medium text-navy');
           if (playerIndex >= playersPerTeam) {
             const substitute = document.createElement('span');
             substitute.className = 'ml-2 text-xs text-slate-500';
@@ -280,7 +418,7 @@ const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part)
       rankingLevel.textContent = levelLabels[data.rankingLevel];
       placementRows.replaceChildren(...data.placementPoints.map((row) => {
         const tr = document.createElement('tr');
-        tr.className = 'odd:bg-white even:bg-ice';
+        tr.className = 'odd:bg-white even:bg-ice/50';
         tr.append(
           cell(String(row.placement), 'tabular-nums'),
           cell(String(row.points), 'tabular-nums font-semibold'),
@@ -316,6 +454,12 @@ const legacyRoster = (name: string) => name.split(/\s+\/\s+|\s*,\s*/).map((part)
             ? renderIndividual(data.participants)
             : renderTeams(data.participants, data.playersPerTeam),
         );
+        mobileRows.replaceChildren(
+          data.playersPerTeam == null
+            ? renderIndividualMobile(data.participants)
+            : renderTeamsMobile(data.participants, data.playersPerTeam),
+        );
+        updateParticipantCount(data.participants);
         if (refreshed && data.rankingRefreshedAt) {
           const date = new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : 'nb-NO', {
             timeZone: 'Europe/Oslo',
