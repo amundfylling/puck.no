@@ -4,7 +4,7 @@ slug: "norway-open-2025-drama-world-stars-and-cinnamon-buns"
 lang: "en"
 author: "Gustav Brådland"
 pubDate: "2025-09-06T10:01:34.775Z"
-categories: []
+categories: ["Tournament report"]
 cover: "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.webp"
 description: "It was a bright and sunny Saturday, August 23rd, when 29 players from Norway, Latvia, Sweden, and the Czech Republic gathered at Frøyland Elementary School for an international tournament. Whether the Czechs had slept well at Hotel Fjermestad is unknown, but they brought energy from morning until night."
 ---

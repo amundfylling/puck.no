@@ -4,7 +4,7 @@ slug: "hvem-kan-utfordre-magnus-i-årets-nm"
 lang: "no"
 author: "Øystein Klippen"
 pubDate: "2026-05-01T21:07:18.206Z"
-categories: []
+categories: ["Forhåndstips"]
 cover: "/media/images/hvem-kan-utfordre-magnus-i-årets-nm-c402f994.jpg"
 description: "Magnus Klippen har dominert norsk bordhockey i et tiår og vel så det. I årets NM har han mulighet til å ta sitt tiende NM-gull ... og det på rad! Naturlig nok er han igjen favoritt til å vinne. Likevel mener jeg sjansen sjelden har vært større for at seiersrekken ryker. La oss ta en nærmere titt."
 ---

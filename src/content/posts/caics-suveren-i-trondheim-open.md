@@ -4,7 +4,7 @@ slug: "caics-suveren-i-trondheim-open"
 lang: "no"
 author: "Styret"
 pubDate: "2025-03-02T22:09:21.920Z"
-categories: []
+categories: ["Turneringsreferat"]
 cover: "/media/images/caics-suveren-i-trondheim-open-86a548a1.webp"
 description: "Sjekk resultatene fra Trondheim Open 2025."
 ---

@@ -4,7 +4,7 @@ slug: "medaljister-fra-jæren-open-2025"
 lang: "no"
 author: "Styret"
 pubDate: "2025-01-20T22:09:21.920Z"
-categories: []
+categories: ["Turneringsreferat"]
 cover: "/media/images/medaljister-fra-jæren-open-2025-41b7c3f5.webp"
 description: "Se bildene av medaljistene fra Jæren Open 2025."
 ---

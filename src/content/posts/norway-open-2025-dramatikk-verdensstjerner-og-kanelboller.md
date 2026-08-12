@@ -4,7 +4,7 @@ slug: "norway-open-2025-dramatikk-verdensstjerner-og-kanelboller"
 lang: "no"
 author: "Gustav Brådland"
 pubDate: "2025-09-06T09:45:20.267Z"
-categories: []
+categories: ["Turneringsreferat"]
 cover: "/media/images/norway-open-2025-dramatikk-verdensstjerner-og-kanelboller-67d4e2a6.webp"
 description: "Det var strålende sol lørdag 23. august da 29 spillere fra Norge, Latvia, Sverige og Tsjekkia var klare for internasjonal turnering på Frøyland barneskole. Om tsjekkerne hadde sovet godt på Hotell Fjermestad vites ikke, men de leverte energi fra morgen til kveld. Selv om det var gledelig å ha utenlandske verdensstjerner som Edgars Caics og Eddie Nilsson på besøk, savnet arrangøren flere tilreisende norske spillere enn D. Nygård, Ø. Klippen og Brådland."
 ---

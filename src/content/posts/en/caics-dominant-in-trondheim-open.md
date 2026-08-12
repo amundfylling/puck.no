@@ -4,7 +4,7 @@ slug: "caics-dominant-in-trondheim-open"
 lang: "en"
 author: "Styret"
 pubDate: "2025-03-02T22:09:21.920Z"
-categories: []
+categories: ["Tournament report"]
 cover: "/media/images/caics-suveren-i-trondheim-open-86a548a1.webp"
 description: "Edgars Caics finally claimed his first individual win on Norwegian soil at Trondheim Open 2025. Check out the full results here."
 ---

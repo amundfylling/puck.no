@@ -4,7 +4,7 @@ slug: "norge-med-gull-og-bronse-i-vm-i-umeå"
 lang: "no"
 author: "Styret"
 pubDate: "2025-08-01T21:16:41.996Z"
-categories: []
+categories: ["Turneringsreferat"]
 cover: "/media/images/norge-med-gull-og-bronse-i-vm-i-umeå-21731431.jpg"
 description: "Verdensmesterskapet i bordhockey 2025 ble arrangert i Umeå, Sverige, og ble en uforglemmelig helg for det norske landslaget. Tusen takk til arrangørene for et svært profesjonelt og minneverdig mesterskap!"
 ---

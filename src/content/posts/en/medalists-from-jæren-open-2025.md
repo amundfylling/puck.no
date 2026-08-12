@@ -4,7 +4,7 @@ slug: "medalists-from-jæren-open-2025"
 lang: "en"
 author: "Styret"
 pubDate: "2025-01-20T22:09:21.920Z"
-categories: []
+categories: ["Tournament report"]
 cover: "/media/images/medaljister-fra-jæren-open-2025-41b7c3f5.webp"
 description: "Jæren Open 2025 is done and dusted — here are photos of all the medal winners and prize recipients from the tournament."
 ---

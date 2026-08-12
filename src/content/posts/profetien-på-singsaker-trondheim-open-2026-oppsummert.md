@@ -4,7 +4,7 @@ slug: "profetien-på-singsaker-trondheim-open-2026-oppsummert"
 lang: "no"
 author: "Gustav Brådland"
 pubDate: "2026-03-14T09:24:08.261Z"
-categories: []
+categories: ["Turneringsreferat"]
 cover: "/media/images/profetien-på-singsaker-trondheim-open-2026-oppsummert-58730dfa.jpg"
 description: "Den 7. mars vendte bordhockeynorges oppmerksomhet tilbake til Trondheim og Singsaker skole. I musikklasserommet med de karakteristiske røde takstolene var 9 spillere klare til å komponere vakre toner på brettet. Denne illusjonen ble raskt brutt da hjemvendte Espen Moe anklaget Amund Risa Fylling for å spille hockey som Arsenal (kynisk, senterfintefokusert hockey sammenlignet med treg døballfotball) allerede i første av 27 runder i grunnspillet."
 ---
