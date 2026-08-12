@@ -10,7 +10,7 @@ status: "upcoming"
 ---
 ![Norway Open 2026](/media/images/norway-open-2026-7be43f15.webp)
 
-The Norwegian Table Hockey Association is once again inviting the table hockey community to Norway for the annual World Tour tournament, Norway Open. The tournament will be held at [Giskehallen in Sandnes](https://sandnes.aktiv-kommune.no/bookingfrontend/client/en/building/5). We will organize free transportation if the venue is not in walking distance from the city centre of Sandnes.
+The Norwegian Table Hockey Association is once again inviting the table hockey community to Norway for the annual World Tour tournament, Norway Open. The tournament will be held at [Giskehallen in Sandnes](https://sandnes.aktiv-kommune.no/bookingfrontend/client/en/building/5).
 
 Playing system:
 
