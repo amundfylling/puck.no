@@ -4,6 +4,7 @@ migration/raw
 .dev.vars
 .DS_Store
 .playwright-mcp
+test-results/
 .astro
 .env
 .wrangler
