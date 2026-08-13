@@ -77,10 +77,10 @@ Fine-grained tokens → Generate new token**:
 cd mcp-remote
 npm install
 export PATH="$HOME/.nvm/versions/node/v24.18.0/bin:$PATH"
-npx wrangler secret put GITHUB_OAUTH_CLIENT_ID      # lim inn fra steg 1
-npx wrangler secret put GITHUB_OAUTH_CLIENT_SECRET  # lim inn fra steg 1
-npx wrangler secret put GITHUB_TOKEN                # lim inn fra steg 2
-npx wrangler secret put MCP_TOKEN_SECRET            # generer: openssl rand -hex 32
+./node_modules/.bin/wrangler secret put GITHUB_OAUTH_CLIENT_ID      # lim inn fra steg 1
+./node_modules/.bin/wrangler secret put GITHUB_OAUTH_CLIENT_SECRET  # lim inn fra steg 1
+./node_modules/.bin/wrangler secret put GITHUB_TOKEN                # lim inn fra steg 2
+./node_modules/.bin/wrangler secret put MCP_TOKEN_SECRET            # generer: openssl rand -hex 32
 cd ..
 npx wrangler d1 migrations apply puck-no --remote   # inkluderer OAuth-koder + runtime-stenging
 cd mcp-remote

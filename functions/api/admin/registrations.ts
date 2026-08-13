@@ -9,9 +9,7 @@ import {
 import { adminIdentity } from '../../lib/admin-auth';
 import { KNOWN_SLUGS, TOURNAMENTS } from '../../lib/tournaments';
 
-interface Env {
-  DB: D1Database;
-}
+type Env = CloudflareEnv;
 
 interface AdminPayload extends RegistrationPayload {
   tournament_slug?: unknown;

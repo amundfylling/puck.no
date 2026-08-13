@@ -21,8 +21,7 @@
 import { adminIdentity } from '../../lib/admin-auth';
 import { KNOWN_SLUGS } from '../../lib/tournaments';
 
-interface Env {
-  DB: D1Database;
+interface Env extends CloudflareEnv {
   GITHUB_TOKEN?: string;
 }
 

@@ -92,6 +92,8 @@ Når bygget er grønt har du et nettsted på
    - `PUBLIC_TURNSTILE_SITE_KEY` = Site Key (type **Plaintext**, gjelder
      "Production" og "Preview")
    - `TURNSTILE_SECRET_KEY` = Secret Key (type **Secret**)
+   - `TURNSTILE_HOSTNAMES` = `puck-no.pages.dev,www.puck.no,puck.no`
+     (type **Plaintext**; eksakte vertsnavn, ingen jokertegn)
 7. Gå til **Deployments** → nyeste deployment → **⋮** → **Retry deployment**
    (site-nøkkelen bakes inn i HTML-en under bygg, så vi må bygge på nytt).
 
@@ -446,6 +448,7 @@ duplikatinnhold, og besøkende kan havne på det gamle domenet):
 | `NODE_VERSION=24` | Pages (bygg) | plaintext | Astro 7 krever Node ≥ 22 |
 | `PUBLIC_TURNSTILE_SITE_KEY` | Pages (bygg) | plaintext | Turnstile-widget i skjema |
 | `TURNSTILE_SECRET_KEY` | Pages (runtime) | secret | Verifisering i API |
+| `TURNSTILE_HOSTNAMES` | Pages (runtime) | plaintext | Eksakt vertsnavnsliste for Turnstile-token |
 | `PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN` | Pages (bygg) | plaintext | Web Analytics (valgfritt) |
 | `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` | sveltia-cms-auth worker | text/secret | CMS-innlogging |
 | `ALLOWED_DOMAINS` | sveltia-cms-auth worker | text | Hvilke domener CMS kan kjøre på |

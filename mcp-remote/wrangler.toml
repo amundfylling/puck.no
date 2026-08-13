@@ -1,6 +1,11 @@
 name = "puck-no-mcp"
 main = "src/index.js"
-compatibility_date = "2026-07-01"
+compatibility_date = "2026-08-13"
+compatibility_flags = ["nodejs_compat"]
+
+[observability]
+enabled = true
+head_sampling_rate = 1
 
 [triggers]
 # 03:00 Europe/Oslo is 01:00 UTC in summer and 02:00 UTC in winter.
@@ -8,7 +13,7 @@ compatibility_date = "2026-07-01"
 crons = ["0 1,2 * * 3"]
 
 # Remote MCP server for puck.no admin (phone access via OAuth).
-# Secrets (never in git — set with `npx wrangler secret put <NAME>`):
+# Secrets (never in git — set with `./node_modules/.bin/wrangler secret put <NAME>`):
 #   GITHUB_OAUTH_CLIENT_ID / GITHUB_OAUTH_CLIENT_SECRET — OAuth app for login
 #   GITHUB_TOKEN — fine-grained PAT (this repo, Contents: read+write)
 #   MCP_TOKEN_SECRET — HMAC key for issued tokens: `openssl rand -hex 32`

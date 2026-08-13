@@ -96,7 +96,10 @@ export default {
         res = jsonRes({ error: 'not_found' }, 404);
       }
     } catch (err) {
-      console.error('worker error', err?.constructor?.name ?? 'Error');
+      console.error(JSON.stringify({
+        event: 'worker_error',
+        kind: err?.constructor?.name ?? 'Error',
+      }));
       res = jsonRes({ error: 'internal_error' }, 500);
     }
 
@@ -111,7 +114,10 @@ export default {
       refreshUpcomingRankings(env, scheduledAt)
         .then((result) => console.log(JSON.stringify({ event: 'ranking_refresh', ...result })))
         .catch((error) => {
-          console.error('ranking refresh failed', error);
+          console.error(JSON.stringify({
+            event: 'ranking_refresh_error',
+            kind: error?.constructor?.name ?? 'Error',
+          }));
           throw error;
         }),
     );

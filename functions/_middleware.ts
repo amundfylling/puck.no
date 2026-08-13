@@ -5,7 +5,7 @@
  * - negotiates build-generated Markdown for public HTML pages; and
  * - adds agent-discovery response headers to the public site.
  */
-interface Env {
+interface Env extends CloudflareEnv {
   ASSETS: Fetcher;
 }
 

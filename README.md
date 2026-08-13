@@ -200,7 +200,8 @@ configured custom-question answers and a timestamp.
 2. Cloudflare Pages project from this repo; build command `npm run build`, output `dist`.
 3. Create D1 (`npx wrangler d1 create puck-no`), put the real `database_id` in
    `wrangler.toml`, apply migrations + seed with `--remote`.
-4. Set `TURNSTILE_SECRET_KEY` (Pages env var / secret).
+4. Set `TURNSTILE_SECRET_KEY` (Pages secret) and keep the exact
+   `TURNSTILE_HOSTNAMES` production allowlist from `wrangler.toml`.
 5. Cloudflare Access policy for `/admin/*` and `/api/admin/*`; set
    `ACCESS_TEAM_NAME` and the application's `ACCESS_POLICY_AUD` tag. The admin
    API deliberately fails closed until both variables are configured.

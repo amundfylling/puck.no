@@ -7,9 +7,13 @@
 import { createRegistration, RegistrationError, type RegistrationPayload } from '../lib/registration';
 import { BodyTooLargeError, readRequestTextLimited } from '../lib/http';
 import { KNOWN_SLUGS, TOURNAMENTS } from '../lib/tournaments';
+import {
+  MAX_TURNSTILE_TOKEN_LENGTH,
+  parseTurnstileHostnames,
+  verifyTurnstile,
+} from '../lib/turnstile';
 
-interface Env {
-  DB: D1Database;
+interface Env extends CloudflareEnv {
   TURNSTILE_SECRET_KEY?: string;
 }
 
@@ -30,25 +34,6 @@ function json(data: unknown, status = 200): Response {
   });
 }
 
-async function verifyTurnstile(secret: string, token: string, ip: string | null): Promise<boolean> {
-  try {
-    const form = new FormData();
-    form.append('secret', secret);
-    form.append('response', token);
-    if (ip) form.append('remoteip', ip);
-    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-      method: 'POST',
-      signal: AbortSignal.timeout(8_000),
-      body: form,
-    });
-    if (!res.ok) return false;
-    const data = (await res.json()) as { success?: boolean };
-    return data.success === true;
-  } catch {
-    return false;
-  }
-}
-
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   let body: PublicPayload;
   const mediaType = (context.request.headers.get('Content-Type') ?? '').split(';', 1)[0].trim().toLowerCase();
@@ -67,15 +52,30 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   if (typeof body.tournament_slug !== 'string' || !KNOWN_SLUGS.has(body.tournament_slug)) {
     return json({ error: 'Ukjent turnering.' }, 400);
   }
-  if (typeof body.turnstileToken !== 'string' || !body.turnstileToken) {
+  if (
+    typeof body.turnstileToken !== 'string' ||
+    !body.turnstileToken ||
+    body.turnstileToken.length > MAX_TURNSTILE_TOKEN_LENGTH
+  ) {
     return json({ error: 'Mangler robot-verifisering. Last inn siden på nytt og prøv igjen.' }, 400);
   }
   const secret = context.env.TURNSTILE_SECRET_KEY;
-  if (!secret) {
-    console.error('TURNSTILE_SECRET_KEY is not set');
+  const allowedHostnames = parseTurnstileHostnames(context.env.TURNSTILE_HOSTNAMES);
+  if (!secret || allowedHostnames.size === 0) {
+    console.error(JSON.stringify({
+      event: 'configuration_error',
+      component: 'turnstile',
+      missingSecret: !secret,
+      missingHostnames: allowedHostnames.size === 0,
+    }));
     return json({ error: 'Registreringen er ikke konfigurert riktig. Kontakt amund.fylling@puck.no.' }, 500);
   }
-  if (!(await verifyTurnstile(secret, body.turnstileToken, context.request.headers.get('CF-Connecting-IP')))) {
+  if (!(await verifyTurnstile(
+    secret,
+    body.turnstileToken,
+    context.request.headers.get('CF-Connecting-IP'),
+    allowedHostnames,
+  ))) {
     return json({ error: 'Kunne ikke verifisere at du er et menneske. Prøv igjen.' }, 403);
   }
 
@@ -89,7 +89,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     return json({ ok: true, id: result.id }, 201);
   } catch (error) {
     if (error instanceof RegistrationError) return json({ error: error.message }, error.status);
-    console.error('D1 registration failed', error);
+    console.error(JSON.stringify({
+      event: 'registration_error',
+      kind: error instanceof Error ? error.name : 'Error',
+    }));
     return json({ error: 'Noe gikk galt. Prøv igjen senere.' }, 500);
   }
 };

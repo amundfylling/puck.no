@@ -7,7 +7,7 @@ import {
   type JWTVerifyGetKey,
 } from 'jose';
 
-export interface AdminAuthEnv {
+export interface AdminAuthEnv extends CloudflareEnv {
   /** Cloudflare Zero Trust team name, hostname or issuer URL. */
   ACCESS_TEAM_NAME?: string;
   /** Application Audience (AUD) tag from the Access application overview. */

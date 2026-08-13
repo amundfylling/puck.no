@@ -13,9 +13,7 @@ import { adminIdentity } from '../../lib/admin-auth';
 import { KNOWN_SLUGS } from '../../lib/tournaments';
 import { parseAnswers, parseRoster } from '../../lib/registration';
 
-interface Env {
-  DB: D1Database;
-}
+type Env = CloudflareEnv;
 
 function json(data: unknown, status = 200): Response {
   return new Response(JSON.stringify(data), {

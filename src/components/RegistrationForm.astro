@@ -1,6 +1,7 @@
 ---
 import PlayerSelect from './PlayerSelect.astro';
 import type { Lang } from '../lib/i18n';
+import { TURNSTILE_REGISTRATION_ACTION } from '../lib/turnstile';
 
 interface Props {
   lang: Lang;
@@ -217,7 +218,13 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
         </label>
       ))
     }
-    {siteKey && <div class="cf-turnstile" data-sitekey={siteKey}></div>}
+    {siteKey && (
+      <div
+        class="cf-turnstile"
+        data-sitekey={siteKey}
+        data-action={TURNSTILE_REGISTRATION_ACTION}
+      ></div>
+    )}
     <div>
       <button type="submit" data-submit data-sending={l.sending} disabled={!siteKey} class="btn-primary disabled:cursor-not-allowed disabled:opacity-50">
         {l.submit}

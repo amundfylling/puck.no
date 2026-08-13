@@ -9,9 +9,7 @@ import { KNOWN_SLUGS, TOURNAMENTS } from '../../../lib/tournaments';
 import { parseRoster } from '../../../lib/registration';
 import { calculatePlacementPoints } from '../../../lib/ranking-points';
 
-interface Env {
-  DB: D1Database;
-}
+type Env = CloudflareEnv;
 
 function json(data: unknown, status = 200): Response {
   return new Response(JSON.stringify(data), {

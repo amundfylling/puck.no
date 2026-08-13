@@ -10,6 +10,8 @@
     "check": "astro check",
     "check-links": "node scripts/check-links.mjs",
     "audit-generated": "node scripts/audit-generated.mjs",
+    "generate:cloudflare-types": "wrangler types functions/worker-configuration.d.ts --env-interface CloudflareEnv --include-runtime false",
+    "check:cloudflare-types": "wrangler types functions/worker-configuration.d.ts --env-interface CloudflareEnv --include-runtime false --check",
     "test": "node --test functions/lib/*.test.ts scripts/lib/*.test.mjs scripts/seed-d1.test.mjs",
     "backfill-ranking": "node scripts/backfill-ranking-values.mjs",
     "refresh-qualification": "QUALIFICATION_FORCE_REFRESH=1 node scripts/fetch-qualification.mjs"
@@ -31,10 +33,10 @@
     "@astrojs/check": "^0.9.9",
     "@astrojs/markdown-remark": "^7.2.1",
     "@astrojs/markdown-satteri": "^0.3.4",
-    "@cloudflare/workers-types": "^5.20260718.1",
+    "@cloudflare/workers-types": "^5.20260813.1",
     "marked": "^18.0.6",
     "turndown": "^7.2.0",
     "typescript": "^6.0.3",
-    "wrangler": "^4.112.0"
+    "wrangler": "^4.122.0"
   }
 }
