@@ -61,6 +61,8 @@ src/
     tournaments/         # tournament pages, Norwegian (Norwegian slugs; body
                          # text is intentionally verbatim, often English)
       en/                # tournament pages, English (`lang: "en"` frontmatter)
+    tricks/              # bilingual JSON records for the combination catalogue;
+                         # one validated file and shared slug per combination
   data/                  # structured JSON (unchanged from Phase 1, see below)
   layouts/BaseLayout.astro  # <head> (SEO/OG/hreflang/JSON-LD), header, footer
   layouts/AdminLayout.astro # admin portal shell: sidebar, dark-mode toggle,
@@ -132,7 +134,7 @@ dist/                    # build output (git-ignored)
 ```
 
 `src/data/` (unchanged from Phase 1): `timers.json`, `galleries.json`,
-`documents.json`, `registrations-snapshot.json`, `seo.json`, `tricks.json`,
+`documents.json`, `registrations-snapshot.json`, `seo.json`,
 `kvalifisering-vm27.json`.
 
 ## Routing
@@ -145,6 +147,9 @@ dist/                    # build output (git-ignored)
 - Tournaments: `/turneringer` index + `/turneringer/<slug>`. Status
   (upcoming/past) is **computed from the date vs build date** in
   `lib/content.ts` (strict: only today-or-later dates are upcoming).
+- Combinations: `/lær-bordhockey-kombinasjoner` and its English mirror are
+  searchable indexes backed by `content/tricks/`; detail pages are generated
+  at `/kombinasjoner/<slug>` and `/en/combinations/<slug>`.
 - RSS: `/blog-feed.xml` and `/en/blog-feed.xml` (exact old paths).
 - Nordic characters in slugs stay decoded (`/lær-bordhockey`,
   `/turneringer/jæren-open-2025`).

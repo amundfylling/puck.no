@@ -1,0 +1,17 @@
+{
+  "slug": "senterkniv",
+  "name": "Senterkniv",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Passning frå senter til venstreback som skyter på direkten i mål",
+    "en": "Pass from center to the left defenseman, who shoots one-timed into the goal"
+  },
+  "diagram": "/media/images/trick-senterkniv-23db4593.png",
+  "videoUrl": null,
+  "legacyAnchor": "senterkniv",
+  "order": 44
+}

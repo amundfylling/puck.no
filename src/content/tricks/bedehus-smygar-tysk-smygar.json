@@ -1,0 +1,19 @@
+{
+  "slug": "bedehus-smygar-tysk-smygar",
+  "name": "Bedehus-Smygar / Tysk Smygar",
+  "aliases": [
+    "Tysk Smygar"
+  ],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 4,
+  "description": {
+    "no": "Høyreving fører pucken fremover i sporet og skyter i mål via keeperens rygg",
+    "en": "Right wing carries the puck forward in the slot and shoots into the goal via the goalie's back"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "bedehus-smygar",
+  "order": 58
+}

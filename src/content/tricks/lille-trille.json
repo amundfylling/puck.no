@@ -1,0 +1,17 @@
+{
+  "slug": "lille-trille",
+  "name": "Lille Trille",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 8,
+  "description": {
+    "no": "Høyreving scorer med et svakt kioskskudd som ruller inn i venstre hjørne",
+    "en": "Right wing scores with a weak kiosk shot that rolls into the left corner"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "lille-trille",
+  "order": 67
+}

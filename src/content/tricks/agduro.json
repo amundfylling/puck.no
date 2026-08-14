@@ -1,0 +1,17 @@
+{
+  "slug": "agduro",
+  "name": "Agduro",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Passning frå senter til venstreving som fører pucken baketter i sporet og passar bak motspelar sin senter attende til eigen senter heilt bake i sporet og i mål (sjå Sentrifugo)",
+    "en": "Pass from center to left wing, who carries the puck backward in the slot and passes behind the opponent's center back to their own center at the very back of the slot and into the goal (see Sentrifugo)"
+  },
+  "diagram": "/media/images/trick-agduro-e9ce4ae3.png",
+  "videoUrl": null,
+  "legacyAnchor": "agduro",
+  "order": 28
+}

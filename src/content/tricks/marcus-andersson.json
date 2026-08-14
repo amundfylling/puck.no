@@ -1,0 +1,17 @@
+{
+  "slug": "marcus-andersson",
+  "name": "Marcus Andersson",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Høyreskyffel direkte i høyre hjørne",
+    "en": "Right shovel directly into the right corner"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "marcus-andersson",
+  "order": 88
+}

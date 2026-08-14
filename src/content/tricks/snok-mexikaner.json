@@ -1,0 +1,19 @@
+{
+  "slug": "snok-mexikaner",
+  "name": "Snok / Mexikaner",
+  "aliases": [
+    "Mexikaner"
+  ],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 5,
+  "description": {
+    "no": "Høyreving skyter pucken via vantet til senter som skyter direkte i mål",
+    "en": "Right wing shoots the puck via the boards to the center, who shoots directly into the goal"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "snok",
+  "order": 93
+}

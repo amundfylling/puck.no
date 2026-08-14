@@ -1,0 +1,17 @@
+{
+  "slug": "halv-agdur",
+  "name": "Halv-Agdur",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Passning frå senter til venstreving som skyter direkte i venstre hjørne",
+    "en": "Pass from center to left wing, who shoots directly into the left corner"
+  },
+  "diagram": "/media/images/trick-halv-agdur-921a3a7c.png",
+  "videoUrl": null,
+  "legacyAnchor": "halv-agdur",
+  "order": 27
+}

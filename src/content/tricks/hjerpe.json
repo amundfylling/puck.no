@@ -1,0 +1,17 @@
+{
+  "slug": "hjerpe",
+  "name": "Hjerpe",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 6,
+  "description": {
+    "no": "Senter startar med pucken ute på køllebladet til høgre for sporet, fører pucken over til venstre side av sporet, og skyter i venstre hjørne",
+    "en": "Center starts with the puck out on the blade to the right of the slot, carries the puck over to the left side of the slot, and shoots into the left corner"
+  },
+  "diagram": "/media/images/trick-hjerpe-c68b7726.png",
+  "videoUrl": null,
+  "legacyAnchor": "hjerpe",
+  "order": 10
+}

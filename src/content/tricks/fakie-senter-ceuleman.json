@@ -1,0 +1,17 @@
+{
+  "slug": "fakie-senter-ceuleman",
+  "name": "Fakie Senter-Ceuleman",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Senter skyter pucken frå hælgropa via venstre vant og i mål bak (evt. via) keeper",
+    "en": "Center shoots the puck from the heel groove via the left boards and into the goal behind (or via) the goalie"
+  },
+  "diagram": "/media/images/trick-fakie-senter-ceuleman-9e6a38fa.png",
+  "videoUrl": null,
+  "legacyAnchor": "fakie-senter-ceuleman",
+  "order": 20
+}

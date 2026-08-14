@@ -136,6 +136,13 @@ summary {
   @apply dark:border-slate-500 dark:text-slate-200 dark:hover:bg-slate-200 dark:hover:text-slate-900;
 }
 
+.trick-filter {
+  @apply inline-flex min-h-11 items-center justify-center rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:border-navy hover:text-navy;
+}
+.trick-filter[aria-pressed='true'] {
+  @apply border-navy bg-navy text-white hover:text-white;
+}
+
 .scroll-region {
   max-inline-size: 100%;
   overflow-x: auto;
@@ -296,32 +303,8 @@ summary {
     font-size: 1rem;
   }
 
-  /* Tricks table becomes stacked cards */
-  table.tricks-table, table.tricks-table tbody { display: block; width: 100%; }
-  table.tricks-table thead { display: none; }
-  table.tricks-table tr {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    column-gap: .75rem;
-    padding: .75rem 0;
-    border-bottom: 1px solid #e2e8f0;
-    background: transparent !important;
-  }
-  table.tricks-table td {
-    display: block; padding: 0 !important; border: 0 !important;
-    background: transparent !important;
-  }
-  table.tricks-table td:nth-child(1) { font-weight: 700; font-size: 1rem; color: #0e2a57; }
-  table.tricks-table td:nth-child(2) { text-align: right; font-weight: 700; color: #0e2a57; }
-  table.tricks-table td:nth-child(3) {
-    grid-column: 1 / -1; margin-top: .25rem;
-    color: #475569; font-size: .9rem; line-height: 1.55;
-  }
-  table.tricks-table td:nth-child(4):not(:empty) { grid-column: 1 / -1; margin-top: .5rem; }
-  table.tricks-table td:nth-child(4) img { display: block; margin: 0 auto; max-width: 240px; height: auto; }
-
   /* Every OTHER table stays a table but can scroll sideways if needed */
-  .rich-text table:not(.tricks-table) {
+  .rich-text table {
     display: block;
     overflow-x: auto;
     overscroll-behavior-inline: contain;

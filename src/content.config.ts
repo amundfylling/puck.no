@@ -94,4 +94,32 @@ const tournaments = defineCollection({
   }),
 });
 
-export const collections = { pages, posts, tournaments };
+const trickPlayer = z.enum([
+  'center',
+  'right-wing',
+  'left-wing',
+  'right-defense',
+  'left-defense',
+  'goalie',
+]);
+
+const tricks = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/tricks' }),
+  schema: z.object({
+    slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+    name: z.string().min(1),
+    aliases: z.array(z.string().min(1)).default([]),
+    players: z.array(trickPlayer).min(1),
+    difficulty: z.number().int().min(0).max(10),
+    description: z.object({
+      no: z.string().min(1),
+      en: z.string().min(1),
+    }),
+    diagram: z.string().startsWith('/media/').nullable().optional(),
+    videoUrl: z.string().regex(/^https?:\/\//).nullable().optional(),
+    legacyAnchor: z.string().min(1).optional(),
+    order: z.number().int().positive(),
+  }),
+});
+
+export const collections = { pages, posts, tournaments, tricks };

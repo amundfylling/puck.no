@@ -1,0 +1,19 @@
+{
+  "slug": "lillstovelfinte-c-29",
+  "name": "Lillstøvelfinte / C 29",
+  "aliases": [
+    "C 29"
+  ],
+  "players": [
+    "center"
+  ],
+  "difficulty": 5,
+  "description": {
+    "no": "Senter utfører ein Lillstøvel, men plasserar pucken i høgre hjørne. Fungerar berre mot reagerande keeper",
+    "en": "Center performs a Lillstøvel, but places the puck in the right corner. Only works against a reacting goalie"
+  },
+  "diagram": "/media/images/trick-lillstøvelfinte-c-29-43746e89.png",
+  "videoUrl": null,
+  "legacyAnchor": "lillstøvelfinte",
+  "order": 17
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "jorda-rundt-skyffel",
+  "name": "Jorda Rundt-skyffel",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 9,
+  "description": {
+    "no": "Pasning fra høyreving langs vantet bak eget mål og hele veien rundt tilbake til høyreving som sender til senter som scorer",
+    "en": "Pass from right wing along the boards behind their own goal and all the way around back to the right wing, who sends it to the center, who scores"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "jorda-rundt-skyffel",
+  "order": 112
+}

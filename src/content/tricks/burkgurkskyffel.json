@@ -1,0 +1,17 @@
+{
+  "slug": "burkgurkskyffel",
+  "name": "Burkgurkskyffel",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 8,
+  "description": {
+    "no": "Pasning fra høyreving langs vantet bak eget mål til venstreving som sender videre til senter som scorer",
+    "en": "Pass from right wing along the boards behind their own goal to the left wing, who sends it on to the center, who scores"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "burkgurkskyffel",
+  "order": 110
+}

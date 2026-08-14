@@ -1,0 +1,17 @@
+{
+  "slug": "holms-gretzky",
+  "name": "Holms-Gretzky",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 8,
+  "description": {
+    "no": "Senter skyter i vantet i ved starten av høgre rundvant, slik at pucken glid langs vantet til venstreving, som er plassert like til venstre for motstandar sitt mål og passar baketter til senter som skyter direkte i mål",
+    "en": "Center shoots into the boards at the start of the right rounded boards, so that the puck glides along the boards to the left wing, who is placed just to the left of the opponent's goal and passes backward to the center, who shoots directly into the goal"
+  },
+  "diagram": "/media/images/trick-holms-gretzky-0e16faa4.png",
+  "videoUrl": null,
+  "legacyAnchor": "holms-gretzky",
+  "order": 37
+}

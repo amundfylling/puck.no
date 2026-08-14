@@ -1,0 +1,17 @@
+{
+  "slug": "fakie-zorro",
+  "name": "Fakie Zorro",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Pasning fra høyreving til senter, videre til høyreback, og til slutt til venstreback som skyter direkte i mål",
+    "en": "Pass from right wing to center, on to the right defenseman, and finally to the left defenseman, who shoots directly into the goal"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "fakie-zorro",
+  "order": 116
+}

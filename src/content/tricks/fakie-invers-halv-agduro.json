@@ -1,0 +1,17 @@
+{
+  "slug": "fakie-invers-halv-agduro",
+  "name": "Fakie Invers Halv-Agduro",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Senter fører pucken baketter i sporet og passar bak motspelar sin venstreback til høgreving, som skyter direkte i mål",
+    "en": "Center carries the puck backward in the slot and passes behind the opponent's left defenseman to the right wing, who shoots directly into the goal"
+  },
+  "diagram": "/media/images/trick-fakie-invers-halv-agduro-8d975656.webp",
+  "videoUrl": null,
+  "legacyAnchor": "fakie-invers-halv-agduro",
+  "order": 34
+}

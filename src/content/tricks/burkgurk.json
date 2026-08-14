@@ -1,0 +1,17 @@
+{
+  "slug": "burkgurk",
+  "name": "Burkgurk",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 8,
+  "description": {
+    "no": "Pasning fra høyreving langs vantet bak eget mål til venstreving som flikker direkte i venstre hjørne",
+    "en": "Pass from right wing along the boards behind their own goal to the left wing, who flicks directly into the left corner"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "burkgurk",
+  "order": 109
+}

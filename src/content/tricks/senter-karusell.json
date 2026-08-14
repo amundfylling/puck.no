@@ -1,0 +1,17 @@
+{
+  "slug": "senter-karusell",
+  "name": "Senter-Karusell",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Senter passar til venstreving som sender pucken i ein Velodrom over til høgreving og inn til senter og i mål",
+    "en": "Center passes to the left wing, who sends the puck in a Velodrom over to the right wing and in to the center and into the goal"
+  },
+  "diagram": "/media/images/trick-senter-karusell-9eb56e04.png",
+  "videoUrl": null,
+  "legacyAnchor": "senter-karusell",
+  "order": 39
+}

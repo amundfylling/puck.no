@@ -8,7 +8,7 @@ import { seoForContent } from '../../lib/seo';
 import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async () => {
-  const SPECIAL = new Set(['index', 'blog', 'turneringer', 'timere', 'bilder']);
+  const SPECIAL = new Set(['index', 'blog', 'turneringer', 'timere', 'bilder', 'lær-bordhockey-kombinasjoner']);
   const pages = await getCollection('pages', (p) => p.data.lang === 'en' && !SPECIAL.has(p.data.slug));
   return pages.map((entry) => ({
     params: { page: renamedPages[entry.data.slug] ?? entry.data.slug },

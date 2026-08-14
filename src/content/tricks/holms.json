@@ -1,0 +1,17 @@
+{
+  "slug": "holms",
+  "name": "Holms",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 8,
+  "description": {
+    "no": "Senter skyter i vantet i ved starten av høgre rundvant, slik at pucken glid langs vantet til venstreving og vidare inn til senter som skyter direkte i mål",
+    "en": "Center shoots into the boards at the start of the right rounded boards, so that the puck glides along the boards to the left wing and on to the center, who shoots directly into the goal"
+  },
+  "diagram": "/media/images/trick-holms-8ed3df70.png",
+  "videoUrl": null,
+  "legacyAnchor": "holms",
+  "order": 36
+}

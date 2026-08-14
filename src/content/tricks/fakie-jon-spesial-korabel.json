@@ -1,0 +1,19 @@
+{
+  "slug": "fakie-jon-spesial-korabel",
+  "name": "Fakie Jon Spesial / Korabel",
+  "aliases": [
+    "Korabel"
+  ],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 6,
+  "description": {
+    "no": "Høyreving skyter via kølla til en stillestående senter og i venstre hjørne av mål",
+    "en": "Right wing shoots via the blade of a stationary center and into the left corner of the goal"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "fakie-jon-spesial",
+  "order": 70
+}

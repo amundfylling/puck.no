@@ -1,0 +1,19 @@
+{
+  "slug": "maltzev-smygar",
+  "name": "Maltzev / Smygar",
+  "aliases": [
+    "Smygar"
+  ],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 3,
+  "description": {
+    "no": "Høyreving fører pucken fremover i sporet og skyter i mål mellom keeper og høyre stolpe",
+    "en": "Right wing carries the puck forward in the slot and shoots into the goal between the goalie and the right post"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "maltzev",
+  "order": 57
+}

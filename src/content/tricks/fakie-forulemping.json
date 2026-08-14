@@ -1,0 +1,17 @@
+{
+  "slug": "fakie-forulemping",
+  "name": "Fakie Forulemping",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 3,
+  "description": {
+    "no": "Høyreving starter bak motspillerens mål og fører pucken bakover i sporet og skyter mellom keeper og høyre stolpe",
+    "en": "Right wing starts behind the opponent's goal, carries the puck backward in the slot and shoots between the goalie and the right post"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "fakie-forulemping",
+  "order": 59
+}

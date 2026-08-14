@@ -1,0 +1,17 @@
+{
+  "slug": "langorv",
+  "name": "Langorv",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 6,
+  "description": {
+    "no": "Pasning fra høyreving langs vantet bak mål slik at pucken ender hos venstreback som skyter direkte i mål",
+    "en": "Pass from right wing along the boards behind the goal so that the puck ends up with the left defenseman, who shoots directly into the goal"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "langorv",
+  "order": 97
+}

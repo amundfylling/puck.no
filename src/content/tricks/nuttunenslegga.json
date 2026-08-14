@@ -1,0 +1,17 @@
+{
+  "slug": "nuttunenslegga",
+  "name": "Nuttunenslegga",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 4,
+  "description": {
+    "no": "Høyreving fører pucken bakover i sporet, stopper og skyter direkte i nærmeste kryss over keeperens kølle",
+    "en": "Right wing carries the puck backward in the slot, stops and shoots directly into the nearest top corner over the goalie's stick"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "nuttunenslegga",
+  "order": 60
+}

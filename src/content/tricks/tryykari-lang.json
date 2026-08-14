@@ -1,0 +1,17 @@
+{
+  "slug": "tryykari-lang",
+  "name": "Tryykari lang",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 5,
+  "description": {
+    "no": "Høyreving fører pucken raskt fremover i sporet med hælgrop (Edwall-dragning), stopper og utfører en hælskyffel i langhjørnet",
+    "en": "Right wing carries the puck quickly forward in the slot with the heel groove (Edwall drag), stops and performs a heel shovel into the far corner"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "tryykari-lang",
+  "order": 80
+}

@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TrickDetail from '../../components/TrickDetail.astro';
+import { trickPath } from '../../lib/tricks';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (async () => {
+  const tricks = await getCollection('tricks');
+  return tricks.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry, tricks } }));
+}) satisfies GetStaticPaths;
+
+const { entry, tricks } = Astro.props;
+const { data } = entry;
+const path = trickPath(data.slug, 'no');
+const title = `${data.name} – bordhockeykombinasjon | Bordhockeyforbundet`;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTerm',
+  name: data.name,
+  description: data.description.no,
+  url: `https://www.puck.no${path}`,
+  inDefinedTermSet: {
+    '@type': 'DefinedTermSet',
+    name: 'Bordhockeykombinasjoner',
+    url: 'https://www.puck.no/lær-bordhockey-kombinasjoner/',
+  },
+};
+---
+
+<BaseLayout
+  lang="no"
+  title={title}
+  description={data.description.no}
+  canonicalPath={path}
+  noUrl={path}
+  enUrl={trickPath(data.slug, 'en')}
+  ogImage={data.diagram}
+  jsonLd={jsonLd}
+>
+  <TrickDetail entry={entry} entries={tricks} lang="no" />
+</BaseLayout>

@@ -1,0 +1,17 @@
+{
+  "slug": "lillstovel",
+  "name": "Lillstøvel",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 3,
+  "description": {
+    "no": "Senter startar med pucken i tågropa, passar med tå nokre centimeter ut til venstre, og skyter med kølle i venstre hjørne. Oppkalla etter den legendariske Djurgårdaren-spelaren Carl-Göran 'Lill-Stöveln' Öberg, veslebror til Hans 'Stöveln' Öberg",
+    "en": "Center starts with the puck in the toe groove, passes with the toe a few centimeters out to the left, and shoots with the blade into the left corner. Named after the legendary Djurgården player Carl-Göran 'Lill-Stöveln' Öberg, younger brother of Hans 'Stöveln' Öberg"
+  },
+  "diagram": "/media/images/trick-lillstøvel-2c0457d4.png",
+  "videoUrl": null,
+  "legacyAnchor": "lillstøvel",
+  "order": 4
+}

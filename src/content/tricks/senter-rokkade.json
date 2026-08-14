@@ -1,0 +1,17 @@
+{
+  "slug": "senter-rokkade",
+  "name": "Senter-Rokkade",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 6,
+  "description": {
+    "no": "Passning frå senter til høgreback og vidare til venstreback som skyter på direkten i mål",
+    "en": "Pass from center to the right defenseman and on to the left defenseman, who shoots one-timed into the goal"
+  },
+  "diagram": "/media/images/trick-senter-rokkade-9c4a9212.png",
+  "videoUrl": null,
+  "legacyAnchor": "senter-rokkade",
+  "order": 51
+}

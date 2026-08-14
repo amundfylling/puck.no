@@ -1,0 +1,17 @@
+{
+  "slug": "invers-halv-agduro",
+  "name": "Invers Halv-Agduro",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 8,
+  "description": {
+    "no": "Senter fører pucken baketter i sporet og passar bak motspelar sin senter, til venstreving som skyter direkte i venstre hjørne",
+    "en": "Center carries the puck backward in the slot and passes behind the opponent's center to the left wing, who shoots directly into the left corner"
+  },
+  "diagram": "/media/images/trick-invers-halv-agduro-759c5e3e.png",
+  "videoUrl": null,
+  "legacyAnchor": "invers-halv-agduro",
+  "order": 30
+}
