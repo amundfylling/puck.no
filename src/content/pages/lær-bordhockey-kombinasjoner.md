@@ -2,7 +2,7 @@
 title: "Lær bordhockey – kombinasjoner"
 slug: "lær-bordhockey-kombinasjoner"
 lang: "no"
-description: "121 bordhockeykombinasjoner med søk, vanskelighetsgrad, forklaringer og diagrammer."
+description: "121 bordhockeykombinasjoner med søk, vanskelighetsgrad, forklaringer og illustrasjoner."
 seoTitle: "Lær bordhockey – kombinasjoner | Bordhockeyforbundet"
 menuOrder: null
 ---

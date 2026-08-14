@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TrickCatalogue from '../../components/TrickCatalogue.astro';
+import TrickGuide from '../../components/TrickGuide.astro';
 import { seoForContent } from '../../lib/seo';
 
 const page = (await getCollection('pages')).find(
@@ -9,7 +10,7 @@ const page = (await getCollection('pages')).find(
 );
 if (!page) throw new Error('Missing English combinations page');
 const tricks = await getCollection('tricks');
-const diagrams = tricks.filter((entry) => entry.data.diagram).length;
+const illustrations = tricks.filter((entry) => entry.data.diagram).length;
 const { Content } = await render(page);
 const path = '/en/lær-bordhockey-kombinasjoner';
 const seo = seoForContent(path, page.data);
@@ -34,28 +35,16 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <header class="border-b border-slate-200 bg-ice">
-    <div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-end">
-      <div>
-        <p class="font-semibold text-brand">Learn table hockey</p>
-        <h1 class="mt-2 max-w-4xl text-4xl font-extrabold text-navy sm:text-5xl lg:text-6xl">{page.data.title}</h1>
-        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-slate-700">Find the name of a move, understand the motion and choose what to practise next.</p>
+    <div class="mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-9">
+      <p class="text-sm font-semibold text-brand">Learn table hockey</p>
+      <h1 class="mt-1 max-w-4xl text-3xl font-extrabold text-navy sm:text-4xl">{page.data.title}</h1>
+      <div class="mt-3 flex flex-col gap-2 text-slate-700 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-6">
+        <p>Find the name of a move, understand the motion and choose what to practise.</p>
+        <p class="text-sm font-semibold text-navy tabular-nums">{tricks.length} combinations · {illustrations} illustrations</p>
       </div>
-      <dl class="grid grid-cols-2 border-y border-slate-300 py-4 lg:border-y-0 lg:border-l lg:py-0 lg:pl-8">
-        <div>
-          <dt class="text-sm text-slate-600">Combinations</dt>
-          <dd class="mt-1 font-display text-4xl font-extrabold text-navy tabular-nums">{tricks.length}</dd>
-        </div>
-        <div class="border-l border-slate-300 pl-5">
-          <dt class="text-sm text-slate-600">Diagrams</dt>
-          <dd class="mt-1 font-display text-4xl font-extrabold text-navy tabular-nums">{diagrams}</dd>
-        </div>
-      </dl>
+      <TrickGuide lang="en"><Content /></TrickGuide>
     </div>
   </header>
-
-  <section class="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
-    <div class="rich-text max-w-4xl"><Content /></div>
-  </section>
 
   <TrickCatalogue entries={tricks} lang="en" />
 </BaseLayout>

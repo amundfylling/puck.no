@@ -55,7 +55,7 @@ Forsiden av portalen gir et sanntidsbilde av påmeldingene:
 2. Åpne en eksisterende kombinasjon, eller trykk **Ny kombinasjon**.
 3. Fyll inn navn, URL-slug, spiller(e), vanskelighetsgrad og forklaring på
    både norsk og engelsk. Én oppføring driver begge språkversjonene.
-4. Last gjerne opp et diagram og legg inn en video-URL. Begge feltene kan stå
+4. Last gjerne opp en illustrasjon og legg inn en video-URL. Begge feltene kan stå
    tomme og fylles ut senere.
 5. Angi **Rekkefølge** for plasseringen i katalogen. La **Gammelt
    lenkeanker** stå tomt for helt nye kombinasjoner.

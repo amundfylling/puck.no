@@ -2,7 +2,7 @@
 title: "Learn table hockey – combinations"
 slug: "lær-bordhockey-kombinasjoner"
 lang: "en"
-description: "A searchable catalogue of 121 table hockey combinations with difficulty ratings, explanations and diagrams."
+description: "A searchable catalogue of 121 table hockey combinations with difficulty ratings, explanations and illustrations."
 seoTitle: "Learn table hockey – combinations | Bordhockeyforbundet"
 menuOrder: null
 ---

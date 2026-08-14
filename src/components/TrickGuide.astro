@@ -1,0 +1,40 @@
+---
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const copy = lang === 'en'
+  ? {
+      title: 'New here? How to use the catalogue',
+      description: 'Terminology, background and the difficulty scale from 0 to 10.',
+    }
+  : {
+      title: 'Ny her? Slik bruker du katalogen',
+      description: 'Begreper, bakgrunn og vanskelighetsskalaen fra 0 til 10.',
+    };
+---
+
+<details id="om-katalogen" class="trick-guide mt-5 max-w-4xl border-y border-slate-300">
+  <summary class="flex min-h-14 items-center justify-between gap-4 py-2 text-left">
+    <span>
+      <span class="block font-semibold text-navy">{copy.title}</span>
+      <span class="mt-0.5 block text-sm leading-snug text-slate-600">{copy.description}</span>
+    </span>
+    <svg
+      class="trick-guide-chevron h-5 w-5 shrink-0 text-navy transition-transform"
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  </summary>
+  <div class="border-t border-slate-200 pt-2 pb-7">
+    <div class="rich-text max-w-4xl"><slot /></div>
+  </div>
+</details>

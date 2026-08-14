@@ -25,9 +25,9 @@ const copy = lang === 'en'
       player: 'Player',
       difficulty: 'Difficulty',
       instructions: 'How it works',
-      diagram: 'Movement diagram',
+      illustration: 'Movement illustration',
       video: 'Watch video',
-      missingMedia: 'This combination does not have a diagram or video yet.',
+      missingMedia: 'This combination does not have an illustration or video yet.',
       related: 'Practise next',
       open: 'Open combination',
       aliases: 'Also known as',
@@ -37,9 +37,9 @@ const copy = lang === 'en'
       player: 'Spiller',
       difficulty: 'Vanskelighetsgrad',
       instructions: 'Slik utføres den',
-      diagram: 'Bevegelsesdiagram',
+      illustration: 'Bevegelsesillustrasjon',
       video: 'Se video',
-      missingMedia: 'Denne kombinasjonen har ikke diagram eller video ennå.',
+      missingMedia: 'Denne kombinasjonen har ikke illustrasjon eller video ennå.',
       related: 'Øv på disse etterpå',
       open: 'Åpne kombinasjon',
       aliases: 'Også kjent som',
@@ -79,10 +79,10 @@ const copy = lang === 'en'
 
     {data.diagram && (
       <figure class="border-t border-slate-200 pt-6 lg:border-t-0 lg:pt-0">
-        <figcaption class="mb-3 text-sm font-semibold text-navy">{copy.diagram}</figcaption>
+        <figcaption class="mb-3 text-sm font-semibold text-navy">{copy.illustration}</figcaption>
         <img
           src={data.diagram}
-          alt={`${copy.diagram}: ${data.name}`}
+          alt={`${copy.illustration}: ${data.name}`}
           loading="eager"
           fetchpriority="high"
           decoding="async"

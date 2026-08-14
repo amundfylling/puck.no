@@ -73,7 +73,7 @@ collections:
         fields:
           - { label: Norsk, name: no, widget: text }
           - { label: Engelsk, name: en, widget: text }
-      - { label: Diagram, name: diagram, widget: image, required: false }
+      - { label: Illustrasjon, name: diagram, widget: image, required: false }
       - { label: Video-URL, name: videoUrl, widget: string, required: false }
       - label: Gammelt lenkeanker
         name: legacyAnchor

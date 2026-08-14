@@ -143,6 +143,16 @@ summary {
   @apply border-navy bg-navy text-white hover:text-white;
 }
 
+.trick-guide > summary {
+  list-style: none;
+}
+.trick-guide > summary::-webkit-details-marker {
+  display: none;
+}
+.trick-guide[open] .trick-guide-chevron {
+  transform: rotate(180deg);
+}
+
 .scroll-region {
   max-inline-size: 100%;
   overflow-x: auto;
