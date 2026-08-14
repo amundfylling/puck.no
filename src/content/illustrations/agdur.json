@@ -1,0 +1,37 @@
+{
+  "slug": "agdur",
+  "version": 1,
+  "rink": "stiga-playoff-v1",
+  "viewport": {
+    "x": 0,
+    "y": 0,
+    "width": 415,
+    "height": 303
+  },
+  "paths": [
+    {
+      "id": "step-1",
+      "step": 1,
+      "kind": "pass",
+      "curve": false,
+      "points": [[210, 227], [60, 262]],
+      "label": [210, 227]
+    },
+    {
+      "id": "step-2",
+      "step": 2,
+      "kind": "pass",
+      "curve": false,
+      "points": [[60, 262], [245, 203]],
+      "label": [60, 262]
+    },
+    {
+      "id": "step-3",
+      "step": 3,
+      "kind": "shot",
+      "curve": false,
+      "points": [[245, 203], [237, 133]],
+      "label": [245, 203]
+    }
+  ]
+}

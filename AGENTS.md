@@ -295,6 +295,17 @@ local historical archive, `media-originals/images/`) and reference it as
 `/media/galleries/<slug>/<file>`. Then run `npm run build` — the optimizer
 emits the web variants.
 
+## How to add a combination illustration
+
+Use the repo-local `create-table-hockey-illustration` skill in
+`.agents/skills/create-table-hockey-illustration/`. Editable combination
+illustrations live in `src/content/illustrations/<slug>.json` and reference the
+one shared rink asset; do not add new raster diagrams as the editable source.
+The admin editor is at `/admin/illustrasjoner/`. Set the trick record's
+`illustration` field to the same slug, keep its legacy `diagram` as a fallback
+until visual verification, and run `npm run check:illustrations` before the
+normal checks/build.
+
 ## Design rules (tournament redesign 2026-07)
 
 1. No shadowed rounded cards as content containers. Structure with whitespace,

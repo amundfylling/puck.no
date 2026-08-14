@@ -1,6 +1,8 @@
 ---
 import type { Lang } from '../lib/i18n';
 import { getPublicImageDimensions } from '../lib/media';
+import { illustrationBySlug, type IllustrationEntry } from '../lib/illustrations';
+import TrickIllustration from './TrickIllustration.astro';
 import {
   difficultyGroup,
   difficultyLabels,
@@ -14,14 +16,19 @@ import {
 
 interface Props {
   entries: TrickEntry[];
+  illustrations: IllustrationEntry[];
   lang: Lang;
 }
 
-const { entries, lang } = Astro.props;
+const { entries, illustrations, lang } = Astro.props;
 const tricks = sortTricks(entries);
+const illustrationMap = illustrationBySlug(illustrations);
 const imageDimensions = new Map(
   await Promise.all(
-    tricks.map(async (entry) => [entry.data.slug, await getPublicImageDimensions(entry.data.diagram)] as const),
+    tricks.map(async (entry) => [
+      entry.data.slug,
+      entry.data.illustration ? null : await getPublicImageDimensions(entry.data.diagram),
+    ] as const),
   ),
 );
 const allPlayers = Object.keys(playerLabels) as TrickPlayer[];
@@ -131,6 +138,7 @@ const copy = lang === 'en'
     <div class="grid md:grid-cols-2 md:gap-x-8" data-trick-list>
       {tricks.map((entry) => {
         const { data } = entry;
+        const illustration = data.illustration ? illustrationMap.get(data.illustration) : undefined;
         const dimensions = imageDimensions.get(data.slug);
         const description = data.description[lang];
         const search = [data.name, ...data.aliases, description].join(' ').toLocaleLowerCase(lang === 'en' ? 'en' : 'no');
@@ -157,7 +165,15 @@ const copy = lang === 'en'
                 </p>
               </div>
               <div class="flex items-start justify-end">
-                {data.diagram ? (
+                {illustration ? (
+                  <TrickIllustration
+                    entry={illustration}
+                    name={data.name}
+                    lang={lang}
+                    decorative
+                    class="aspect-square rounded-md border border-slate-200 object-contain"
+                  />
+                ) : data.diagram ? (
                   <img
                     src={data.diagram}
                     alt=""

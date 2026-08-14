@@ -7,10 +7,15 @@ import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async () => {
   const tricks = await getCollection('tricks');
-  return tricks.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry, tricks } }));
+  const illustrations = await getCollection('illustrations');
+  const illustrationMap = new Map(illustrations.map((entry) => [entry.data.slug, entry]));
+  return tricks.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry, tricks, illustration: entry.data.illustration ? illustrationMap.get(entry.data.illustration) : undefined },
+  }));
 }) satisfies GetStaticPaths;
 
-const { entry, tricks } = Astro.props;
+const { entry, tricks, illustration } = Astro.props;
 const { data } = entry;
 const path = trickPath(data.slug, 'en');
 const title = `${data.name} – table hockey combination | Bordhockeyforbundet`;
@@ -38,5 +43,5 @@ const jsonLd = {
   ogImage={data.diagram}
   jsonLd={jsonLd}
 >
-  <TrickDetail entry={entry} entries={tricks} lang="en" />
+  <TrickDetail entry={entry} entries={tricks} illustration={illustration} lang="en" />
 </BaseLayout>

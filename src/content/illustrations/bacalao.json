@@ -1,0 +1,29 @@
+{
+  "slug": "bacalao",
+  "version": 1,
+  "rink": "stiga-playoff-v1",
+  "viewport": {
+    "x": 0,
+    "y": 0,
+    "width": 415,
+    "height": 720
+  },
+  "paths": [
+    {
+      "id": "step-1",
+      "step": 1,
+      "kind": "pass",
+      "curve": false,
+      "points": [[229, 249], [284, 455]],
+      "label": [229, 249]
+    },
+    {
+      "id": "step-2",
+      "step": 2,
+      "kind": "shot",
+      "curve": false,
+      "points": [[284, 455], [380, 304], [237, 132]],
+      "label": [284, 455]
+    }
+  ]
+}

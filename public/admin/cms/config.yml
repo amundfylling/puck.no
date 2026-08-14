@@ -73,7 +73,12 @@ collections:
         fields:
           - { label: Norsk, name: no, widget: text }
           - { label: Engelsk, name: en, widget: text }
-      - { label: Illustrasjon, name: diagram, widget: image, required: false }
+      - label: Redigerbar illustrasjon
+        name: illustration
+        widget: string
+        required: false
+        hint: 'Slug i src/content/illustrations, vanligvis samme som kombinasjonen. Opprettes i Illustrasjonsverkstedet.'
+      - { label: Eldre illustrasjonsbilde, name: diagram, widget: image, required: false }
       - { label: Video-URL, name: videoUrl, widget: string, required: false }
       - label: Gammelt lenkeanker
         name: legacyAnchor

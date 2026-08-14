@@ -115,6 +115,9 @@ const tricks = defineCollection({
       no: z.string().min(1),
       en: z.string().min(1),
     }),
+    /** Slug of an editable SVG scene in src/content/illustrations. */
+    illustration: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).nullable().optional(),
+    /** Legacy raster fallback while combinations are migrated to editable scenes. */
     diagram: z.string().startsWith('/media/').nullable().optional(),
     videoUrl: z.string().regex(/^https?:\/\//).nullable().optional(),
     legacyAnchor: z.string().min(1).optional(),
@@ -122,4 +125,57 @@ const tricks = defineCollection({
   }),
 });
 
-export const collections = { pages, posts, tournaments, tricks };
+const illustrationPoint = z.tuple([
+  z.number().min(0).max(415),
+  z.number().min(0).max(720),
+]);
+
+const illustrations = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/illustrations' }),
+  schema: z.object({
+    slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+    version: z.literal(1),
+    rink: z.literal('stiga-playoff-v1'),
+    viewport: z.object({
+      x: z.number().min(0).max(415),
+      y: z.number().min(0).max(720),
+      width: z.number().positive().max(415),
+      height: z.number().positive().max(720),
+    }),
+    paths: z.array(z.object({
+      id: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+      step: z.number().int().min(1).max(20),
+      kind: z.enum(['pass', 'move', 'shot']).default('pass'),
+      curve: z.boolean().default(false),
+      points: z.array(illustrationPoint).min(2),
+      label: illustrationPoint,
+    })).min(1),
+  }).superRefine((data, ctx) => {
+    if (data.viewport.x + data.viewport.width > 415) {
+      ctx.addIssue({ code: 'custom', path: ['viewport', 'width'], message: 'Viewport exceeds rink width (415).' });
+    }
+    if (data.viewport.y + data.viewport.height > 720) {
+      ctx.addIssue({ code: 'custom', path: ['viewport', 'height'], message: 'Viewport exceeds rink height (720).' });
+    }
+    const ids = new Set<string>();
+    const steps = new Set<number>();
+    data.paths.forEach((path, index) => {
+      if (ids.has(path.id)) {
+        ctx.addIssue({ code: 'custom', path: ['paths', index, 'id'], message: `Duplicate path id: ${path.id}` });
+      }
+      if (steps.has(path.step)) {
+        ctx.addIssue({ code: 'custom', path: ['paths', index, 'step'], message: `Duplicate step: ${path.step}` });
+      }
+      ids.add(path.id);
+      steps.add(path.step);
+    });
+    const ordered = [...steps].sort((a, b) => a - b);
+    ordered.forEach((step, index) => {
+      if (step !== index + 1) {
+        ctx.addIssue({ code: 'custom', path: ['paths'], message: 'Steps must be consecutive and start at 1.' });
+      }
+    });
+  }),
+});
+
+export const collections = { pages, posts, tournaments, tricks, illustrations };

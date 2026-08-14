@@ -10,7 +10,8 @@ const page = (await getCollection('pages')).find(
 );
 if (!page) throw new Error('Missing Norwegian combinations page');
 const tricks = await getCollection('tricks');
-const illustrations = tricks.filter((entry) => entry.data.diagram).length;
+const illustrationEntries = await getCollection('illustrations');
+const illustrations = tricks.filter((entry) => entry.data.illustration || entry.data.diagram).length;
 const { Content } = await render(page);
 const path = '/lær-bordhockey-kombinasjoner';
 const seo = seoForContent(path, page.data);
@@ -46,5 +47,5 @@ const jsonLd = {
     </div>
   </header>
 
-  <TrickCatalogue entries={tricks} lang="no" />
+  <TrickCatalogue entries={tricks} illustrations={illustrationEntries} lang="no" />
 </BaseLayout>

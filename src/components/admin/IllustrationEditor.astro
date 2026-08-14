@@ -1,0 +1,206 @@
+---
+import type { IllustrationEntry } from '../../lib/illustrations';
+import type { TrickEntry } from '../../lib/tricks';
+
+interface Props {
+  tricks: TrickEntry[];
+  illustrations: IllustrationEntry[];
+}
+
+const { tricks, illustrations } = Astro.props;
+const sceneMap = new Map(illustrations.map((entry) => [entry.data.slug, entry.data]));
+const payload = tricks.map((entry) => ({
+  slug: entry.data.slug,
+  name: entry.data.name,
+  player: entry.data.players[0],
+  difficulty: entry.data.difficulty,
+  illustration: entry.data.illustration ?? null,
+  diagram: entry.data.diagram ?? null,
+  scene: entry.data.illustration ? sceneMap.get(entry.data.illustration) ?? null : null,
+}));
+const serializedPayload = JSON.stringify(payload)
+  .replace(/</g, '\\u003c')
+  .replace(/>/g, '\\u003e')
+  .replace(/&/g, '\\u0026');
+---
+
+<section data-illustration-editor class="mx-auto max-w-[100rem]">
+  <div class="max-w-3xl">
+    <p class="text-sm font-semibold text-brand">Redigerbar SVG</p>
+    <h2 class="mt-1 font-display text-2xl font-bold text-navy dark:text-white">Tegn bevegelsen, ikke bildet</h2>
+    <p class="mt-2 leading-relaxed text-slate-600 dark:text-slate-300">
+      Velg en kombinasjon og tegn nummererte piler over den faste banen. Arbeidet lagres lokalt mens du jobber; last ned JSON-filen når illustrasjonen er ferdig.
+    </p>
+  </div>
+
+  <div class="mt-6 border-y border-slate-200 py-4 dark:border-slate-800">
+    <div class="grid gap-4 xl:grid-cols-[minmax(16rem,28rem)_minmax(0,1fr)] xl:items-end">
+      <label class="block text-sm font-semibold text-navy dark:text-white">
+        Kombinasjon
+        <select data-editor-trick class="mt-2 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white">
+          {payload.map((item) => (
+            <option value={item.slug}>{item.name} · grad {item.difficulty}{item.scene ? ' · redigerbar' : ''}</option>
+          ))}
+        </select>
+      </label>
+      <div class="flex flex-wrap gap-3 xl:justify-end">
+        <a data-editor-preview class="btn-outline" href={`/kombinasjoner/${payload[0]?.slug ?? ''}/`} target="_blank" rel="noopener noreferrer">
+          Forhåndsvis side
+          <svg aria-hidden="true" class="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3h7v7m0-7L10 14M5 7v12h12v-5" /></svg>
+        </a>
+        <button type="button" data-editor-copy class="btn-outline">Kopier JSON</button>
+        <button type="button" data-editor-download class="btn-primary">Last ned JSON</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-6 grid min-w-0 gap-6 xl:grid-cols-[minmax(0,1fr)_20rem]">
+    <div class="min-w-0">
+      <div class="flex flex-wrap items-center gap-2 border-b border-slate-200 pb-3 dark:border-slate-800" role="toolbar" aria-label="Tegneverktøy">
+        <button type="button" class="editor-tool" data-editor-tool="select" aria-pressed="true" title="Velg og flytt (V)">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 3 14 8-6 2-3 6L5 3Z" /></svg><span>Velg</span>
+        </button>
+        <button type="button" class="editor-tool" data-editor-tool="line" aria-pressed="false" title="Rett pil (L)">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 18 18 4m-5 0h5v5" /></svg><span>Rett pil</span>
+        </button>
+        <button type="button" class="editor-tool" data-editor-tool="curve" aria-pressed="false" title="Bøyd pil (C)">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 18C6 7 11 5 19 5m-4-3 4 3-3 4" /></svg><span>Bøyd pil</span>
+        </button>
+        <button type="button" class="editor-tool hidden" data-editor-finish disabled>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></svg><span>Fullfør pil</span>
+        </button>
+        <button type="button" class="editor-tool hidden" data-editor-cancel>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" /></svg><span>Avbryt</span>
+        </button>
+        <span class="mx-1 hidden h-8 w-px bg-slate-200 sm:block dark:bg-slate-700" aria-hidden="true"></span>
+        <button type="button" class="editor-tool" data-editor-undo disabled title="Angre (⌘Z)">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 7 4 12l5 5m-5-5h9a6 6 0 0 1 6 6" /></svg><span class="sr-only sm:not-sr-only">Angre</span>
+        </button>
+        <button type="button" class="editor-tool" data-editor-redo disabled title="Gjør om (⇧⌘Z)">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m15 7 5 5-5 5m5-5h-9a6 6 0 0 0-6 6" /></svg><span class="sr-only sm:not-sr-only">Gjør om</span>
+        </button>
+        <label class="ml-auto inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-300">
+          <input type="checkbox" data-editor-grid class="h-5 w-5 accent-brand" /> Rutenett
+        </label>
+      </div>
+
+      <div class="mt-4 overflow-hidden rounded-lg border border-slate-300 bg-[#526f78] dark:border-slate-700" data-editor-stage-wrap>
+        <svg
+          data-editor-stage
+          class="block h-auto max-h-[75vh] w-full select-none"
+          viewBox="0 0 415 303"
+          tabindex="0"
+          role="application"
+          aria-label="Illustrasjonsflate. Velg pilverktøy og tegn på banen."
+        ></svg>
+      </div>
+      <p data-editor-status class="mt-3 min-h-6 text-sm text-slate-600 dark:text-slate-300" aria-live="polite">Klar.</p>
+
+      <details data-editor-reference-wrap class="mt-5 hidden border-t border-slate-200 pt-4 dark:border-slate-800">
+        <summary class="font-semibold text-navy dark:text-white">Vis eldre illustrasjon som referanse</summary>
+        <img data-editor-reference alt="" class="mt-4 max-h-[32rem] w-auto max-w-full border border-slate-200 bg-white object-contain dark:border-slate-700" />
+      </details>
+    </div>
+
+    <aside class="min-w-0 border-t border-slate-200 pt-5 xl:border-t-0 xl:border-l xl:pt-0 xl:pl-6 dark:border-slate-800" aria-label="Illustrasjonsinnstillinger">
+      <section>
+        <h3 class="font-display text-lg font-bold text-navy dark:text-white">Utsnitt</h3>
+        <label class="mt-3 block text-sm font-semibold text-slate-700 dark:text-slate-200">
+          Visning
+          <select data-editor-viewport class="mt-2 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white">
+            <option value="offensive-zone">Angrepssone</option>
+            <option value="half-rink">Halv bane</option>
+            <option value="full-rink">Hele banen</option>
+            <option value="custom">Egendefinert</option>
+          </select>
+        </label>
+        <div data-editor-viewport-fields class="mt-3 grid grid-cols-2 gap-3">
+          {['x', 'y', 'width', 'height'].map((field) => (
+            <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">
+              {field === 'width' ? 'Bredde' : field === 'height' ? 'Høyde' : field.toUpperCase()}
+              <input data-editor-viewport-field={field} type="number" inputmode="decimal" step="1" class="mt-1 w-full rounded-md border border-slate-300 bg-white px-2 py-2 text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white" />
+            </label>
+          ))}
+        </div>
+      </section>
+
+      <section class="mt-6 border-t border-slate-200 pt-5 dark:border-slate-800">
+        <h3 class="font-display text-lg font-bold text-navy dark:text-white">Valgt pil</h3>
+        <div data-editor-selection-empty class="mt-2 text-sm leading-relaxed text-slate-500 dark:text-slate-400">Velg en pil for å endre type, punkter eller nummerplassering.</div>
+        <div data-editor-selection class="mt-3 hidden space-y-4">
+          <label class="block text-sm font-semibold text-slate-700 dark:text-slate-200">
+            Bevegelse
+            <select data-editor-kind class="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white">
+              <option value="pass">Pasning</option>
+              <option value="move">Spillerbevegelse</option>
+              <option value="shot">Skudd</option>
+            </select>
+          </label>
+          <label class="block text-sm font-semibold text-slate-700 dark:text-slate-200">
+            Punkter, ett x,y-par per linje
+            <textarea data-editor-points rows="5" spellcheck="false" class="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-2 font-mono text-sm text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"></textarea>
+          </label>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">Nummer X<input data-editor-label-x type="number" inputmode="decimal" class="mt-1 w-full rounded-md border border-slate-300 bg-white px-2 py-2 text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white" /></label>
+            <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">Nummer Y<input data-editor-label-y type="number" inputmode="decimal" class="mt-1 w-full rounded-md border border-slate-300 bg-white px-2 py-2 text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white" /></label>
+          </div>
+          <button type="button" data-editor-apply-selection class="btn-outline w-full">Bruk endringer</button>
+          <button type="button" data-editor-delete class="inline-flex min-h-11 w-full items-center justify-center rounded-md border border-brand px-4 py-2 font-semibold text-brand hover:bg-brand hover:text-white">Slett pil</button>
+        </div>
+      </section>
+
+      <section class="mt-6 border-t border-slate-200 pt-5 dark:border-slate-800">
+        <h3 class="font-display text-lg font-bold text-navy dark:text-white">Fil</h3>
+        <div class="mt-3 grid gap-2">
+          <label class="btn-outline w-full cursor-pointer">
+            Importer JSON
+            <input data-editor-import type="file" accept="application/json,.json" class="sr-only" />
+          </label>
+          <button type="button" data-editor-reset class="inline-flex min-h-11 items-center justify-center rounded-md px-4 py-2 font-semibold text-slate-600 underline underline-offset-4 hover:text-navy dark:text-slate-300 dark:hover:text-white">Forkast lokalt utkast</button>
+        </div>
+        <details class="mt-3">
+          <summary class="font-semibold text-navy dark:text-white">Avansert JSON</summary>
+          <label class="mt-3 block text-sm text-slate-600 dark:text-slate-300">
+            Hele scenen
+            <textarea data-editor-json rows="14" spellcheck="false" class="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-2 font-mono text-xs text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"></textarea>
+          </label>
+          <button type="button" data-editor-apply-json class="btn-outline mt-2 w-full">Bruk JSON</button>
+        </details>
+      </section>
+    </aside>
+  </div>
+
+  <script is:inline type="application/json" data-editor-data set:html={serializedPayload}></script>
+</section>
+
+<script>
+  import { initializeIllustrationEditors } from '../../scripts/illustration-editor';
+  initializeIllustrationEditors();
+</script>
+
+<style>
+  .editor-tool {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 0.375rem;
+    border: 1px solid rgb(203 213 225);
+    padding: 0.5rem 0.75rem;
+    color: rgb(51 65 85);
+    font-size: 0.875rem;
+    font-weight: 650;
+    transition: color 150ms, background-color 150ms, border-color 150ms;
+  }
+  .editor-tool.hidden { display: none; }
+  .editor-tool:hover:not(:disabled) { border-color: #0e2a57; color: #0e2a57; }
+  .editor-tool[aria-pressed='true'] { border-color: #0e2a57; background: #0e2a57; color: white; }
+  .editor-tool:disabled { cursor: not-allowed; opacity: 0.45; }
+  .editor-tool svg { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  :global(.dark) .editor-tool { border-color: rgb(71 85 105); color: rgb(203 213 225); }
+  :global(.dark) .editor-tool:hover:not(:disabled) { border-color: rgb(226 232 240); color: white; }
+  :global(.dark) .editor-tool[aria-pressed='true'] { border-color: rgb(226 232 240); background: rgb(226 232 240); color: rgb(15 23 42); }
+  [data-editor-stage] { cursor: crosshair; touch-action: none; overscroll-behavior: contain; }
+  [data-editor-stage][data-tool='select'] { cursor: default; }
+  [data-editor-stage-wrap] { min-height: 18rem; }
+</style>

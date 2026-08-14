@@ -1,6 +1,8 @@
 ---
 import type { Lang } from '../lib/i18n';
 import { getPublicImageDimensions } from '../lib/media';
+import type { IllustrationEntry } from '../lib/illustrations';
+import TrickIllustration from './TrickIllustration.astro';
 import {
   cataloguePath,
   playerLabels,
@@ -12,13 +14,14 @@ import {
 interface Props {
   entry: TrickEntry;
   entries: TrickEntry[];
+  illustration?: IllustrationEntry;
   lang: Lang;
 }
 
-const { entry, entries, lang } = Astro.props;
+const { entry, entries, illustration, lang } = Astro.props;
 const { data } = entry;
 const related = relatedTricks(entry, entries);
-const imageDimensions = await getPublicImageDimensions(data.diagram);
+const imageDimensions = illustration ? null : await getPublicImageDimensions(data.diagram);
 const copy = lang === 'en'
   ? {
       back: 'All combinations',
@@ -72,24 +75,33 @@ const copy = lang === 'en'
           <a href={data.videoUrl} class="btn-outline" rel="noopener noreferrer">{copy.video}<span aria-hidden="true" class="ml-2">↗</span></a>
         </p>
       )}
-      {!data.diagram && !data.videoUrl && (
+      {!illustration && !data.diagram && !data.videoUrl && (
         <p class="mt-7 border-l-4 border-brand bg-ice px-4 py-3 text-sm text-slate-700">{copy.missingMedia}</p>
       )}
     </section>
 
-    {data.diagram && (
+    {(illustration || data.diagram) && (
       <figure class="border-t border-slate-200 pt-6 lg:border-t-0 lg:pt-0">
         <figcaption class="mb-3 text-sm font-semibold text-navy">{copy.illustration}</figcaption>
-        <img
-          src={data.diagram}
-          alt={`${copy.illustration}: ${data.name}`}
-          loading="eager"
-          fetchpriority="high"
-          decoding="async"
-          width={imageDimensions?.width}
-          height={imageDimensions?.height}
-          class="h-auto w-full rounded-lg border border-slate-200 bg-white"
-        />
+        {illustration ? (
+          <TrickIllustration
+            entry={illustration}
+            name={data.name}
+            lang={lang}
+            class="rounded-lg border border-slate-200"
+          />
+        ) : (
+          <img
+            src={data.diagram}
+            alt={`${copy.illustration}: ${data.name}`}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            width={imageDimensions?.width}
+            height={imageDimensions?.height}
+            class="h-auto w-full rounded-lg border border-slate-200 bg-white"
+          />
+        )}
       </figure>
     )}
   </div>

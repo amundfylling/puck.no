@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Table Hockey Illustration"
+  short_description: "Create validated puck.no movement illustrations"
+  default_prompt: "Use $create-table-hockey-illustration to create or update an editable combination illustration."
