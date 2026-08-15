@@ -99,7 +99,7 @@ function movementLead(description, initialRole) {
 
 function wallPoints(segment, start, end) {
   if (!/vant/.test(segment)) return [];
-  if (/bak eget mål/.test(segment)) {
+  if (/bak (?:eget|eige) mål/.test(segment)) {
     const side = start[0] > 208 ? 390 : 25;
     return [[side, 500], [side, 675], [208, 695], [end[0] < 208 ? 25 : 390, 675]];
   }
@@ -159,11 +159,13 @@ export function planIllustrationFromDescription(trick) {
     const end = route[index + 1];
     const sourceSegment = description.slice(start.index, end.index + String(end.source ?? '').length);
     const points = [start.point, ...wallPoints(sourceSegment, start.point, end.point), end.point];
+    const followsWall = /(?:bak\s+(?:(?:eget|eige)\s+)?mål|bakom\s+(?:(?:eget|eige)\s+)?mål|velodrom)/u.test(sourceSegment) && points.length >= 3;
     paths.push({
       id: `step-${index + 1}`,
       step: index + 1,
       kind: end.role === 'goal' ? 'shot' : end.move ? 'move' : 'pass',
-      curve: false,
+      curve: followsWall,
+      followsWall,
       points,
       label: [...start.point],
     });

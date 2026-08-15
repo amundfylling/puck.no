@@ -29,8 +29,9 @@ If the written description is insufficient to locate a pass, wall bounce, feint,
 - Show only players that help explain the situation. The active attackers, relevant defenders, and goalie are normally enough.
 - Keep `puck` set to `null`. The numbered movement arrows already show the puck route, so a separate puck marker adds clutter.
 - Use `pass` for puck transfers, `shot` for the final attempt on goal, and `move` only for player movement.
-- Passes must use `curve: false`. A puck travels in straight lines; never draw a smooth or traced curve for a pass.
+- Ordinary passes and rebounds must use `curve: false`. A puck travels in straight lines between contacts.
 - Use exactly two points for a direct pass. Add sparse intermediate points only at a real rail or post contact, producing distinct straight legs with sharp direction changes.
-- Use `curve: true` only for a deliberately smooth player movement. Keep puck rebounds as straight segments with a corner.
+- When the puck stays against the rounded wall behind a goal, set both `curve: true` and `followsWall: true` and trace the wall with enough points to keep the route on the boards. This is the only curved puck-path exception.
+- Use `curve: true` without `followsWall` only for a deliberately smooth player movement.
 - Keep all coordinates in the 415 × 720 rink coordinate system.
 - Keep the legacy raster as fallback until human comparison approves the editable scene.

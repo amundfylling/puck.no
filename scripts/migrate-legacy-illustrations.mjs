@@ -131,14 +131,19 @@ for (const filename of trickFiles) {
 
   const traced = await traceLegacyIllustration(path.join(ROOT, 'public', trick.diagram));
   if (!traced.paths.length) throw new Error(`${trick.slug}: no green movement paths found in ${trick.diagram}`);
-  const paths = traced.paths.map((points, index) => ({
-    id: `step-${index + 1}`,
-    step: index + 1,
-    kind: pathKind(trick.description.no, points, index),
-    curve: false,
-    points,
-    label: traced.labels[index]?.point ?? labelFor(points, index + 1),
-  }));
+  const followsRoundedWall = /(?:bak\s+(?:eige\s+)?mål|bakom\s+(?:eige\s+)?mål|velodrom|glid\s+langs\s+vantet)/i.test(trick.description.no);
+  const paths = traced.paths.map((points, index) => {
+    const followsWall = followsRoundedWall && points.length >= 5;
+    return {
+      id: `step-${index + 1}`,
+      step: index + 1,
+      kind: pathKind(trick.description.no, points, index),
+      curve: followsWall,
+      followsWall,
+      points,
+      label: traced.labels[index]?.point ?? labelFor(points, index + 1),
+    };
+  });
   if (/(?:mål|scor)/i.test(trick.description.no) && paths.at(-1).points.at(-1)[1] > 180) {
     const start = [...paths.at(-1).points.at(-1)];
     paths.push({
@@ -146,6 +151,7 @@ for (const filename of trickFiles) {
       step: paths.length + 1,
       kind: 'shot',
       curve: false,
+      followsWall: false,
       points: [start, goalTarget(trick.description.no)],
       label: start,
     });

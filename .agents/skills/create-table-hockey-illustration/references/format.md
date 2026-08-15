@@ -40,6 +40,7 @@ Treat landmarks as orientation hints, not movement facts. Use the editor grid an
       "step": 1,
       "kind": "pass",
       "curve": false,
+      "followsWall": false,
       "points": [[208, 228], [60, 260]],
       "label": [208, 228]
     }
@@ -73,11 +74,12 @@ Use a custom viewport only when these crop a meaningful path or leave excessive 
 - `id`: `step-<n>` after editor normalization.
 - `step`: unique consecutive integer starting at 1.
 - `kind`: `pass`, `move`, or `shot`.
-- `curve`: render a smooth curve through three or more points. It must always be `false` when `kind` is `pass`.
+- `curve`: render a smooth curve through three or more points. For a puck path, it may be `true` only together with `followsWall: true`.
+- `followsWall`: mark a puck route that stays against the rounded wall behind a goal. It requires `curve: true` and at least three points. It is never used for player movement.
 - `points`: ordered `[x, y]` path points; the arrowhead is placed at the final point.
 - `label`: centre of the black numbered marker, normally close to the first point.
 
-Direct passes use exactly two points. A bank pass may add a sparse point at each genuine rail or post contact, creating straight legs with visible corners. Never trace the rounded board with many points to imitate a curved puck route. Curves are reserved for player movement.
+Direct passes use exactly two points. A bank pass may add a sparse point at each genuine rail or post contact, creating straight legs with visible corners. Use a smooth curve only when the puck remains in contact with the rounded wall behind a goal; set `followsWall: true` and trace that wall accurately. Other curves are reserved for player movement.
 
 The renderer intentionally owns visual styling. Do not add colours, stroke widths, font names, arbitrary image URLs, or animation timing to version 1 scenes.
 

@@ -12,20 +12,12 @@
     {
       "id": "step-1",
       "step": 1,
-      "kind": "move",
+      "kind": "pass",
       "curve": false,
       "points": [
         [
           214.4,
           235.2
-        ],
-        [
-          207.5,
-          240
-        ],
-        [
-          197.8,
-          226.9
         ],
         [
           172.9,
@@ -34,8 +26,9 @@
       ],
       "label": [
         214.4,
-        235.2
-      ]
+        258
+      ],
+      "followsWall": false
     },
     {
       "id": "step-2",
@@ -53,8 +46,8 @@
         ]
       ],
       "label": [
-        172.9,
-        220.6
+        157,
+        238
       ]
     }
   ],
@@ -124,17 +117,6 @@
       ],
       "rotation": 180,
       "scale": 0.9
-    },
-    {
-      "id": "attacking-left-defense",
-      "kind": "attacker",
-      "role": "left-defense",
-      "position": [
-        134.9,
-        221.5
-      ],
-      "rotation": -90,
-      "scale": 0.86
     }
   ],
   "puck": null

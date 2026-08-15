@@ -15,7 +15,7 @@ import {
   type IllustrationScene,
 } from '../lib/illustrations';
 
-type Tool = 'select' | 'line' | 'curve';
+type Tool = 'select' | 'line' | 'curve' | 'wall';
 type Viewport = IllustrationScene['viewport'];
 
 interface EditorItem {
@@ -89,12 +89,18 @@ function parseScene(value: unknown, expectedSlug: string, allowEmpty = true): Il
     }
     if (!isPoint(path.label)) throw new Error(`Pil ${index + 1} mangler en gyldig nummerplassering.`);
     if (!['pass', 'move', 'shot'].includes(String(path.kind))) throw new Error(`Pil ${index + 1} har ukjent type.`);
-    if (path.kind === 'pass' && Boolean(path.curve)) throw new Error(`Pil ${index + 1} er en pasning og må være rett.`);
+    const kind = path.kind as IllustrationPath['kind'];
+    const curve = Boolean(path.curve);
+    const followsWall = Boolean(path.followsWall);
+    if (kind !== 'move' && curve && !followsWall) throw new Error(`Pil ${index + 1} er en kurvet puckbane og må følge vantet bak mål.`);
+    if (followsWall && kind === 'move') throw new Error(`Pil ${index + 1} kan ikke være både spillerbevegelse og puckbane bak mål.`);
+    if (followsWall && (!curve || path.points.length < 3)) throw new Error(`Pil ${index + 1} må ha minst tre punkter for å følge vantet bak mål.`);
     return {
       id: `step-${index + 1}`,
       step: index + 1,
-      kind: path.kind as IllustrationPath['kind'],
-      curve: Boolean(path.curve),
+      kind,
+      curve,
+      followsWall,
       points: path.points.map((point) => [round(point[0]), round(point[1])]),
       label: [round(path.label[0]), round(path.label[1])],
     };
@@ -182,6 +188,7 @@ function initializeEditor(root: HTMLElement) {
   const playerSelection = required<HTMLElement>('[data-editor-player-selection]');
   const selectionEmpty = required<HTMLElement>('[data-editor-selection-empty]');
   const kindSelect = required<HTMLSelectElement>('[data-editor-kind]');
+  const followsWallInput = required<HTMLInputElement>('[data-editor-follows-wall]');
   const pointsInput = required<HTMLTextAreaElement>('[data-editor-points]');
   const labelX = required<HTMLInputElement>('[data-editor-label-x]');
   const labelY = required<HTMLInputElement>('[data-editor-label-y]');
@@ -248,14 +255,20 @@ function initializeEditor(root: HTMLElement) {
   };
 
   const nextStep = () => scene.paths.length + 1;
-  const addPath = (points: IllustrationPoint[], curve: boolean) => {
+  const addPath = (
+    points: IllustrationPoint[],
+    curve: boolean,
+    kind: IllustrationPath['kind'],
+    followsWall = false,
+  ) => {
     const step = nextStep();
     mutate(() => {
       scene.paths.push({
         id: `step-${step}`,
         step,
-        kind: curve ? 'move' : 'pass',
+        kind,
         curve,
+        followsWall,
         points: points.map((point) => [...point]),
         label: [...points[0]],
       });
@@ -304,7 +317,12 @@ function initializeEditor(root: HTMLElement) {
       announce('En bøyd pil trenger minst to punkter.');
       return;
     }
-    addPath(drawingPoints, true);
+    const followsWall = tool === 'wall';
+    if (followsWall && drawingPoints.length < 3) {
+      announce('En puckbane bak mål trenger minst tre punkter.');
+      return;
+    }
+    addPath(drawingPoints, true, followsWall ? 'pass' : 'move', followsWall);
     drawingPoints = [];
     previewPoint = null;
     setTool('select');
@@ -336,6 +354,8 @@ function initializeEditor(root: HTMLElement) {
     selectionEmpty.classList.toggle('hidden', Boolean(path || player));
     if (path) {
       kindSelect.value = path.kind;
+      followsWallInput.checked = path.followsWall;
+      followsWallInput.disabled = path.kind === 'move';
       pointsInput.value = path.points.map(([x, y]) => `${x}, ${y}`).join('\n');
       labelX.value = String(path.label[0]);
       labelY.value = String(path.label[1]);
@@ -377,7 +397,7 @@ function initializeEditor(root: HTMLElement) {
     )).join('');
     const pathMarkup = scene.paths.map((path) => {
       const style = pathStyle(path);
-      return `<path d="${illustrationPathData(path.points, path.kind === 'pass' ? false : path.curve)}" fill="none" stroke="${style.stroke}" stroke-width="${style.width}" stroke-dasharray="${style.dash}" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#editor-arrowhead)" vector-effect="non-scaling-stroke" pointer-events="none" />`;
+      return `<path d="${illustrationPathData(path.points, path.curve)}" fill="none" stroke="${style.stroke}" stroke-width="${style.width}" stroke-dasharray="${style.dash}" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#editor-arrowhead)" vector-effect="non-scaling-stroke" pointer-events="none" />`;
     }).join('');
     const pathOverlayMarkup = scene.paths.map((path) => {
       const selected = path.id === selectedPathId;
@@ -385,15 +405,16 @@ function initializeEditor(root: HTMLElement) {
         ? path.points.map(([x, y], index) => `<circle data-point-index="${index}" data-path-id="${path.id}" cx="${x}" cy="${y}" r="7" fill="#fff" stroke="#c8102e" stroke-width="2" vector-effect="non-scaling-stroke" />`).join('')
         : '';
       return `<g>
-        <path data-path-id="${path.id}" d="${illustrationPathData(path.points, path.kind === 'pass' ? false : path.curve)}" fill="none" stroke="transparent" stroke-width="22" pointer-events="stroke" vector-effect="non-scaling-stroke" />
+        <path data-path-id="${path.id}" d="${illustrationPathData(path.points, path.curve)}" fill="none" stroke="transparent" stroke-width="22" pointer-events="stroke" vector-effect="non-scaling-stroke" />
         <circle data-label="true" data-path-id="${path.id}" cx="${path.label[0]}" cy="${path.label[1]}" r="11" fill="#101820" stroke="${selected ? '#c8102e' : '#fff'}" stroke-width="${selected ? 2.5 : 1.5}" vector-effect="non-scaling-stroke" />
         <text x="${path.label[0]}" y="${path.label[1]}" fill="#fff" font-family="Geist,system-ui,sans-serif" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central" pointer-events="none">${path.step}</text>
         ${handles}
       </g>`;
     }).join('');
-    const temporaryPoints = tool === 'curve' && previewPoint ? [...drawingPoints, previewPoint] : drawingPoints;
+    const curvedTool = tool === 'curve' || tool === 'wall';
+    const temporaryPoints = curvedTool && previewPoint ? [...drawingPoints, previewPoint] : drawingPoints;
     const temporary = temporaryPoints.length > 1
-      ? `<path d="${illustrationPathData(temporaryPoints, tool === 'curve')}" fill="none" stroke="#c8102e" stroke-width="3" stroke-dasharray="7 5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" />`
+      ? `<path d="${illustrationPathData(temporaryPoints, curvedTool)}" fill="none" stroke="#c8102e" stroke-width="3" stroke-dasharray="7 5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" />`
       : '';
     const grid = gridToggle.checked
       ? `<rect width="415" height="720" fill="url(#editor-grid)" pointer-events="none" />`
@@ -407,9 +428,9 @@ function initializeEditor(root: HTMLElement) {
     <rect width="415" height="720" fill="#526f78" />
     <image href="${RINK_ASSET}" x="0" y="0" width="415" height="720" draggable="false" />
     ${grid}${selectedGuideMarkup}${pathMarkup}${playerMarkup}${pathOverlayMarkup}${temporary}${playerHitMarkup}`;
-    finishButton.classList.toggle('hidden', tool !== 'curve');
-    cancelButton.classList.toggle('hidden', tool !== 'curve');
-    finishButton.disabled = drawingPoints.length < 2;
+    finishButton.classList.toggle('hidden', !curvedTool);
+    cancelButton.classList.toggle('hidden', !curvedTool);
+    finishButton.disabled = drawingPoints.length < (tool === 'wall' ? 3 : 2);
     undoButton.disabled = history.length === 0;
     redoButton.disabled = future.length === 0;
     viewportSelect.value = presetName();
@@ -505,7 +526,7 @@ function initializeEditor(root: HTMLElement) {
       render();
       return;
     }
-    if (tool === 'curve') {
+    if (tool === 'curve' || tool === 'wall') {
       drawingPoints.push(point);
       previewPoint = point;
       render();
@@ -558,7 +579,7 @@ function initializeEditor(root: HTMLElement) {
       render();
       return;
     }
-    if (tool === 'curve' && drawingPoints.length) {
+    if ((tool === 'curve' || tool === 'wall') && drawingPoints.length) {
       previewPoint = point;
       render();
       return;
@@ -587,7 +608,7 @@ function initializeEditor(root: HTMLElement) {
       lineStart = null;
       previewPoint = null;
       drawingPoints = [];
-      if (Math.hypot(end[0] - start[0], end[1] - start[1]) >= 5) addPath([start, end], false);
+      if (Math.hypot(end[0] - start[0], end[1] - start[1]) >= 5) addPath([start, end], false, 'pass');
       else render();
       return;
     }
@@ -624,6 +645,10 @@ function initializeEditor(root: HTMLElement) {
   redoButton.addEventListener('click', redo);
   gridToggle.addEventListener('change', render);
   trickSelect.addEventListener('change', () => loadSlug(trickSelect.value));
+  kindSelect.addEventListener('change', () => {
+    followsWallInput.disabled = kindSelect.value === 'move';
+    if (followsWallInput.disabled) followsWallInput.checked = false;
+  });
 
   viewportSelect.addEventListener('change', () => {
     if (viewportSelect.value === 'custom') return;
@@ -654,9 +679,13 @@ function initializeEditor(root: HTMLElement) {
       const x = Number(labelX.value);
       const y = Number(labelY.value);
       if (!Number.isFinite(x) || !Number.isFinite(y)) throw new Error('Nummerplasseringen må ha gyldige tall.');
+      const kind = kindSelect.value as IllustrationPath['kind'];
+      const followsWall = kind !== 'move' && followsWallInput.checked;
+      if (followsWall && points.length < 3) throw new Error('En puckbane bak mål trenger minst tre punkter.');
       mutate(() => {
-        path.kind = kindSelect.value as IllustrationPath['kind'];
-        if (path.kind === 'pass') path.curve = false;
+        path.kind = kind;
+        path.followsWall = followsWall;
+        if (path.kind !== 'move') path.curve = followsWall;
         path.points = points;
         path.label = [clamp(x, 0, RINK_WIDTH), clamp(y, 0, RINK_HEIGHT)];
       }, `Pil ${path.step} er oppdatert.`);
@@ -759,7 +788,7 @@ function initializeEditor(root: HTMLElement) {
     if (event.key === 'Escape') {
       cancelDrawing();
       setTool('select');
-    } else if (event.key === 'Enter' && tool === 'curve') {
+    } else if (event.key === 'Enter' && (tool === 'curve' || tool === 'wall')) {
       event.preventDefault();
       finishCurve();
     } else if (event.key.toLowerCase() === 'v') {
@@ -768,6 +797,8 @@ function initializeEditor(root: HTMLElement) {
       setTool('line');
     } else if (event.key.toLowerCase() === 'c') {
       setTool('curve');
+    } else if (event.key.toLowerCase() === 'b') {
+      setTool('wall');
     } else if ((event.key === 'Delete' || event.key === 'Backspace') && (selectedPathId || selectedPlayerId)) {
       event.preventDefault();
       if (selectedPathId) deleteSelected();

@@ -30,11 +30,16 @@ test('rejects out-of-rink points and non-consecutive steps', () => {
   assert.ok(errors.some((error) => error.includes('steps must be consecutive')));
 });
 
-test('rejects curved passes', () => {
+test('allows curves only for puck paths that follow the wall behind a goal', () => {
   const invalid = structuredClone(scene);
   invalid.paths[0].curve = true;
-  const errors = validateIllustrationScene(invalid);
-  assert.ok(errors.some((error) => error.includes('curve must be false for a pass')));
+  assert.ok(validateIllustrationScene(invalid).some((error) => error.includes('must set followsWall to true')));
+
+  const wallRoute = structuredClone(scene);
+  wallRoute.paths[0].curve = true;
+  wallRoute.paths[0].followsWall = true;
+  wallRoute.paths[0].points = [[60, 190], [46, 90], [208, 56], [369, 90], [355, 190]];
+  assert.deepEqual(validateIllustrationScene(wallRoute), []);
 });
 
 test('validates player sprites and rejects separate puck markers', () => {

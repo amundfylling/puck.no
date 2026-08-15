@@ -67,6 +67,9 @@ const serializedPayload = JSON.stringify(payload)
         <button type="button" class="editor-tool" data-editor-tool="curve" aria-pressed="false" title="Bøyd spillerbevegelse (C)">
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 18C6 7 11 5 19 5m-4-3 4 3-3 4" /></svg><span>Bøyd spillerbevegelse</span>
         </button>
+        <button type="button" class="editor-tool" data-editor-tool="wall" aria-pressed="false" title="Kurvet puckbane langs vantet bak mål (B)">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 18C6 7 11 5 19 5m-4-3 4 3-3 4" /></svg><span>Bak mål</span>
+        </button>
         <button type="button" class="editor-tool hidden" data-editor-finish disabled>
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></svg><span>Fullfør pil</span>
         </button>
@@ -151,7 +154,11 @@ const serializedPayload = JSON.stringify(payload)
               <option value="shot">Skudd</option>
             </select>
           </label>
-          <p class="text-xs leading-relaxed text-slate-500 dark:text-slate-400">Pasninger tegnes alltid som rette linjer. Bruk ekstra punkter bare ved en faktisk kontakt med vant eller målstang.</p>
+          <p class="text-xs leading-relaxed text-slate-500 dark:text-slate-400">Vanlige pasninger er rette. Bruk «Bak mål» når pucken følger det avrundede vantet, eller ekstra punkter ved faktiske treff i vant eller målstang.</p>
+          <label class="flex items-start gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
+            <input data-editor-follows-wall type="checkbox" class="mt-0.5 h-5 w-5 accent-brand" />
+            <span>Følger vantet bak mål</span>
+          </label>
           <label class="block text-sm font-semibold text-slate-700 dark:text-slate-200">
             Punkter, ett x,y-par per linje
             <textarea data-editor-points rows="5" spellcheck="false" class="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-2 font-mono text-sm text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"></textarea>

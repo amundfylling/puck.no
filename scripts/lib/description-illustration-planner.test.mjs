@@ -32,6 +32,14 @@ test('adds a rail route and flags specialist technique for review', () => {
   assert.ok(plan.scene.paths[0].points.length > 2);
 });
 
+test('curves a pass only when it follows the wall behind a goal', () => {
+  const plan = planIllustrationFromDescription(trick('velodrom', 'Høyreving passer langs vantet bak mål til venstreving'));
+  assert.equal(plan.scene.paths[0].kind, 'pass');
+  assert.equal(plan.scene.paths[0].curve, true);
+  assert.equal(plan.scene.paths[0].followsWall, true);
+  assert.deepEqual(validateIllustrationScene(plan.scene), []);
+});
+
 test('does not turn setup positions into extra passes', () => {
   const plan = planIllustrationFromDescription(trick('hagerup', 'Høyreving og senter står helt bak i sporet, og høyreving passer inn til senter som skyter direkte i høyre hjørne'));
   assert.deepEqual(plan.recognizedRoute.map((stop) => stop.role), ['right-wing', 'center', 'goal']);

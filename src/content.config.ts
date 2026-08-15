@@ -158,6 +158,7 @@ const illustrations = defineCollection({
       step: z.number().int().min(1).max(20),
       kind: z.enum(['pass', 'move', 'shot']).default('pass'),
       curve: z.boolean().default(false),
+      followsWall: z.boolean().default(false),
       points: z.array(illustrationPoint).min(2),
       label: illustrationPoint,
     })).min(1),
@@ -175,8 +176,14 @@ const illustrations = defineCollection({
     const ids = new Set<string>();
     const steps = new Set<number>();
     data.paths.forEach((path, index) => {
-      if (path.kind === 'pass' && path.curve) {
-        ctx.addIssue({ code: 'custom', path: ['paths', index, 'curve'], message: 'Passes must use straight segments.' });
+      if (path.kind !== 'move' && path.curve && !path.followsWall) {
+        ctx.addIssue({ code: 'custom', path: ['paths', index, 'curve'], message: 'Curved puck paths must follow the wall behind a goal.' });
+      }
+      if (path.followsWall && path.kind === 'move') {
+        ctx.addIssue({ code: 'custom', path: ['paths', index, 'followsWall'], message: 'Player movement cannot be marked as a wall-following puck path.' });
+      }
+      if (path.followsWall && (!path.curve || path.points.length < 3)) {
+        ctx.addIssue({ code: 'custom', path: ['paths', index, 'followsWall'], message: 'A wall-following puck path must be curved and contain at least three points.' });
       }
       if (ids.has(path.id)) {
         ctx.addIssue({ code: 'custom', path: ['paths', index, 'id'], message: `Duplicate path id: ${path.id}` });

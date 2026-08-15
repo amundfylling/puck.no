@@ -63,7 +63,13 @@ export function validateIllustrationScene(scene, source = 'scene') {
     else steps.add(path.step);
     if (!pathKinds.has(path.kind)) errors.push(`${prefix}.kind must be pass, move, or shot`);
     if (typeof path.curve !== 'boolean') errors.push(`${prefix}.curve must be boolean`);
-    else if (path.kind === 'pass' && path.curve) errors.push(`${prefix}.curve must be false for a pass`);
+    const followsWall = path.followsWall === true;
+    if (path.followsWall != null && typeof path.followsWall !== 'boolean') errors.push(`${prefix}.followsWall must be boolean`);
+    if (path.kind !== 'move' && path.curve && !followsWall) errors.push(`${prefix}.curved puck path must set followsWall to true`);
+    if (followsWall && path.kind === 'move') errors.push(`${prefix}.followsWall cannot be used for player movement`);
+    if (followsWall && (!path.curve || !Array.isArray(path.points) || path.points.length < 3)) {
+      errors.push(`${prefix}.followsWall requires a curved path with at least three points`);
+    }
     if (!Array.isArray(path.points) || path.points.length < 2) errors.push(`${prefix}.points needs at least two points`);
     else path.points.forEach((point, pointIndex) => errors.push(...pointErrors(point, `${prefix}.points[${pointIndex}]`)));
     errors.push(...pointErrors(path.label, `${prefix}.label`));

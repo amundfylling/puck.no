@@ -13,7 +13,7 @@
       "id": "step-1",
       "step": 1,
       "kind": "shot",
-      "curve": false,
+      "curve": true,
       "points": [
         [
           217.9,
@@ -55,7 +55,8 @@
       "label": [
         217.9,
         266.3
-      ]
+      ],
+      "followsWall": true
     },
     {
       "id": "step-2",
