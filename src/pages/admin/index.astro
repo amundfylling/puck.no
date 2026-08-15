@@ -2,29 +2,43 @@
 import AdminLayout from '../../layouts/AdminLayout.astro';
 import StatCard from '../../components/admin/StatCard.astro';
 import { getTournamentsSorted } from '../../lib/content';
+import registrations from '../../data/registrations-snapshot.json';
 
 const views = await getTournamentsSorted();
 const upcoming = views.filter((v) => v.status === 'upcoming');
 const openCount = upcoming.filter((v) => v.entry.data.registrationOpen !== false).length;
 const names = Object.fromEntries(views.map((v) => [v.entry.data.slug, v.entry.data.name]));
+const snapshotTournaments = registrations.tournaments as Record<string, unknown[]>;
+const snapshotCounts = Object.fromEntries(
+  views.map(({ entry }) => [entry.data.slug, snapshotTournaments[entry.data.slug]?.length ?? 0]),
+);
+const snapshotTotal = Object.values(snapshotCounts).reduce((total, count) => total + count, 0);
 ---
 
 <AdminLayout title="Oversikt | Admin | Bordhockeyforbundet" heading="Oversikt" active="oversikt">
-  <div data-dashboard data-names={JSON.stringify(names)}>
+  <div
+    data-dashboard
+    data-names={JSON.stringify(names)}
+    data-snapshot-counts={JSON.stringify(snapshotCounts)}
+    data-snapshot-total={snapshotTotal}
+    data-snapshot-date={registrations.snapshot_date}
+  >
     <!-- Stat cards -->
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
       <StatCard
-        value="–"
+        value={String(snapshotTotal)}
         valueId="registrations"
         label="Påmeldte totalt"
-        hint="Alle turneringer, sanntid"
+        hint="Siste bygde snapshot"
+        hintId="registrations-hint"
         icon="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"
       />
       <StatCard
         value="–"
         valueId="last7days"
         label="Nye siste 7 dager"
-        hint="Påmeldinger registrert"
+        hint="Krever sanntidsdata"
+        hintId="last7days-hint"
         icon="M13.5 4.5 21 12l-7.5 7.5M21 12H3"
       />
       <StatCard
@@ -41,7 +55,21 @@ const names = Object.fromEntries(views.map((v) => [v.entry.data.slug, v.entry.da
       />
     </div>
 
-    <p data-dashboard-status class="mt-3 hidden text-sm" role="status"></p>
+    <div data-dashboard-status class="mt-4 hidden rounded-lg border px-4 py-3 text-sm" role="alert" aria-live="polite">
+      <div class="flex items-start gap-3">
+        <svg class="mt-0.5 h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 8v4m0 4h.01" />
+        </svg>
+        <div class="min-w-0 flex-1">
+          <p data-dashboard-status-message class="font-semibold"></p>
+          <p data-dashboard-status-help class="mt-1 text-xs"></p>
+        </div>
+        <button type="button" data-dashboard-retry class="hidden min-h-11 shrink-0 rounded-md border border-current px-3 text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/5">
+          Prøv igjen
+        </button>
+      </div>
+    </div>
 
     <div class="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-3">
       <!-- Tournament table -->
@@ -107,7 +135,9 @@ const names = Object.fromEntries(views.map((v) => [v.entry.data.slug, v.entry.da
                         }
                       </td>
                       <td class="px-4 py-3 text-right whitespace-nowrap">
-                        <span data-count-for={slug} data-count-kind={isTeam ? 'team' : 'player'} class="font-semibold tabular-nums text-navy dark:text-white">–</span>
+                        <span data-count-for={slug} data-count-kind={isTeam ? 'team' : 'player'} class="font-semibold tabular-nums text-navy dark:text-white">
+                          {snapshotCounts[slug] ?? 0} {isTeam ? 'lag' : (snapshotCounts[slug] ?? 0) === 1 ? 'spiller' : 'spillere'}
+                        </span>
                       </td>
                       <td class="px-4 py-3 text-right whitespace-nowrap">
                         <a
@@ -155,7 +185,8 @@ const names = Object.fromEntries(views.map((v) => [v.entry.data.slug, v.entry.da
 
   <script>
     // Hydrate counts, totals and the recent-registrations feed from the
-    // Access-protected overview endpoint. Static content stays if it fails.
+    // Access-protected overview endpoint. Public snapshot counts remain
+    // visible if live admin data is unavailable.
     interface Overview {
       tournaments: Record<
         string,
@@ -168,15 +199,37 @@ const names = Object.fromEntries(views.map((v) => [v.entry.data.slug, v.entry.da
     const root = document.querySelector<HTMLElement>('[data-dashboard]');
     if (root) {
       const names: Record<string, string> = JSON.parse(root.dataset.names ?? '{}');
+      const snapshotCounts: Record<string, number> = JSON.parse(root.dataset.snapshotCounts ?? '{}');
+      const snapshotTotal = Number(root.dataset.snapshotTotal ?? 0);
+      const snapshotDate = root.dataset.snapshotDate ?? '';
       const status = root.querySelector<HTMLElement>('[data-dashboard-status]');
+      const statusMessage = root.querySelector<HTMLElement>('[data-dashboard-status-message]');
+      const statusHelp = root.querySelector<HTMLElement>('[data-dashboard-status-help]');
+      const retryButton = root.querySelector<HTMLButtonElement>('[data-dashboard-retry]');
+      let loading = false;
 
-      const showStatus = (text: string, isError = false) => {
-        if (!status) return;
-        status.textContent = text;
+      const showStatus = (text: string, isError = false, help = '') => {
+        if (!status || !statusMessage || !statusHelp) return;
+        if (!text) {
+          status.classList.add('hidden');
+          return;
+        }
+        statusMessage.textContent = text;
+        statusHelp.textContent = help;
         status.classList.remove('hidden');
-        status.classList.toggle('text-red-600', isError);
-        status.classList.toggle('dark:text-red-400', isError);
-        status.classList.toggle('text-slate-500', !isError);
+        status.classList.toggle('border-red-200', isError);
+        status.classList.toggle('bg-red-50', isError);
+        status.classList.toggle('text-red-800', isError);
+        status.classList.toggle('dark:border-red-900/50', isError);
+        status.classList.toggle('dark:bg-red-950/30', isError);
+        status.classList.toggle('dark:text-red-200', isError);
+        status.classList.toggle('border-emerald-200', !isError);
+        status.classList.toggle('bg-emerald-50', !isError);
+        status.classList.toggle('text-emerald-800', !isError);
+        status.classList.toggle('dark:border-emerald-900/50', !isError);
+        status.classList.toggle('dark:bg-emerald-950/30', !isError);
+        status.classList.toggle('dark:text-emerald-200', !isError);
+        retryButton?.classList.toggle('hidden', !isError);
       };
 
       const parseUtc = (at: string) => new Date(at.replace(' ', 'T') + 'Z');
@@ -199,23 +252,59 @@ const names = Object.fromEntries(views.map((v) => [v.entry.data.slug, v.entry.da
         return rtf.format(s, 'second');
       };
 
-      void (async () => {
+      const showSnapshotFallback = () => {
+        root.querySelector<HTMLElement>('[data-stat="registrations"]')!.textContent = String(snapshotTotal);
+        root.querySelector<HTMLElement>('[data-stat="last7days"]')!.textContent = '–';
+        root.querySelector<HTMLElement>('[data-stat-hint="registrations-hint"]')!.textContent = snapshotDate
+          ? `Siste bygde snapshot (${snapshotDate.split('-').reverse().join('.')})`
+          : 'Siste bygde snapshot';
+        root.querySelector<HTMLElement>('[data-stat-hint="last7days-hint"]')!.textContent = 'Ikke tilgjengelig i snapshot';
+        for (const [slug, count] of Object.entries(snapshotCounts)) {
+          const cell = root.querySelector<HTMLElement>(`[data-count-for="${CSS.escape(slug)}"]`);
+          if (!cell) continue;
+          const isTeam = cell.dataset.countKind === 'team';
+          cell.textContent = `${count} ${isTeam ? 'lag' : count === 1 ? 'spiller' : 'spillere'}`;
+        }
+        const list = root.querySelector<HTMLElement>('[data-recent]');
+        if (list) {
+          const item = document.createElement('li');
+          item.className = 'rounded-lg border border-dashed border-slate-300 px-4 py-6 text-center text-sm text-slate-600 dark:border-slate-700 dark:text-slate-400';
+          item.textContent = 'Nyeste påmeldinger krever sanntidsdata.';
+          list.replaceChildren(item);
+        }
+      };
+
+      const loadOverview = async () => {
+        if (loading) return;
+        loading = true;
+        if (retryButton) retryButton.disabled = true;
         let data: Overview;
         try {
           const res = await fetch('/api/admin/overview.json');
           if (res.status === 403) {
-            showStatus('Sanntidsdata utilgjengelig: API-et svarte 403 (mangler Cloudflare Access-innlogging?).', true);
+            showSnapshotFallback();
+            showStatus(
+              'Sanntidsdata er ikke tilgjengelig.',
+              true,
+              'Cloudflare Access dekker ikke denne adressen, eller innloggingen er utløpt. Siste bygde snapshot vises i mellomtiden.',
+            );
             return;
           }
           if (!res.ok) throw new Error(String(res.status));
           data = (await res.json()) as Overview;
         } catch {
-          showStatus('Kunne ikke hente sanntidsdata — viser informasjon fra siste bygg.', true);
+          showSnapshotFallback();
+          showStatus('Kunne ikke hente sanntidsdata.', true, 'Siste bygde snapshot vises i mellomtiden. Prøv igjen når forbindelsen er tilbake.');
           return;
+        } finally {
+          loading = false;
+          if (retryButton) retryButton.disabled = false;
         }
 
         root.querySelector('[data-stat="registrations"]')!.textContent = String(data.totals.registrations);
         root.querySelector('[data-stat="last7days"]')!.textContent = String(data.totals.last7Days);
+        root.querySelector<HTMLElement>('[data-stat-hint="registrations-hint"]')!.textContent = 'Alle turneringer, sanntid';
+        root.querySelector<HTMLElement>('[data-stat-hint="last7days-hint"]')!.textContent = 'Påmeldinger registrert';
 
         for (const [slug, t] of Object.entries(data.tournaments)) {
           const cell = root.querySelector<HTMLElement>(`[data-count-for="${CSS.escape(slug)}"]`);
@@ -254,7 +343,11 @@ const names = Object.fromEntries(views.map((v) => [v.entry.data.slug, v.entry.da
             }),
           );
         }
-      })();
+        showStatus('');
+      };
+
+      retryButton?.addEventListener('click', () => void loadOverview());
+      void loadOverview();
 
       // Open/close registration toggle → POST to the PAT-backed endpoint.
       for (const btn of root.querySelectorAll<HTMLButtonElement>('[data-open-toggle]')) {
