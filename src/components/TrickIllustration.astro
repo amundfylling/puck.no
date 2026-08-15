@@ -13,6 +13,7 @@ interface Props {
   name: string;
   lang: Lang;
   decorative?: boolean;
+  variant?: 'detail' | 'thumbnail';
   class?: string;
 }
 
@@ -21,9 +22,10 @@ const {
   name,
   lang,
   decorative = false,
+  variant = 'detail',
   class: className = '',
 } = Astro.props;
-const { viewport, paths, players, puck, slug } = entry.data;
+const { viewport, paths, players, slug } = entry.data;
 const titleId = `illustration-${slug}-title`;
 const descriptionId = `illustration-${slug}-description`;
 const title = lang === 'en' ? `Movement illustration: ${name}` : `Bevegelsesillustrasjon: ${name}`;
@@ -34,7 +36,7 @@ const markerId = `illustration-${slug}-arrow`;
 const styleFor = (kind: 'pass' | 'move' | 'shot') => ({
   stroke: kind === 'move' ? '#0e2a57' : '#0a9f2f',
   dash: kind === 'move' ? '8 6' : undefined,
-  width: kind === 'shot' ? 8 : 7,
+  width: variant === 'thumbnail' ? (kind === 'shot' ? 2.25 : 2) : (kind === 'shot' ? 8 : 7),
 });
 ---
 
@@ -71,6 +73,7 @@ const styleFor = (kind: 'pass' | 'move' | 'shot') => ({
         stroke-linecap="round"
         stroke-linejoin="round"
         marker-end={`url(#${markerId})`}
+        vector-effect="non-scaling-stroke"
         data-illustration-step={path.step}
       />
     );
@@ -95,20 +98,10 @@ const styleFor = (kind: 'pass' | 'move' | 'shot') => ({
       </g>
     );
   })}
-  {puck && (
-    <circle
-      cx={puck.position[0]}
-      cy={puck.position[1]}
-      r={puck.radius}
-      fill="#101820"
-      stroke="#fff"
-      stroke-width="1.5"
-    />
-  )}
   {paths.map((path) => {
     return (
       <g data-illustration-step={path.step}>
-        <circle cx={path.label[0]} cy={path.label[1]} r="11" fill="#101820" stroke="#fff" stroke-width="1.5" />
+        <circle cx={path.label[0]} cy={path.label[1]} r="11" fill="#101820" stroke="#fff" stroke-width="1.5" vector-effect="non-scaling-stroke" />
         <text
           x={path.label[0]}
           y={path.label[1]}

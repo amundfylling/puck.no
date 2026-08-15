@@ -54,7 +54,7 @@ Treat landmarks as orientation hints, not movement facts. Use the editor grid an
       "scale": 0.95
     }
   ],
-  "puck": { "position": [205, 216], "radius": 5 }
+  "puck": null
 }
 ```
 
@@ -92,15 +92,15 @@ Sprite files, intrinsic dimensions, display sizes, pivot fractions, rod guides, 
 
 ### Puck
 
-`puck` is either `null` or an object with `position` and a `radius` from `3` to `12`. Put it at the initial position for the illustrated sequence. The movement paths explain subsequent puck travel.
+`puck` must be `null`. The numbered movement paths already explain puck travel; a separate puck marker adds duplicate visual information and is intentionally not rendered.
 
 ## Verification checklist
 
 1. Description and arrows express the same sequence.
 2. Numbers follow the puck/action order.
 3. Final shot or endpoint is visible.
-4. Players and the initial puck match the written sequence.
-5. Labels do not obscure a player or puck.
+4. Players match the written sequence.
+5. Labels do not obscure a player or rail.
 6. Crop retains enough rails/goal context to understand the move.
 7. Catalogue thumbnail is legible without relying on hover.
 8. Norwegian and English detail pages render the same scene.

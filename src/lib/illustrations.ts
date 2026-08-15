@@ -7,7 +7,6 @@ export type IllustrationPoint = IllustrationPath['points'][number];
 export type IllustrationPlayer = IllustrationScene['players'][number];
 export type IllustrationPlayerKind = IllustrationPlayer['kind'];
 export type IllustrationPlayerRole = NonNullable<IllustrationPlayer['role']>;
-export type IllustrationPuck = NonNullable<IllustrationScene['puck']>;
 
 export const RINK_WIDTH = 415;
 export const RINK_HEIGHT = 720;

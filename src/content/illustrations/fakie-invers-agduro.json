@@ -146,11 +146,5 @@
       "scale": 0.9
     }
   ],
-  "puck": {
-    "position": [
-      216.5,
-      266.3
-    ],
-    "radius": 5
-  }
+  "puck": null
 }

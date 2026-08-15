@@ -24,9 +24,10 @@ If the written description is insufficient to locate a pass, wall bounce, feint,
 ## Quality rules
 
 - Use the smallest crop that contains every path plus useful rink context.
-- Place labels near the start of their path without covering a player, puck, or rail.
+- Place labels near the start of their path without covering a player or rail.
 - Keep player anchors on their physical rod position. Role-assigned players snap to shared rod guides in the editor; use a `null` role only when deliberately placing a free actor. Rotate and scale the shared sprite; never embed a per-scene image or pivot.
-- Show only players that help explain the situation. The active attackers, relevant defenders, goalie, and initial puck are normally enough.
+- Show only players that help explain the situation. The active attackers, relevant defenders, and goalie are normally enough.
+- Keep `puck` set to `null`. The numbered movement arrows already show the puck route, so a separate puck marker adds clutter.
 - Use `pass` for puck transfers, `shot` for the final attempt on goal, and `move` only for player movement.
 - Add intermediate points only when they convey a real bend or wall interaction.
 - Use `curve: true` only for a deliberately smooth path; keep rail rebounds as straight segments with a corner.

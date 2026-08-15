@@ -30,8 +30,7 @@ interface EditorItem {
 
 type DragState =
   | { type: 'path'; pathId: string; pointIndex?: number; label?: boolean; before: string; moved: boolean }
-  | { type: 'player'; playerId: string; before: string; moved: boolean }
-  | { type: 'puck'; before: string; moved: boolean };
+  | { type: 'player'; playerId: string; before: string; moved: boolean };
 
 const clone = <T>(value: T): T => structuredClone(value);
 const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value));
@@ -131,20 +130,6 @@ function parseScene(value: unknown, expectedSlug: string, allowEmpty = true): Il
     };
   });
 
-  let puck: IllustrationScene['puck'] = null;
-  if (candidate.puck != null) {
-    if (typeof candidate.puck !== 'object' || Array.isArray(candidate.puck)) throw new Error('Pucken er ugyldig.');
-    const rawPuck = candidate.puck as Record<string, unknown>;
-    if (!isPoint(rawPuck.position)) throw new Error('Pucken mangler en gyldig posisjon.');
-    if (typeof rawPuck.radius !== 'number' || !Number.isFinite(rawPuck.radius) || rawPuck.radius < 3 || rawPuck.radius > 12) {
-      throw new Error('Puckradius må være mellom 3 og 12.');
-    }
-    puck = {
-      position: [round(rawPuck.position[0]), round(rawPuck.position[1])],
-      radius: round(rawPuck.radius),
-    };
-  }
-
   return {
     slug: expectedSlug,
     version: 1,
@@ -157,7 +142,7 @@ function parseScene(value: unknown, expectedSlug: string, allowEmpty = true): Il
     },
     paths,
     players,
-    puck,
+    puck: null,
   };
 }
 
@@ -194,7 +179,6 @@ function initializeEditor(root: HTMLElement) {
   ) as Record<keyof Viewport, HTMLInputElement>;
   const pathSelection = required<HTMLElement>('[data-editor-selection]');
   const playerSelection = required<HTMLElement>('[data-editor-player-selection]');
-  const puckSelection = required<HTMLElement>('[data-editor-puck-selection]');
   const selectionEmpty = required<HTMLElement>('[data-editor-selection-empty]');
   const kindSelect = required<HTMLSelectElement>('[data-editor-kind]');
   const pointsInput = required<HTMLTextAreaElement>('[data-editor-points]');
@@ -206,9 +190,6 @@ function initializeEditor(root: HTMLElement) {
   const playerY = required<HTMLInputElement>('[data-editor-player-y]');
   const playerRotation = required<HTMLInputElement>('[data-editor-player-rotation]');
   const playerScale = required<HTMLInputElement>('[data-editor-player-scale]');
-  const puckX = required<HTMLInputElement>('[data-editor-puck-x]');
-  const puckY = required<HTMLInputElement>('[data-editor-puck-y]');
-  const puckRadius = required<HTMLInputElement>('[data-editor-puck-radius]');
   const jsonInput = required<HTMLTextAreaElement>('[data-editor-json]');
   const undoButton = required<HTMLButtonElement>('[data-editor-undo]');
   const redoButton = required<HTMLButtonElement>('[data-editor-redo]');
@@ -221,7 +202,6 @@ function initializeEditor(root: HTMLElement) {
   let tool: Tool = 'select';
   let selectedPathId: string | null = null;
   let selectedPlayerId: string | null = null;
-  let puckSelected = false;
   let history: string[] = [];
   let future: string[] = [];
   let drawingPoints: IllustrationPoint[] = [];
@@ -248,7 +228,6 @@ function initializeEditor(root: HTMLElement) {
   const clearSelection = () => {
     selectedPathId = null;
     selectedPlayerId = null;
-    puckSelected = false;
   };
   const selectPath = (id: string) => {
     clearSelection();
@@ -258,11 +237,6 @@ function initializeEditor(root: HTMLElement) {
     clearSelection();
     selectedPlayerId = id;
   };
-  const selectPuck = () => {
-    clearSelection();
-    puckSelected = true;
-  };
-
   const pointFromEvent = (event: PointerEvent): IllustrationPoint => {
     const point = svg.createSVGPoint();
     point.x = event.clientX;
@@ -324,23 +298,6 @@ function initializeEditor(root: HTMLElement) {
     }, `${kind === 'attacker' ? 'Angriper' : kind === 'defender' ? 'Forsvarer' : 'Keeper'} lagt til.`);
   };
 
-  const addPuck = () => {
-    if (tool !== 'select') setTool('select');
-    if (scene.puck) {
-      selectPuck();
-      render();
-      announce('Pucken finnes allerede og er valgt.');
-      return;
-    }
-    mutate(() => {
-      scene.puck = {
-        position: [round(scene.viewport.x + scene.viewport.width / 2), round(scene.viewport.y + scene.viewport.height / 2)],
-        radius: 5,
-      };
-      selectPuck();
-    }, 'Puck lagt til.');
-  };
-
   const finishCurve = () => {
     if (drawingPoints.length < 2) {
       announce('En bøyd pil trenger minst to punkter.');
@@ -373,11 +330,9 @@ function initializeEditor(root: HTMLElement) {
   const renderSelection = () => {
     const path = selectedPath();
     const player = selectedPlayer();
-    const hasPuck = puckSelected && scene.puck;
     pathSelection.classList.toggle('hidden', !path);
     playerSelection.classList.toggle('hidden', !player);
-    puckSelection.classList.toggle('hidden', !hasPuck);
-    selectionEmpty.classList.toggle('hidden', Boolean(path || player || hasPuck));
+    selectionEmpty.classList.toggle('hidden', Boolean(path || player));
     if (path) {
       kindSelect.value = path.kind;
       pointsInput.value = path.points.map(([x, y]) => `${x}, ${y}`).join('\n');
@@ -391,11 +346,6 @@ function initializeEditor(root: HTMLElement) {
       playerY.value = String(player.position[1]);
       playerRotation.value = String(player.rotation);
       playerScale.value = String(player.scale);
-    }
-    if (hasPuck && scene.puck) {
-      puckX.value = String(scene.puck.position[0]);
-      puckY.value = String(scene.puck.position[1]);
-      puckRadius.value = String(scene.puck.radius);
     }
   };
 
@@ -424,12 +374,6 @@ function initializeEditor(root: HTMLElement) {
     const playerHitMarkup = scene.players.map((player) => (
       `<circle data-player-id="${player.id}" cx="${player.position[0]}" cy="${player.position[1]}" r="24" fill="transparent" pointer-events="all" />`
     )).join('');
-    const puckMarkup = scene.puck
-      ? `<circle cx="${scene.puck.position[0]}" cy="${scene.puck.position[1]}" r="${scene.puck.radius}" fill="#101820" stroke="${puckSelected ? '#c8102e' : '#fff'}" stroke-width="${puckSelected ? 3 : 1.5}" vector-effect="non-scaling-stroke" pointer-events="none" />`
-      : '';
-    const puckHitMarkup = scene.puck
-      ? `<circle data-puck="true" cx="${scene.puck.position[0]}" cy="${scene.puck.position[1]}" r="22" fill="transparent" pointer-events="all" />`
-      : '';
     const pathMarkup = scene.paths.map((path) => {
       const style = pathStyle(path);
       return `<path d="${illustrationPathData(path.points, path.curve)}" fill="none" stroke="${style.stroke}" stroke-width="${style.width}" stroke-dasharray="${style.dash}" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#editor-arrowhead)" vector-effect="non-scaling-stroke" pointer-events="none" />`;
@@ -461,7 +405,7 @@ function initializeEditor(root: HTMLElement) {
     </defs>
     <rect width="415" height="720" fill="#526f78" />
     <image href="${RINK_ASSET}" x="0" y="0" width="415" height="720" draggable="false" />
-    ${grid}${selectedGuideMarkup}${pathMarkup}${playerMarkup}${puckMarkup}${pathOverlayMarkup}${temporary}${playerHitMarkup}${puckHitMarkup}`;
+    ${grid}${selectedGuideMarkup}${pathMarkup}${playerMarkup}${pathOverlayMarkup}${temporary}${playerHitMarkup}`;
     finishButton.classList.toggle('hidden', tool !== 'curve');
     cancelButton.classList.toggle('hidden', tool !== 'curve');
     finishButton.disabled = drawingPoints.length < 2;
@@ -550,14 +494,6 @@ function initializeEditor(root: HTMLElement) {
     }, 'Spilleren er slettet.');
   };
 
-  const deletePuck = () => {
-    if (!scene.puck) return;
-    mutate(() => {
-      scene.puck = null;
-      clearSelection();
-    }, 'Pucken er fjernet.');
-  };
-
   svg.addEventListener('pointerdown', (event) => {
     event.preventDefault();
     const point = pointFromEvent(event);
@@ -586,13 +522,6 @@ function initializeEditor(root: HTMLElement) {
         before: snapshot(),
         moved: false,
       };
-      svg.setPointerCapture(event.pointerId);
-      render();
-      return;
-    }
-    if (target.closest<SVGElement>('[data-puck]') && scene.puck) {
-      selectPuck();
-      drag = { type: 'puck', before: snapshot(), moved: false };
       svg.setPointerCapture(event.pointerId);
       render();
       return;
@@ -639,9 +568,6 @@ function initializeEditor(root: HTMLElement) {
       const player = scene.players.find((candidate) => candidate.id === activeDrag.playerId);
       if (!player) return;
       player.position = snapPointToPlayerGuide(point, player.role);
-    } else if (activeDrag.type === 'puck') {
-      if (!scene.puck) return;
-      scene.puck.position = point;
     } else {
       const path = scene.paths.find((candidate) => candidate.id === activeDrag.pathId);
       if (!path) return;
@@ -670,7 +596,7 @@ function initializeEditor(root: HTMLElement) {
         history.push(drag.before);
         future = [];
         saveDraft();
-        announce(drag.type === 'player' ? 'Spilleren er flyttet.' : drag.type === 'puck' ? 'Pucken er flyttet.' : 'Pilen er flyttet.');
+        announce(drag.type === 'player' ? 'Spilleren er flyttet.' : 'Pilen er flyttet.');
       }
       drag = null;
       render();
@@ -691,7 +617,6 @@ function initializeEditor(root: HTMLElement) {
   root.querySelectorAll<HTMLButtonElement>('[data-editor-add-player]').forEach((button) => {
     button.addEventListener('click', () => addPlayer(button.dataset.editorAddPlayer as IllustrationPlayerKind));
   });
-  required<HTMLButtonElement>('[data-editor-add-puck]').addEventListener('click', addPuck);
   finishButton.addEventListener('click', finishCurve);
   cancelButton.addEventListener('click', cancelDrawing);
   undoButton.addEventListener('click', undo);
@@ -760,23 +685,6 @@ function initializeEditor(root: HTMLElement) {
     }, 'Spilleren er oppdatert.');
   });
   required<HTMLButtonElement>('[data-editor-delete-player]').addEventListener('click', deleteSelectedPlayer);
-
-  required<HTMLButtonElement>('[data-editor-apply-puck]').addEventListener('click', () => {
-    if (!scene.puck) return;
-    const x = Number(puckX.value);
-    const y = Number(puckY.value);
-    const radius = Number(puckRadius.value);
-    if (![x, y, radius].every(Number.isFinite)) {
-      announce('Puckfeltene må inneholde gyldige tall.');
-      return;
-    }
-    mutate(() => {
-      if (!scene.puck) return;
-      scene.puck.position = [clamp(x, 0, RINK_WIDTH), clamp(y, 0, RINK_HEIGHT)];
-      scene.puck.radius = clamp(radius, 3, 12);
-    }, 'Pucken er oppdatert.');
-  });
-  required<HTMLButtonElement>('[data-editor-delete-puck]').addEventListener('click', deletePuck);
 
   const exportScene = () => parseScene(scene, currentSlug, false);
   required<HTMLButtonElement>('[data-editor-copy]').addEventListener('click', async () => {
@@ -858,18 +766,17 @@ function initializeEditor(root: HTMLElement) {
       setTool('line');
     } else if (event.key.toLowerCase() === 'c') {
       setTool('curve');
-    } else if ((event.key === 'Delete' || event.key === 'Backspace') && (selectedPathId || selectedPlayerId || puckSelected)) {
+    } else if ((event.key === 'Delete' || event.key === 'Backspace') && (selectedPathId || selectedPlayerId)) {
       event.preventDefault();
       if (selectedPathId) deleteSelected();
-      else if (selectedPlayerId) deleteSelectedPlayer();
-      else deletePuck();
+      else deleteSelectedPlayer();
     } else if (selectedPlayerId && (event.key === '[' || event.key === ']')) {
       event.preventDefault();
       const player = selectedPlayer();
       if (!player) return;
       const amount = event.shiftKey ? 15 : 5;
       mutate(() => { player.rotation = clamp(player.rotation + (event.key === '[' ? -amount : amount), -360, 360); }, 'Spilleren er rotert.');
-    } else if ((selectedPathId || selectedPlayerId || puckSelected) && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
+    } else if ((selectedPathId || selectedPlayerId) && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
       event.preventDefault();
       const amount = event.shiftKey ? 5 : 1;
       const dx = event.key === 'ArrowLeft' ? -amount : event.key === 'ArrowRight' ? amount : 0;
@@ -889,11 +796,6 @@ function initializeEditor(root: HTMLElement) {
           ];
           player.position = snapPointToPlayerGuide(nextPosition, player.role);
         }, 'Spilleren er flyttet.');
-      } else if (puckSelected && scene.puck) {
-        mutate(() => {
-          if (!scene.puck) return;
-          scene.puck.position = [clamp(scene.puck.position[0] + dx, 0, RINK_WIDTH), clamp(scene.puck.position[1] + dy, 0, RINK_HEIGHT)];
-        }, 'Pucken er flyttet.');
       }
     }
   });

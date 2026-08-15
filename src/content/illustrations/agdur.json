@@ -41,5 +41,5 @@
     { "id": "defending-right-defense", "kind": "defender", "role": "right-defense", "position": [286.9, 181], "rotation": 94, "scale": 0.86 },
     { "id": "defending-goalie", "kind": "goalie", "role": "goalie", "position": [206.6, 162.2], "rotation": 180, "scale": 0.9 }
   ],
-  "puck": { "position": [207, 215], "radius": 5 }
+  "puck": null
 }

@@ -14,7 +14,7 @@ const scene = {
     { id: 'attacking-center', kind: 'attacker', role: 'center', position: [210, 227], rotation: -90, scale: 0.95 },
     { id: 'defending-goalie', kind: 'goalie', role: 'goalie', position: [208, 143], rotation: 180, scale: 0.9 },
   ],
-  puck: { position: [207, 215], radius: 5 },
+  puck: null,
 };
 
 test('accepts a valid editable illustration', () => {
@@ -30,17 +30,17 @@ test('rejects out-of-rink points and non-consecutive steps', () => {
   assert.ok(errors.some((error) => error.includes('steps must be consecutive')));
 });
 
-test('validates player sprites and puck geometry', () => {
+test('validates player sprites and rejects separate puck markers', () => {
   const invalid = structuredClone(scene);
   invalid.players[0].position = [-1, 900];
   invalid.players[1].id = invalid.players[0].id;
   invalid.players[1].scale = 2;
-  invalid.puck.radius = 20;
+  invalid.puck = { position: [207, 215], radius: 5 };
   const errors = validateIllustrationScene(invalid);
   assert.ok(errors.some((error) => error.includes('players[0].position.x')));
   assert.ok(errors.some((error) => error.includes('players[1].id is duplicated')));
   assert.ok(errors.some((error) => error.includes('players[1].scale')));
-  assert.ok(errors.some((error) => error.includes('puck.radius')));
+  assert.ok(errors.some((error) => error.includes('puck must be null')));
 });
 
 test('requires one same-slug trick reference per illustration', () => {

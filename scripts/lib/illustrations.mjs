@@ -92,14 +92,7 @@ export function validateIllustrationScene(scene, source = 'scene') {
     });
   }
 
-  if (scene.puck != null) {
-    if (typeof scene.puck !== 'object' || Array.isArray(scene.puck)) {
-      errors.push(`${source}.puck must be an object or null`);
-    } else {
-      errors.push(...pointErrors(scene.puck.position, `${source}.puck.position`));
-      if (!isFiniteNumber(scene.puck.radius) || scene.puck.radius < 3 || scene.puck.radius > 12) errors.push(`${source}.puck.radius must be between 3 and 12`);
-    }
-  }
+  if (scene.puck !== null) errors.push(`${source}.puck must be null; movement paths already show the puck route`);
   return [...new Set(errors)];
 }
 

@@ -186,7 +186,7 @@ export function planIllustrationFromDescription(trick) {
     viewport: viewportFor(paths),
     paths,
     players,
-    puck: paths[0] ? { position: [...paths[0].points[0]], radius: 5 } : null,
+    puck: null,
   };
 
   return {

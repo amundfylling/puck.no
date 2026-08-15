@@ -157,7 +157,7 @@ for (const filename of trickFiles) {
     viewport: traced.viewport,
     paths,
     players: usefulAttackingPlayers(paths.map((entry) => entry.points)),
-    puck: { position: roundedPoint(traced.paths[0][0]), radius: 5 },
+    puck: null,
   };
 
   if (WRITE) {

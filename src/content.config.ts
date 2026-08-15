@@ -163,10 +163,8 @@ const illustrations = defineCollection({
     })).min(1),
     /** Independently positioned sprites; shared assets and pivots live in src/lib/illustrations.ts. */
     players: z.array(illustrationPlayer).default([]),
-    puck: z.object({
-      position: illustrationPoint,
-      radius: z.number().min(3).max(12).default(5),
-    }).nullable().default(null),
+    /** Movement arrows carry the puck route; a separate puck marker would duplicate that information. */
+    puck: z.null().default(null),
   }).superRefine((data, ctx) => {
     if (data.viewport.x + data.viewport.width > 415) {
       ctx.addIssue({ code: 'custom', path: ['viewport', 'width'], message: 'Viewport exceeds rink width (415).' });
