@@ -30,6 +30,13 @@ test('rejects out-of-rink points and non-consecutive steps', () => {
   assert.ok(errors.some((error) => error.includes('steps must be consecutive')));
 });
 
+test('rejects curved passes', () => {
+  const invalid = structuredClone(scene);
+  invalid.paths[0].curve = true;
+  const errors = validateIllustrationScene(invalid);
+  assert.ok(errors.some((error) => error.includes('curve must be false for a pass')));
+});
+
 test('validates player sprites and rejects separate puck markers', () => {
   const invalid = structuredClone(scene);
   invalid.players[0].position = [-1, 900];

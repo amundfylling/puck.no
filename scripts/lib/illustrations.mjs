@@ -63,6 +63,7 @@ export function validateIllustrationScene(scene, source = 'scene') {
     else steps.add(path.step);
     if (!pathKinds.has(path.kind)) errors.push(`${prefix}.kind must be pass, move, or shot`);
     if (typeof path.curve !== 'boolean') errors.push(`${prefix}.curve must be boolean`);
+    else if (path.kind === 'pass' && path.curve) errors.push(`${prefix}.curve must be false for a pass`);
     if (!Array.isArray(path.points) || path.points.length < 2) errors.push(`${prefix}.points needs at least two points`);
     else path.points.forEach((point, pointIndex) => errors.push(...pointErrors(point, `${prefix}.points[${pointIndex}]`)));
     errors.push(...pointErrors(path.label, `${prefix}.label`));

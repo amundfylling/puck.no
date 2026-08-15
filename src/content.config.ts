@@ -175,6 +175,9 @@ const illustrations = defineCollection({
     const ids = new Set<string>();
     const steps = new Set<number>();
     data.paths.forEach((path, index) => {
+      if (path.kind === 'pass' && path.curve) {
+        ctx.addIssue({ code: 'custom', path: ['paths', index, 'curve'], message: 'Passes must use straight segments.' });
+      }
       if (ids.has(path.id)) {
         ctx.addIssue({ code: 'custom', path: ['paths', index, 'id'], message: `Duplicate path id: ${path.id}` });
       }

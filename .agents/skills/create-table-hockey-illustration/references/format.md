@@ -73,9 +73,11 @@ Use a custom viewport only when these crop a meaningful path or leave excessive 
 - `id`: `step-<n>` after editor normalization.
 - `step`: unique consecutive integer starting at 1.
 - `kind`: `pass`, `move`, or `shot`.
-- `curve`: render a smooth curve through three or more points.
+- `curve`: render a smooth curve through three or more points. It must always be `false` when `kind` is `pass`.
 - `points`: ordered `[x, y]` path points; the arrowhead is placed at the final point.
 - `label`: centre of the black numbered marker, normally close to the first point.
+
+Direct passes use exactly two points. A bank pass may add a sparse point at each genuine rail or post contact, creating straight legs with visible corners. Never trace the rounded board with many points to imitate a curved puck route. Curves are reserved for player movement.
 
 The renderer intentionally owns visual styling. Do not add colours, stroke widths, font names, arbitrary image URLs, or animation timing to version 1 scenes.
 

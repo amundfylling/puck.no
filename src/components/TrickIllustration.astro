@@ -65,7 +65,7 @@ const styleFor = (kind: 'pass' | 'move' | 'shot') => ({
     const style = styleFor(path.kind);
     return (
       <path
-        d={illustrationPathData(path.points, path.curve)}
+        d={illustrationPathData(path.points, path.kind === 'pass' ? false : path.curve)}
         fill="none"
         stroke={style.stroke}
         stroke-width={style.width}

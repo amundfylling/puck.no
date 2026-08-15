@@ -89,6 +89,7 @@ function parseScene(value: unknown, expectedSlug: string, allowEmpty = true): Il
     }
     if (!isPoint(path.label)) throw new Error(`Pil ${index + 1} mangler en gyldig nummerplassering.`);
     if (!['pass', 'move', 'shot'].includes(String(path.kind))) throw new Error(`Pil ${index + 1} har ukjent type.`);
+    if (path.kind === 'pass' && Boolean(path.curve)) throw new Error(`Pil ${index + 1} er en pasning og må være rett.`);
     return {
       id: `step-${index + 1}`,
       step: index + 1,
@@ -253,7 +254,7 @@ function initializeEditor(root: HTMLElement) {
       scene.paths.push({
         id: `step-${step}`,
         step,
-        kind: 'pass',
+        kind: curve ? 'move' : 'pass',
         curve,
         points: points.map((point) => [...point]),
         label: [...points[0]],
@@ -376,7 +377,7 @@ function initializeEditor(root: HTMLElement) {
     )).join('');
     const pathMarkup = scene.paths.map((path) => {
       const style = pathStyle(path);
-      return `<path d="${illustrationPathData(path.points, path.curve)}" fill="none" stroke="${style.stroke}" stroke-width="${style.width}" stroke-dasharray="${style.dash}" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#editor-arrowhead)" vector-effect="non-scaling-stroke" pointer-events="none" />`;
+      return `<path d="${illustrationPathData(path.points, path.kind === 'pass' ? false : path.curve)}" fill="none" stroke="${style.stroke}" stroke-width="${style.width}" stroke-dasharray="${style.dash}" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#editor-arrowhead)" vector-effect="non-scaling-stroke" pointer-events="none" />`;
     }).join('');
     const pathOverlayMarkup = scene.paths.map((path) => {
       const selected = path.id === selectedPathId;
@@ -384,7 +385,7 @@ function initializeEditor(root: HTMLElement) {
         ? path.points.map(([x, y], index) => `<circle data-point-index="${index}" data-path-id="${path.id}" cx="${x}" cy="${y}" r="7" fill="#fff" stroke="#c8102e" stroke-width="2" vector-effect="non-scaling-stroke" />`).join('')
         : '';
       return `<g>
-        <path data-path-id="${path.id}" d="${illustrationPathData(path.points, path.curve)}" fill="none" stroke="transparent" stroke-width="22" pointer-events="stroke" vector-effect="non-scaling-stroke" />
+        <path data-path-id="${path.id}" d="${illustrationPathData(path.points, path.kind === 'pass' ? false : path.curve)}" fill="none" stroke="transparent" stroke-width="22" pointer-events="stroke" vector-effect="non-scaling-stroke" />
         <circle data-label="true" data-path-id="${path.id}" cx="${path.label[0]}" cy="${path.label[1]}" r="11" fill="#101820" stroke="${selected ? '#c8102e' : '#fff'}" stroke-width="${selected ? 2.5 : 1.5}" vector-effect="non-scaling-stroke" />
         <text x="${path.label[0]}" y="${path.label[1]}" fill="#fff" font-family="Geist,system-ui,sans-serif" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central" pointer-events="none">${path.step}</text>
         ${handles}
@@ -655,6 +656,7 @@ function initializeEditor(root: HTMLElement) {
       if (!Number.isFinite(x) || !Number.isFinite(y)) throw new Error('Nummerplasseringen må ha gyldige tall.');
       mutate(() => {
         path.kind = kindSelect.value as IllustrationPath['kind'];
+        if (path.kind === 'pass') path.curve = false;
         path.points = points;
         path.label = [clamp(x, 0, RINK_WIDTH), clamp(y, 0, RINK_HEIGHT)];
       }, `Pil ${path.step} er oppdatert.`);
