@@ -4,6 +4,7 @@ import {
   illustrationPathData,
   playerSpritePlacement,
   RINK_ASSET,
+  snapPointToPlayerGuide,
   type IllustrationEntry,
 } from '../lib/illustrations';
 
@@ -77,9 +78,10 @@ const styleFor = (kind: 'pass' | 'move' | 'shot') => ({
   })}
   {players.map((player) => {
     const placement = playerSpritePlacement(player);
+    const position = snapPointToPlayerGuide(player.position, player.role);
     return (
       <g
-        transform={`translate(${player.position[0]} ${player.position[1]}) rotate(${player.rotation})`}
+        transform={`translate(${position[0]} ${position[1]}) rotate(${player.rotation})`}
         data-illustration-player={player.id}
         filter={`url(#illustration-${slug}-player-shadow)`}
       >

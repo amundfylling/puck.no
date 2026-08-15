@@ -1,9 +1,12 @@
 import {
+  defaultIllustrationPlayers,
   illustrationPathData,
+  playerRoleGuides,
   playerSpritePlacement,
   RINK_ASSET,
   RINK_HEIGHT,
   RINK_WIDTH,
+  snapPointToPlayerGuide,
   viewportPresets,
   type IllustrationPath,
   type IllustrationPoint,
@@ -33,7 +36,7 @@ type DragState =
 const clone = <T>(value: T): T => structuredClone(value);
 const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value));
 const round = (value: number) => Number(value.toFixed(1));
-const sceneKey = (slug: string) => `puck-illustration:${slug}:v2`;
+const sceneKey = (slug: string) => `puck-illustration:${slug}:v3`;
 const idPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const playerKinds = ['attacker', 'defender', 'goalie'] as const;
 const playerRoles = ['center', 'right-wing', 'left-wing', 'right-defense', 'left-defense', 'goalie'] as const;
@@ -45,7 +48,7 @@ function newScene(slug: string): IllustrationScene {
     rink: 'stiga-playoff-v1',
     viewport: { ...viewportPresets['offensive-zone'] },
     paths: [],
-    players: [],
+    players: defaultIllustrationPlayers(),
     puck: null,
   };
 }
@@ -115,12 +118,14 @@ function parseScene(value: unknown, expectedSlug: string, allowEmpty = true): Il
     if (typeof player.scale !== 'number' || !Number.isFinite(player.scale) || player.scale < 0.5 || player.scale > 1.5) {
       throw new Error(`Spiller ${index + 1} må ha størrelse mellom 0,5 og 1,5.`);
     }
+    const role = (player.role ?? null) as IllustrationPlayer['role'];
+    const position: IllustrationPoint = [round(player.position[0]), round(player.position[1])];
     playerIds.add(player.id);
     return {
       id: player.id,
       kind: player.kind as IllustrationPlayerKind,
-      role: (player.role ?? null) as IllustrationPlayer['role'],
-      position: [round(player.position[0]), round(player.position[1])],
+      role,
+      position: snapPointToPlayerGuide(position, role),
       rotation: round(player.rotation),
       scale: round(player.scale),
     };
@@ -287,21 +292,31 @@ function initializeEditor(root: HTMLElement) {
     return `${kind}-${number}`;
   };
 
+  const nextAvailableRole = (kind: IllustrationPlayerKind): IllustrationPlayer['role'] => {
+    const candidates: IllustrationPlayer['role'][] = kind === 'attacker'
+      ? ['center', 'left-wing', 'right-wing']
+      : kind === 'defender'
+        ? ['left-defense', 'right-defense']
+        : ['goalie'];
+    return candidates.find((role) => !scene.players.some((player) => player.role === role)) ?? null;
+  };
+
   const addPlayer = (kind: IllustrationPlayerKind) => {
     if (tool !== 'select') setTool('select');
     const id = nextPlayerId(kind);
-    const position: IllustrationPoint = [
-      round(scene.viewport.x + scene.viewport.width / 2),
-      round(scene.viewport.y + scene.viewport.height / 2),
-    ];
+    const role = nextAvailableRole(kind);
+    const layout = role ? defaultIllustrationPlayers().find((player) => player.role === role) : undefined;
+    const position: IllustrationPoint = layout
+      ? [...layout.position]
+      : [round(scene.viewport.x + scene.viewport.width / 2), round(scene.viewport.y + scene.viewport.height / 2)];
     mutate(() => {
       scene.players.push({
         id,
         kind,
-        role: kind === 'goalie' ? 'goalie' : null,
+        role,
         position,
-        rotation: kind === 'attacker' ? -90 : kind === 'defender' ? 90 : 180,
-        scale: 1,
+        rotation: layout?.rotation ?? (kind === 'attacker' ? -90 : kind === 'defender' ? 90 : 180),
+        scale: layout?.scale ?? 1,
       });
       selectPlayer(id);
     }, `${kind === 'attacker' ? 'Angriper' : kind === 'defender' ? 'Forsvarer' : 'Keeper'} lagt til.`);
@@ -392,6 +407,10 @@ function initializeEditor(root: HTMLElement) {
   const render = () => {
     const { viewport } = scene;
     svg.setAttribute('viewBox', `${viewport.x} ${viewport.y} ${viewport.width} ${viewport.height}`);
+    const selectedRole = selectedPlayer()?.role;
+    const selectedGuideMarkup = selectedRole
+      ? `<polyline points="${playerRoleGuides[selectedRole].map((point) => point.join(',')).join(' ')}" fill="none" stroke="#c8102e" stroke-width="2.5" stroke-dasharray="7 5" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" vector-effect="non-scaling-stroke" pointer-events="none" />`
+      : '';
     const playerMarkup = scene.players.map((player) => {
       const placement = playerSpritePlacement(player);
       const selected = player.id === selectedPlayerId;
@@ -440,7 +459,7 @@ function initializeEditor(root: HTMLElement) {
     </defs>
     <rect width="415" height="720" fill="#526f78" />
     <image href="${RINK_ASSET}" x="0" y="0" width="415" height="720" draggable="false" />
-    ${grid}${pathMarkup}${playerMarkup}${puckMarkup}${pathOverlayMarkup}${temporary}${playerHitMarkup}${puckHitMarkup}`;
+    ${grid}${selectedGuideMarkup}${pathMarkup}${playerMarkup}${puckMarkup}${pathOverlayMarkup}${temporary}${playerHitMarkup}${puckHitMarkup}`;
     finishButton.classList.toggle('hidden', tool !== 'curve');
     cancelButton.classList.toggle('hidden', tool !== 'curve');
     finishButton.disabled = drawingPoints.length < 2;
@@ -617,7 +636,7 @@ function initializeEditor(root: HTMLElement) {
     if (activeDrag.type === 'player') {
       const player = scene.players.find((candidate) => candidate.id === activeDrag.playerId);
       if (!player) return;
-      player.position = point;
+      player.position = snapPointToPlayerGuide(point, player.role);
     } else if (activeDrag.type === 'puck') {
       if (!scene.puck) return;
       scene.puck.position = point;
@@ -731,8 +750,9 @@ function initializeEditor(root: HTMLElement) {
     }
     mutate(() => {
       player.kind = playerKind.value as IllustrationPlayerKind;
-      player.role = (playerRole.value || null) as IllustrationPlayer['role'];
-      player.position = [clamp(x, 0, RINK_WIDTH), clamp(y, 0, RINK_HEIGHT)];
+      const role = (playerRole.value || null) as IllustrationPlayer['role'];
+      player.role = role;
+      player.position = snapPointToPlayerGuide([clamp(x, 0, RINK_WIDTH), clamp(y, 0, RINK_HEIGHT)], role);
       player.rotation = clamp(rotation, -360, 360);
       player.scale = clamp(scale, 0.5, 1.5);
     }, 'Spilleren er oppdatert.');
@@ -861,7 +881,11 @@ function initializeEditor(root: HTMLElement) {
         }, `Pil ${path.step} er flyttet.`);
       } else if (player) {
         mutate(() => {
-          player.position = [clamp(player.position[0] + dx, 0, RINK_WIDTH), clamp(player.position[1] + dy, 0, RINK_HEIGHT)];
+          const nextPosition: IllustrationPoint = [
+            clamp(player.position[0] + dx, 0, RINK_WIDTH),
+            clamp(player.position[1] + dy, 0, RINK_HEIGHT),
+          ];
+          player.position = snapPointToPlayerGuide(nextPosition, player.role);
         }, 'Spilleren er flyttet.');
       } else if (puckSelected && scene.puck) {
         mutate(() => {

@@ -302,7 +302,9 @@ Use the repo-local `create-table-hockey-illustration` skill in
 illustrations live in `src/content/illustrations/<slug>.json` and reference the
 shared rink and player assets; do not add new raster diagrams or embed images
 inside scene JSON. Place players with `kind`, optional `role`, `position`,
-`rotation` and `scale`; the renderer owns their asset and pivot geometry.
+`rotation` and `scale`; the renderer owns their asset, pivot geometry, default
+six-player layout and role-based rod guides. Keep a role on players that should
+remain attached to a physical rod path; use a null role only for free placement.
 The admin editor is at `/admin/illustrasjoner/`. Set the trick record's
 `illustration` field to the same slug, keep its legacy `diagram` as a fallback
 until visual verification, and run `npm run check:illustrations` before the

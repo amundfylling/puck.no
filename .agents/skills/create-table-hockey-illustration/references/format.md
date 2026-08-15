@@ -84,11 +84,11 @@ The renderer intentionally owns visual styling. Do not add colours, stroke width
 - `id`: unique stable slug inside the scene, preferably semantic (`attacking-center`, `defending-goalie`).
 - `kind`: `attacker` (yellow sprite), `defender` (white sprite), or `goalie`.
 - `role`: optional `center`, `left-wing`, `right-wing`, `left-defense`, `right-defense`, or `goalie`.
-- `position`: the physical rotation/pivot point on the rink, not the image's top-left corner.
+- `position`: the physical rotation/pivot point on the rink, not the image's top-left corner. In the editor, a player with a role snaps to the matching rod path traced from `th_animator`; a player without a role can move freely.
 - `rotation`: degrees from the shared sprite's source orientation, from `-360` to `360`.
 - `scale`: `0.5`–`1.5`; start near `1` and change only when needed for visual fit.
 
-Sprite files, intrinsic dimensions, display sizes, and pivot fractions are centralized in `src/lib/illustrations.ts`. Scenes must never contain image URLs, embedded base64, or custom pivots. This keeps the JSON compact and lets every illustration improve when the shared sprites are refined.
+Sprite files, intrinsic dimensions, display sizes, pivot fractions, rod guides, and the six-player starting layout are centralized in `src/lib/illustrations.ts`. New editor scenes begin with three attackers, two defenders, and one goalie. Scenes must never contain image URLs, embedded base64, custom pivots, or copied guide geometry. This keeps the JSON compact and lets every illustration improve when the shared layout is refined.
 
 ### Puck
 
