@@ -10,6 +10,8 @@
     "check": "astro check",
     "check-links": "node scripts/check-links.mjs",
     "check:illustrations": "node scripts/check-illustrations.mjs",
+    "illustration:draft": "node scripts/create-illustration-draft.mjs",
+    "illustration:migrate": "node scripts/migrate-legacy-illustrations.mjs",
     "audit-generated": "node scripts/audit-generated.mjs",
     "generate:cloudflare-types": "wrangler types functions/worker-configuration.d.ts --env-interface CloudflareEnv --include-runtime false",
     "check:cloudflare-types": "wrangler types functions/worker-configuration.d.ts --env-interface CloudflareEnv --include-runtime false --check",

@@ -1,0 +1,156 @@
+{
+  "slug": "agduro",
+  "version": 1,
+  "rink": "stiga-playoff-v1",
+  "viewport": {
+    "x": 0,
+    "y": 0,
+    "width": 415,
+    "height": 415
+  },
+  "paths": [
+    {
+      "id": "step-1",
+      "step": 1,
+      "kind": "pass",
+      "curve": false,
+      "points": [
+        [
+          209.6,
+          235.2
+        ],
+        [
+          197.8,
+          235.2
+        ],
+        [
+          96.1,
+          264.2
+        ],
+        [
+          69.9,
+          273.9
+        ]
+      ],
+      "label": [
+        209.6,
+        235.2
+      ]
+    },
+    {
+      "id": "step-2",
+      "step": 2,
+      "kind": "pass",
+      "curve": false,
+      "points": [
+        [
+          69.9,
+          273.9
+        ],
+        [
+          225.5,
+          378.3
+        ]
+      ],
+      "label": [
+        69.9,
+        273.9
+      ]
+    },
+    {
+      "id": "step-3",
+      "step": 3,
+      "kind": "shot",
+      "curve": false,
+      "points": [
+        [
+          225.5,
+          378.3
+        ],
+        [
+          233.8,
+          148.7
+        ]
+      ],
+      "label": [
+        225.5,
+        378.3
+      ]
+    }
+  ],
+  "players": [
+    {
+      "id": "attacking-left-wing",
+      "kind": "attacker",
+      "role": "left-wing",
+      "position": [
+        72.2,
+        272.9
+      ],
+      "rotation": -180,
+      "scale": 0.86
+    },
+    {
+      "id": "attacking-center",
+      "kind": "attacker",
+      "role": "center",
+      "position": [
+        214.2,
+        234.6
+      ],
+      "rotation": -90,
+      "scale": 0.9
+    },
+    {
+      "id": "attacking-right-wing",
+      "kind": "attacker",
+      "role": "right-wing",
+      "position": [
+        352.1,
+        245
+      ],
+      "rotation": -88,
+      "scale": 0.86
+    },
+    {
+      "id": "defending-left-defense",
+      "kind": "defender",
+      "role": "left-defense",
+      "position": [
+        134.1,
+        189.9
+      ],
+      "rotation": 98,
+      "scale": 0.86
+    },
+    {
+      "id": "defending-right-defense",
+      "kind": "defender",
+      "role": "right-defense",
+      "position": [
+        286.8,
+        166
+      ],
+      "rotation": 94,
+      "scale": 0.86
+    },
+    {
+      "id": "defending-goalie",
+      "kind": "goalie",
+      "role": "goalie",
+      "position": [
+        206.6,
+        162.2
+      ],
+      "rotation": 180,
+      "scale": 0.9
+    }
+  ],
+  "puck": {
+    "position": [
+      209.6,
+      235.2
+    ],
+    "radius": 5
+  }
+}

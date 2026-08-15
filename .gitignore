@@ -1,6 +1,7 @@
 node_modules
 dist
 migration/raw
+migration/illustration-drafts/
 .dev.vars
 .DS_Store
 .playwright-mcp

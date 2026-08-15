@@ -11,12 +11,13 @@ Keep the movement data editable. Never create a new PNG, GIF, embedded rink, or 
 
 1. Read `src/content/tricks/<slug>.json`. Do not infer an ambiguous movement from its name alone. Preserve the legacy `diagram` until the new scene has been visually verified.
 2. Read [references/format.md](references/format.md) before editing scene data.
-3. Create or edit `src/content/illustrations/<slug>.json`. Set `illustration` in the trick record to the same slug.
-4. Start from the editor's six-player default setup, then remove actors that do not help explain the combination. Use `attacker` for the player(s) performing the combination, `defender` for opponents, and `goalie` for the keeper. Assign roles whenever known so players stay attached to their physical rod paths.
-5. Prefer `/admin/illustrasjoner/` for tracing and direct manipulation. For agent-authored coordinate changes, edit JSON directly and use the editor's grid/raw JSON panel for inspection.
-6. Use one path per numbered action. Keep steps consecutive from 1. Let the shared renderer control colours, widths, arrowheads, fonts, rink asset, player sprites, pivots, and labels.
-7. Run `npm run check:illustrations` and `npm run check`.
-8. Run `npm run build`, open both the catalogue thumbnail and detail page at desktop and 375 px, and compare against the description or legacy reference. Check that players, arrowheads, labels, and the decisive endpoint remain visible inside the crop.
+3. When no legacy diagram exists, read [references/movement-language.md](references/movement-language.md) and run `npm run illustration:draft -- <slug> --write`. Import the generated draft and resolve every warning before publishing it.
+4. Create or edit `src/content/illustrations/<slug>.json`. Set `illustration` in the trick record to the same slug.
+5. Start from the editor's six-player default setup, then remove actors that do not help explain the combination. Use `attacker` for the player(s) performing the combination, `defender` for opponents, and `goalie` for the keeper. Assign roles whenever known so players stay attached to their physical rod paths.
+6. Prefer `/admin/illustrasjoner/` for tracing and direct manipulation. For agent-authored coordinate changes, edit JSON directly and use the editor's grid/raw JSON panel for inspection.
+7. Use one path per numbered action. Keep steps consecutive from 1. Let the shared renderer control colours, widths, arrowheads, fonts, rink asset, player sprites, pivots, and labels.
+8. Run `npm run check:illustrations` and `npm run check`.
+9. Run `npm run build`, open both the catalogue thumbnail and detail page at desktop and 375 px, and compare against the description or legacy reference. Check that players, arrowheads, labels, and the decisive endpoint remain visible inside the crop. For migrated scenes, use `/admin/illustrasjoner/kontroll/` for a direct side-by-side comparison.
 
 If the written description is insufficient to locate a pass, wall bounce, feint, or shot confidently, stop and request table-hockey expertise. Do not fabricate technically precise movement data.
 

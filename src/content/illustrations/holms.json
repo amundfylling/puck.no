@@ -1,0 +1,196 @@
+{
+  "slug": "holms",
+  "version": 1,
+  "rink": "stiga-playoff-v1",
+  "viewport": {
+    "x": 0,
+    "y": 0,
+    "width": 415,
+    "height": 303
+  },
+  "paths": [
+    {
+      "id": "step-1",
+      "step": 1,
+      "kind": "pass",
+      "curve": false,
+      "points": [
+        [
+          213,
+          269.1
+        ],
+        [
+          368.7,
+          141.1
+        ],
+        [
+          367.3,
+          122.4
+        ],
+        [
+          358.3,
+          99.6
+        ],
+        [
+          327.8,
+          67.8
+        ],
+        [
+          289.8,
+          56
+        ],
+        [
+          125.9,
+          56
+        ],
+        [
+          103.1,
+          60.9
+        ],
+        [
+          83.7,
+          70.5
+        ],
+        [
+          60.9,
+          93.4
+        ],
+        [
+          47.7,
+          125.2
+        ],
+        [
+          71.9,
+          264.9
+        ]
+      ],
+      "label": [
+        213,
+        269.1
+      ]
+    },
+    {
+      "id": "step-2",
+      "step": 2,
+      "kind": "pass",
+      "curve": false,
+      "points": [
+        [
+          71.9,
+          264.9
+        ],
+        [
+          231,
+          228.3
+        ]
+      ],
+      "label": [
+        71.9,
+        264.9
+      ]
+    },
+    {
+      "id": "step-3",
+      "step": 3,
+      "kind": "shot",
+      "curve": false,
+      "points": [
+        [
+          231,
+          228.3
+        ],
+        [
+          234.5,
+          217.9
+        ],
+        [
+          230.3,
+          213.7
+        ],
+        [
+          226.9,
+          141.8
+        ]
+      ],
+      "label": [
+        231,
+        228.3
+      ]
+    }
+  ],
+  "players": [
+    {
+      "id": "attacking-left-wing",
+      "kind": "attacker",
+      "role": "left-wing",
+      "position": [
+        69.2,
+        266
+      ],
+      "rotation": -180,
+      "scale": 0.86
+    },
+    {
+      "id": "attacking-center",
+      "kind": "attacker",
+      "role": "center",
+      "position": [
+        218.9,
+        268.3
+      ],
+      "rotation": -90,
+      "scale": 0.9
+    },
+    {
+      "id": "attacking-right-wing",
+      "kind": "attacker",
+      "role": "right-wing",
+      "position": [
+        352.1,
+        245
+      ],
+      "rotation": -88,
+      "scale": 0.86
+    },
+    {
+      "id": "defending-left-defense",
+      "kind": "defender",
+      "role": "left-defense",
+      "position": [
+        134.1,
+        189.9
+      ],
+      "rotation": 98,
+      "scale": 0.86
+    },
+    {
+      "id": "defending-right-defense",
+      "kind": "defender",
+      "role": "right-defense",
+      "position": [
+        286.8,
+        166
+      ],
+      "rotation": 94,
+      "scale": 0.86
+    },
+    {
+      "id": "defending-goalie",
+      "kind": "goalie",
+      "role": "goalie",
+      "position": [
+        206.6,
+        162.2
+      ],
+      "rotation": 180,
+      "scale": 0.9
+    }
+  ],
+  "puck": {
+    "position": [
+      213,
+      269.1
+    ],
+    "radius": 5
+  }
+}

@@ -181,6 +181,8 @@ function initializeEditor(root: HTMLElement) {
   const data = JSON.parse(required<HTMLScriptElement>('[data-editor-data]').textContent ?? '[]') as EditorItem[];
   const items = new Map(data.map((item) => [item.slug, item]));
   const trickSelect = required<HTMLSelectElement>('[data-editor-trick]');
+  const requestedSlug = new URLSearchParams(window.location.search).get('kombinasjon');
+  if (requestedSlug && items.has(requestedSlug)) trickSelect.value = requestedSlug;
   const svg = required<SVGSVGElement>('[data-editor-stage]');
   const status = required<HTMLElement>('[data-editor-status]');
   const preview = required<HTMLAnchorElement>('[data-editor-preview]');
