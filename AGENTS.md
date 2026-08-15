@@ -300,7 +300,9 @@ emits the web variants.
 Use the repo-local `create-table-hockey-illustration` skill in
 `.agents/skills/create-table-hockey-illustration/`. Editable combination
 illustrations live in `src/content/illustrations/<slug>.json` and reference the
-one shared rink asset; do not add new raster diagrams as the editable source.
+shared rink and player assets; do not add new raster diagrams or embed images
+inside scene JSON. Place players with `kind`, optional `role`, `position`,
+`rotation` and `scale`; the renderer owns their asset and pivot geometry.
 The admin editor is at `/admin/illustrasjoner/`. Set the trick record's
 `illustration` field to the same slug, keep its legacy `diagram` as a fallback
 until visual verification, and run `npm run check:illustrations` before the

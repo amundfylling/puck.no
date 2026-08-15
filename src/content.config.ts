@@ -130,6 +130,17 @@ const illustrationPoint = z.tuple([
   z.number().min(0).max(720),
 ]);
 
+const illustrationPlayerKind = z.enum(['attacker', 'defender', 'goalie']);
+
+const illustrationPlayer = z.object({
+  id: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+  kind: illustrationPlayerKind,
+  role: trickPlayer.nullable().optional(),
+  position: illustrationPoint,
+  rotation: z.number().min(-360).max(360).default(0),
+  scale: z.number().min(0.5).max(1.5).default(1),
+});
+
 const illustrations = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/content/illustrations' }),
   schema: z.object({
@@ -150,6 +161,12 @@ const illustrations = defineCollection({
       points: z.array(illustrationPoint).min(2),
       label: illustrationPoint,
     })).min(1),
+    /** Independently positioned sprites; shared assets and pivots live in src/lib/illustrations.ts. */
+    players: z.array(illustrationPlayer).default([]),
+    puck: z.object({
+      position: illustrationPoint,
+      radius: z.number().min(3).max(12).default(5),
+    }).nullable().default(null),
   }).superRefine((data, ctx) => {
     if (data.viewport.x + data.viewport.width > 415) {
       ctx.addIssue({ code: 'custom', path: ['viewport', 'width'], message: 'Viewport exceeds rink width (415).' });
@@ -174,6 +191,13 @@ const illustrations = defineCollection({
       if (step !== index + 1) {
         ctx.addIssue({ code: 'custom', path: ['paths'], message: 'Steps must be consecutive and start at 1.' });
       }
+    });
+    const playerIds = new Set<string>();
+    data.players.forEach((player, index) => {
+      if (playerIds.has(player.id)) {
+        ctx.addIssue({ code: 'custom', path: ['players', index, 'id'], message: `Duplicate player id: ${player.id}` });
+      }
+      playerIds.add(player.id);
     });
   }),
 });

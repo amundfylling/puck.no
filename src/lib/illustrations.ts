@@ -4,10 +4,57 @@ export type IllustrationEntry = CollectionEntry<'illustrations'>;
 export type IllustrationScene = IllustrationEntry['data'];
 export type IllustrationPath = IllustrationScene['paths'][number];
 export type IllustrationPoint = IllustrationPath['points'][number];
+export type IllustrationPlayer = IllustrationScene['players'][number];
+export type IllustrationPlayerKind = IllustrationPlayer['kind'];
+export type IllustrationPuck = NonNullable<IllustrationScene['puck']>;
 
 export const RINK_WIDTH = 415;
 export const RINK_HEIGHT = 720;
 export const RINK_ASSET = '/illustrations/rinks/stiga-playoff-v1.png';
+
+export const playerSpriteDefinitions = {
+  attacker: {
+    asset: '/illustrations/players/attacker-yellow.png',
+    sourceWidth: 145,
+    sourceHeight: 106,
+    longestSide: 60,
+    pivot: [0.456, 0.304] as const,
+  },
+  defender: {
+    asset: '/illustrations/players/defender-white.png',
+    sourceWidth: 127,
+    sourceHeight: 84,
+    longestSide: 60,
+    pivot: [0.42, 0.292] as const,
+  },
+  goalie: {
+    asset: '/illustrations/players/goalie.png',
+    sourceWidth: 103,
+    sourceHeight: 61,
+    longestSide: 48,
+    pivot: [0.734, 0.639] as const,
+  },
+} satisfies Record<IllustrationPlayerKind, {
+  asset: string;
+  sourceWidth: number;
+  sourceHeight: number;
+  longestSide: number;
+  pivot: readonly [number, number];
+}>;
+
+export function playerSpritePlacement(player: IllustrationPlayer) {
+  const definition = playerSpriteDefinitions[player.kind];
+  const ratio = definition.longestSide / Math.max(definition.sourceWidth, definition.sourceHeight);
+  const width = definition.sourceWidth * ratio * player.scale;
+  const height = definition.sourceHeight * ratio * player.scale;
+  return {
+    asset: definition.asset,
+    width,
+    height,
+    x: -definition.pivot[0] * width,
+    y: -definition.pivot[1] * height,
+  };
+}
 
 export const viewportPresets = {
   'offensive-zone': { x: 0, y: 0, width: 415, height: 303 },

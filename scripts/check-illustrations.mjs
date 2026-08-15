@@ -7,6 +7,11 @@ const ROOT = process.cwd();
 const TRICKS_DIR = path.join(ROOT, 'src/content/tricks');
 const ILLUSTRATIONS_DIR = path.join(ROOT, 'src/content/illustrations');
 const RINK_ASSET = path.join(ROOT, 'public/illustrations/rinks/stiga-playoff-v1.png');
+const PLAYER_ASSETS = [
+  'attacker-yellow.png',
+  'defender-white.png',
+  'goalie.png',
+].map((filename) => path.join(ROOT, 'public/illustrations/players', filename));
 
 async function jsonFiles(directory) {
   const entries = await fs.readdir(directory, { withFileTypes: true });
@@ -37,6 +42,13 @@ try {
   await fs.access(RINK_ASSET);
 } catch {
   errors.push(`missing shared rink asset: ${path.relative(ROOT, RINK_ASSET)}`);
+}
+for (const asset of PLAYER_ASSETS) {
+  try {
+    await fs.access(asset);
+  } catch {
+    errors.push(`missing shared player asset: ${path.relative(ROOT, asset)}`);
+  }
 }
 
 if (errors.length) {

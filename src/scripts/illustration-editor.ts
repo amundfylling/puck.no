@@ -1,11 +1,14 @@
 import {
   illustrationPathData,
+  playerSpritePlacement,
   RINK_ASSET,
   RINK_HEIGHT,
   RINK_WIDTH,
   viewportPresets,
   type IllustrationPath,
   type IllustrationPoint,
+  type IllustrationPlayer,
+  type IllustrationPlayerKind,
   type IllustrationScene,
 } from '../lib/illustrations';
 
@@ -22,18 +25,18 @@ interface EditorItem {
   scene: IllustrationScene | null;
 }
 
-interface DragState {
-  pathId: string;
-  pointIndex?: number;
-  label?: boolean;
-  before: string;
-  moved: boolean;
-}
+type DragState =
+  | { type: 'path'; pathId: string; pointIndex?: number; label?: boolean; before: string; moved: boolean }
+  | { type: 'player'; playerId: string; before: string; moved: boolean }
+  | { type: 'puck'; before: string; moved: boolean };
 
 const clone = <T>(value: T): T => structuredClone(value);
 const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value));
 const round = (value: number) => Number(value.toFixed(1));
-const sceneKey = (slug: string) => `puck-illustration:${slug}:v1`;
+const sceneKey = (slug: string) => `puck-illustration:${slug}:v2`;
+const idPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const playerKinds = ['attacker', 'defender', 'goalie'] as const;
+const playerRoles = ['center', 'right-wing', 'left-wing', 'right-defense', 'left-defense', 'goalie'] as const;
 
 function newScene(slug: string): IllustrationScene {
   return {
@@ -42,6 +45,8 @@ function newScene(slug: string): IllustrationScene {
     rink: 'stiga-playoff-v1',
     viewport: { ...viewportPresets['offensive-zone'] },
     paths: [],
+    players: [],
+    puck: null,
   };
 }
 
@@ -92,6 +97,49 @@ function parseScene(value: unknown, expectedSlug: string, allowEmpty = true): Il
     };
   });
 
+  const rawPlayers = candidate.players ?? [];
+  if (!Array.isArray(rawPlayers)) throw new Error('Spillere må være en liste.');
+  const playerIds = new Set<string>();
+  const players = rawPlayers.map((raw, index): IllustrationPlayer => {
+    if (!raw || typeof raw !== 'object') throw new Error(`Spiller ${index + 1} er ugyldig.`);
+    const player = raw as Record<string, unknown>;
+    if (typeof player.id !== 'string' || !idPattern.test(player.id) || playerIds.has(player.id)) {
+      throw new Error(`Spiller ${index + 1} må ha en unik id med små bokstaver, tall og bindestreker.`);
+    }
+    if (!playerKinds.includes(player.kind as IllustrationPlayerKind)) throw new Error(`Spiller ${index + 1} har ukjent type.`);
+    if (player.role != null && !playerRoles.includes(player.role as typeof playerRoles[number])) throw new Error(`Spiller ${index + 1} har ukjent rolle.`);
+    if (!isPoint(player.position)) throw new Error(`Spiller ${index + 1} mangler en gyldig posisjon.`);
+    if (typeof player.rotation !== 'number' || !Number.isFinite(player.rotation) || player.rotation < -360 || player.rotation > 360) {
+      throw new Error(`Spiller ${index + 1} må ha rotasjon mellom -360 og 360.`);
+    }
+    if (typeof player.scale !== 'number' || !Number.isFinite(player.scale) || player.scale < 0.5 || player.scale > 1.5) {
+      throw new Error(`Spiller ${index + 1} må ha størrelse mellom 0,5 og 1,5.`);
+    }
+    playerIds.add(player.id);
+    return {
+      id: player.id,
+      kind: player.kind as IllustrationPlayerKind,
+      role: (player.role ?? null) as IllustrationPlayer['role'],
+      position: [round(player.position[0]), round(player.position[1])],
+      rotation: round(player.rotation),
+      scale: round(player.scale),
+    };
+  });
+
+  let puck: IllustrationScene['puck'] = null;
+  if (candidate.puck != null) {
+    if (typeof candidate.puck !== 'object' || Array.isArray(candidate.puck)) throw new Error('Pucken er ugyldig.');
+    const rawPuck = candidate.puck as Record<string, unknown>;
+    if (!isPoint(rawPuck.position)) throw new Error('Pucken mangler en gyldig posisjon.');
+    if (typeof rawPuck.radius !== 'number' || !Number.isFinite(rawPuck.radius) || rawPuck.radius < 3 || rawPuck.radius > 12) {
+      throw new Error('Puckradius må være mellom 3 og 12.');
+    }
+    puck = {
+      position: [round(rawPuck.position[0]), round(rawPuck.position[1])],
+      radius: round(rawPuck.radius),
+    };
+  }
+
   return {
     slug: expectedSlug,
     version: 1,
@@ -103,6 +151,8 @@ function parseScene(value: unknown, expectedSlug: string, allowEmpty = true): Il
       height: round(parsedViewport.height),
     },
     paths,
+    players,
+    puck,
   };
 }
 
@@ -135,12 +185,23 @@ function initializeEditor(root: HTMLElement) {
   const viewportFields = Object.fromEntries(
     ['x', 'y', 'width', 'height'].map((key) => [key, required<HTMLInputElement>(`[data-editor-viewport-field="${key}"]`)]),
   ) as Record<keyof Viewport, HTMLInputElement>;
-  const selection = required<HTMLElement>('[data-editor-selection]');
+  const pathSelection = required<HTMLElement>('[data-editor-selection]');
+  const playerSelection = required<HTMLElement>('[data-editor-player-selection]');
+  const puckSelection = required<HTMLElement>('[data-editor-puck-selection]');
   const selectionEmpty = required<HTMLElement>('[data-editor-selection-empty]');
   const kindSelect = required<HTMLSelectElement>('[data-editor-kind]');
   const pointsInput = required<HTMLTextAreaElement>('[data-editor-points]');
   const labelX = required<HTMLInputElement>('[data-editor-label-x]');
   const labelY = required<HTMLInputElement>('[data-editor-label-y]');
+  const playerKind = required<HTMLSelectElement>('[data-editor-player-kind]');
+  const playerRole = required<HTMLSelectElement>('[data-editor-player-role]');
+  const playerX = required<HTMLInputElement>('[data-editor-player-x]');
+  const playerY = required<HTMLInputElement>('[data-editor-player-y]');
+  const playerRotation = required<HTMLInputElement>('[data-editor-player-rotation]');
+  const playerScale = required<HTMLInputElement>('[data-editor-player-scale]');
+  const puckX = required<HTMLInputElement>('[data-editor-puck-x]');
+  const puckY = required<HTMLInputElement>('[data-editor-puck-y]');
+  const puckRadius = required<HTMLInputElement>('[data-editor-puck-radius]');
   const jsonInput = required<HTMLTextAreaElement>('[data-editor-json]');
   const undoButton = required<HTMLButtonElement>('[data-editor-undo]');
   const redoButton = required<HTMLButtonElement>('[data-editor-redo]');
@@ -152,6 +213,8 @@ function initializeEditor(root: HTMLElement) {
   let scene = newScene(currentSlug);
   let tool: Tool = 'select';
   let selectedPathId: string | null = null;
+  let selectedPlayerId: string | null = null;
+  let puckSelected = false;
   let history: string[] = [];
   let future: string[] = [];
   let drawingPoints: IllustrationPoint[] = [];
@@ -174,6 +237,24 @@ function initializeEditor(root: HTMLElement) {
     announce(message);
   };
   const selectedPath = () => scene.paths.find((path) => path.id === selectedPathId);
+  const selectedPlayer = () => scene.players.find((player) => player.id === selectedPlayerId);
+  const clearSelection = () => {
+    selectedPathId = null;
+    selectedPlayerId = null;
+    puckSelected = false;
+  };
+  const selectPath = (id: string) => {
+    clearSelection();
+    selectedPathId = id;
+  };
+  const selectPlayer = (id: string) => {
+    clearSelection();
+    selectedPlayerId = id;
+  };
+  const selectPuck = () => {
+    clearSelection();
+    puckSelected = true;
+  };
 
   const pointFromEvent = (event: PointerEvent): IllustrationPoint => {
     const point = svg.createSVGPoint();
@@ -196,8 +277,51 @@ function initializeEditor(root: HTMLElement) {
         points: points.map((point) => [...point]),
         label: [...points[0]],
       });
-      selectedPathId = `step-${step}`;
+      selectPath(`step-${step}`);
     }, `Pil ${step} lagt til.`);
+  };
+
+  const nextPlayerId = (kind: IllustrationPlayerKind) => {
+    let number = 1;
+    while (scene.players.some((player) => player.id === `${kind}-${number}`)) number += 1;
+    return `${kind}-${number}`;
+  };
+
+  const addPlayer = (kind: IllustrationPlayerKind) => {
+    if (tool !== 'select') setTool('select');
+    const id = nextPlayerId(kind);
+    const position: IllustrationPoint = [
+      round(scene.viewport.x + scene.viewport.width / 2),
+      round(scene.viewport.y + scene.viewport.height / 2),
+    ];
+    mutate(() => {
+      scene.players.push({
+        id,
+        kind,
+        role: kind === 'goalie' ? 'goalie' : null,
+        position,
+        rotation: kind === 'attacker' ? -90 : kind === 'defender' ? 90 : 180,
+        scale: 1,
+      });
+      selectPlayer(id);
+    }, `${kind === 'attacker' ? 'Angriper' : kind === 'defender' ? 'Forsvarer' : 'Keeper'} lagt til.`);
+  };
+
+  const addPuck = () => {
+    if (tool !== 'select') setTool('select');
+    if (scene.puck) {
+      selectPuck();
+      render();
+      announce('Pucken finnes allerede og er valgt.');
+      return;
+    }
+    mutate(() => {
+      scene.puck = {
+        position: [round(scene.viewport.x + scene.viewport.width / 2), round(scene.viewport.y + scene.viewport.height / 2)],
+        radius: 5,
+      };
+      selectPuck();
+    }, 'Puck lagt til.');
   };
 
   const finishCurve = () => {
@@ -231,13 +355,31 @@ function initializeEditor(root: HTMLElement) {
 
   const renderSelection = () => {
     const path = selectedPath();
-    selection.classList.toggle('hidden', !path);
-    selectionEmpty.classList.toggle('hidden', Boolean(path));
-    if (!path) return;
-    kindSelect.value = path.kind;
-    pointsInput.value = path.points.map(([x, y]) => `${x}, ${y}`).join('\n');
-    labelX.value = String(path.label[0]);
-    labelY.value = String(path.label[1]);
+    const player = selectedPlayer();
+    const hasPuck = puckSelected && scene.puck;
+    pathSelection.classList.toggle('hidden', !path);
+    playerSelection.classList.toggle('hidden', !player);
+    puckSelection.classList.toggle('hidden', !hasPuck);
+    selectionEmpty.classList.toggle('hidden', Boolean(path || player || hasPuck));
+    if (path) {
+      kindSelect.value = path.kind;
+      pointsInput.value = path.points.map(([x, y]) => `${x}, ${y}`).join('\n');
+      labelX.value = String(path.label[0]);
+      labelY.value = String(path.label[1]);
+    }
+    if (player) {
+      playerKind.value = player.kind;
+      playerRole.value = player.role ?? '';
+      playerX.value = String(player.position[0]);
+      playerY.value = String(player.position[1]);
+      playerRotation.value = String(player.rotation);
+      playerScale.value = String(player.scale);
+    }
+    if (hasPuck && scene.puck) {
+      puckX.value = String(scene.puck.position[0]);
+      puckY.value = String(scene.puck.position[1]);
+      puckRadius.value = String(scene.puck.radius);
+    }
   };
 
   const presetName = (): string => {
@@ -250,15 +392,34 @@ function initializeEditor(root: HTMLElement) {
   const render = () => {
     const { viewport } = scene;
     svg.setAttribute('viewBox', `${viewport.x} ${viewport.y} ${viewport.width} ${viewport.height}`);
+    const playerMarkup = scene.players.map((player) => {
+      const placement = playerSpritePlacement(player);
+      const selected = player.id === selectedPlayerId;
+      return `<g transform="translate(${player.position[0]} ${player.position[1]}) rotate(${player.rotation})" pointer-events="none" filter="url(#editor-player-shadow)">
+        <image href="${placement.asset}" x="${placement.x}" y="${placement.y}" width="${placement.width}" height="${placement.height}" preserveAspectRatio="xMidYMid meet" />
+        ${selected ? `<rect x="${placement.x - 4}" y="${placement.y - 4}" width="${placement.width + 8}" height="${placement.height + 8}" rx="5" fill="none" stroke="#c8102e" stroke-width="2" stroke-dasharray="5 4" vector-effect="non-scaling-stroke" /><circle cx="0" cy="0" r="3.5" fill="#c8102e" stroke="#fff" stroke-width="1.5" vector-effect="non-scaling-stroke" />` : ''}
+      </g>`;
+    }).join('');
+    const playerHitMarkup = scene.players.map((player) => (
+      `<circle data-player-id="${player.id}" cx="${player.position[0]}" cy="${player.position[1]}" r="24" fill="transparent" pointer-events="all" />`
+    )).join('');
+    const puckMarkup = scene.puck
+      ? `<circle cx="${scene.puck.position[0]}" cy="${scene.puck.position[1]}" r="${scene.puck.radius}" fill="#101820" stroke="${puckSelected ? '#c8102e' : '#fff'}" stroke-width="${puckSelected ? 3 : 1.5}" vector-effect="non-scaling-stroke" pointer-events="none" />`
+      : '';
+    const puckHitMarkup = scene.puck
+      ? `<circle data-puck="true" cx="${scene.puck.position[0]}" cy="${scene.puck.position[1]}" r="22" fill="transparent" pointer-events="all" />`
+      : '';
     const pathMarkup = scene.paths.map((path) => {
       const style = pathStyle(path);
+      return `<path d="${illustrationPathData(path.points, path.curve)}" fill="none" stroke="${style.stroke}" stroke-width="${style.width}" stroke-dasharray="${style.dash}" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#editor-arrowhead)" vector-effect="non-scaling-stroke" pointer-events="none" />`;
+    }).join('');
+    const pathOverlayMarkup = scene.paths.map((path) => {
       const selected = path.id === selectedPathId;
       const handles = selected
         ? path.points.map(([x, y], index) => `<circle data-point-index="${index}" data-path-id="${path.id}" cx="${x}" cy="${y}" r="7" fill="#fff" stroke="#c8102e" stroke-width="2" vector-effect="non-scaling-stroke" />`).join('')
         : '';
       return `<g>
         <path data-path-id="${path.id}" d="${illustrationPathData(path.points, path.curve)}" fill="none" stroke="transparent" stroke-width="22" pointer-events="stroke" vector-effect="non-scaling-stroke" />
-        <path d="${illustrationPathData(path.points, path.curve)}" fill="none" stroke="${style.stroke}" stroke-width="${style.width}" stroke-dasharray="${style.dash}" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#editor-arrowhead)" vector-effect="non-scaling-stroke" pointer-events="none" />
         <circle data-label="true" data-path-id="${path.id}" cx="${path.label[0]}" cy="${path.label[1]}" r="11" fill="#101820" stroke="${selected ? '#c8102e' : '#fff'}" stroke-width="${selected ? 2.5 : 1.5}" vector-effect="non-scaling-stroke" />
         <text x="${path.label[0]}" y="${path.label[1]}" fill="#fff" font-family="Geist,system-ui,sans-serif" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central" pointer-events="none">${path.step}</text>
         ${handles}
@@ -273,12 +434,13 @@ function initializeEditor(root: HTMLElement) {
       : '';
     svg.innerHTML = `<defs>
       <marker id="editor-arrowhead" markerWidth="5" markerHeight="5" refX="4.2" refY="2.5" orient="auto" markerUnits="strokeWidth"><path d="M0 0 5 2.5 0 5Z" fill="context-stroke" /></marker>
+      <filter id="editor-player-shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#101820" flood-opacity="0.45" /></filter>
       <pattern id="editor-grid-small" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M10 0H0V10" fill="none" stroke="#0e2a57" stroke-opacity=".16" stroke-width=".6" /></pattern>
       <pattern id="editor-grid" width="50" height="50" patternUnits="userSpaceOnUse"><rect width="50" height="50" fill="url(#editor-grid-small)" /><path d="M50 0H0V50" fill="none" stroke="#0e2a57" stroke-opacity=".3" stroke-width="1" /></pattern>
     </defs>
     <rect width="415" height="720" fill="#526f78" />
     <image href="${RINK_ASSET}" x="0" y="0" width="415" height="720" draggable="false" />
-    ${grid}${pathMarkup}${temporary}`;
+    ${grid}${pathMarkup}${playerMarkup}${puckMarkup}${pathOverlayMarkup}${temporary}${playerHitMarkup}${puckHitMarkup}`;
     finishButton.classList.toggle('hidden', tool !== 'curve');
     cancelButton.classList.toggle('hidden', tool !== 'curve');
     finishButton.disabled = drawingPoints.length < 2;
@@ -294,7 +456,7 @@ function initializeEditor(root: HTMLElement) {
     const item = items.get(slug);
     if (!item) return;
     currentSlug = slug;
-    selectedPathId = null;
+    clearSelection();
     history = [];
     future = [];
     drawingPoints = [];
@@ -331,7 +493,7 @@ function initializeEditor(root: HTMLElement) {
     if (!previous) return;
     future.push(snapshot());
     scene = JSON.parse(previous) as IllustrationScene;
-    selectedPathId = null;
+    clearSelection();
     saveDraft();
     render();
     announce('Siste endring er angret.');
@@ -341,7 +503,7 @@ function initializeEditor(root: HTMLElement) {
     if (!next) return;
     history.push(snapshot());
     scene = JSON.parse(next) as IllustrationScene;
-    selectedPathId = null;
+    clearSelection();
     saveDraft();
     render();
     announce('Endringen er gjort om.');
@@ -354,8 +516,25 @@ function initializeEditor(root: HTMLElement) {
       scene.paths = scene.paths
         .filter((path) => path.id !== selectedPathId)
         .map((path, index) => ({ ...path, id: `step-${index + 1}`, step: index + 1 }));
-      selectedPathId = null;
+      clearSelection();
     }, deleted ? `Pil ${deleted} er slettet.` : 'Pilen er slettet.');
+  };
+
+  const deleteSelectedPlayer = () => {
+    const player = selectedPlayer();
+    if (!player) return;
+    mutate(() => {
+      scene.players = scene.players.filter((candidate) => candidate.id !== player.id);
+      clearSelection();
+    }, 'Spilleren er slettet.');
+  };
+
+  const deletePuck = () => {
+    if (!scene.puck) return;
+    mutate(() => {
+      scene.puck = null;
+      clearSelection();
+    }, 'Pucken er fjernet.');
   };
 
   svg.addEventListener('pointerdown', (event) => {
@@ -377,17 +556,39 @@ function initializeEditor(root: HTMLElement) {
     }
 
     const target = event.target as Element;
-    const pathElement = target.closest<SVGElement>('[data-path-id]');
-    if (!pathElement?.dataset.pathId) {
-      selectedPathId = null;
+    const playerElement = target.closest<SVGElement>('[data-player-id]');
+    if (playerElement?.dataset.playerId) {
+      selectPlayer(playerElement.dataset.playerId);
+      drag = {
+        type: 'player',
+        playerId: playerElement.dataset.playerId,
+        before: snapshot(),
+        moved: false,
+      };
+      svg.setPointerCapture(event.pointerId);
       render();
       return;
     }
-    selectedPathId = pathElement.dataset.pathId;
+    if (target.closest<SVGElement>('[data-puck]') && scene.puck) {
+      selectPuck();
+      drag = { type: 'puck', before: snapshot(), moved: false };
+      svg.setPointerCapture(event.pointerId);
+      render();
+      return;
+    }
+    const pathElement = target.closest<SVGElement>('[data-path-id]');
+    if (!pathElement?.dataset.pathId) {
+      clearSelection();
+      render();
+      return;
+    }
+    const pathId = pathElement.dataset.pathId;
+    selectPath(pathId);
     const pointIndex = pathElement.dataset.pointIndex;
     if (pointIndex != null || pathElement.dataset.label === 'true') {
       drag = {
-        pathId: selectedPathId,
+        type: 'path',
+        pathId,
         pointIndex: pointIndex == null ? undefined : Number(pointIndex),
         label: pathElement.dataset.label === 'true',
         before: snapshot(),
@@ -412,11 +613,21 @@ function initializeEditor(root: HTMLElement) {
       return;
     }
     if (!drag) return;
-    const path = scene.paths.find((candidate) => candidate.id === drag?.pathId);
-    if (!path) return;
-    if (drag.label) path.label = point;
-    else if (drag.pointIndex != null) path.points[drag.pointIndex] = point;
-    drag.moved = true;
+    const activeDrag = drag;
+    if (activeDrag.type === 'player') {
+      const player = scene.players.find((candidate) => candidate.id === activeDrag.playerId);
+      if (!player) return;
+      player.position = point;
+    } else if (activeDrag.type === 'puck') {
+      if (!scene.puck) return;
+      scene.puck.position = point;
+    } else {
+      const path = scene.paths.find((candidate) => candidate.id === activeDrag.pathId);
+      if (!path) return;
+      if (activeDrag.label) path.label = point;
+      else if (activeDrag.pointIndex != null) path.points[activeDrag.pointIndex] = point;
+    }
+    activeDrag.moved = true;
     render();
   });
 
@@ -438,7 +649,7 @@ function initializeEditor(root: HTMLElement) {
         history.push(drag.before);
         future = [];
         saveDraft();
-        announce('Pilen er flyttet.');
+        announce(drag.type === 'player' ? 'Spilleren er flyttet.' : drag.type === 'puck' ? 'Pucken er flyttet.' : 'Pilen er flyttet.');
       }
       drag = null;
       render();
@@ -456,6 +667,10 @@ function initializeEditor(root: HTMLElement) {
   root.querySelectorAll<HTMLButtonElement>('[data-editor-tool]').forEach((button) => {
     button.addEventListener('click', () => setTool(button.dataset.editorTool as Tool));
   });
+  root.querySelectorAll<HTMLButtonElement>('[data-editor-add-player]').forEach((button) => {
+    button.addEventListener('click', () => addPlayer(button.dataset.editorAddPlayer as IllustrationPlayerKind));
+  });
+  required<HTMLButtonElement>('[data-editor-add-puck]').addEventListener('click', addPuck);
   finishButton.addEventListener('click', finishCurve);
   cancelButton.addEventListener('click', cancelDrawing);
   undoButton.addEventListener('click', undo);
@@ -503,6 +718,44 @@ function initializeEditor(root: HTMLElement) {
   });
   required<HTMLButtonElement>('[data-editor-delete]').addEventListener('click', deleteSelected);
 
+  required<HTMLButtonElement>('[data-editor-apply-player]').addEventListener('click', () => {
+    const player = selectedPlayer();
+    if (!player) return;
+    const x = Number(playerX.value);
+    const y = Number(playerY.value);
+    const rotation = Number(playerRotation.value);
+    const scale = Number(playerScale.value);
+    if (![x, y, rotation, scale].every(Number.isFinite)) {
+      announce('Spillerfeltene må inneholde gyldige tall.');
+      return;
+    }
+    mutate(() => {
+      player.kind = playerKind.value as IllustrationPlayerKind;
+      player.role = (playerRole.value || null) as IllustrationPlayer['role'];
+      player.position = [clamp(x, 0, RINK_WIDTH), clamp(y, 0, RINK_HEIGHT)];
+      player.rotation = clamp(rotation, -360, 360);
+      player.scale = clamp(scale, 0.5, 1.5);
+    }, 'Spilleren er oppdatert.');
+  });
+  required<HTMLButtonElement>('[data-editor-delete-player]').addEventListener('click', deleteSelectedPlayer);
+
+  required<HTMLButtonElement>('[data-editor-apply-puck]').addEventListener('click', () => {
+    if (!scene.puck) return;
+    const x = Number(puckX.value);
+    const y = Number(puckY.value);
+    const radius = Number(puckRadius.value);
+    if (![x, y, radius].every(Number.isFinite)) {
+      announce('Puckfeltene må inneholde gyldige tall.');
+      return;
+    }
+    mutate(() => {
+      if (!scene.puck) return;
+      scene.puck.position = [clamp(x, 0, RINK_WIDTH), clamp(y, 0, RINK_HEIGHT)];
+      scene.puck.radius = clamp(radius, 3, 12);
+    }, 'Pucken er oppdatert.');
+  });
+  required<HTMLButtonElement>('[data-editor-delete-puck]').addEventListener('click', deletePuck);
+
   const exportScene = () => parseScene(scene, currentSlug, false);
   required<HTMLButtonElement>('[data-editor-copy]').addEventListener('click', async () => {
     try {
@@ -534,7 +787,7 @@ function initializeEditor(root: HTMLElement) {
     if (!file) return;
     try {
       const imported = parseScene(JSON.parse(await file.text()), currentSlug);
-      mutate(() => { scene = imported; selectedPathId = null; }, `${file.name} er importert.`);
+      mutate(() => { scene = imported; clearSelection(); }, `${file.name} er importert.`);
     } catch (error) {
       announce(error instanceof Error ? error.message : 'Kunne ikke importere filen.');
     } finally {
@@ -544,7 +797,7 @@ function initializeEditor(root: HTMLElement) {
   required<HTMLButtonElement>('[data-editor-apply-json]').addEventListener('click', () => {
     try {
       const imported = parseScene(JSON.parse(jsonInput.value), currentSlug);
-      mutate(() => { scene = imported; selectedPathId = null; }, 'JSON-endringene er brukt.');
+      mutate(() => { scene = imported; clearSelection(); }, 'JSON-endringene er brukt.');
     } catch (error) {
       announce(error instanceof Error ? error.message : 'Kunne ikke bruke JSON.');
     }
@@ -554,7 +807,7 @@ function initializeEditor(root: HTMLElement) {
     try { localStorage.removeItem(sceneKey(currentSlug)); } catch {}
     const item = items.get(currentSlug);
     scene = item?.scene ? parseScene(clone(item.scene), currentSlug) : newScene(currentSlug);
-    selectedPathId = null;
+    clearSelection();
     history = [];
     future = [];
     render();
@@ -583,20 +836,39 @@ function initializeEditor(root: HTMLElement) {
       setTool('line');
     } else if (event.key.toLowerCase() === 'c') {
       setTool('curve');
-    } else if ((event.key === 'Delete' || event.key === 'Backspace') && selectedPathId) {
+    } else if ((event.key === 'Delete' || event.key === 'Backspace') && (selectedPathId || selectedPlayerId || puckSelected)) {
       event.preventDefault();
-      deleteSelected();
-    } else if (selectedPathId && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
+      if (selectedPathId) deleteSelected();
+      else if (selectedPlayerId) deleteSelectedPlayer();
+      else deletePuck();
+    } else if (selectedPlayerId && (event.key === '[' || event.key === ']')) {
+      event.preventDefault();
+      const player = selectedPlayer();
+      if (!player) return;
+      const amount = event.shiftKey ? 15 : 5;
+      mutate(() => { player.rotation = clamp(player.rotation + (event.key === '[' ? -amount : amount), -360, 360); }, 'Spilleren er rotert.');
+    } else if ((selectedPathId || selectedPlayerId || puckSelected) && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
       event.preventDefault();
       const amount = event.shiftKey ? 5 : 1;
       const dx = event.key === 'ArrowLeft' ? -amount : event.key === 'ArrowRight' ? amount : 0;
       const dy = event.key === 'ArrowUp' ? -amount : event.key === 'ArrowDown' ? amount : 0;
       const path = selectedPath();
-      if (!path) return;
-      mutate(() => {
-        path.points = path.points.map(([x, y]) => [clamp(x + dx, 0, RINK_WIDTH), clamp(y + dy, 0, RINK_HEIGHT)]);
-        path.label = [clamp(path.label[0] + dx, 0, RINK_WIDTH), clamp(path.label[1] + dy, 0, RINK_HEIGHT)];
-      }, `Pil ${path.step} er flyttet.`);
+      const player = selectedPlayer();
+      if (path) {
+        mutate(() => {
+          path.points = path.points.map(([x, y]) => [clamp(x + dx, 0, RINK_WIDTH), clamp(y + dy, 0, RINK_HEIGHT)]);
+          path.label = [clamp(path.label[0] + dx, 0, RINK_WIDTH), clamp(path.label[1] + dy, 0, RINK_HEIGHT)];
+        }, `Pil ${path.step} er flyttet.`);
+      } else if (player) {
+        mutate(() => {
+          player.position = [clamp(player.position[0] + dx, 0, RINK_WIDTH), clamp(player.position[1] + dy, 0, RINK_HEIGHT)];
+        }, 'Spilleren er flyttet.');
+      } else if (puckSelected && scene.puck) {
+        mutate(() => {
+          if (!scene.puck) return;
+          scene.puck.position = [clamp(scene.puck.position[0] + dx, 0, RINK_WIDTH), clamp(scene.puck.position[1] + dy, 0, RINK_HEIGHT)];
+        }, 'Pucken er flyttet.');
+      }
     }
   });
 

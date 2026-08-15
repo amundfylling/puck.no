@@ -4,6 +4,8 @@ export const RINK_ID = 'stiga-playoff-v1';
 
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const pathKinds = new Set(['pass', 'move', 'shot']);
+const playerKinds = new Set(['attacker', 'defender', 'goalie']);
+const playerRoles = new Set(['center', 'right-wing', 'left-wing', 'right-defense', 'left-defense', 'goalie']);
 
 function isFiniteNumber(value) {
   return typeof value === 'number' && Number.isFinite(value);
@@ -68,6 +70,36 @@ export function validateIllustrationScene(scene, source = 'scene') {
   [...steps].sort((a, b) => a - b).forEach((step, index) => {
     if (step !== index + 1) errors.push(`${source}.paths steps must be consecutive and start at 1`);
   });
+
+  if (scene.players != null && !Array.isArray(scene.players)) {
+    errors.push(`${source}.players must be an array`);
+  } else {
+    const playerIds = new Set();
+    (scene.players ?? []).forEach((player, index) => {
+      const prefix = `${source}.players[${index}]`;
+      if (!player || typeof player !== 'object') {
+        errors.push(`${prefix} must be an object`);
+        return;
+      }
+      if (typeof player.id !== 'string' || !slugPattern.test(player.id)) errors.push(`${prefix}.id is invalid`);
+      else if (playerIds.has(player.id)) errors.push(`${prefix}.id is duplicated`);
+      else playerIds.add(player.id);
+      if (!playerKinds.has(player.kind)) errors.push(`${prefix}.kind must be attacker, defender, or goalie`);
+      if (player.role != null && !playerRoles.has(player.role)) errors.push(`${prefix}.role is invalid`);
+      errors.push(...pointErrors(player.position, `${prefix}.position`));
+      if (!isFiniteNumber(player.rotation) || player.rotation < -360 || player.rotation > 360) errors.push(`${prefix}.rotation must be between -360 and 360`);
+      if (!isFiniteNumber(player.scale) || player.scale < 0.5 || player.scale > 1.5) errors.push(`${prefix}.scale must be between 0.5 and 1.5`);
+    });
+  }
+
+  if (scene.puck != null) {
+    if (typeof scene.puck !== 'object' || Array.isArray(scene.puck)) {
+      errors.push(`${source}.puck must be an object or null`);
+    } else {
+      errors.push(...pointErrors(scene.puck.position, `${source}.puck.position`));
+      if (!isFiniteNumber(scene.puck.radius) || scene.puck.radius < 3 || scene.puck.radius > 12) errors.push(`${source}.puck.radius must be between 3 and 12`);
+    }
+  }
   return [...new Set(errors)];
 }
 

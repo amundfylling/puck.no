@@ -5,6 +5,7 @@
 - Scene: `src/content/illustrations/<slug>.json`
 - Combination: `src/content/tricks/<slug>.json`
 - Shared rink: `public/illustrations/rinks/stiga-playoff-v1.png`
+- Shared players: `public/illustrations/players/`
 - Renderer: `src/components/TrickIllustration.astro`
 - Editor: `/admin/illustrasjoner/`
 - Deterministic validator: `npm run check:illustrations`
@@ -42,7 +43,18 @@ Treat landmarks as orientation hints, not movement facts. Use the editor grid an
       "points": [[208, 228], [60, 260]],
       "label": [208, 228]
     }
-  ]
+  ],
+  "players": [
+    {
+      "id": "attacking-center",
+      "kind": "attacker",
+      "role": "center",
+      "position": [208, 228],
+      "rotation": -90,
+      "scale": 0.95
+    }
+  ],
+  "puck": { "position": [205, 216], "radius": 5 }
 }
 ```
 
@@ -67,12 +79,28 @@ Use a custom viewport only when these crop a meaningful path or leave excessive 
 
 The renderer intentionally owns visual styling. Do not add colours, stroke widths, font names, arbitrary image URLs, or animation timing to version 1 scenes.
 
+### Players
+
+- `id`: unique stable slug inside the scene, preferably semantic (`attacking-center`, `defending-goalie`).
+- `kind`: `attacker` (yellow sprite), `defender` (white sprite), or `goalie`.
+- `role`: optional `center`, `left-wing`, `right-wing`, `left-defense`, `right-defense`, or `goalie`.
+- `position`: the physical rotation/pivot point on the rink, not the image's top-left corner.
+- `rotation`: degrees from the shared sprite's source orientation, from `-360` to `360`.
+- `scale`: `0.5`–`1.5`; start near `1` and change only when needed for visual fit.
+
+Sprite files, intrinsic dimensions, display sizes, and pivot fractions are centralized in `src/lib/illustrations.ts`. Scenes must never contain image URLs, embedded base64, or custom pivots. This keeps the JSON compact and lets every illustration improve when the shared sprites are refined.
+
+### Puck
+
+`puck` is either `null` or an object with `position` and a `radius` from `3` to `12`. Put it at the initial position for the illustrated sequence. The movement paths explain subsequent puck travel.
+
 ## Verification checklist
 
 1. Description and arrows express the same sequence.
 2. Numbers follow the puck/action order.
 3. Final shot or endpoint is visible.
-4. Labels do not obscure the active player.
-5. Crop retains enough rails/goal context to understand the move.
-6. Catalogue thumbnail is legible without relying on hover.
-7. Norwegian and English detail pages render the same scene.
+4. Players and the initial puck match the written sequence.
+5. Labels do not obscure a player or puck.
+6. Crop retains enough rails/goal context to understand the move.
+7. Catalogue thumbnail is legible without relying on hover.
+8. Norwegian and English detail pages render the same scene.

@@ -6,7 +6,7 @@
     "x": 0,
     "y": 0,
     "width": 415,
-    "height": 720
+    "height": 490
   },
   "paths": [
     {
@@ -15,7 +15,7 @@
       "kind": "pass",
       "curve": false,
       "points": [[229, 249], [284, 455]],
-      "label": [229, 249]
+      "label": [249, 267]
     },
     {
       "id": "step-2",
@@ -23,7 +23,13 @@
       "kind": "shot",
       "curve": false,
       "points": [[284, 455], [380, 304], [237, 132]],
-      "label": [284, 455]
+      "label": [305, 470]
     }
-  ]
+  ],
+  "players": [
+    { "id": "attacking-center", "kind": "attacker", "role": "center", "position": [229, 249], "rotation": -90, "scale": 0.95 },
+    { "id": "attacking-right-defense", "kind": "attacker", "role": "right-defense", "position": [284, 455], "rotation": -38, "scale": 0.86 },
+    { "id": "defending-goalie", "kind": "goalie", "role": "goalie", "position": [208, 143], "rotation": 180, "scale": 0.9 }
+  ],
+  "puck": { "position": [226, 237], "radius": 5 }
 }
