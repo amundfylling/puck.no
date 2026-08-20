@@ -12,7 +12,7 @@
     {
       "id": "step-1",
       "step": 1,
-      "kind": "move",
+      "kind": "pass",
       "curve": false,
       "points": [
         [

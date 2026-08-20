@@ -12,16 +12,38 @@
     {
       "id": "step-1",
       "step": 1,
-      "kind": "shot",
+      "kind": "pass",
       "curve": false,
+      "followsWall": false,
       "points": [
         [
           208.9,
           235.2
         ],
         [
-          166,
-          251.8
+          48,
+          313
+        ],
+        [
+          133,
+          463
+        ]
+      ],
+      "label": [
+        220,
+        246
+      ]
+    },
+    {
+      "id": "step-2",
+      "step": 2,
+      "kind": "shot",
+      "curve": false,
+      "followsWall": false,
+      "points": [
+        [
+          133,
+          463
         ],
         [
           180.5,
@@ -29,8 +51,8 @@
         ]
       ],
       "label": [
-        208.9,
-        235.2
+        145,
+        474
       ]
     }
   ],
@@ -66,6 +88,17 @@
         245
       ],
       "rotation": -88,
+      "scale": 0.86
+    },
+    {
+      "id": "attacking-left-defense",
+      "kind": "attacker",
+      "role": "left-defense",
+      "position": [
+        133,
+        463
+      ],
+      "rotation": -90,
       "scale": 0.86
     },
     {

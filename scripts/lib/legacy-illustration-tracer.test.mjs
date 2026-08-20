@@ -1,9 +1,14 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
-import { traceLegacyIllustration } from './legacy-illustration-tracer.mjs';
+import { legacyPathKind, traceLegacyIllustration } from './legacy-illustration-tracer.mjs';
 
 const publicAsset = (filename) => fileURLToPath(new URL(`../../public/media/images/${filename}`, import.meta.url));
+
+test('classifies traced green setup routes as puck travel', () => {
+  assert.equal(legacyPathKind([[210, 240], [60, 260]]), 'pass');
+  assert.equal(legacyPathKind([[210, 240], [208, 145]]), 'shot');
+});
 
 test('reads numbered starts and shot direction from a short legacy move', async () => {
   const result = await traceLegacyIllustration(publicAsset('trick-nacka-2e6af9fd.png'));

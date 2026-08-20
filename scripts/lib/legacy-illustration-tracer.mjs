@@ -7,6 +7,10 @@ export const RINK_HEIGHT = 720;
 const GREEN_MINIMUM = 115;
 const GREEN_SEPARATION = 25;
 
+export function legacyPathKind(points) {
+  return points.at(-1)?.[1] < 180 ? 'shot' : 'pass';
+}
+
 function isAnnotationGreen(red, green, blue) {
   return green > GREEN_MINIMUM
     && green - red > GREEN_SEPARATION

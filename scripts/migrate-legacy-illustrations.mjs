@@ -2,14 +2,24 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
-import { traceLegacyIllustration } from './lib/legacy-illustration-tracer.mjs';
+import { legacyPathKind, traceLegacyIllustration } from './lib/legacy-illustration-tracer.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const TRICKS_DIR = path.join(ROOT, 'src/content/tricks');
 const ILLUSTRATIONS_DIR = path.join(ROOT, 'src/content/illustrations');
 const WRITE = process.argv.includes('--write');
 const REFRESH = process.argv.includes('--refresh');
-const HAND_TUNED = new Set(['agdur', 'bacalao']);
+const HAND_TUNED = new Set([
+  'agdur',
+  'bacalao',
+  'fakie-horvath',
+  'fakie-invers-kano',
+  'fakie-veggdyr',
+  'horvath',
+  'invers-kano',
+  'spjass-horvath',
+  'veggdyr',
+]);
 
 const defaultPlayers = [
   { id: 'attacking-left-wing', kind: 'attacker', role: 'left-wing', position: [57.3, 114.5], rotation: -180, scale: 0.86 },
@@ -109,13 +119,6 @@ function labelFor(points, step) {
   ]);
 }
 
-function pathKind(description, points, index) {
-  const target = points.at(-1);
-  if (target[1] < 180) return 'shot';
-  if (index === 0 && /^senter (?:startar|fører|flyttar|skiftar)/i.test(description)) return 'move';
-  return 'pass';
-}
-
 function goalTarget(description) {
   if (/venstre hjørne/i.test(description)) return [181, 145];
   if (/(?:høgre|høyre) hjørne/i.test(description)) return [237, 145];
@@ -137,7 +140,7 @@ for (const filename of trickFiles) {
     return {
       id: `step-${index + 1}`,
       step: index + 1,
-      kind: pathKind(trick.description.no, points, index),
+      kind: legacyPathKind(points),
       curve: followsWall,
       followsWall,
       points,
