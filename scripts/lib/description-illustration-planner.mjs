@@ -185,6 +185,7 @@ export function planIllustrationFromDescription(trick) {
     slug: trick.slug,
     version: 1,
     rink: 'stiga-playoff-v1',
+    published: false,
     viewport: viewportFor(paths),
     paths,
     players,

@@ -45,6 +45,7 @@ function newScene(slug: string): IllustrationScene {
     slug,
     version: 1,
     rink: 'stiga-playoff-v1',
+    published: false,
     viewport: { ...viewportPresets['offensive-zone'] },
     paths: [],
     players: defaultIllustrationPlayers(),
@@ -65,6 +66,7 @@ function parseScene(value: unknown, expectedSlug: string, allowEmpty = true): Il
   const candidate = value as Record<string, unknown>;
   if (candidate.slug !== expectedSlug) throw new Error(`Scenen må ha slug «${expectedSlug}».`);
   if (candidate.version !== 1 || candidate.rink !== 'stiga-playoff-v1') throw new Error('Ukjent sceneversjon eller bane.');
+  if (candidate.published != null && typeof candidate.published !== 'boolean') throw new Error('Publiseringsvalget må være sant eller usant.');
 
   const viewport = candidate.viewport as Record<string, unknown> | undefined;
   if (!viewport || !['x', 'y', 'width', 'height'].every((field) => typeof viewport[field] === 'number' && Number.isFinite(viewport[field]))) {
@@ -141,6 +143,7 @@ function parseScene(value: unknown, expectedSlug: string, allowEmpty = true): Il
     slug: expectedSlug,
     version: 1,
     rink: 'stiga-playoff-v1',
+    published: candidate.published === true,
     viewport: {
       x: round(parsedViewport.x),
       y: round(parsedViewport.y),
@@ -204,6 +207,11 @@ function initializeEditor(root: HTMLElement) {
   const finishButton = required<HTMLButtonElement>('[data-editor-finish]');
   const cancelButton = required<HTMLButtonElement>('[data-editor-cancel]');
   const gridToggle = required<HTMLInputElement>('[data-editor-grid]');
+  const publicationCard = required<HTMLElement>('[data-editor-publication-card]');
+  const publicationState = required<HTMLElement>('[data-editor-publication-state]');
+  const publicationHelp = required<HTMLElement>('[data-editor-publication-help]');
+  const publicationToggleWrap = required<HTMLElement>('[data-editor-publication-toggle]');
+  const publishedToggle = required<HTMLInputElement>('[data-editor-published]');
 
   let currentSlug = trickSelect.value;
   let scene = newScene(currentSlug);
@@ -378,6 +386,22 @@ function initializeEditor(root: HTMLElement) {
   };
 
   const render = () => {
+    const item = items.get(currentSlug);
+    const hasLegacyDiagram = Boolean(item?.diagram);
+    const usesEditableIllustration = !hasLegacyDiagram || scene.published;
+    publicationCard.dataset.state = usesEditableIllustration ? 'new' : 'legacy';
+    publicationState.textContent = hasLegacyDiagram
+      ? usesEditableIllustration ? 'Ny illustrasjon er valgt' : 'Eldre diagram er aktivt'
+      : 'Ny illustrasjon brukes';
+    publicationHelp.textContent = hasLegacyDiagram
+      ? usesEditableIllustration
+        ? 'Den nye illustrasjonen erstatter det eldre diagrammet når denne JSON-filen publiseres.'
+        : 'Det eldre diagrammet vises på nettsiden frem til du godkjenner den nye illustrasjonen.'
+      : 'Denne kombinasjonen har ikke noe eldre diagram å falle tilbake på.';
+    publicationToggleWrap.classList.toggle('hidden', !hasLegacyDiagram);
+    publishedToggle.checked = scene.published;
+    publishedToggle.disabled = !hasLegacyDiagram;
+
     const { viewport } = scene;
     svg.setAttribute('viewBox', `${viewport.x} ${viewport.y} ${viewport.width} ${viewport.height}`);
     const selectedRole = selectedPlayer()?.role;
@@ -644,6 +668,15 @@ function initializeEditor(root: HTMLElement) {
   undoButton.addEventListener('click', undo);
   redoButton.addEventListener('click', redo);
   gridToggle.addEventListener('change', render);
+  publishedToggle.addEventListener('change', () => {
+    const published = publishedToggle.checked;
+    mutate(
+      () => { scene.published = published; },
+      published
+        ? 'Den nye illustrasjonen er godkjent for offentlig visning. Last ned JSON-filen for å publisere valget.'
+        : 'Det eldre diagrammet vil fortsatt vises offentlig når JSON-filen publiseres.',
+    );
+  });
   trickSelect.addEventListener('change', () => loadSlug(trickSelect.value));
   kindSelect.addEventListener('change', () => {
     followsWallInput.disabled = kindSelect.value === 'move';

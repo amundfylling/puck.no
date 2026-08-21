@@ -30,7 +30,7 @@ const diagramDimensions = new Map(
         <p class="text-sm font-semibold text-brand">Kvalitetskontroll</p>
         <h1 class="mt-1 font-display text-3xl font-bold text-navy dark:text-white">Gammelt diagram mot redigerbar illustrasjon</h1>
         <p class="mt-2 text-slate-600 dark:text-slate-300">
-          Kontroller retning, rekkefølge, spillere og utsnitt før det gamle diagrammet fjernes.
+          Kontroller retning, rekkefølge, spillere og utsnitt før den nye illustrasjonen aktiveres. Det eldre diagrammet forblir standard til du godkjenner erstatningen i verkstedet.
         </p>
       </div>
       <a class="btn-outline" href="/admin/illustrasjoner/">Til illustrasjonsverkstedet</a>
@@ -47,6 +47,10 @@ const diagramDimensions = new Map(
               <div>
                 <h2 class="font-display text-xl font-bold text-navy dark:text-white">{trick.data.name}</h2>
                 <p class="mt-1 max-w-4xl text-sm text-slate-600 dark:text-slate-300">{trick.data.description.no}</p>
+                <p class="mt-2 flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
+                  <span class:list={['h-2.5 w-2.5 rounded-full', illustration.data.published ? 'bg-green-600' : 'bg-slate-500']} aria-hidden="true"></span>
+                  {illustration.data.published ? 'Ny illustrasjon er aktiv' : 'Eldre diagram er aktivt'}
+                </p>
               </div>
               <a class="text-sm font-semibold text-brand underline-offset-4 hover:underline" href={`/admin/illustrasjoner/?kombinasjon=${trick.data.slug}`}>
                 Rediger

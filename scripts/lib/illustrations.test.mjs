@@ -6,6 +6,7 @@ const scene = {
   slug: 'agdur',
   version: 1,
   rink: 'stiga-playoff-v1',
+  published: false,
   viewport: { x: 0, y: 0, width: 415, height: 303 },
   paths: [
     { id: 'step-1', step: 1, kind: 'pass', curve: false, points: [[210, 227], [60, 262]], label: [210, 227] },
@@ -23,11 +24,13 @@ test('accepts a valid editable illustration', () => {
 
 test('rejects out-of-rink points and non-consecutive steps', () => {
   const invalid = structuredClone(scene);
+  invalid.published = 'yes';
   invalid.paths[0].points[1] = [500, 800];
   invalid.paths.push({ id: 'step-3', step: 3, kind: 'shot', curve: false, points: [[1, 1], [2, 2]], label: [1, 1] });
   const errors = validateIllustrationScene(invalid);
   assert.ok(errors.some((error) => error.includes('points[1].x')));
   assert.ok(errors.some((error) => error.includes('steps must be consecutive')));
+  assert.ok(errors.some((error) => error.includes('published must be a boolean')));
 });
 
 test('allows curves only for puck paths that follow the wall behind a goal', () => {

@@ -12,6 +12,13 @@
 
 The scene filename, scene `slug`, trick filename, trick `slug`, and trick `illustration` must match.
 
+## Publication
+
+- `published`: whether the editable scene may replace an existing legacy `diagram` on public pages.
+- Keep it `false` while creating or reviewing a scene. Existing scenes without this field also default to `false`.
+- Set it to `true` only through an explicit approval in `/admin/illustrasjoner/` and commit the exported JSON.
+- When a combination has no legacy diagram, its editable scene is shown even while this flag is `false`, because there is no fallback media.
+
 ## Coordinate system
 
 Use the source rink's native coordinate system:
@@ -33,6 +40,7 @@ Treat landmarks as orientation hints, not movement facts. Use the editor grid an
   "slug": "example",
   "version": 1,
   "rink": "stiga-playoff-v1",
+  "published": false,
   "viewport": { "x": 0, "y": 0, "width": 415, "height": 303 },
   "paths": [
     {

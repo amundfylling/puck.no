@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import TrickDetail from '../../../components/TrickDetail.astro';
+import { publicIllustration } from '../../../lib/illustrations';
 import { trickPath } from '../../../lib/tricks';
 import type { GetStaticPaths } from 'astro';
 
@@ -11,7 +12,14 @@ export const getStaticPaths = (async () => {
   const illustrationMap = new Map(illustrations.map((entry) => [entry.data.slug, entry]));
   return tricks.map((entry) => ({
     params: { slug: entry.data.slug },
-    props: { entry, tricks, illustration: entry.data.illustration ? illustrationMap.get(entry.data.illustration) : undefined },
+    props: {
+      entry,
+      tricks,
+      illustration: publicIllustration(
+        entry.data.illustration ? illustrationMap.get(entry.data.illustration) : undefined,
+        entry.data.diagram,
+      ),
+    },
   }));
 }) satisfies GetStaticPaths;
 

@@ -307,8 +307,10 @@ six-player layout and role-based rod guides. Keep a role on players that should
 remain attached to a physical rod path; use a null role only for free placement.
 The admin editor is at `/admin/illustrasjoner/`. Set the trick record's
 `illustration` field to the same slug, keep its legacy `diagram` as a fallback
-until visual verification, and run `npm run check:illustrations` before the
-normal checks/build.
+until visual verification, and leave the scene's `published` flag `false`.
+Only set `published: true` after an editor explicitly approves the replacement
+in the admin portal. Run `npm run check:illustrations` before the normal
+checks/build.
 
 ## Design rules (tournament redesign 2026-07)
 

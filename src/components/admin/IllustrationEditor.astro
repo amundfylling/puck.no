@@ -120,7 +120,24 @@ const serializedPayload = JSON.stringify(payload)
     </div>
 
     <aside class="min-w-0 border-t border-slate-200 pt-5 xl:border-t-0 xl:border-l xl:pt-0 xl:pl-6 dark:border-slate-800" aria-label="Illustrasjonsinnstillinger">
-      <section>
+      <section data-editor-publication-card class="border-b border-slate-200 pb-5 dark:border-slate-800" data-state="legacy">
+        <div class="flex items-start gap-3">
+          <span data-editor-publication-indicator class="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full" aria-hidden="true"></span>
+          <div>
+            <h3 class="font-display text-lg font-bold text-navy dark:text-white">Offentlig visning</h3>
+            <p data-editor-publication-state class="mt-1 text-sm font-semibold text-slate-700 dark:text-slate-200">Eldre diagram er aktivt</p>
+          </div>
+        </div>
+        <p data-editor-publication-help id="illustration-publication-help" class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+          Det eldre diagrammet vises på nettsiden frem til du godkjenner den nye illustrasjonen.
+        </p>
+        <label data-editor-publication-toggle class="mt-4 flex min-h-11 cursor-pointer items-start gap-3 text-sm font-semibold text-navy dark:text-white">
+          <input data-editor-published type="checkbox" aria-describedby="illustration-publication-help" class="mt-0.5 h-5 w-5 shrink-0 accent-brand" />
+          <span>Erstatt det eldre diagrammet med denne illustrasjonen</span>
+        </label>
+      </section>
+
+      <section class="mt-6">
         <h3 class="font-display text-lg font-bold text-navy dark:text-white">Utsnitt</h3>
         <label class="mt-3 block text-sm font-semibold text-slate-700 dark:text-slate-200">
           Visning
@@ -260,4 +277,6 @@ const serializedPayload = JSON.stringify(payload)
   [data-editor-stage] { cursor: crosshair; touch-action: none; overscroll-behavior: contain; }
   [data-editor-stage][data-tool='select'] { cursor: default; }
   [data-editor-stage-wrap] { min-height: 18rem; }
+  [data-editor-publication-card][data-state='legacy'] [data-editor-publication-indicator] { background: rgb(100 116 139); }
+  [data-editor-publication-card][data-state='new'] [data-editor-publication-indicator] { background: rgb(22 163 74); }
 </style>

@@ -1,7 +1,7 @@
 ---
 import type { Lang } from '../lib/i18n';
 import { getPublicImageDimensions } from '../lib/media';
-import { illustrationBySlug, type IllustrationEntry } from '../lib/illustrations';
+import { illustrationBySlug, publicIllustration, type IllustrationEntry } from '../lib/illustrations';
 import TrickIllustration from './TrickIllustration.astro';
 import {
   difficultyGroup,
@@ -27,7 +27,7 @@ const imageDimensions = new Map(
   await Promise.all(
     tricks.map(async (entry) => [
       entry.data.slug,
-      entry.data.illustration ? null : await getPublicImageDimensions(entry.data.diagram),
+      entry.data.diagram ? await getPublicImageDimensions(entry.data.diagram) : null,
     ] as const),
   ),
 );
@@ -138,7 +138,10 @@ const copy = lang === 'en'
     <div class="grid md:grid-cols-2 md:gap-x-8" data-trick-list>
       {tricks.map((entry) => {
         const { data } = entry;
-        const illustration = data.illustration ? illustrationMap.get(data.illustration) : undefined;
+        const illustration = publicIllustration(
+          data.illustration ? illustrationMap.get(data.illustration) : undefined,
+          data.diagram,
+        );
         const dimensions = imageDimensions.get(data.slug);
         const description = data.description[lang];
         const search = [data.name, ...data.aliases, description].join(' ').toLocaleLowerCase(lang === 'en' ? 'en' : 'no');

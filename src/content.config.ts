@@ -147,6 +147,8 @@ const illustrations = defineCollection({
     slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
     version: z.literal(1),
     rink: z.literal('stiga-playoff-v1'),
+    /** Opt in only after the editable scene has been approved against its legacy diagram. */
+    published: z.boolean().default(false),
     viewport: z.object({
       x: z.number().min(0).max(415),
       y: z.number().min(0).max(720),

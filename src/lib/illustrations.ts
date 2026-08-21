@@ -163,6 +163,15 @@ export function illustrationBySlug(entries: IllustrationEntry[]): Map<string, Il
   return new Map(entries.map((entry) => [entry.data.slug, entry]));
 }
 
+/** Keep a legacy diagram public until an editor explicitly approves its SVG replacement. */
+export function publicIllustration(
+  entry: IllustrationEntry | undefined,
+  legacyDiagram: string | null | undefined,
+): IllustrationEntry | undefined {
+  if (!entry) return undefined;
+  return !legacyDiagram || entry.data.published ? entry : undefined;
+}
+
 export function findIllustration(
   slug: string | null | undefined,
   entries: IllustrationEntry[],

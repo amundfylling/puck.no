@@ -27,6 +27,7 @@ export function validateIllustrationScene(scene, source = 'scene') {
   if (typeof scene.slug !== 'string' || !slugPattern.test(scene.slug)) errors.push(`${source}.slug is invalid`);
   if (scene.version !== 1) errors.push(`${source}.version must be 1`);
   if (scene.rink !== RINK_ID) errors.push(`${source}.rink must be ${RINK_ID}`);
+  if (scene.published != null && typeof scene.published !== 'boolean') errors.push(`${source}.published must be a boolean`);
 
   const viewport = scene.viewport;
   if (!viewport || typeof viewport !== 'object') {

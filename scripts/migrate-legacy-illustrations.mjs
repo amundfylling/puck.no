@@ -166,6 +166,7 @@ for (const filename of trickFiles) {
     slug: trick.slug,
     version: 1,
     rink: 'stiga-playoff-v1',
+    published: false,
     viewport: traced.viewport,
     paths,
     players: usefulAttackingPlayers(paths.map((entry) => entry.points)),
