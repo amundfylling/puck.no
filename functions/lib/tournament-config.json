@@ -23,6 +23,14 @@
   "rankingLevel": null,
   "registrationQuestions": []
  },
+ "krohnengen-open-2026": {
+  "date": "17. oktober 2026",
+  "endDate": "2026-10-17",
+  "playersPerTeam": null,
+  "maxSubstitutes": 0,
+  "rankingLevel": null,
+  "registrationQuestions": []
+ },
  "norgesmesterskapet-2026-dame": {
   "date": "2. mai 2026",
   "endDate": "2026-05-02",
@@ -58,6 +66,14 @@
  "norgesmesterskapet-2026": {
   "date": "2. mai 2026",
   "endDate": "2026-05-02",
+  "playersPerTeam": null,
+  "maxSubstitutes": 0,
+  "rankingLevel": null,
+  "registrationQuestions": []
+ },
+ "norgesmesterskapet-2027": {
+  "date": "3. april 2027",
+  "endDate": "2027-04-03",
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
