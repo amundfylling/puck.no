@@ -1,0 +1,18 @@
+{
+  "slug": "fakie-lillstovel",
+  "name": "Fakie Lillstøvel",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 5,
+  "description": {
+    "no": "Senter startar med pucken i hælgropa, skiftar kjapt til å ha pucken i tågropa, og utfører ein Lillstøvel",
+    "en": "Center starts with the puck in the heel groove, quickly shifts to having the puck in the toe groove, and performs a Lillstøvel"
+  },
+  "diagram": "/media/images/trick-spjass-6dadefbc.png",
+  "videoUrl": null,
+  "legacyAnchor": "fakie-lillstøvel",
+  "order": 8,
+  "illustration": "fakie-lillstovel"
+}

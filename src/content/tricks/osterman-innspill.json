@@ -1,0 +1,17 @@
+{
+  "slug": "osterman-innspill",
+  "name": "Østerman-innspill",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 6,
+  "description": {
+    "no": "Høyreving fører pucken raskt fremover i sporet, snur 180 grader mot klokka, stopper opp, og snurrer tilbake og sender pucken inn til senter",
+    "en": "Right wing carries the puck quickly forward in the slot, turns 180 degrees counterclockwise, stops, spins back and sends the puck in to the center"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "østerman-innspill",
+  "order": 120
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "fakie-lang-agdur",
+  "name": "Fakie Lang-Agdur",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 8,
+  "description": {
+    "no": "Pasning fra høyreving til venstreving som sender tilbake til høyreving som skyter direkte i mål",
+    "en": "Pass from right wing to left wing, who sends it back to the right wing, who shoots directly into the goal"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "fakie-lang-agdur",
+  "order": 102
+}

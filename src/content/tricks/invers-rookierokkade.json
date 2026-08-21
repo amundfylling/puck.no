@@ -1,0 +1,17 @@
+{
+  "slug": "invers-rookierokkade",
+  "name": "Invers Rookierokkade",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Pasning fra høyreving langt bak i sporet til høyreback som sender tilbake til høyreving som scorer",
+    "en": "Pass from right wing far back in the slot to the right defenseman, who sends it back to the right wing, who scores"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "invers-rookierokkade",
+  "order": 115
+}

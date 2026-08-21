@@ -1,0 +1,18 @@
+{
+  "slug": "mission-impossible-3",
+  "name": "Mission Impossible 3",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 9,
+  "description": {
+    "no": "Senter spelar vegg med målstonga og set returen i mål",
+    "en": "Center plays the puck off the goal frame and puts the rebound into the goal"
+  },
+  "diagram": "/media/images/trick-mission-impossible-3-8f62525f.png",
+  "videoUrl": null,
+  "legacyAnchor": "mission-impossible-3",
+  "order": 55,
+  "illustration": "mission-impossible-3"
+}

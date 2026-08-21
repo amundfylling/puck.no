@@ -61,6 +61,8 @@ src/
     tournaments/         # tournament pages, Norwegian (Norwegian slugs; body
                          # text is intentionally verbatim, often English)
       en/                # tournament pages, English (`lang: "en"` frontmatter)
+    tricks/              # bilingual JSON records for the combination catalogue;
+                         # one validated file and shared slug per combination
   data/                  # structured JSON (unchanged from Phase 1, see below)
   layouts/BaseLayout.astro  # <head> (SEO/OG/hreflang/JSON-LD), header, footer
   layouts/AdminLayout.astro # admin portal shell: sidebar, dark-mode toggle,
@@ -132,7 +134,7 @@ dist/                    # build output (git-ignored)
 ```
 
 `src/data/` (unchanged from Phase 1): `timers.json`, `galleries.json`,
-`documents.json`, `registrations-snapshot.json`, `seo.json`, `tricks.json`,
+`documents.json`, `registrations-snapshot.json`, `seo.json`,
 `kvalifisering-vm27.json`.
 
 ## Routing
@@ -145,6 +147,9 @@ dist/                    # build output (git-ignored)
 - Tournaments: `/turneringer` index + `/turneringer/<slug>`. Status
   (upcoming/past) is **computed from the date vs build date** in
   `lib/content.ts` (strict: only today-or-later dates are upcoming).
+- Combinations: `/lær-bordhockey-kombinasjoner` and its English mirror are
+  searchable indexes backed by `content/tricks/`; detail pages are generated
+  at `/kombinasjoner/<slug>` and `/en/combinations/<slug>`.
 - RSS: `/blog-feed.xml` and `/en/blog-feed.xml` (exact old paths).
 - Nordic characters in slugs stay decoded (`/lær-bordhockey`,
   `/turneringer/jæren-open-2025`).
@@ -289,6 +294,23 @@ local historical archive, `media-originals/images/`) and reference it as
 `src/data/galleries.json` and reference it as
 `/media/galleries/<slug>/<file>`. Then run `npm run build` — the optimizer
 emits the web variants.
+
+## How to add a combination illustration
+
+Use the repo-local `create-table-hockey-illustration` skill in
+`.agents/skills/create-table-hockey-illustration/`. Editable combination
+illustrations live in `src/content/illustrations/<slug>.json` and reference the
+shared rink and player assets; do not add new raster diagrams or embed images
+inside scene JSON. Place players with `kind`, optional `role`, `position`,
+`rotation` and `scale`; the renderer owns their asset, pivot geometry, default
+six-player layout and role-based rod guides. Keep a role on players that should
+remain attached to a physical rod path; use a null role only for free placement.
+The admin editor is at `/admin/illustrasjoner/`. Set the trick record's
+`illustration` field to the same slug, keep its legacy `diagram` as a fallback
+until visual verification, and leave the scene's `published` flag `false`.
+Only set `published: true` after an editor explicitly approves the replacement
+in the admin portal. Run `npm run check:illustrations` before the normal
+checks/build.
 
 ## Design rules (tournament redesign 2026-07)
 

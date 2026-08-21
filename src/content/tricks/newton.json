@@ -1,0 +1,18 @@
+{
+  "slug": "newton",
+  "name": "Newton",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Senter skyter via motspelar sin høgreback og i mål",
+    "en": "Center shoots via the opponent's right defenseman and into the goal"
+  },
+  "diagram": "/media/images/trick-newton-0bbc8f04.png",
+  "videoUrl": null,
+  "legacyAnchor": "newton",
+  "order": 54,
+  "illustration": "newton"
+}

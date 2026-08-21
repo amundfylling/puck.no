@@ -1,0 +1,18 @@
+{
+  "slug": "fakie-senter-karusell",
+  "name": "Fakie Senter-Karusell",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Senter passar til høgreving som sender pucken i ein Velodrom over til venstreving og inn til senter og i mål",
+    "en": "Center passes to the right wing, who sends the puck in a Velodrom over to the left wing and in to the center and into the goal"
+  },
+  "diagram": "/media/images/trick-fakie-senter-karusell-d46b2d2c.png",
+  "videoUrl": null,
+  "legacyAnchor": "fakie-senter-karusell",
+  "order": 41,
+  "illustration": "fakie-senter-karusell"
+}

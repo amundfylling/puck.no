@@ -1,0 +1,18 @@
+{
+  "slug": "fakie-halv-agdur",
+  "name": "Fakie Halv-Agdur",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Passning frå senter til høgreving som skyter direkte i mål",
+    "en": "Pass from center to right wing, who shoots directly into the goal"
+  },
+  "diagram": "/media/images/trick-fakie-halv-agdur-ae8e3e5d.png",
+  "videoUrl": null,
+  "legacyAnchor": "fakie-halv-agdur",
+  "order": 32,
+  "illustration": "fakie-halv-agdur"
+}

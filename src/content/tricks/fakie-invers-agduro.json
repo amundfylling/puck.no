@@ -1,0 +1,18 @@
+{
+  "slug": "fakie-invers-agduro",
+  "name": "Fakie Invers Agduro",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Senter fører pucken baketter i sporet og passar bak motspelar sin venstreback til høgreving, som fører pucken frametter i sporet og passar framom motspelar sin venstreback attende til senter og i mål",
+    "en": "Center carries the puck backward in the slot and passes behind the opponent's left defenseman to the right wing, who carries the puck forward in the slot and passes in front of the opponent's left defenseman back to the center and into the goal"
+  },
+  "diagram": "/media/images/trick-fakie-invers-agduro-0d8a87b9.png",
+  "videoUrl": null,
+  "legacyAnchor": "fakie-invers-agduro",
+  "order": 33,
+  "illustration": "fakie-invers-agduro"
+}

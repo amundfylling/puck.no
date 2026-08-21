@@ -1,0 +1,18 @@
+{
+  "slug": "fakie-invers-kano",
+  "name": "Fakie Invers Kano",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Passning frå senter via venstre vant til venstreback som skyter på direkten i mål",
+    "en": "Pass from center via the left boards to the left defenseman, who shoots one-timed into the goal"
+  },
+  "diagram": "/media/images/trick-fakie-invers-kano-6edf9a40.png",
+  "videoUrl": null,
+  "legacyAnchor": "fakie-invers-kano",
+  "order": 50,
+  "illustration": "fakie-invers-kano"
+}

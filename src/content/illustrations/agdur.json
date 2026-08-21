@@ -1,0 +1,45 @@
+{
+  "slug": "agdur",
+  "version": 1,
+  "rink": "stiga-playoff-v1",
+  "viewport": {
+    "x": 0,
+    "y": 0,
+    "width": 415,
+    "height": 303
+  },
+  "paths": [
+    {
+      "id": "step-1",
+      "step": 1,
+      "kind": "pass",
+      "curve": false,
+      "points": [[210, 227], [60, 262]],
+      "label": [228, 248]
+    },
+    {
+      "id": "step-2",
+      "step": 2,
+      "kind": "pass",
+      "curve": false,
+      "points": [[60, 262], [245, 203]],
+      "label": [42, 282]
+    },
+    {
+      "id": "step-3",
+      "step": 3,
+      "kind": "shot",
+      "curve": false,
+      "points": [[245, 203], [237, 133]],
+      "label": [266, 216]
+    }
+  ],
+  "players": [
+    { "id": "attacking-center", "kind": "attacker", "role": "center", "position": [213.1, 226.6], "rotation": -90, "scale": 0.95 },
+    { "id": "attacking-left-wing", "kind": "attacker", "role": "left-wing", "position": [66.4, 259.3], "rotation": -78, "scale": 0.9 },
+    { "id": "defending-left-defense", "kind": "defender", "role": "left-defense", "position": [133.9, 184.1], "rotation": 88, "scale": 0.86 },
+    { "id": "defending-right-defense", "kind": "defender", "role": "right-defense", "position": [286.9, 181], "rotation": 94, "scale": 0.86 },
+    { "id": "defending-goalie", "kind": "goalie", "role": "goalie", "position": [206.6, 162.2], "rotation": 180, "scale": 0.9 }
+  ],
+  "puck": null
+}

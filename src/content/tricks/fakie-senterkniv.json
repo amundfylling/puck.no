@@ -1,0 +1,18 @@
+{
+  "slug": "fakie-senterkniv",
+  "name": "Fakie Senterkniv",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Passning frå senter til høgreback som skyter på direkten i mål",
+    "en": "Pass from center to the right defenseman, who shoots one-timed into the goal"
+  },
+  "diagram": "/media/images/trick-fakie-senterkniv-96970c00.png",
+  "videoUrl": null,
+  "legacyAnchor": "fakie-senterkniv",
+  "order": 47,
+  "illustration": "fakie-senterkniv"
+}

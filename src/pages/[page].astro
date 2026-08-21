@@ -9,7 +9,7 @@ import type { GetStaticPaths } from 'astro';
 
 /** Pages with dedicated templates (excluded here). */
 export const getStaticPaths = (async () => {
-  const SPECIAL = new Set(['index', 'blog', 'turneringer', 'timere', 'bilder']);
+  const SPECIAL = new Set(['index', 'blog', 'turneringer', 'timere', 'bilder', 'lær-bordhockey-kombinasjoner']);
   const pages = await getCollection('pages', (p) => p.data.lang === 'no' && !SPECIAL.has(p.data.slug));
   return pages.map((entry) => ({
     params: { page: renamedPages[entry.data.slug] ?? entry.data.slug },

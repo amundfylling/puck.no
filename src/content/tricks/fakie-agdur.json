@@ -1,0 +1,18 @@
+{
+  "slug": "fakie-agdur",
+  "name": "Fakie Agdur",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 6,
+  "description": {
+    "no": "Passning frå senter til høgreeving og attende til senter og i venstre hjørne",
+    "en": "Pass from center to right wing, back to the center and into the left corner"
+  },
+  "diagram": "/media/images/trick-fakie-agdur-5400f2d4.png",
+  "videoUrl": null,
+  "legacyAnchor": "fakie-agdur",
+  "order": 31,
+  "illustration": "fakie-agdur"
+}

@@ -1,0 +1,19 @@
+{
+  "slug": "fakie-mors-kok-fars-kok",
+  "name": "Fakie Mors Kök / Fars Kök",
+  "aliases": [
+    "Fars Kök"
+  ],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 8,
+  "description": {
+    "no": "Pasning fra høyreving helt framme i sporet via venstre rundvant til senter som scorer",
+    "en": "Pass from right wing at the very front of the slot via the left rounded boards to the center, who scores"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "fakie-mors-kök",
+  "order": 108
+}

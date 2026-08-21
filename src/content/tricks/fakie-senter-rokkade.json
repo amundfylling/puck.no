@@ -1,0 +1,18 @@
+{
+  "slug": "fakie-senter-rokkade",
+  "name": "Fakie Senter-Rokkade",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Passning frå senter til venstreback og videre til høgreback som skyter på direkten i mål",
+    "en": "Pass from center to the left defenseman and on to the right defenseman, who shoots one-timed into the goal"
+  },
+  "diagram": "/media/images/trick-fakie-senter-rokkade-90a380f0.png",
+  "videoUrl": null,
+  "legacyAnchor": "fakie-senter-rokkade",
+  "order": 52,
+  "illustration": "fakie-senter-rokkade"
+}

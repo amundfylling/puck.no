@@ -1,0 +1,17 @@
+{
+  "slug": "emoe-smyger",
+  "name": "EMoe-smyger",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 4,
+  "description": {
+    "no": "Høyreving fører pucken i ytterkøllegrop fremover i sporet og skyter i mål i fart",
+    "en": "Right wing carries the puck in the outer stick groove forward in the slot and shoots into the goal in motion"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "emoe-smyger",
+  "order": 62
+}

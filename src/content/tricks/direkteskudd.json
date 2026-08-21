@@ -1,0 +1,17 @@
+{
+  "slug": "direkteskudd",
+  "name": "Direkteskudd",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 3,
+  "description": {
+    "no": "Høyreving skyter direkte i mål, helst med løft i krysset",
+    "en": "Right wing shoots directly into the goal, preferably lifting it into the top corner"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "direkteskudd",
+  "order": 56
+}

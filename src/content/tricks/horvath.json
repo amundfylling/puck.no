@@ -1,0 +1,18 @@
+{
+  "slug": "horvath",
+  "name": "Horvath",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Senter startar med pucken litt ute på køllebladet til høgre for sporet, skyter i venstre rundvant, får pucken i retur, og skyter i høgre hjørne",
+    "en": "Center starts with the puck a bit out on the blade to the right of the slot, shoots into the left rounded boards, gets the rebound, and shoots into the right corner"
+  },
+  "diagram": "/media/images/trick-horvath-142415eb.png",
+  "videoUrl": null,
+  "legacyAnchor": "horvath",
+  "order": 21,
+  "illustration": "horvath"
+}

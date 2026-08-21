@@ -1,0 +1,91 @@
+---
+import { getCollection } from 'astro:content';
+import TrickIllustration from '../../../components/TrickIllustration.astro';
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { getPublicImageDimensions } from '../../../lib/media';
+
+const tricks = (await getCollection('tricks'))
+  .filter((entry) => entry.data.diagram && entry.data.illustration)
+  .sort((left, right) => left.data.name.localeCompare(right.data.name, 'no'));
+const illustrations = await getCollection('illustrations');
+const illustrationMap = new Map(illustrations.map((entry) => [entry.data.slug, entry]));
+const diagramDimensions = new Map(
+  await Promise.all(
+    tricks.map(async (entry) => [
+      entry.data.slug,
+      await getPublicImageDimensions(entry.data.diagram),
+    ] as const),
+  ),
+);
+---
+
+<AdminLayout
+  title="Kontroller illustrasjoner | Admin | Bordhockeyforbundet"
+  heading="Kontroller illustrasjoner"
+  active="illustrasjoner"
+>
+  <main class="mx-auto max-w-[100rem] px-4 py-8 sm:px-6 lg:px-8">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div class="max-w-3xl">
+        <p class="text-sm font-semibold text-brand">Kvalitetskontroll</p>
+        <h1 class="mt-1 font-display text-3xl font-bold text-navy dark:text-white">Gammelt diagram mot redigerbar illustrasjon</h1>
+        <p class="mt-2 text-slate-600 dark:text-slate-300">
+          Kontroller retning, rekkefølge, spillere og utsnitt før den nye illustrasjonen aktiveres. Det eldre diagrammet forblir standard til du godkjenner erstatningen i verkstedet.
+        </p>
+      </div>
+      <a class="btn-outline" href="/admin/illustrasjoner/">Til illustrasjonsverkstedet</a>
+    </div>
+
+    <div class="mt-8 grid gap-8">
+      {tricks.map((trick) => {
+        const illustration = illustrationMap.get(trick.data.illustration!);
+        const dimensions = diagramDimensions.get(trick.data.slug);
+        if (!illustration) return null;
+        return (
+          <article data-comparison-slug={trick.data.slug} class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950 sm:p-6">
+            <div class="mb-4 flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h2 class="font-display text-xl font-bold text-navy dark:text-white">{trick.data.name}</h2>
+                <p class="mt-1 max-w-4xl text-sm text-slate-600 dark:text-slate-300">{trick.data.description.no}</p>
+                <p class="mt-2 flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
+                  <span class:list={['h-2.5 w-2.5 rounded-full', illustration.data.published ? 'bg-green-600' : 'bg-slate-500']} aria-hidden="true"></span>
+                  {illustration.data.published ? 'Ny illustrasjon er aktiv' : 'Eldre diagram er aktivt'}
+                </p>
+              </div>
+              <a class="text-sm font-semibold text-brand underline-offset-4 hover:underline" href={`/admin/illustrasjoner/?kombinasjon=${trick.data.slug}`}>
+                Rediger
+              </a>
+            </div>
+            <div class="grid items-start gap-4 lg:grid-cols-2">
+              <figure>
+                <figcaption class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Eldre diagram</figcaption>
+                <img
+                  class="block h-auto w-full bg-[#526f78]"
+                  src={trick.data.diagram!}
+                  alt={`Eldre diagram for ${trick.data.name}`}
+                  loading="lazy"
+                  decoding="async"
+                  width={dimensions?.width}
+                  height={dimensions?.height}
+                />
+              </figure>
+              <figure>
+                <figcaption class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Redigerbar illustrasjon</figcaption>
+                <TrickIllustration entry={illustration} name={trick.data.name} lang="no" />
+              </figure>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </main>
+</AdminLayout>
+
+<script is:inline>
+  const requestedSlug = new URLSearchParams(window.location.search).get('slug');
+  if (requestedSlug) {
+    document.querySelectorAll('[data-comparison-slug]').forEach((article) => {
+      article.hidden = article.getAttribute('data-comparison-slug') !== requestedSlug;
+    });
+  }
+</script>

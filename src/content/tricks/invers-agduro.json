@@ -1,0 +1,18 @@
+{
+  "slug": "invers-agduro",
+  "name": "Invers Agduro",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 8,
+  "description": {
+    "no": "Senter fører pucken baketter i sporet og passar bak motspelar sin senter til venstreving, som passar attende til senter og i mål",
+    "en": "Center carries the puck backward in the slot and passes behind the opponent's center to the left wing, who passes back to the center and into the goal"
+  },
+  "diagram": "/media/images/trick-invers-agduro-fa614eea.png",
+  "videoUrl": null,
+  "legacyAnchor": "invers-agduro",
+  "order": 29,
+  "illustration": "invers-agduro"
+}
