@@ -14,9 +14,12 @@ const HAND_TUNED = new Set([
   'bacalao',
   'fakie-horvath',
   'fakie-invers-kano',
+  'fakie-nacka',
   'fakie-veggdyr',
   'horvath',
   'invers-kano',
+  'lillhael',
+  'nacka',
   'spjass-horvath',
   'veggdyr',
 ]);
