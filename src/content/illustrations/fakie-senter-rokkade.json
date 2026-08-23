@@ -90,7 +90,7 @@
         217.7,
         259.9
       ],
-      "rotation": -90,
+      "rotation": 0,
       "scale": 0.9
     },
     {
@@ -136,28 +136,6 @@
       ],
       "rotation": 180,
       "scale": 0.9
-    },
-    {
-      "id": "attacking-left-defense",
-      "kind": "attacker",
-      "role": "left-defense",
-      "position": [
-        132.7,
-        467.6
-      ],
-      "rotation": -90,
-      "scale": 0.86
-    },
-    {
-      "id": "attacking-right-defense",
-      "kind": "attacker",
-      "role": "right-defense",
-      "position": [
-        282.5,
-        472.8
-      ],
-      "rotation": -90,
-      "scale": 0.86
     }
   ],
   "puck": null

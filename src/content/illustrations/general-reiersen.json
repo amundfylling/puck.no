@@ -95,7 +95,7 @@
         217.7,
         260
       ],
-      "rotation": -90,
+      "rotation": 0,
       "scale": 0.9
     },
     {
@@ -152,17 +152,6 @@
       ],
       "rotation": -90,
       "scale": 0.86
-    },
-    {
-      "id": "attacking-goalie",
-      "kind": "goalie",
-      "role": null,
-      "position": [
-        206.6,
-        557.8
-      ],
-      "rotation": 0,
-      "scale": 0.9
     }
   ],
   "puck": null

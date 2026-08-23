@@ -35,7 +35,7 @@
     }
   ],
   "players": [
-    { "id": "attacking-center", "kind": "attacker", "role": "center", "position": [213.1, 226.6], "rotation": -90, "scale": 0.95 },
+    { "id": "attacking-center", "kind": "attacker", "role": "center", "position": [213.1, 226.6], "rotation": 0, "scale": 0.95 },
     { "id": "attacking-left-wing", "kind": "attacker", "role": "left-wing", "position": [66.4, 259.3], "rotation": -78, "scale": 0.9 },
     { "id": "defending-left-defense", "kind": "defender", "role": "left-defense", "position": [133.9, 184.1], "rotation": 88, "scale": 0.86 },
     { "id": "defending-right-defense", "kind": "defender", "role": "right-defense", "position": [286.9, 181], "rotation": 94, "scale": 0.86 },
