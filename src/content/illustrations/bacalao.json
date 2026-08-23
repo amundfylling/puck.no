@@ -27,7 +27,7 @@
     }
   ],
   "players": [
-    { "id": "attacking-center", "kind": "attacker", "role": "center", "position": [216.4, 250.7], "rotation": -90, "scale": 0.95 },
+    { "id": "attacking-center", "kind": "attacker", "role": "center", "position": [216.4, 250.7], "rotation": 0, "scale": 0.95 },
     { "id": "attacking-right-defense", "kind": "attacker", "role": "right-defense", "position": [282, 455.1], "rotation": -38, "scale": 0.86 },
     { "id": "defending-goalie", "kind": "goalie", "role": "goalie", "position": [206.6, 162.2], "rotation": 180, "scale": 0.9 }
   ],

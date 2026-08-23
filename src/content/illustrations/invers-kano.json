@@ -76,7 +76,7 @@
         213.8,
         232
       ],
-      "rotation": -90,
+      "rotation": 90,
       "scale": 0.9
     },
     {
@@ -88,17 +88,6 @@
         245
       ],
       "rotation": -88,
-      "scale": 0.86
-    },
-    {
-      "id": "attacking-right-defense",
-      "kind": "attacker",
-      "role": "right-defense",
-      "position": [
-        283,
-        454
-      ],
-      "rotation": -90,
       "scale": 0.86
     },
     {
