@@ -1,0 +1,223 @@
+---
+import type { Tournament } from '../lib/content';
+import { t, type Lang } from '../lib/i18n';
+import sportScorpionStages from '../data/sportscorpion-stages.json';
+
+interface Props {
+  results: NonNullable<Tournament['data']['results']>;
+  lang: Lang;
+  slug: string;
+}
+
+const { results, lang, slug } = Astro.props;
+const sectionId = lang === 'en' ? 'results' : 'resultater';
+const headingId = `${sectionId}-heading`;
+const tournamentUrl = `https://th.sportscorpion.com/eng/tournament/id/${results.tournamentId}/`;
+const externalLabel = t(lang, 'opensInNewTab');
+const discoveredStages = (
+  sportScorpionStages as Record<string, { id: number; name: string; type: 'bracket' | 'table' }[]>
+)[String(results.tournamentId)] ?? [];
+const configuredStages = new Map(results.stages.map((stage) => [stage.id, stage]));
+const stages = discoveredStages.length > 0
+  ? discoveredStages.map((stage) => {
+      const configured = configuredStages.get(stage.id);
+      return {
+        ...stage,
+        labelNo: configured?.labelNo ?? stage.name,
+        labelEn: configured?.labelEn ?? stage.name,
+      };
+    })
+  : results.stages;
+---
+
+<section
+  id={sectionId}
+  class="mt-12 scroll-mt-24 border-t border-slate-200 pt-8 sm:mt-16 sm:pt-10"
+  aria-labelledby={headingId}
+  data-results-hub
+  data-results-slug={slug}
+  data-stage-overrides={JSON.stringify(results.stages)}
+  data-matches-label={t(lang, 'matchesAndResults')}
+  data-bracket-label={t(lang, 'bracket')}
+  data-standings-label={t(lang, 'standings')}
+  data-external-label={externalLabel}
+>
+  <div class="gap-8 sm:flex sm:items-end sm:justify-between">
+    <div class="max-w-2xl">
+      <h2 id={headingId} class="text-2xl font-bold text-navy sm:text-3xl">{t(lang, 'results')}</h2>
+      <p class="mt-2 text-slate-600">{t(lang, 'resultsDescription')}</p>
+    </div>
+    <a
+      href={tournamentUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mt-4 inline-flex min-h-11 shrink-0 items-center gap-2 font-semibold text-brand no-underline hover:underline sm:mt-0"
+    >
+      {t(lang, 'openResultsCentre')}
+      <svg aria-hidden="true" viewBox="0 0 20 20" class="h-4 w-4 fill-none stroke-current" stroke-width="1.8">
+        <path d="M7 5h8v8M15 5 5 15" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <span class="sr-only">{externalLabel}</span>
+    </a>
+  </div>
+
+  <div data-results-stage-list class="mt-6 border-y border-slate-200">
+    {
+      stages.map((stage) => {
+        const stageUrl = `https://th.sportscorpion.com/eng/tournament/stage/${stage.id}`;
+        const stageLabel = lang === 'en' ? stage.labelEn : stage.labelNo;
+        const secondaryLabel = stage.type === 'bracket' ? t(lang, 'bracket') : t(lang, 'standings');
+        const secondaryPath = stage.type === 'bracket' ? 'draws' : 'results';
+
+        return (
+          <div class="border-b border-slate-200 py-4 last:border-b-0 sm:grid sm:grid-cols-[minmax(10rem,0.7fr)_minmax(0,1fr)] sm:items-center sm:gap-8">
+            <h3 class="text-lg font-bold text-navy">{stageLabel}</h3>
+            <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:justify-end sm:gap-x-6">
+              <a
+                href={`${stageUrl}/matches/`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex min-h-11 items-center gap-1.5 font-semibold text-brand no-underline hover:underline"
+              >
+                {t(lang, 'matchesAndResults')}
+                <svg aria-hidden="true" viewBox="0 0 20 20" class="h-3.5 w-3.5 fill-none stroke-current" stroke-width="1.8">
+                  <path d="M7 5h8v8M15 5 5 15" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span class="sr-only">{externalLabel}</span>
+              </a>
+              <a
+                href={`${stageUrl}/${secondaryPath}/`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex min-h-11 items-center gap-1.5 font-semibold text-brand no-underline hover:underline"
+              >
+                {secondaryLabel}
+                <svg aria-hidden="true" viewBox="0 0 20 20" class="h-3.5 w-3.5 fill-none stroke-current" stroke-width="1.8">
+                  <path d="M7 5h8v8M15 5 5 15" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span class="sr-only">{externalLabel}</span>
+              </a>
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+</section>
+
+<script>
+  interface RuntimeStage {
+    id: number;
+    name: string;
+    type: 'bracket' | 'table';
+  }
+
+  interface StageOverride {
+    id: number;
+    labelNo: string;
+    labelEn: string;
+  }
+
+  const externalIcon = () => {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('viewBox', '0 0 20 20');
+    svg.setAttribute('class', 'h-3.5 w-3.5 fill-none stroke-current');
+    svg.setAttribute('stroke-width', '1.8');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'M7 5h8v8M15 5 5 15');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-linejoin', 'round');
+    svg.append(path);
+    return svg;
+  };
+
+  const resultLink = (href: string, label: string, externalLabel: string) => {
+    const link = document.createElement('a');
+    link.href = href;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.className =
+      'inline-flex min-h-11 items-center gap-1.5 font-semibold text-brand no-underline hover:underline';
+    link.append(document.createTextNode(label), externalIcon());
+    const accessibleSuffix = document.createElement('span');
+    accessibleSuffix.className = 'sr-only';
+    accessibleSuffix.textContent = externalLabel;
+    link.append(accessibleSuffix);
+    return link;
+  };
+
+  const validStages = (value: unknown): value is RuntimeStage[] =>
+    Array.isArray(value) &&
+    value.length <= 100 &&
+    value.every((stage) =>
+      stage &&
+      typeof stage === 'object' &&
+      Number.isInteger((stage as RuntimeStage).id) &&
+      (stage as RuntimeStage).id > 0 &&
+      typeof (stage as RuntimeStage).name === 'string' &&
+      (stage as RuntimeStage).name.length > 0 &&
+      ((stage as RuntimeStage).type === 'bracket' || (stage as RuntimeStage).type === 'table'),
+    );
+
+  for (const hub of document.querySelectorAll<HTMLElement>('[data-results-hub]')) {
+    const slug = hub.dataset.resultsSlug;
+    const list = hub.querySelector<HTMLElement>('[data-results-stage-list]');
+    if (!slug || !list) continue;
+
+    void (async () => {
+      try {
+        const response = await fetch(`/api/tournaments/${encodeURIComponent(slug)}/results`, {
+          cache: 'no-store',
+        });
+        if (!response.ok) return;
+        const payload = (await response.json()) as { stages?: unknown };
+        if (!validStages(payload.stages) || payload.stages.length === 0) return;
+
+        let overrides: StageOverride[] = [];
+        try {
+          const parsed = JSON.parse(hub.dataset.stageOverrides ?? '[]') as unknown;
+          if (Array.isArray(parsed)) overrides = parsed as StageOverride[];
+        } catch {
+          // Provider names remain a safe fallback if configured labels cannot be read.
+        }
+        const labels = new Map(
+          overrides
+            .filter((stage) => Number.isInteger(stage?.id))
+            .map((stage) => [stage.id, document.documentElement.lang === 'en' ? stage.labelEn : stage.labelNo]),
+        );
+        const matchesLabel = hub.dataset.matchesLabel ?? 'Schedule and results';
+        const bracketLabel = hub.dataset.bracketLabel ?? 'Bracket';
+        const standingsLabel = hub.dataset.standingsLabel ?? 'Standings';
+        const externalLabel = hub.dataset.externalLabel ?? '';
+
+        list.replaceChildren(
+          ...payload.stages.map((stage) => {
+            const row = document.createElement('div');
+            row.className =
+              'border-b border-slate-200 py-4 last:border-b-0 sm:grid sm:grid-cols-[minmax(10rem,0.7fr)_minmax(0,1fr)] sm:items-center sm:gap-8';
+            const heading = document.createElement('h3');
+            heading.className = 'text-lg font-bold text-navy';
+            heading.textContent = labels.get(stage.id) || stage.name;
+            const links = document.createElement('div');
+            links.className =
+              'mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:justify-end sm:gap-x-6';
+            const stageUrl = `https://th.sportscorpion.com/eng/tournament/stage/${stage.id}`;
+            links.append(
+              resultLink(`${stageUrl}/matches/`, matchesLabel, externalLabel),
+              resultLink(
+                `${stageUrl}/${stage.type === 'bracket' ? 'draws' : 'results'}/`,
+                stage.type === 'bracket' ? bracketLabel : standingsLabel,
+                externalLabel,
+              ),
+            );
+            row.append(heading, links);
+            return row;
+          }),
+        );
+      } catch {
+        // Keep the build-time snapshot when the runtime API is unavailable.
+      }
+    })();
+  }
+</script>

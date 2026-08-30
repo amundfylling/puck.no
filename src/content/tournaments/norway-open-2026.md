@@ -6,6 +6,18 @@ location: "Giskehallen, Sandnes"
 prices: "Seniorer: 300 kr; Utenlandske spillere: 200 kr; Juniorer: 150 kr; Under 13 år: Gratis"
 playingSystem: "Innledende gruppespill med to grupper. De åtte beste fra hver gruppe går videre til mellomspillet. Resten spiller i B-mellomspill.; Merk: Poengene fra det innledende gruppespillet tas med videre til både mellomspillet og B-mellomspillet.; Åttedelsfinalene i mellomspillet spilles best av sju kamper.; Kvartfinalene i B-mellomspillet spilles best av fem kamper."
 status: "upcoming"
+results:
+  provider: "sportscorpion"
+  tournamentId: 8171
+  stages:
+    - id: 23766
+      type: "bracket"
+      labelNo: "Cup"
+      labelEn: "Cup"
+    - id: 23764
+      type: "table"
+      labelNo: "Gruppespill"
+      labelEn: "Group stage"
 ---
 
 ![Norway Open 2026](/media/images/norway-open-2026-7be43f15.webp)

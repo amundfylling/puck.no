@@ -71,7 +71,8 @@ src/
                          # (lightbox island), Arsmoter, RegistrationForm
                          # (live form -> /api/registrations), ParticipantList
                          # (hydrates from the API), CloudflareAnalytics,
-                         # admin/StatCard
+                         # admin/StatCard, TournamentResults (native bilingual
+                         # links to SportScorpion tournament stages)
   lib/                   # i18n.ts (nav + UI strings + page/post mirrors),
                          # dates.ts (Norwegian date parsing), content.ts
                          # (collection helpers, tournament status), seo.ts
@@ -98,8 +99,11 @@ migrations/              # ordered D1 schema migrations (apply all pending)
 wrangler.toml            # real production D1 binding (ID is public, not secret)
 .dev.vars.example        # local env template (Cloudflare TEST keys are safe)
 scripts/
-  fetch-ranking.mjs      # prebuild step 1: ITHF ranking -> src/data/ranking.json
+  fetch-ranking.mjs      # prebuild: ITHF ranking -> src/data/ranking.json
                          # (committed fallback) + public/ranking.json (served)
+  fetch-sportscorpion-stages.mjs # prebuild: configured tournament IDs ->
+                                 # src/data/sportscorpion-stages.json, with the
+                                 # committed snapshot as an offline fallback
   optimize-media.mjs     # prebuild step 2: image pipeline (see "Media pipeline")
   check-links.mjs        # dist link checker
   seed-d1.mjs            # "participants export wix.csv" (git-ignored) -> seed SQL
@@ -131,9 +135,10 @@ mcp-remote/              # puck-no-mcp-remote Worker (same tools over HTTP +
 dist/                    # build output (git-ignored)
 ```
 
-`src/data/` (unchanged from Phase 1): `timers.json`, `galleries.json`,
+`src/data/`: Phase 1 data (`timers.json`, `galleries.json`,
 `documents.json`, `registrations-snapshot.json`, `seo.json`, `tricks.json`,
-`kvalifisering-vm27.json`.
+`kvalifisering-vm27.json`) plus `sportscorpion-stages.json`, the committed
+fallback for automatic results-stage discovery.
 
 ## Routing
 
@@ -242,10 +247,15 @@ can see them; duplicate relative paths across the two source roots fail builds.
   and live ITHF `Player_Value` values. Fewer than four entrants and level 10
   receive zero points; at levels 1–6 the winner gets a 10-point bonus. Team
   rosters may mix ranked and unranked players; unranked players count as zero,
-  and contact info is stored once per team. The participant list is rendered from
-  `src/data/registrations-snapshot.json` — do NOT re-add it to the Markdown
-  body (the Wix duplicate table + registration widget markup was removed in
-  Phase 2, see `migration/clean-tournament-bodies.mjs`).
+  and contact info is stored once per team. `results` is an optional
+  SportScorpion configuration stored only on the top-level Norwegian source;
+  the tournament ID is required, while bilingual stage labels/IDs are optional
+  overrides and an offline fallback. Prebuild automatically discovers the live
+  stages and renders the native results hub on both language routes.
+  The participant list is rendered from `src/data/registrations-snapshot.json`
+  — do NOT re-add it to the Markdown body (the Wix duplicate table +
+  registration widget markup was removed in Phase 2, see
+  `migration/clean-tournament-bodies.mjs`).
 
 ## How to add a news post
 
@@ -270,7 +280,11 @@ and the English home page. For a team tournament set `playersPerTeam` and
 individual tournament. Configure custom questions on the Norwegian source;
 the English route reads its bilingual question data. Set `rankingLevel` when
 the tournament should publish calculated ITHF points for every placement; the
-CMS exposes the valid levels as a select field. Participant lists flow from
+CMS exposes the valid levels as a select field. To add SportScorpion links,
+configure `results` only on the Norwegian source (or use the CMS's
+**SportScorpion-resultater** field); the
+English route reuses it automatically, and new provider stages appear after
+the next deployment. Participant lists flow from
 registrations (Wix export / live D1): `scripts/seed-d1.mjs` regenerates
 `src/data/registrations-snapshot.json` (public fields only) for the static
 build; the page hydrates live from the API. The slug + team rules reach the

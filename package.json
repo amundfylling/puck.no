@@ -5,7 +5,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "postbuild": "node scripts/add-csp-hashes.mjs && node scripts/generate-agent-markdown.mjs",
-    "prebuild": "node scripts/gen-agent-skills-index.mjs && node scripts/gen-tournament-config.mjs && node scripts/fetch-ranking.mjs && node scripts/fetch-qualification.mjs && node scripts/optimize-media.mjs",
+    "prebuild": "node scripts/gen-agent-skills-index.mjs && node scripts/gen-tournament-config.mjs && node scripts/fetch-sportscorpion-stages.mjs && node scripts/fetch-ranking.mjs && node scripts/fetch-qualification.mjs && node scripts/optimize-media.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "check-links": "node scripts/check-links.mjs",

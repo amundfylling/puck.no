@@ -60,6 +60,21 @@ function questionsFor(file, value) {
   });
 }
 
+function resultsFor(file, value) {
+  if (value == null) return null;
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    fail(file, 'results må være et objekt');
+  }
+  if (value.provider !== 'sportscorpion') {
+    fail(file, `ukjent resultatleverandør (${value.provider})`);
+  }
+  const tournamentId = Number(value.tournamentId);
+  if (!Number.isInteger(tournamentId) || tournamentId <= 0) {
+    fail(file, `ugyldig SportScorpion-ID (${value.tournamentId})`);
+  }
+  return { provider: 'sportscorpion', tournamentId };
+}
+
 const config = {};
 for (const file of readdirSync(DIR).filter((f) => f.endsWith('.md'))) {
   const text = readFileSync(`${DIR}/${file}`, 'utf8');
@@ -98,6 +113,7 @@ for (const file of readdirSync(DIR).filter((f) => f.endsWith('.md'))) {
     playersPerTeam,
     maxSubstitutes,
     rankingLevel: rankingLevel == null ? null : String(rankingLevel),
+    results: resultsFor(file, data.results),
     registrationQuestions: questionsFor(file, data.registrationQuestions),
     // only emitted when closed — the API treats a missing flag as open
     ...(data.registrationOpen === false ? { registrationOpen: false } : {}),

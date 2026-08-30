@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import RegistrationForm from '../../components/RegistrationForm.astro';
 import ParticipantList from '../../components/ParticipantList.astro';
 import TournamentFacts from '../../components/TournamentFacts.astro';
+import TournamentResults from '../../components/TournamentResults.astro';
 import { tournamentImage, tournamentStatus } from '../../lib/content';
 import { formatIsoDate, formatNoDate, parseNoDate } from '../../lib/dates';
 import { seoForContent } from '../../lib/seo';
@@ -27,6 +28,7 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const status = tournamentStatus(entry);
 const registrationOpen = status === 'upcoming' && entry.data.registrationOpen;
+const results = entry.data.results;
 const hero = tournamentImage(entry);
 const heroDimensions = await getPublicImageDimensions(hero);
 const date = parseNoDate(entry.data.date);
@@ -142,6 +144,13 @@ const jsonLd = {
         {t('no', 'schedule')}
       </a>
       {
+        results && (
+          <a href="#resultater" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
+            {t('no', 'results')}
+          </a>
+        )
+      }
+      {
         registrationOpen && (
           <a href="#pamelding" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
             {t('no', 'registration')}
@@ -198,6 +207,8 @@ const jsonLd = {
       </div>
 
     </div>
+
+    {results && <TournamentResults results={results} lang="no" slug={entry.data.slug} />}
 
     {
       registrationOpen && (

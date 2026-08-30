@@ -137,6 +137,42 @@ collections:
           - { label: 'Nivå 5', value: '5' }
           - { label: 'Nivå 6', value: '6' }
           - { label: 'Nivå 10 – lagturnering (ingen poeng)', value: '10' }
+      - label: SportScorpion-resultater
+        name: results
+        widget: object
+        required: false
+        collapsed: true
+        hint: 'Koble turneringen til offisielle kampoppsett og resultater. Konfigureres bare her; den engelske siden bruker de samme ID-ene.'
+        fields:
+          - { label: Leverandør, name: provider, widget: hidden, default: sportscorpion }
+          - label: Turnerings-ID
+            name: tournamentId
+            widget: number
+            value_type: int
+            min: 1
+            hint: 'Tallet i SportScorpion-adressen, f.eks. 8171.'
+          - label: Etapper
+            name: stages
+            widget: list
+            required: false
+            label_singular: Etappe
+            summary: '{{fields.labelNo}}'
+            hint: 'Valgfritt: nye etapper hentes automatisk fra SportScorpion. Legg dem inn her bare for norsk oversettelse og som reserve hvis SportScorpion er utilgjengelig under bygg.'
+            fields:
+              - label: Etappe-ID
+                name: id
+                widget: number
+                value_type: int
+                min: 1
+                hint: 'Tallet i SportScorpion-adressen til etappen.'
+              - label: Resultattype
+                name: type
+                widget: select
+                options:
+                  - { label: Sluttspilltre, value: bracket }
+                  - { label: Tabell, value: table }
+              - { label: Navn (norsk), name: labelNo, widget: string }
+              - { label: Name (English), name: labelEn, widget: string }
       - label: Status
         name: status
         widget: select

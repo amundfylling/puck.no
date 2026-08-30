@@ -41,6 +41,12 @@ interface RecentRow {
   created_at: string;
 }
 
+interface ResultSyncRow {
+  tournament_slug: string;
+  stage_count: number;
+  synced_at: string;
+}
+
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   if (!adminIdentity(context.data)) return json({ error: 'Ikke tilgang.' }, 403);
 
@@ -66,17 +72,37 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     if (!(error instanceof Error) || !/no such table.*tournament_settings/i.test(error.message)) throw error;
     console.warn('tournament_settings migration not applied; dashboard uses build-time flags');
   }
+  const resultSyncs = new Map<string, ResultSyncRow>();
+  try {
+    const rows = await context.env.DB.prepare(
+      'SELECT tournament_slug, stage_count, synced_at FROM tournament_results',
+    ).all<ResultSyncRow>();
+    for (const row of rows.results) resultSyncs.set(row.tournament_slug, row);
+  } catch (error) {
+    if (!(error instanceof Error) || !/no such table.*tournament_results/i.test(error.message)) throw error;
+    console.warn('tournament_results migration not applied; dashboard omits result sync status');
+  }
 
   const tournaments: Record<
     string,
-    { players: number; teams: number; lastRegistrationAt: string | null; registrationOpen: boolean }
+    {
+      players: number;
+      teams: number;
+      lastRegistrationAt: string | null;
+      registrationOpen: boolean;
+      resultsSyncedAt: string | null;
+      resultStageCount: number | null;
+    }
   > = {};
   for (const slug of KNOWN_SLUGS) {
+    const resultSync = resultSyncs.get(slug);
     tournaments[slug] = {
       players: 0,
       teams: 0,
       lastRegistrationAt: null,
       registrationOpen: TOURNAMENTS[slug]?.registrationOpen !== false && !runtimeClosed.has(slug),
+      resultsSyncedAt: resultSync?.synced_at ?? null,
+      resultStageCount: resultSync ? Number(resultSync.stage_count) : null,
     };
   }
   let total = 0;

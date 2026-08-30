@@ -4,6 +4,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import RegistrationForm from '../../../components/RegistrationForm.astro';
 import ParticipantList from '../../../components/ParticipantList.astro';
 import TournamentFacts from '../../../components/TournamentFacts.astro';
+import TournamentResults from '../../../components/TournamentResults.astro';
 import { tournamentImage, tournamentStatus } from '../../../lib/content';
 import { formatIsoDate, formatNoDate, parseNoDate } from '../../../lib/dates';
 import { seoForContent } from '../../../lib/seo';
@@ -43,6 +44,7 @@ const priceList = entry.data.prices?.split(';').map((s) => s.trim()).filter(Bool
 const noMirror = (await getCollection('tournaments', (t) => !t.data.draft && t.data.lang === 'no'))
   .find((t) => t.data.slug === entry.data.slug);
 const registrationQuestions = noMirror?.data.registrationQuestions ?? entry.data.registrationQuestions;
+const results = noMirror?.data.results ?? entry.data.results;
 
 const allTournaments = await getCollection('tournaments', (t) => !t.data.draft && t.data.lang === 'en');
 const parentEntry = entry.data.parent
@@ -145,6 +147,13 @@ const jsonLd = {
         {t('en', 'schedule')}
       </a>
       {
+        results && (
+          <a href="#results" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
+            {t('en', 'results')}
+          </a>
+        )
+      }
+      {
         registrationOpen && (
           <a href="#registration" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
             {t('en', 'registration')}
@@ -201,6 +210,8 @@ const jsonLd = {
       </div>
 
     </div>
+
+    {results && <TournamentResults results={results} lang="en" slug={entry.data.slug} />}
 
     {
       registrationOpen && (

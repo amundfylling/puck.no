@@ -58,6 +58,19 @@ const rankingLevel = z.enum([
   '10',
 ]);
 
+const tournamentResults = z.object({
+  provider: z.literal('sportscorpion'),
+  tournamentId: z.number().int().positive(),
+  stages: z.array(
+    z.object({
+      id: z.number().int().positive(),
+      type: z.enum(['bracket', 'table']),
+      labelNo: z.string().min(1),
+      labelEn: z.string().min(1),
+    }),
+  ).default([]),
+});
+
 const tournaments = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/tournaments', generateId: byPath }),
   schema: z.object({
@@ -84,6 +97,8 @@ const tournaments = defineCollection({
     registrationQuestions: z.array(registrationQuestion).default([]),
     /** ITHF WR tournament level; level 1 distinguishes World/Continental winner guarantees. */
     rankingLevel: rankingLevel.nullable().default(null),
+    /** Optional official results hub. The Norwegian mirror is the shared source for both languages. */
+    results: tournamentResults.nullable().default(null),
   }).superRefine((data, ctx) => {
     if (data.playersPerTeam != null && data.rankingLevel != null && data.rankingLevel !== '10') {
       ctx.addIssue({ code: 'custom', path: ['rankingLevel'], message: 'Team tournaments can only use ranking level 10.' });
