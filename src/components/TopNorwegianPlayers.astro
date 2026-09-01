@@ -33,19 +33,18 @@ const portraitsByPlayerId: Record<number, string> = {
   220135: '/media/images/om-oss-be83385b-400.webp',
   220019: '/media/galleries/norway-open-2024/thumbs/2b91ed85.jpg',
   220094: '/media/galleries/vm-2023/thumbs/7bbd7fcc.jpg',
+  670684: '/media/galleries/norway-open-2025/thumbs/35c6fdae.jpg',
 };
 
-const topAlignedPortraitIds = new Set([668143, 660870, 659341, 220019]);
+const topAlignedPortraitIds = new Set([668143, 660870, 659341, 220019, 670684]);
+
+const getInitials = (name: string) => {
+  const parts = name.trim().split(/\s+/);
+  return `${parts[0]?.[0] ?? ''}${parts.length > 1 ? parts.at(-1)?.[0] ?? '' : ''}`.toUpperCase();
+};
 
 if (players.length < 10) {
   throw new Error(`Ranking snapshot contains only ${players.length} Norwegian players; expected at least 10`);
-}
-
-const missingPortraits = players.filter(([, playerId]) => !portraitsByPlayerId[playerId]);
-if (missingPortraits.length > 0) {
-  throw new Error(
-    `Missing portraits for Norwegian top-10 player IDs: ${missingPortraits.map(([, playerId]) => playerId).join(', ')}`,
-  );
 }
 
 const numberLocale = lang === 'en' ? 'en-GB' : 'nb-NO';
@@ -96,22 +95,34 @@ const l = lang === 'en'
         {
           players.map(([worldRank, playerId, name, club, , points], index) => {
             const profileUrl = `https://stiga.trefik.cz/ithf/ranking/player.aspx?id=${playerId}`;
+            const portrait = portraitsByPlayerId[playerId];
 
             return (
               <tr class="border-b border-slate-100 last:border-b-0">
                 <td class="px-2 py-3 font-semibold tabular-nums text-navy sm:px-3">{index + 1}</td>
                 <th scope="row" class="px-2 py-2 sm:px-3">
                   <a href={profileUrl} class="group flex items-center gap-3 no-underline">
-                    <img
-                      src={portraitsByPlayerId[playerId]}
-                      alt=""
-                      width="56"
-                      height="56"
-                      loading="lazy"
-                      decoding="async"
-                      style={topAlignedPortraitIds.has(playerId) ? 'object-position: center top' : undefined}
-                      class="h-14 w-14 shrink-0 rounded-full object-cover ring-1 ring-slate-200"
-                    />
+                    {
+                      portrait ? (
+                        <img
+                          src={portrait}
+                          alt=""
+                          width="56"
+                          height="56"
+                          loading="lazy"
+                          decoding="async"
+                          style={topAlignedPortraitIds.has(playerId) ? 'object-position: center top' : undefined}
+                          class="h-14 w-14 shrink-0 rounded-full object-cover ring-1 ring-slate-200"
+                        />
+                      ) : (
+                        <span
+                          aria-hidden="true"
+                          class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-slate-100 text-sm font-bold text-navy ring-1 ring-slate-200"
+                        >
+                          {getInitials(name)}
+                        </span>
+                      )
+                    }
                     <span class="min-w-0">
                       <span class="block font-semibold text-navy group-hover:text-brand group-hover:underline">
                         {name}
