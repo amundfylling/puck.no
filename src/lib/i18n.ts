@@ -201,6 +201,7 @@ export const postMirrorsNoToEn: Record<string, string> = {
   'adventskalender-2024-luke-24': 'advent-calendar-2024-door-24',
   'adventskalender-2024-resultater': 'advent-calendar-2024-results',
   'caics-suveren-i-trondheim-open': 'caics-dominant-in-trondheim-open',
+  'forhåndstips-norway-open-2026': 'predictions-norway-open-2026',
   'forhåndstips-jæren-open-2025': 'predictions-jæren-open-2025',
   'forhåndtips-krohnengen-open-2024': 'predictions-krohnengen-open-2024',
   'hvem-kan-utfordre-magnus-i-årets-nm': 'who-can-challenge-magnus-in-this-years-nm',
