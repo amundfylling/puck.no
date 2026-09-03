@@ -8,16 +8,30 @@ updates:
       day: monday
       time: '06:00'
     open-pull-requests-limit: 5
-    labels: [dependencies]
+    groups:
+      safe-development-updates:
+        dependency-type: development
+        update-types: [minor, patch]
+      safe-production-updates:
+        dependency-type: production
+        update-types: [minor, patch]
   - package-ecosystem: npm
     directory: /migration
     schedule:
       interval: monthly
     open-pull-requests-limit: 3
-    labels: [dependencies]
+    groups:
+      safe-development-updates:
+        dependency-type: development
+        update-types: [minor, patch]
+      safe-production-updates:
+        dependency-type: production
+        update-types: [minor, patch]
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: monthly
     open-pull-requests-limit: 3
-    labels: [ci]
+    groups:
+      safe-actions-updates:
+        update-types: [minor, patch]
