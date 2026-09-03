@@ -4,6 +4,7 @@ import test from 'node:test';
 import {
   buildQualificationData,
   classifyTournament,
+  QUALIFICATION_DATA_VERSION,
   parseCalendarHtml,
   parsePlayerHtml,
   parseSharedThird,
@@ -111,6 +112,18 @@ test('includes only levels 2, 3 and 4 and applies the NBHF guarantee to them', (
     open.players[0].results.map((result) => [result.tournamentId, result.points]),
   );
   assert.deepEqual(pointsByTournament, { 42: 600, 43: 600, 44: 600 });
+});
+
+test('rejects snapshots generated with obsolete qualification rules', () => {
+  const data = buildQualificationData({
+    players: [],
+    tournaments: [],
+    sharedThirdIds: new Set(),
+    generatedAt: '2026-09-03T10:17:16.764Z',
+  });
+  assert.equal(data.version, QUALIFICATION_DATA_VERSION);
+  assert.equal(validateQualificationData(data), true);
+  assert.equal(validateQualificationData({ ...data, version: QUALIFICATION_DATA_VERSION - 1 }), false);
 });
 
 test('keeps at most three international results and excludes championships', () => {

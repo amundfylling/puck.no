@@ -7,6 +7,7 @@ const GUARANTEE_POINTS = new Map([
   [39, 8], [40, 4],
 ]);
 const QUALIFICATION_LEVELS = new Set([2, 3, 4]);
+export const QUALIFICATION_DATA_VERSION = 2;
 
 export const QUALIFICATION_CATEGORIES = [
   { id: 'open', quota: 8 },
@@ -228,7 +229,7 @@ export function buildQualificationData({ players, tournaments, sharedThirdIds, g
   });
 
   return {
-    version: 1,
+    version: QUALIFICATION_DATA_VERSION,
     championship: {
       kind: 'world',
       year: 2027,
@@ -244,7 +245,7 @@ export function buildQualificationData({ players, tournaments, sharedThirdIds, g
 }
 
 export function validateQualificationData(data) {
-  if (!data || data.version !== 1 || data.championship?.year !== 2027 || !Array.isArray(data.categories)) {
+  if (!data || data.version !== QUALIFICATION_DATA_VERSION || data.championship?.year !== 2027 || !Array.isArray(data.categories)) {
     return false;
   }
   const expected = new Map(QUALIFICATION_CATEGORIES.map((category) => [category.id, category.quota]));
