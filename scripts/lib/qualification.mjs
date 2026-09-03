@@ -6,6 +6,7 @@ const GUARANTEE_POINTS = new Map([
   [31, 40], [32, 36], [33, 32], [34, 28], [35, 24], [36, 20], [37, 16], [38, 12],
   [39, 8], [40, 4],
 ]);
+const QUALIFICATION_LEVELS = new Set([2, 3, 4]);
 
 export const QUALIFICATION_CATEGORIES = [
   { id: 'open', quota: 8 },
@@ -175,11 +176,14 @@ function scorePlayer(player, categoryId, tournamentMap, sharedThirdIds) {
   const eligible = player.results
     .filter((result) => tournamentMap.has(result.tournamentId))
     .map((result) => ({ ...result, ...tournamentMap.get(result.tournamentId) }))
+    .filter((result) => QUALIFICATION_LEVELS.has(result.level))
     .filter((result) => !isInternationalChampionship(result.name) && resultEligible(result, categoryId))
     .map((result) => {
       const resultCategory = classifyTournament(result.name);
       const sharedThird = result.position === 3 && sharedThirdIds.has(result.tournamentId);
-      const guarantee = result.country === 'NOR' && resultCategory === 'open'
+      const guarantee = result.country === 'NOR' &&
+        resultCategory === 'open' &&
+        QUALIFICATION_LEVELS.has(result.level)
         ? (sharedThird ? 475 : GUARANTEE_POINTS.get(result.position) ?? 0)
         : 0;
       return {

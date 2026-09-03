@@ -26,7 +26,7 @@ const PUBLIC_FILE = 'public/kvalifisering-vm27.json';
 const RANKING_FILE = 'src/data/ranking.json';
 const START = '2025-07-01';
 const END = '2027-06-10';
-const LEVELS = [2, 3, 4, 5];
+const LEVELS = [2, 3, 4];
 const PROFILE_CONCURRENCY = 10;
 const REQUEST_TIMEOUT_MS = 25_000;
 const MAX_HTML_BYTES = 2 * 1024 * 1024;
@@ -100,7 +100,9 @@ async function fetchCalendarLevel(level, endDate) {
     headers: { 'content-type': 'application/x-www-form-urlencoded' },
     body,
   });
-  const parsed = parseCalendarHtml(html).filter((tournament) => tournament.date >= START && tournament.date <= END);
+  const parsed = parseCalendarHtml(html)
+    .filter((tournament) => tournament.date >= START && tournament.date <= END)
+    .map((tournament) => ({ ...tournament, level }));
   console.log(`qualification: ITHF level ${level}: ${parsed.length} tournaments`);
   return parsed;
 }
@@ -153,6 +155,7 @@ async function generateSnapshot(now = new Date()) {
   );
   const norwegianOpen = tournaments.filter((tournament) =>
     tournament.country === 'NOR' &&
+    LEVELS.includes(tournament.level) &&
     !isInternationalChampionship(tournament.name) &&
     !/\b(?:women|ladies|juniors?|veterans?|kids?|u\s*-?\s*13|55\s*\+)\b/i.test(tournament.name) &&
     relevantTournamentIds.has(tournament.id));

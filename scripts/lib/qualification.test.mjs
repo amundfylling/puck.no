@@ -54,7 +54,7 @@ test('classifies all supported championship categories', () => {
 });
 
 test('applies guarantee, top-eight and category quotas', () => {
-  const tournament = { id: 42, date: '2026-09-05', name: 'Norway Open 2026', country: 'NOR', city: 'Sandnes (NOR)' };
+  const tournament = { id: 42, date: '2026-09-05', name: 'Norway Open 2026', country: 'NOR', city: 'Sandnes (NOR)', level: 4 };
   const players = Array.from({ length: 9 }, (_, index) => ({
     id: index + 1,
     name: `Player ${index + 1}`,
@@ -77,6 +77,42 @@ test('applies guarantee, top-eight and category quotas', () => {
   assert.equal(kids.players[8].qualified, true);
 });
 
+test('includes only levels 2, 3 and 4 and applies the NBHF guarantee to them', () => {
+  const tournaments = [2, 3, 4, 5].map((level) => ({
+    id: 40 + level,
+    date: `2026-0${level}-01`,
+    name: `Norway Level ${level} Open`,
+    country: 'NOR',
+    city: 'Oslo (NOR)',
+    level,
+  }));
+  const player = {
+    id: 10,
+    name: 'Level Test Player',
+    birthYear: 1990,
+    isWoman: false,
+    results: tournaments.map((tournament) => ({
+      tournamentId: tournament.id,
+      date: tournament.date,
+      name: tournament.name,
+      country: tournament.country,
+      position: 1,
+      ithfPoints: 1,
+    })),
+  };
+  const data = buildQualificationData({
+    players: [player],
+    tournaments,
+    sharedThirdIds: new Set(),
+    generatedAt: '2026-08-12T03:00:00.000Z',
+  });
+  const open = data.categories.find((category) => category.id === 'open');
+  const pointsByTournament = Object.fromEntries(
+    open.players[0].results.map((result) => [result.tournamentId, result.points]),
+  );
+  assert.deepEqual(pointsByTournament, { 42: 600, 43: 600, 44: 600 });
+});
+
 test('keeps at most three international results and excludes championships', () => {
   const tournaments = [
     ...Array.from({ length: 6 }, (_, index) => ({
@@ -85,6 +121,7 @@ test('keeps at most three international results and excludes championships', () 
       name: `Norwegian Open ${index + 1}`,
       country: 'NOR',
       city: 'Oslo (NOR)',
+      level: 4,
     })),
     ...Array.from({ length: 4 }, (_, index) => ({
       id: 200 + index,
@@ -92,6 +129,7 @@ test('keeps at most three international results and excludes championships', () 
       name: `International Open ${index + 1}`,
       country: 'SWE',
       city: 'Malmo (SWE)',
+      level: 4,
     })),
     {
       id: 300,
@@ -99,6 +137,7 @@ test('keeps at most three international results and excludes championships', () 
       name: 'European Championships 2026',
       country: 'SLO',
       city: 'Kranj (SLO)',
+      level: 2,
     },
   ];
   const player = {
