@@ -221,6 +221,12 @@ collections:
             value_type: int
             min: 1
             hint: 'Tallet etter /tournament/id/ i SportScorpion-lenken, f.eks. 8171.'
+      - label: Lenke til direktesending
+        name: streamUrl
+        widget: string
+        required: false
+        pattern: ['^https://', 'Bruk en fullstendig HTTPS-lenke.']
+        hint: 'F.eks. en YouTube-lenke. Vises i forsidebanneret og øverst på turneringssiden fra turneringsdagen. Den engelske siden bruker samme lenke.'
       - label: Kladd / intern test
         name: draft
         widget: boolean

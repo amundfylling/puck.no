@@ -11,11 +11,14 @@ const { lang } = Astro.props;
 const now = new Date();
 // Keep every configured event in the HTML so an older static build can activate it.
 const tournaments = (await getTournamentsSorted(now, lang))
-  .filter((tournament) => tournament.entry.data.results)
+  .filter((tournament) => tournament.entry.data.results || tournament.entry.data.streamUrl)
   .map((tournament) => ({
     name: tournament.name,
     date: tournament.entry.data.date,
-    url: `https://th.sportscorpion.com/eng/tournament/id/${tournament.entry.data.results!.tournamentId}/`,
+    resultsUrl: tournament.entry.data.results
+      ? `https://th.sportscorpion.com/eng/tournament/id/${tournament.entry.data.results.tournamentId}/`
+      : null,
+    streamUrl: tournament.entry.data.streamUrl,
     ongoing: tournamentDayStatus(tournament.entry.data.date, now) === 'ongoing',
   }));
 ---
@@ -39,18 +42,32 @@ const tournaments = (await getTournamentsSorted(now, lang))
               </p>
               <h2 class="text-lg font-bold text-white sm:text-xl">{tournament.name}</h2>
             </div>
-            <a
-              href={tournament.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex min-h-11 shrink-0 items-center gap-2 font-semibold text-white underline underline-offset-4 hover:decoration-2"
-            >
-              {t(lang, 'followLiveResults')}
-              <svg aria-hidden="true" viewBox="0 0 20 20" class="h-4 w-4 shrink-0 fill-none stroke-current" stroke-width="1.8">
-                <path d="M7 5h8v8M15 5 5 15" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg>
-              <span class="sr-only">{t(lang, 'opensInNewTab')}</span>
-            </a>
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-1">
+              {tournament.resultsUrl && <a
+                href={tournament.resultsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex min-h-11 shrink-0 items-center gap-2 font-semibold text-white underline underline-offset-4 hover:decoration-2"
+              >
+                {t(lang, 'followLiveResults')}
+                <svg aria-hidden="true" viewBox="0 0 20 20" class="h-4 w-4 shrink-0 fill-none stroke-current" stroke-width="1.8">
+                  <path d="M7 5h8v8M15 5 5 15" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span class="sr-only">{t(lang, 'opensInNewTab')}</span>
+              </a>}
+              {tournament.streamUrl && <a
+                href={tournament.streamUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex min-h-11 shrink-0 items-center gap-2 font-semibold text-white underline underline-offset-4 hover:decoration-2"
+              >
+                {t(lang, 'watchLive')}
+                <svg aria-hidden="true" viewBox="0 0 20 20" class="h-4 w-4 shrink-0 fill-none stroke-current" stroke-width="1.8">
+                  <path d="M7 5h8v8M15 5 5 15" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span class="sr-only">{t(lang, 'opensInNewTab')}</span>
+              </a>}
+            </div>
           </div>
         </div>
       ))}

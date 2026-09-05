@@ -115,6 +115,8 @@ export const ui = {
   ongoingTournaments: { no: 'Turneringer som pågår', en: 'Ongoing tournaments' },
   followLiveResults: { no: 'Følg resultater live', en: 'Follow live results' },
   viewResults: { no: 'Se resultater', en: 'View results' },
+  watchLive: { no: 'Se direktesending', en: 'Watch live' },
+  watchStream: { no: 'Se sendingen', en: 'Watch stream' },
   past: { no: 'Tidligere', en: 'Past' },
   upcomingTournaments: { no: 'Kommende turneringer', en: 'Upcoming tournaments' },
   pastTournaments: { no: 'Tidligere turneringer', en: 'Past tournaments' },
