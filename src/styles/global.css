@@ -324,7 +324,7 @@ summary {
 .rich-text strong {
   @apply font-semibold text-slate-900;
 }
-/* Tournament pages: the banner photo is rendered by the hero, not the body. */
+/* Tournament cover photos appear in overview cards, not in the detail body. */
 .rich-text.hide-first-image > p:first-child:has(> img:only-child) {
   @apply hidden;
 }
