@@ -168,6 +168,9 @@ link. Afterward the link stays available as **View results**. The header is
 rendered at build time and refreshed in the browser on load, every minute, and
 when returning to the tab, so a new deployment is not required at midnight.
 Editors can configure this under **SportScorpion-resultater** in the CMS.
+On both homepages, a banner directly below the navigation highlights configured
+tournaments while they are ongoing, with their names and direct live-results
+links. It follows the same Norwegian date check and disappears after the event.
 
 ### ITHF WR 2020 placement points
 

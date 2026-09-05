@@ -112,6 +112,7 @@ export const ui = {
   nextTournament: { no: 'Terminliste', en: 'Tournament schedule' },
   upcoming: { no: 'Kommende', en: 'Upcoming' },
   ongoing: { no: 'Pågår i dag', en: 'Ongoing today' },
+  ongoingTournaments: { no: 'Turneringer som pågår', en: 'Ongoing tournaments' },
   followLiveResults: { no: 'Følg resultater live', en: 'Follow live results' },
   viewResults: { no: 'Se resultater', en: 'View results' },
   past: { no: 'Tidligere', en: 'Past' },
