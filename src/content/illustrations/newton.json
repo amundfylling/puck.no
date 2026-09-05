@@ -1,0 +1,106 @@
+{
+  "slug": "newton",
+  "version": 1,
+  "rink": "stiga-playoff-v1",
+  "viewport": {
+    "x": 0,
+    "y": 0,
+    "width": 415,
+    "height": 303
+  },
+  "paths": [
+    {
+      "id": "step-1",
+      "step": 1,
+      "kind": "shot",
+      "curve": false,
+      "points": [
+        [
+          214.4,
+          234.5
+        ],
+        [
+          150.1,
+          219.9
+        ],
+        [
+          193,
+          141.8
+        ]
+      ],
+      "label": [
+        214.4,
+        234.5
+      ]
+    }
+  ],
+  "players": [
+    {
+      "id": "attacking-left-wing",
+      "kind": "attacker",
+      "role": "left-wing",
+      "position": [
+        57.3,
+        114.5
+      ],
+      "rotation": -180,
+      "scale": 0.86
+    },
+    {
+      "id": "attacking-center",
+      "kind": "attacker",
+      "role": "center",
+      "position": [
+        214.2,
+        234.5
+      ],
+      "rotation": 0,
+      "scale": 0.9
+    },
+    {
+      "id": "attacking-right-wing",
+      "kind": "attacker",
+      "role": "right-wing",
+      "position": [
+        352.1,
+        245
+      ],
+      "rotation": -88,
+      "scale": 0.86
+    },
+    {
+      "id": "defending-left-defense",
+      "kind": "defender",
+      "role": "left-defense",
+      "position": [
+        134.8,
+        220.3
+      ],
+      "rotation": 98,
+      "scale": 0.86
+    },
+    {
+      "id": "defending-right-defense",
+      "kind": "defender",
+      "role": "right-defense",
+      "position": [
+        286.8,
+        166
+      ],
+      "rotation": 94,
+      "scale": 0.86
+    },
+    {
+      "id": "defending-goalie",
+      "kind": "goalie",
+      "role": "goalie",
+      "position": [
+        206.6,
+        162.2
+      ],
+      "rotation": 180,
+      "scale": 0.9
+    }
+  ],
+  "puck": null
+}

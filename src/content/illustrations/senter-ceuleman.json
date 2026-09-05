@@ -1,0 +1,114 @@
+{
+  "slug": "senter-ceuleman",
+  "version": 1,
+  "rink": "stiga-playoff-v1",
+  "viewport": {
+    "x": 0,
+    "y": 0,
+    "width": 415,
+    "height": 303
+  },
+  "paths": [
+    {
+      "id": "step-1",
+      "step": 1,
+      "kind": "shot",
+      "curve": false,
+      "points": [
+        [
+          215.8,
+          227.6
+        ],
+        [
+          228.3,
+          221.3
+        ],
+        [
+          360.4,
+          188.8
+        ],
+        [
+          198.5,
+          143.2
+        ],
+        [
+          215.1,
+          138.3
+        ]
+      ],
+      "label": [
+        215.8,
+        227.6
+      ]
+    }
+  ],
+  "players": [
+    {
+      "id": "attacking-left-wing",
+      "kind": "attacker",
+      "role": "left-wing",
+      "position": [
+        57.3,
+        114.5
+      ],
+      "rotation": -180,
+      "scale": 0.86
+    },
+    {
+      "id": "attacking-center",
+      "kind": "attacker",
+      "role": "center",
+      "position": [
+        213.3,
+        228
+      ],
+      "rotation": -90,
+      "scale": 0.9
+    },
+    {
+      "id": "attacking-right-wing",
+      "kind": "attacker",
+      "role": "right-wing",
+      "position": [
+        352.1,
+        245
+      ],
+      "rotation": -88,
+      "scale": 0.86
+    },
+    {
+      "id": "defending-left-defense",
+      "kind": "defender",
+      "role": "left-defense",
+      "position": [
+        134.1,
+        189.9
+      ],
+      "rotation": 98,
+      "scale": 0.86
+    },
+    {
+      "id": "defending-right-defense",
+      "kind": "defender",
+      "role": "right-defense",
+      "position": [
+        286.8,
+        166
+      ],
+      "rotation": 94,
+      "scale": 0.86
+    },
+    {
+      "id": "defending-goalie",
+      "kind": "goalie",
+      "role": "goalie",
+      "position": [
+        206.6,
+        162.2
+      ],
+      "rotation": 180,
+      "scale": 0.9
+    }
+  ],
+  "puck": null
+}

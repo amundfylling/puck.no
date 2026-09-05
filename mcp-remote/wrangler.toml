@@ -10,7 +10,7 @@ head_sampling_rate = 1
 [triggers]
 # 03:00 Europe/Oslo is 01:00 UTC in summer and 02:00 UTC in winter.
 # The handler checks local Oslo time so only one of the two runs performs work.
-crons = ["0 1,2 * * 3"]
+crons = ["0 1,2 * * WED"]
 
 # Remote MCP server for puck.no admin (phone access via OAuth).
 # Secrets (never in git — set with `./node_modules/.bin/wrangler secret put <NAME>`):

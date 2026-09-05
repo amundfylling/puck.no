@@ -1,0 +1,19 @@
+{
+  "slug": "invers-smygero-eidsneskolle",
+  "name": "Invers Smygero / Eidsneskølle",
+  "aliases": [
+    "Eidsneskølle"
+  ],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 4,
+  "description": {
+    "no": "Høyreving fører pucken raskt bakover langs vantet, går forbi pucken og skyter med fast kølle i mål",
+    "en": "Right wing carries the puck quickly backward along the boards, goes past the puck and shoots with a set blade into the goal"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "invers-smygero",
+  "order": 69
+}

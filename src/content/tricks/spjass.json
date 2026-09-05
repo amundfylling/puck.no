@@ -1,0 +1,18 @@
+{
+  "slug": "spjass",
+  "name": "Spjass",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 5,
+  "description": {
+    "no": "Senter startar med pucken i hælgropa, passar med kølle nokre centimeter ut til venstre, og snurrar heilt rundt og skyter med kølle i venstre hjørne",
+    "en": "Center starts with the puck in the heel groove, passes with the blade a few centimeters out to the left, spins all the way around and shoots with the blade into the left corner"
+  },
+  "diagram": "/media/images/trick-spjass-6dadefbc.png",
+  "videoUrl": null,
+  "legacyAnchor": "spjass",
+  "order": 2,
+  "illustration": "spjass"
+}

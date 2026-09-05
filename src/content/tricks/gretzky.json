@@ -1,0 +1,17 @@
+{
+  "slug": "gretzky",
+  "name": "Gretzky",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Pasning fra høyreving langs vantet bak mål til venstreving som sender bakover til senter som scorer",
+    "en": "Pass from right wing along the boards behind the goal to the left wing, who sends it backward to the center, who scores"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "gretzky",
+  "order": 107
+}

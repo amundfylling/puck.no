@@ -1,0 +1,17 @@
+{
+  "slug": "fakie-tomahawk",
+  "name": "Fakie Tomahawk",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 6,
+  "description": {
+    "no": "Høyreving skyter via venstre vant og i mål",
+    "en": "Right wing shoots via the left boards and into the goal"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "fakie-tomahawk",
+  "order": 65
+}

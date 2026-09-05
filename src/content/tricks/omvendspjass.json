@@ -1,0 +1,18 @@
+{
+  "slug": "omvendspjass",
+  "name": "Omvendspjass",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 5,
+  "description": {
+    "no": "Senter startar med pucken i tågropa, passar med kølle nokre centimeter ut til høgre, og snurrar heilt rundt og skyter med kølle i høgre hjørne",
+    "en": "Center starts with the puck in the toe groove, passes with the blade a few centimeters out to the right, spins all the way around and shoots with the blade into the right corner"
+  },
+  "diagram": "/media/images/trick-omvendspjass-e0edae5c.png",
+  "videoUrl": null,
+  "legacyAnchor": "omvendspjass",
+  "order": 5,
+  "illustration": "omvendspjass"
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "snik",
+  "name": "Snik",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 5,
+  "description": {
+    "no": "Høyreving skyter pucken via keeper til senter som skyter direkte i mål",
+    "en": "Right wing shoots the puck via the goalie to the center, who shoots directly into the goal"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "snik",
+  "order": 94
+}

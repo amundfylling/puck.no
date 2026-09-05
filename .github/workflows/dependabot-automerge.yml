@@ -1,0 +1,177 @@
+name: Dependabot auto-merge
+
+# Dependabot pull-request workflows receive a read-only token. Run this
+# trusted workflow from main after CI or an external check suite completes,
+# and never check out or execute code from the pull request here.
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+  check_suite:
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  checks: read
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: dependabot-auto-merge
+  cancel-in-progress: false
+
+jobs:
+  merge-safe-updates:
+    name: Merge safe Dependabot updates
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Merge green patch and minor updates
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          required_checks=(
+            "Site and Pages Functions"
+            "Local MCP server"
+            "Remote MCP Worker"
+            "Cloudflare Pages"
+          )
+
+          mapfile -t pull_requests < <(
+            gh api --method GET "repos/${REPOSITORY}/pulls" \
+              -f state=open \
+              -f base=main \
+              -f per_page=100 \
+              --paginate \
+              --jq '.[] | select(.user.login == "dependabot[bot]") | .number'
+          )
+
+          for pull_number in "${pull_requests[@]}"; do
+            pull_request=$(gh api "repos/${REPOSITORY}/pulls/${pull_number}")
+
+            if ! jq -e --arg repository "${REPOSITORY}" '
+              .state == "open" and
+              .draft == false and
+              .user.login == "dependabot[bot]" and
+              .base.ref == "main" and
+              .head.repo.full_name == $repository and
+              (.head.ref | startswith("dependabot/"))
+            ' <<<"${pull_request}" >/dev/null; then
+              echo "PR #${pull_number}: not an eligible Dependabot PR"
+              continue
+            fi
+
+            head_sha=$(jq -r '.head.sha' <<<"${pull_request}")
+
+            mapfile -t changed_files < <(
+              gh api --paginate "repos/${REPOSITORY}/pulls/${pull_number}/files" \
+                --jq '.[].filename'
+            )
+
+            files_are_safe=true
+            for changed_file in "${changed_files[@]}"; do
+              case "${changed_file}" in
+                package.json|package-lock.json|npm-shrinkwrap.json|\
+                migration/package.json|migration/package-lock.json|migration/npm-shrinkwrap.json|\
+                .github/workflows/*.yml|.github/workflows/*.yaml)
+                  ;;
+                *)
+                  files_are_safe=false
+                  echo "PR #${pull_number}: manual review required for ${changed_file}"
+                  ;;
+              esac
+            done
+
+            if [[ "${files_are_safe}" != true || ${#changed_files[@]} -eq 0 ]]; then
+              continue
+            fi
+
+            mapfile -t update_types < <(
+              gh api --paginate "repos/${REPOSITORY}/pulls/${pull_number}/commits" \
+                --jq '.[].commit.message' |
+                sed -n 's/^[[:space:]]*update-type:[[:space:]]*//p'
+            )
+
+            updates_are_safe=true
+            for update_type in "${update_types[@]}"; do
+              case "${update_type}" in
+                version-update:semver-patch|version-update:semver-minor|\
+                security-update:semver-patch|security-update:semver-minor)
+                  ;;
+                *)
+                  updates_are_safe=false
+                  echo "PR #${pull_number}: manual review required for ${update_type}"
+                  ;;
+              esac
+            done
+
+            if [[ "${updates_are_safe}" != true || ${#update_types[@]} -eq 0 ]]; then
+              continue
+            fi
+
+            checks_are_green=true
+            for check_name in "${required_checks[@]}"; do
+              check_runs=$(gh api --method GET \
+                "repos/${REPOSITORY}/commits/${head_sha}/check-runs" \
+                -f check_name="${check_name}" \
+                -f filter=latest \
+                -f per_page=100)
+
+              if ! jq -e --arg check_name "${check_name}" '
+                [.check_runs[] | select(.name == $check_name)] as $runs |
+                ($runs | length) > 0 and
+                all($runs[]; .status == "completed" and .conclusion == "success")
+              ' <<<"${check_runs}" >/dev/null; then
+                checks_are_green=false
+                echo "PR #${pull_number}: waiting for ${check_name}"
+              fi
+            done
+
+            if [[ "${checks_are_green}" != true ]]; then
+              continue
+            fi
+
+            # Require the PR head to contain the current main commit. That
+            # ensures the green checks cover every dependency already merged
+            # before this one. Dependabot will rebase stale update branches.
+            main_sha=$(
+              gh api "repos/${REPOSITORY}/git/ref/heads/main" --jq '.object.sha'
+            )
+            comparison_status=$(
+              gh api "repos/${REPOSITORY}/compare/${main_sha}...${head_sha}" \
+                --jq '.status'
+            )
+            if [[ "${comparison_status}" != ahead ]]; then
+              echo "PR #${pull_number}: waiting for Dependabot to rebase onto current main"
+              continue
+            fi
+
+            # Re-read the PR and pin the merge to its current head commit. This
+            # prevents a synchronize event racing with the merge request.
+            current_head_sha=$(
+              gh api "repos/${REPOSITORY}/pulls/${pull_number}" --jq '.head.sha'
+            )
+            if [[ "${current_head_sha}" != "${head_sha}" ]]; then
+              echo "PR #${pull_number}: head changed while checks were inspected"
+              continue
+            fi
+
+            if ! merge_result=$(gh api --method PUT \
+              "repos/${REPOSITORY}/pulls/${pull_number}/merge" \
+              -f sha="${head_sha}" \
+              -f merge_method=squash); then
+              echo "PR #${pull_number}: merge request failed; leaving it open"
+              continue
+            fi
+
+            if [[ "$(jq -r '.merged' <<<"${merge_result}")" == true ]]; then
+              echo "PR #${pull_number}: merged"
+            else
+              echo "PR #${pull_number}: GitHub declined the merge"
+              jq -r '.message' <<<"${merge_result}"
+            fi
+          done

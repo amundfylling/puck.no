@@ -1,0 +1,17 @@
+{
+  "slug": "smygero",
+  "name": "Smygero",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 6,
+  "description": {
+    "no": "Høyreving fører pucken raskt fremover langs vantet og flikker pucken i mål mellom keeper og høyre stolpe",
+    "en": "Right wing carries the puck quickly forward along the boards and flicks the puck into the goal between the goalie and the right post"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "smygero",
+  "order": 68
+}

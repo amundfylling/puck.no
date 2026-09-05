@@ -1,0 +1,17 @@
+{
+  "slug": "truls",
+  "name": "Truls",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 4,
+  "description": {
+    "no": "Høyreving fører pucken på utsiden av køllebladet bakover og legger inn til senter som scorer",
+    "en": "Right wing carries the puck on the outside of the blade backward and passes in to the center, who scores"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "truls",
+  "order": 84
+}

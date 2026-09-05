@@ -10,6 +10,8 @@ interface Props {
 }
 
 const { results, lang, slug } = Astro.props;
+type StageOverride = { id: number; type?: 'bracket' | 'table'; labelNo?: string; labelEn?: string };
+const configuredStages = ((results as typeof results & { stages?: StageOverride[] }).stages ?? []);
 const sectionId = lang === 'en' ? 'results' : 'resultater';
 const headingId = `${sectionId}-heading`;
 const tournamentUrl = `https://th.sportscorpion.com/eng/tournament/id/${results.tournamentId}/`;
@@ -17,17 +19,17 @@ const externalLabel = t(lang, 'opensInNewTab');
 const discoveredStages = (
   sportScorpionStages as Record<string, { id: number; name: string; type: 'bracket' | 'table' }[]>
 )[String(results.tournamentId)] ?? [];
-const configuredStages = new Map(results.stages.map((stage) => [stage.id, stage]));
+const configuredStageMap = new Map(configuredStages.map((stage) => [stage.id, stage]));
 const stages = discoveredStages.length > 0
   ? discoveredStages.map((stage) => {
-      const configured = configuredStages.get(stage.id);
+      const configured = configuredStageMap.get(stage.id);
       return {
         ...stage,
         labelNo: configured?.labelNo ?? stage.name,
         labelEn: configured?.labelEn ?? stage.name,
       };
     })
-  : results.stages;
+  : configuredStages;
 ---
 
 <section
@@ -36,7 +38,7 @@ const stages = discoveredStages.length > 0
   aria-labelledby={headingId}
   data-results-hub
   data-results-slug={slug}
-  data-stage-overrides={JSON.stringify(results.stages)}
+  data-stage-overrides={JSON.stringify(configuredStages)}
   data-matches-label={t(lang, 'matchesAndResults')}
   data-bracket-label={t(lang, 'bracket')}
   data-standings-label={t(lang, 'standings')}

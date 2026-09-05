@@ -1,0 +1,18 @@
+{
+  "slug": "hjerpefinte",
+  "name": "Hjerpefinte",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 2,
+  "description": {
+    "no": "Senter startar med pucken ute på køllebladet til høgre for sporet, og skyter direkte i høgre hjørne. Fungerar berre mot keeper som ventar Hjerpe",
+    "en": "Center starts with the puck out on the blade to the right of the slot, and shoots directly into the right corner. Only works against a goalie expecting a Hjerpe"
+  },
+  "diagram": "/media/images/trick-hjerpefinte-f9523f5c.png",
+  "videoUrl": null,
+  "legacyAnchor": "hjerpefinte",
+  "order": 11,
+  "illustration": "hjerpefinte"
+}

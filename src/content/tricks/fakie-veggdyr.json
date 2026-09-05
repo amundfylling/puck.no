@@ -1,0 +1,18 @@
+{
+  "slug": "fakie-veggdyr",
+  "name": "Fakie Veggdyr",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 6,
+  "description": {
+    "no": "Senter skyter pucken frå tågropa via høgre vant og tilbake til senter og i mål",
+    "en": "Center shoots the puck from the toe groove via the right boards, back to the center and into the goal"
+  },
+  "diagram": "/media/images/trick-fakie-veggdyr-e0b159da.png",
+  "videoUrl": null,
+  "legacyAnchor": "fakie-veggdyr",
+  "order": 25,
+  "illustration": "fakie-veggdyr"
+}

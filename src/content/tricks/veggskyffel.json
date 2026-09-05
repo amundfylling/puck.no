@@ -1,0 +1,17 @@
+{
+  "slug": "veggskyffel",
+  "name": "Veggskyffel",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 5,
+  "description": {
+    "no": "Høyreving står langt fremme i sporet med pucken og skyter via høyre vant til senter som scorer",
+    "en": "Right wing stands far forward in the slot with the puck and shoots via the right boards to the center, who scores"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "veggskyffel",
+  "order": 90
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "fakie-gutshot-hansen",
+  "name": "Fakie Gutshot-Hansen",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 8,
+  "description": {
+    "no": "Pasning fra høyreving til keeper som sender tilbake til høyreving som skyter i høyre hjørne",
+    "en": "Pass from right wing to the goalie, who sends it back to the right wing, who shoots into the right corner"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "fakie-gutshot-hansen",
+  "order": 114
+}

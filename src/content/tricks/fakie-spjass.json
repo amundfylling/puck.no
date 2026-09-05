@@ -1,0 +1,18 @@
+{
+  "slug": "fakie-spjass",
+  "name": "Fakie Spjass",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 6,
+  "description": {
+    "no": "Senter startar med pucken i tågropa, skiftar kjapt til å ha pucken i hælgropa, og utfører ein Spjass",
+    "en": "Center starts with the puck in the toe groove, quickly shifts to having the puck in the heel groove, and performs a Spjass"
+  },
+  "diagram": "/media/images/trick-lillstøvel-2c0457d4.png",
+  "videoUrl": null,
+  "legacyAnchor": "fakie-spjass",
+  "order": 7,
+  "illustration": "fakie-spjass"
+}

@@ -25,6 +25,68 @@ _slug_pattern: &slug_pattern '^[a-z0-9æøå]+(-[a-z0-9æøå]+)*$'
 _slug_message: &slug_message 'Kun små bokstaver, tall, norske tegn (æøå) og bindestreker — f.eks. nm-2027-forhandstips'
 
 collections:
+  - name: tricks
+    label: Bordhockeykombinasjoner
+    label_singular: Kombinasjon
+    description: 'Én strukturert kilde for den norske og engelske kombinasjonskatalogen.'
+    folder: src/content/tricks
+    create: true
+    delete: false
+    format: json
+    extension: json
+    slug: '{{fields.slug}}'
+    identifier_field: name
+    preview_path: /kombinasjoner/{{fields.slug}}
+    summary: '{{name}} — grad {{difficulty}}'
+    sortable_fields: [order, name, difficulty]
+    view_groups:
+      - { label: Spiller, field: players }
+      - { label: Vanskelighetsgrad, field: difficulty }
+    fields:
+      - { label: Navn, name: name, widget: string }
+      - label: Slug (URL)
+        name: slug
+        widget: string
+        pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', 'Kun små ASCII-bokstaver, tall og bindestreker — f.eks. fakie-spjass']
+        hint: 'Brukes i både /kombinasjoner/<slug>/ og /en/combinations/<slug>/.'
+      - label: Alternative navn
+        name: aliases
+        widget: list
+        required: false
+        field: { label: Navn, name: alias, widget: string }
+      - label: Spillere
+        name: players
+        widget: select
+        multiple: true
+        min: 1
+        options:
+          - { label: Senter, value: center }
+          - { label: Høyreving, value: right-wing }
+          - { label: Venstreving, value: left-wing }
+          - { label: Høyreback, value: right-defense }
+          - { label: Venstreback, value: left-defense }
+          - { label: Keeper, value: goalie }
+      - { label: Vanskelighetsgrad (0–10), name: difficulty, widget: number, value_type: int, min: 0, max: 10 }
+      - label: Forklaringer
+        name: description
+        widget: object
+        fields:
+          - { label: Norsk, name: no, widget: text }
+          - { label: Engelsk, name: en, widget: text }
+      - label: Redigerbar illustrasjon
+        name: illustration
+        widget: string
+        required: false
+        hint: 'Slug i src/content/illustrations, vanligvis samme som kombinasjonen. Opprettes i Illustrasjonsverkstedet.'
+      - { label: Eldre illustrasjonsbilde, name: diagram, widget: image, required: false }
+      - { label: Video-URL, name: videoUrl, widget: string, required: false }
+      - label: Gammelt lenkeanker
+        name: legacyAnchor
+        widget: string
+        required: false
+        hint: 'Bevarer gamle #lenker. La feltet stå tomt for nye kombinasjoner.'
+      - { label: Rekkefølge, name: order, widget: number, value_type: int, min: 1 }
+
   - name: posts_no
     label: Nyheter (norsk)
     label_singular: Nyhetsartikkel
@@ -181,6 +243,26 @@ collections:
           - { label: Tidligere, value: past }
         default: upcoming
         hint: 'Kun et hint — faktisk visning regnes ut fra datoen ved bygg.'
+      - label: SportScorpion-resultater
+        name: results
+        widget: object
+        required: false
+        collapsed: true
+        hint: 'Lenken vises øverst fra turneringsdagen. Den engelske siden bruker samme innstilling.'
+        fields:
+          - { label: Leverandør, name: provider, widget: hidden, default: sportscorpion }
+          - label: Turnerings-ID
+            name: tournamentId
+            widget: number
+            value_type: int
+            min: 1
+            hint: 'Tallet etter /tournament/id/ i SportScorpion-lenken, f.eks. 8171.'
+      - label: Lenke til direktesending
+        name: streamUrl
+        widget: string
+        required: false
+        pattern: ['^https://', 'Bruk en fullstendig HTTPS-lenke.']
+        hint: 'F.eks. en YouTube-lenke. Vises i forsidebanneret og øverst på turneringssiden fra turneringsdagen. Den engelske siden bruker samme lenke.'
       - label: Kladd / intern test
         name: draft
         widget: boolean

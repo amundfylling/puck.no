@@ -1,0 +1,18 @@
+{
+  "slug": "veggdyr",
+  "name": "Veggdyr",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 6,
+  "description": {
+    "no": "Senter skyter pucken frå hælgropa via venstre vant og tilbake til senter og i mål",
+    "en": "Center shoots the puck from the heel groove via the left boards, back to the center and into the goal"
+  },
+  "diagram": "/media/images/trick-veggdyr-0e070a3a.png",
+  "videoUrl": null,
+  "legacyAnchor": "veggdyr",
+  "order": 24,
+  "illustration": "veggdyr"
+}

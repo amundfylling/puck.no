@@ -1,0 +1,18 @@
+{
+  "slug": "lillhael",
+  "name": "Lillhæl",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 5,
+  "description": {
+    "no": "Senter startar med pucken i hælgropa, passar med kølle ca ein centimeter ut til venstre, og skyter med hæl i venstre hjørne",
+    "en": "Center starts with the puck in the heel groove, passes with the blade about one centimeter out to the left, and shoots with the heel into the left corner"
+  },
+  "diagram": "/media/images/trick-lillhæl-92398556.png",
+  "videoUrl": null,
+  "legacyAnchor": "lillhæl",
+  "order": 3,
+  "illustration": "lillhael"
+}

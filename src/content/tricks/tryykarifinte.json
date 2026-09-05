@@ -1,0 +1,17 @@
+{
+  "slug": "tryykarifinte",
+  "name": "Tryykarifinte",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 5,
+  "description": {
+    "no": "Høyreving fører pucken raskt fremover i sporet med hælgrop (Edwall-dragning), stopper før mållinjen, snur 180 grader mot klokka og skyter med hælen i mål",
+    "en": "Right wing carries the puck quickly forward in the slot with the heel groove (Edwall drag), stops before the goal line, turns 180 degrees counterclockwise and shoots with the heel into the goal"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "tryykarifinte",
+  "order": 81
+}

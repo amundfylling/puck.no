@@ -1,0 +1,17 @@
+{
+  "slug": "edwallskyffel-lang",
+  "name": "Edwallskyffel lang",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 4,
+  "description": {
+    "no": "Høyreving fører pucken fremover i sporet med hælgrop og legger inn til senter som skyter i venstre hjørne",
+    "en": "Right wing carries the puck forward in the slot with the heel groove and passes in to the center, who shoots into the left corner"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "edwallskyffel-lang",
+  "order": 76
+}

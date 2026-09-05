@@ -1,0 +1,18 @@
+{
+  "slug": "nackafinte",
+  "name": "Näckafinte",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 6,
+  "description": {
+    "no": "Senter utfører ein Näcka, men plasserar pucken i venstre hjørne. Fungerar berre mot reagerande keeper",
+    "en": "Center performs a Näcka, but places the puck in the left corner. Only works against a reacting goalie"
+  },
+  "diagram": "/media/images/trick-nackafinte-7dfe9545.png",
+  "videoUrl": null,
+  "legacyAnchor": "näckafinte",
+  "order": 15,
+  "illustration": "nackafinte"
+}

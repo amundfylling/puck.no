@@ -1,0 +1,17 @@
+{
+  "slug": "invers-kryssar-med-innspill",
+  "name": "Invers Kryssar med innspill",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Pasning fra høyreving til venstreving som sender den videre til senter som scorer",
+    "en": "Pass from right wing to left wing, who sends it on to the center, who scores"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "invers-kryssar-med-innspill",
+  "order": 99
+}

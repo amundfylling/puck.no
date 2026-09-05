@@ -1,0 +1,17 @@
+{
+  "slug": "lonnskipp",
+  "name": "Lønnskipp",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 5,
+  "description": {
+    "no": "Pucken ligger nær høyreving, som skyter direkte i krysset med løft",
+    "en": "The puck lies near the right wing, who shoots directly into the top corner with lift"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "lønnskipp",
+  "order": 63
+}

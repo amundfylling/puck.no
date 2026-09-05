@@ -1,0 +1,18 @@
+{
+  "slug": "senterkiosk",
+  "name": "Senterkiosk",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 8,
+  "description": {
+    "no": "Senter startar med pucken eit par centimeter til venstre for sporet og utfører ein Kiosk i venstre eller høgre kryss",
+    "en": "Center starts with the puck a couple of centimeters to the left of the slot and performs a Kiosk into the left or right top corner"
+  },
+  "diagram": "/media/images/trick-senterkiosk-0b633f17.png",
+  "videoUrl": null,
+  "legacyAnchor": "senterkiosk",
+  "order": 14,
+  "illustration": "senterkiosk"
+}

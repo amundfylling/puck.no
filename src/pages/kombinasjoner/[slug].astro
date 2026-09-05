@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TrickDetail from '../../components/TrickDetail.astro';
+import { publicIllustration } from '../../lib/illustrations';
+import { trickPath } from '../../lib/tricks';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (async () => {
+  const tricks = await getCollection('tricks');
+  const illustrations = await getCollection('illustrations');
+  const illustrationMap = new Map(illustrations.map((entry) => [entry.data.slug, entry]));
+  return tricks.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: {
+      entry,
+      tricks,
+      illustration: publicIllustration(
+        entry.data.illustration ? illustrationMap.get(entry.data.illustration) : undefined,
+        entry.data.diagram,
+      ),
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { entry, tricks, illustration } = Astro.props;
+const { data } = entry;
+const path = trickPath(data.slug, 'no');
+const title = `${data.name} – bordhockeykombinasjon | Bordhockeyforbundet`;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTerm',
+  name: data.name,
+  description: data.description.no,
+  url: `https://www.puck.no${path}`,
+  inDefinedTermSet: {
+    '@type': 'DefinedTermSet',
+    name: 'Bordhockeykombinasjoner',
+    url: 'https://www.puck.no/lær-bordhockey-kombinasjoner/',
+  },
+};
+---
+
+<BaseLayout
+  lang="no"
+  title={title}
+  description={data.description.no}
+  canonicalPath={path}
+  noUrl={path}
+  enUrl={trickPath(data.slug, 'en')}
+  ogImage={data.diagram}
+  jsonLd={jsonLd}
+>
+  <TrickDetail entry={entry} entries={tricks} illustration={illustration} lang="no" />
+</BaseLayout>

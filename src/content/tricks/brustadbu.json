@@ -1,0 +1,17 @@
+{
+  "slug": "brustadbu",
+  "name": "Brustadbu",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Høyreving scorer med kioskskudd",
+    "en": "Right wing scores with a kiosk shot"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "brustadbu",
+  "order": 66
+}

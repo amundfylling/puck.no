@@ -1,0 +1,17 @@
+---
+import { getCollection } from 'astro:content';
+import IllustrationEditor from '../../components/admin/IllustrationEditor.astro';
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { sortTricks } from '../../lib/tricks';
+
+const tricks = sortTricks(await getCollection('tricks'));
+const illustrations = await getCollection('illustrations');
+---
+
+<AdminLayout
+  title="Illustrasjonsverksted | Admin | Bordhockeyforbundet"
+  heading="Illustrasjonsverksted"
+  active="illustrasjoner"
+>
+  <IllustrationEditor tricks={tricks} illustrations={illustrations} />
+</AdminLayout>

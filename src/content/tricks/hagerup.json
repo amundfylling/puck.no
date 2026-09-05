@@ -1,0 +1,17 @@
+{
+  "slug": "hagerup",
+  "name": "Hagerup",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 4,
+  "description": {
+    "no": "Høyreving og senter står helt bak i sporet, og høyreving passer inn til senter som skyter direkte i høyre hjørne",
+    "en": "Right wing and center stand at the very back of the slot, and the right wing passes in to the center, who shoots directly into the right corner"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "hagerup",
+  "order": 71
+}

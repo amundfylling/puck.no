@@ -1,0 +1,208 @@
+---
+import type { Lang } from '../lib/i18n';
+import { getPublicImageDimensions } from '../lib/media';
+import { illustrationBySlug, publicIllustration, type IllustrationEntry } from '../lib/illustrations';
+import TrickIllustration from './TrickIllustration.astro';
+import {
+  difficultyGroup,
+  difficultyLabels,
+  playerLabels,
+  sortTricks,
+  trickPath,
+  type DifficultyGroup,
+  type TrickEntry,
+  type TrickPlayer,
+} from '../lib/tricks';
+
+interface Props {
+  entries: TrickEntry[];
+  illustrations: IllustrationEntry[];
+  lang: Lang;
+}
+
+const { entries, illustrations, lang } = Astro.props;
+const tricks = sortTricks(entries);
+const illustrationMap = illustrationBySlug(illustrations);
+const imageDimensions = new Map(
+  await Promise.all(
+    tricks.map(async (entry) => [
+      entry.data.slug,
+      entry.data.diagram ? await getPublicImageDimensions(entry.data.diagram) : null,
+    ] as const),
+  ),
+);
+const allPlayers = Object.keys(playerLabels) as TrickPlayer[];
+const presentPlayers = allPlayers.filter((player) => tricks.some((entry) => entry.data.players.includes(player)));
+const difficultyGroups = Object.keys(difficultyLabels) as DifficultyGroup[];
+const copy = lang === 'en'
+  ? {
+      title: 'Find a combination',
+      intro: 'Search by name or description, then narrow the list by player and difficulty.',
+      search: 'Search combinations',
+      placeholder: 'Try “Spjass” or “pass from centre”',
+      player: 'Player',
+      difficulty: 'Difficulty',
+      all: 'All',
+      results: 'combinations shown',
+      oneResult: 'combination shown',
+      noIllustration: 'Illustration not added yet',
+      view: 'Open combination',
+      emptyTitle: 'No combinations match',
+      emptyText: 'Try another search or clear one of the filters.',
+      clear: 'Clear filters',
+    }
+  : {
+      title: 'Finn en kombinasjon',
+      intro: 'Søk på navn eller forklaring, og avgrens listen etter spiller og vanskelighetsgrad.',
+      search: 'Søk i kombinasjoner',
+      placeholder: 'Prøv «Spjass» eller «pasning fra senter»',
+      player: 'Spiller',
+      difficulty: 'Vanskelighetsgrad',
+      all: 'Alle',
+      results: 'kombinasjoner vises',
+      oneResult: 'kombinasjon vises',
+      noIllustration: 'Illustrasjon ikke lagt til ennå',
+      view: 'Åpne kombinasjon',
+      emptyTitle: 'Ingen kombinasjoner passer',
+      emptyText: 'Prøv et annet søk eller fjern et av filtrene.',
+      clear: 'Nullstill filtre',
+    };
+---
+
+<section id="kombinasjoner" class="border-t border-slate-200 bg-ice/60 py-10 sm:py-14" data-trick-catalogue data-lang={lang}>
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="max-w-3xl">
+      <h2 class="text-2xl font-bold text-navy sm:text-3xl">{copy.title}</h2>
+      <p class="mt-2 leading-relaxed text-slate-600">{copy.intro}</p>
+    </div>
+
+    <div class="mt-7 border-y border-slate-200 bg-white py-5 sm:px-5">
+      <div class="grid gap-5 lg:grid-cols-[minmax(16rem,1fr)_auto] lg:items-end">
+        <label class="block font-semibold text-navy">
+          <span class="block text-sm">{copy.search}</span>
+          <span class="relative mt-2 block">
+            <svg aria-hidden="true" viewBox="0 0 24 24" class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-3.5-3.5"></path>
+            </svg>
+            <input
+              type="search"
+              name="q"
+              autocomplete="off"
+              placeholder={copy.placeholder}
+              class="w-full rounded-md border border-slate-300 bg-white py-2.5 pr-4 pl-10 font-normal text-slate-900 placeholder:text-slate-500 focus:border-navy"
+              data-trick-search
+            />
+          </span>
+        </label>
+
+        <fieldset>
+          <legend class="text-sm font-semibold text-navy">{copy.player}</legend>
+          <div class="mt-2 flex flex-wrap gap-2" data-filter-group>
+            <button type="button" class="trick-filter" data-player="all" aria-pressed="true">{copy.all}</button>
+            {presentPlayers.map((player) => (
+              <button type="button" class="trick-filter" data-player={player} aria-pressed="false">
+                {playerLabels[player][lang]}
+                <span class="ml-1 text-xs tabular-nums" aria-hidden="true">
+                  {tricks.filter((entry) => entry.data.players.includes(player)).length}
+                </span>
+              </button>
+            ))}
+          </div>
+        </fieldset>
+      </div>
+
+      <fieldset class="mt-5 border-t border-slate-200 pt-5">
+        <legend class="text-sm font-semibold text-navy">{copy.difficulty}</legend>
+        <div class="mt-2 flex flex-wrap gap-2" data-filter-group>
+          <button type="button" class="trick-filter" data-difficulty="all" aria-pressed="true">{copy.all}</button>
+          {difficultyGroups.map((group) => (
+            <button type="button" class="trick-filter" data-difficulty={group} aria-pressed="false">
+              {difficultyLabels[group][lang]}
+            </button>
+          ))}
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="mt-7 flex items-center justify-between gap-4 border-b border-slate-300 pb-3">
+      <p class="flex items-baseline gap-1 font-semibold text-navy" aria-live="polite" aria-atomic="true">
+        <span class="tabular-nums" data-result-count>{tricks.length}</span>
+        <span data-result-label data-many={copy.results} data-one={copy.oneResult}>{copy.results}</span>
+      </p>
+      <button type="button" class="hidden min-h-11 items-center font-semibold text-brand underline underline-offset-4 hover:text-brand-dark" data-clear-filters>
+        {copy.clear}
+      </button>
+    </div>
+
+    <div class="grid md:grid-cols-2 md:gap-x-8" data-trick-list>
+      {tricks.map((entry) => {
+        const { data } = entry;
+        const illustration = publicIllustration(
+          data.illustration ? illustrationMap.get(data.illustration) : undefined,
+          data.diagram,
+        );
+        const dimensions = imageDimensions.get(data.slug);
+        const description = data.description[lang];
+        const search = [data.name, ...data.aliases, description].join(' ').toLocaleLowerCase(lang === 'en' ? 'en' : 'no');
+        return (
+          <article
+            id={data.legacyAnchor ?? data.slug}
+            class="group border-b border-slate-200 py-5"
+            data-trick-item
+            data-search={search}
+            data-players={data.players.join(' ')}
+            data-difficulty={difficultyGroup(data.difficulty)}
+          >
+            <a href={trickPath(data.slug, lang)} class="grid min-h-full grid-cols-[minmax(0,1fr)_5.5rem] gap-4 no-underline sm:grid-cols-[minmax(0,1fr)_7rem]">
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-600">
+                  <span>{data.players.map((player) => playerLabels[player][lang]).join(' · ')}</span>
+                  <span aria-hidden="true">·</span>
+                  <span class="font-semibold text-navy">{lang === 'en' ? 'Level' : 'Grad'} {data.difficulty}</span>
+                </div>
+                <h3 class="mt-2 text-xl font-bold text-navy group-hover:underline">{data.name}</h3>
+                <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-slate-600">{description}</p>
+                <p class="mt-3 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand">
+                  {copy.view}<span aria-hidden="true">→</span>
+                </p>
+              </div>
+              <div class="flex items-start justify-end">
+                {illustration ? (
+                  <TrickIllustration
+                    entry={illustration}
+                    name={data.name}
+                    lang={lang}
+                    decorative
+                    variant="thumbnail"
+                    class="aspect-square rounded-md border border-slate-200 object-contain"
+                  />
+                ) : data.diagram ? (
+                  <img
+                    src={data.diagram}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    width={dimensions?.width}
+                    height={dimensions?.height}
+                    class="aspect-square w-full rounded-md border border-slate-200 bg-white object-contain p-1"
+                  />
+                ) : (
+                  <span class="flex aspect-square w-full items-center justify-center rounded-md border border-dashed border-slate-300 bg-white px-2 text-center text-xs leading-tight text-slate-500">
+                    {copy.noIllustration}
+                  </span>
+                )}
+              </div>
+            </a>
+          </article>
+        );
+      })}
+    </div>
+
+    <div class="hidden border-b border-slate-200 py-12 text-center" data-empty-state>
+      <h3 class="text-xl font-bold text-navy">{copy.emptyTitle}</h3>
+      <p class="mt-2 text-slate-600">{copy.emptyText}</p>
+      <button type="button" class="btn-outline mt-5" data-clear-filters>{copy.clear}</button>
+    </div>
+  </div>
+</section>

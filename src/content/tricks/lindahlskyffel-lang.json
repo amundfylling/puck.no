@@ -1,0 +1,17 @@
+{
+  "slug": "lindahlskyffel-lang",
+  "name": "Lindahlskyffel lang",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 4,
+  "description": {
+    "no": "Høyreving fører pucken fremover i sporet og legger inn til senter som skyter i venstre hjørne",
+    "en": "Right wing carries the puck forward in the slot and passes in to the center, who shoots into the left corner"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "lindahlskyffel-lang",
+  "order": 74
+}

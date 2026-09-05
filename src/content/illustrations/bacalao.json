@@ -1,0 +1,35 @@
+{
+  "slug": "bacalao",
+  "version": 1,
+  "rink": "stiga-playoff-v1",
+  "viewport": {
+    "x": 0,
+    "y": 0,
+    "width": 415,
+    "height": 490
+  },
+  "paths": [
+    {
+      "id": "step-1",
+      "step": 1,
+      "kind": "pass",
+      "curve": false,
+      "points": [[229, 249], [284, 455]],
+      "label": [249, 267]
+    },
+    {
+      "id": "step-2",
+      "step": 2,
+      "kind": "shot",
+      "curve": false,
+      "points": [[284, 455], [380, 304], [237, 132]],
+      "label": [305, 470]
+    }
+  ],
+  "players": [
+    { "id": "attacking-center", "kind": "attacker", "role": "center", "position": [216.4, 250.7], "rotation": 0, "scale": 0.95 },
+    { "id": "attacking-right-defense", "kind": "attacker", "role": "right-defense", "position": [282, 455.1], "rotation": -38, "scale": 0.86 },
+    { "id": "defending-goalie", "kind": "goalie", "role": "goalie", "position": [206.6, 162.2], "rotation": 180, "scale": 0.9 }
+  ],
+  "puck": null
+}

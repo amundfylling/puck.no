@@ -1,0 +1,17 @@
+{
+  "slug": "invers-kryssar-med-velodrom",
+  "name": "Invers Kryssar med Velodrom",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Pasning fra høyreving til venstreving som passer langs vantet bak mål til høyreving som skyter direkte i mål",
+    "en": "Pass from right wing to left wing, who passes along the boards behind the goal to the right wing, who shoots directly into the goal"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "invers-kryssar-med-velodrom",
+  "order": 100
+}

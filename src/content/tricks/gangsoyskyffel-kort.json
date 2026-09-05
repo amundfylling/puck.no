@@ -1,0 +1,17 @@
+{
+  "slug": "gangsoyskyffel-kort",
+  "name": "Gangsøyskyffel kort",
+  "aliases": [],
+  "players": [
+    "right-wing"
+  ],
+  "difficulty": 5,
+  "description": {
+    "no": "Høyreving fører pucken raskt bakover langs vantet, snurrer rundt mot klokka og legger inn til senter som skyter i høyre hjørne",
+    "en": "Right wing carries the puck quickly backward along the boards, spins around counterclockwise and passes in to the center, who shoots into the right corner"
+  },
+  "diagram": null,
+  "videoUrl": null,
+  "legacyAnchor": "gangsøyskyffel-kort",
+  "order": 82
+}

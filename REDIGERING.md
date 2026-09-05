@@ -49,6 +49,23 @@ Forsiden av portalen gir et sanntidsbilde av påmeldingene:
 4. Trykk **Lagre**. Artikkelen er straks på vei ut på `/post/<slug>`.
 5. Engelsk versjon: gjenta under **Nyheter (engelsk)** (valgfritt).
 
+## Legge til eller oppdatere en bordhockeykombinasjon
+
+1. Velg **Bordhockeykombinasjoner** i menyen til venstre.
+2. Åpne en eksisterende kombinasjon, eller trykk **Ny kombinasjon**.
+3. Fyll inn navn, URL-slug, spiller(e), vanskelighetsgrad og forklaring på
+   både norsk og engelsk. Én oppføring driver begge språkversjonene.
+4. Last gjerne opp en illustrasjon og legg inn en video-URL. Begge feltene kan stå
+   tomme og fylles ut senere.
+5. Angi **Rekkefølge** for plasseringen i katalogen. La **Gammelt
+   lenkeanker** stå tomt for helt nye kombinasjoner.
+6. Trykk **Lagre**. Katalogsidene, den norske detaljsiden og den engelske
+   detaljsiden bygges og publiseres automatisk.
+
+Katalogen støtter senter, begge vinger, begge backer og keeper. Søk,
+spillerfilter og vanskelighetsfilter oppdateres automatisk når nye
+kombinasjoner legges til.
+
 ## Opprette en turnering og åpne påmelding
 
 1. Velg **Turneringer** → **Ny turnering**.
@@ -130,6 +147,7 @@ nettgrensesnitt — det krever heller ingen kodekunnskaper:
    - Nyheter: `src/content/posts/` (engelske: `src/content/posts/en/`)
    - Turneringer: `src/content/tournaments/`
    - Sider: `src/content/pages/` (engelske: `src/content/pages/en/`)
+   - Bordhockeykombinasjoner: `src/content/tricks/` (én JSON-fil per kombinasjon)
    - Timere/dokumenter: `src/data/timers.json` / `src/data/documents.json`
 3. Trykk på blyant-ikonet (**Edit this file**), gjør endringen, og trykk
    **Commit changes** (velg «Commit directly to the main branch»).

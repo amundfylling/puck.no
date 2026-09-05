@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import RegistrationForm from '../../components/RegistrationForm.astro';
 import ParticipantList from '../../components/ParticipantList.astro';
 import TournamentFacts from '../../components/TournamentFacts.astro';
-import TournamentResults from '../../components/TournamentResults.astro';
+import TournamentHeader from '../../components/TournamentHeader.astro';
 import { tournamentImage, tournamentStatus } from '../../lib/content';
 import { formatIsoDate, formatNoDate, parseNoDate } from '../../lib/dates';
 import { seoForContent } from '../../lib/seo';
@@ -28,7 +28,6 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const status = tournamentStatus(entry);
 const registrationOpen = status === 'upcoming' && entry.data.registrationOpen;
-const results = entry.data.results;
 const hero = tournamentImage(entry);
 const heroDimensions = await getPublicImageDimensions(hero);
 const date = parseNoDate(entry.data.date);
@@ -98,35 +97,16 @@ const jsonLd = {
   ogImage={hero}
   jsonLd={jsonLd}
 >
-  <article class="mx-auto max-w-5xl px-4 py-4 sm:px-6 sm:py-6">
+  <article class="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
     <p class="text-sm">
       <a href="/turneringer/" class="inline-flex items-center min-h-[44px] text-sm font-semibold text-brand no-underline hover:underline"
         >&larr; {t('no', 'tournaments')}</a
       >
     </p>
 
-    <header class="mt-3 border-b border-slate-200 pb-4">
-      <h1 class="max-w-4xl text-3xl font-extrabold text-navy sm:text-4xl lg:text-5xl">{entry.data.name}</h1>
-      <p class="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-navy">
-        <span
-          class:list={[
-            'h-2 w-2 rounded-full',
-            status === 'upcoming' ? 'bg-green-500' : 'bg-slate-400',
-          ]}
-          aria-hidden="true"></span>
-        {t('no', status)}
-      </p>
-    </header>
+    <TournamentHeader entry={entry} lang="no" results={entry.data.results} streamUrl={entry.data.streamUrl} />
 
-    <TournamentFacts
-      entry={entry}
-      lang="no"
-      parentEntry={parentEntry}
-      priceList={priceList}
-      isoDate={isoDate}
-      registrationOpen={registrationOpen}
-      results={results}
-    />
+    <TournamentFacts entry={entry} lang="no" parentEntry={parentEntry} priceList={priceList} isoDate={isoDate} registrationOpen={registrationOpen} />
 
     {
       hero && (
@@ -154,13 +134,6 @@ const jsonLd = {
         {t('no', 'schedule')}
       </a>
       {
-        results && (
-          <a href="#resultater" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
-            {t('no', 'results')}
-          </a>
-        )
-      }
-      {
         registrationOpen && (
           <a href="#pamelding" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
             {t('no', 'registration')}
@@ -173,7 +146,7 @@ const jsonLd = {
     </nav>
 
     <div id="oversikt" class="mt-8 max-w-3xl">
-      <div class:list={['rich-text tournament-body min-w-0', hero && 'hide-first-image']}>
+      <div class:list={['rich-text tournament-body min-w-0 lg:order-1', hero && 'hide-first-image']}>
         {
           childrenEntries.length > 0 && (
             <section class="mb-8 border-y border-slate-200 py-4" aria-labelledby="tournament-classes">
@@ -208,8 +181,6 @@ const jsonLd = {
       </div>
 
     </div>
-
-    {results && <TournamentResults results={results} lang="no" slug={entry.data.slug} />}
 
     {
       registrationOpen && (

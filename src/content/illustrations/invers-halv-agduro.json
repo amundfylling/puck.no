@@ -1,0 +1,126 @@
+{
+  "slug": "invers-halv-agduro",
+  "version": 1,
+  "rink": "stiga-playoff-v1",
+  "viewport": {
+    "x": 0,
+    "y": 0,
+    "width": 415,
+    "height": 415
+  },
+  "paths": [
+    {
+      "id": "step-1",
+      "step": 1,
+      "kind": "pass",
+      "curve": false,
+      "points": [
+        [
+          228.9,
+          260.8
+        ],
+        [
+          220.6,
+          392.2
+        ],
+        [
+          74,
+          262.8
+        ]
+      ],
+      "label": [
+        228.9,
+        260.8
+      ]
+    },
+    {
+      "id": "step-2",
+      "step": 2,
+      "kind": "shot",
+      "curve": false,
+      "points": [
+        [
+          74,
+          262.8
+        ],
+        [
+          176.4,
+          147.3
+        ]
+      ],
+      "label": [
+        74,
+        262.8
+      ]
+    }
+  ],
+  "players": [
+    {
+      "id": "attacking-left-wing",
+      "kind": "attacker",
+      "role": "left-wing",
+      "position": [
+        68.8,
+        265
+      ],
+      "rotation": -180,
+      "scale": 0.86
+    },
+    {
+      "id": "attacking-center",
+      "kind": "attacker",
+      "role": "center",
+      "position": [
+        218,
+        262.3
+      ],
+      "rotation": 0,
+      "scale": 0.9
+    },
+    {
+      "id": "attacking-right-wing",
+      "kind": "attacker",
+      "role": "right-wing",
+      "position": [
+        352.1,
+        245
+      ],
+      "rotation": -88,
+      "scale": 0.86
+    },
+    {
+      "id": "defending-left-defense",
+      "kind": "defender",
+      "role": "left-defense",
+      "position": [
+        134.1,
+        189.9
+      ],
+      "rotation": 98,
+      "scale": 0.86
+    },
+    {
+      "id": "defending-right-defense",
+      "kind": "defender",
+      "role": "right-defense",
+      "position": [
+        286.8,
+        166
+      ],
+      "rotation": 94,
+      "scale": 0.86
+    },
+    {
+      "id": "defending-goalie",
+      "kind": "goalie",
+      "role": "goalie",
+      "position": [
+        206.6,
+        162.2
+      ],
+      "rotation": 180,
+      "scale": 0.9
+    }
+  ],
+  "puck": null
+}

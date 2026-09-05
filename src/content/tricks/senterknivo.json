@@ -1,0 +1,18 @@
+{
+  "slug": "senterknivo",
+  "name": "Senterknivo",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Passning frå senter bak motspelar sin senter til venstreback som skyter på direkten i mål",
+    "en": "Pass from center behind the opponent's center to the left defenseman, who shoots one-timed into the goal"
+  },
+  "diagram": "/media/images/trick-senterknivo-caf5c8d7.png",
+  "videoUrl": null,
+  "legacyAnchor": "senterknivo",
+  "order": 45,
+  "illustration": "senterknivo"
+}

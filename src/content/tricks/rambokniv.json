@@ -1,0 +1,18 @@
+{
+  "slug": "rambokniv",
+  "name": "Rambokniv",
+  "aliases": [],
+  "players": [
+    "center"
+  ],
+  "difficulty": 7,
+  "description": {
+    "no": "Passning frå senter til venstreback som passar bak motspelar sin senter og inn til eigen senter, som skyter på direkten heilt bake i sporet",
+    "en": "Pass from center to the left defenseman, who passes behind the opponent's center and in to their own center, who shoots one-timed from the very back of the slot"
+  },
+  "diagram": "/media/images/trick-rambokniv-cb88b462.png",
+  "videoUrl": null,
+  "legacyAnchor": "rambokniv",
+  "order": 46,
+  "illustration": "rambokniv"
+}

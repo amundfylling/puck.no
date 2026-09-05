@@ -9,15 +9,7 @@ status: "upcoming"
 results:
   provider: "sportscorpion"
   tournamentId: 8171
-  stages:
-    - id: 23766
-      type: "bracket"
-      labelNo: "Cup"
-      labelEn: "Cup"
-    - id: 23764
-      type: "table"
-      labelNo: "Gruppespill"
-      labelEn: "Group stage"
+streamUrl: "https://www.youtube.com/watch?v=8znPwnsDVkM"
 ---
 
 ![Norway Open 2026](/media/images/norway-open-2026-7be43f15.webp)
