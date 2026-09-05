@@ -46,4 +46,35 @@ for (const lang of ['no', 'en'] as const) {
     await expect(header.getByRole('status')).toHaveText(labels.ongoing);
     await expect(header.getByRole('link')).toHaveCount(0);
   });
+
+  test(`${lang}: the homepage banner appears only during the tournament day`, async ({ page }) => {
+    await page.clock.install({ time: new Date('2026-09-04T21:59:30Z') });
+    await page.goto(`${prefix}/`);
+    const banner = page.locator('[data-live-banner]');
+    await expect(banner).toBeHidden();
+
+    await page.clock.fastForward(60_000);
+    await expect(banner).toBeVisible();
+    await expect(banner).toContainText(labels.ongoing);
+    await expect(banner.getByRole('heading')).toHaveText('Norway Open 2026');
+    const link = banner.getByRole('link');
+    await expect(link).toContainText(labels.live);
+    await expect(link).toHaveAttribute('href', 'https://th.sportscorpion.com/eng/tournament/id/8171/');
+    await link.focus();
+    await expect(link).toBeFocused();
+    const bannerBox = await banner.boundingBox();
+    const headingBox = await page.getByRole('heading', { level: 1 }).boundingBox();
+    expect(bannerBox!.y + bannerBox!.height).toBeLessThan(headingBox!.y);
+    expect(bannerBox!.y + bannerBox!.height).toBeLessThan(page.viewportSize()!.height);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)).toBe(false);
+
+    await page.clock.setSystemTime(new Date('2026-09-05T21:59:30Z'));
+    await page.clock.fastForward(60_000);
+    await expect(banner).toBeHidden();
+
+    // An ongoing event without configured results must not leave an empty banner.
+    await page.clock.setSystemTime(new Date('2026-10-17T12:00:00Z'));
+    await page.reload();
+    await expect(banner).toBeHidden();
+  });
 }

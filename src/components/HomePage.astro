@@ -7,6 +7,7 @@ import { formatNoDate } from '../lib/dates';
 import PostCard from './PostCard.astro';
 import TopNorwegianPlayers from './TopNorwegianPlayers.astro';
 import TournamentCard from './TournamentCard.astro';
+import TournamentLiveBanner from './TournamentLiveBanner.astro';
 
 interface Props {
   lang: Lang;
@@ -28,6 +29,8 @@ const l = {
   allNews: t(lang, 'allNews'),
 };
 ---
+
+<TournamentLiveBanner lang={lang} />
 
 <section class="border-b border-slate-200 bg-ice">
   <div class="mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 lg:grid-cols-2">
