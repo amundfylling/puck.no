@@ -1,5 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { endOfDay, parseNoDate } from './dates';
+import { endOfDay, parseNoDate, parseNoStartDate, formatIsoDate } from './dates';
 import type { Lang } from './i18n';
 
 export type Post = CollectionEntry<'posts'>;
@@ -33,6 +33,16 @@ export function tournamentStatus(t: Tournament, now: Date = new Date()): 'upcomi
   const date = parseNoDate(t.data.date);
   if (!date) return t.data.status;
   return endOfDay(date) >= now ? 'upcoming' : 'past';
+}
+
+/** Prioritize results from the first event day, including multi-day tournaments. */
+export function tournamentHasStarted(t: Tournament, now: Date = new Date()): boolean {
+  const date = parseNoStartDate(t.data.date);
+  if (!date) return t.data.status === 'past';
+  const today = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Oslo', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).format(now);
+  return today >= formatIsoDate(date);
 }
 
 export interface TournamentView {

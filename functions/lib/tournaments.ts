@@ -17,10 +17,17 @@ export interface TournamentConfig {
   maxSubstitutes: number;
   /** ITHF WR 2020 tournament level used for placement-point calculations. */
   rankingLevel: RankingLevel | null;
+  /** Provider ID used by the runtime results sync. */
+  results: TournamentResultsConfig | null;
   /** Registration-level, single-choice questions. */
   registrationQuestions: RegistrationQuestion[];
   /** false = registration closed (absent = open). */
   registrationOpen?: boolean;
+}
+
+export interface TournamentResultsConfig {
+  provider: 'sportscorpion';
+  tournamentId: number;
 }
 
 export interface RegistrationQuestionOption {

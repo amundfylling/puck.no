@@ -52,6 +52,14 @@ export function parseNoDate(text: string): Date | null {
   return new Date(year, month, day);
 }
 
+/** First day of a tournament, rather than the range end used for status. */
+export function parseNoStartDate(text: string): Date | null {
+  const date = parseNoDate(text);
+  const firstDay = text.match(/^(\d{1,2})\.?\s*[–-]\s*\d{1,2}/);
+  if (date && firstDay) date.setDate(Number(firstDay[1]));
+  return date;
+}
+
 /** Format a date for display: "2. mars 2025" (no) / "2 March 2025" (en). */
 export function formatDate(d: Date, lang: 'no' | 'en'): string {
   return new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : 'nb-NO', {

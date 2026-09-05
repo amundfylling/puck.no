@@ -1,6 +1,6 @@
 ---
-import type { Tournament } from '../lib/content';
-import { formatNoDate } from '../lib/dates';
+import { tournamentHasStarted, type Tournament } from '../lib/content';
+import { formatNoDate, formatIsoDate, parseNoStartDate } from '../lib/dates';
 import { t, type Lang } from '../lib/i18n';
 
 interface Props {
@@ -10,23 +10,27 @@ interface Props {
   priceList: string[];
   isoDate?: string;
   registrationOpen: boolean;
+  results?: Tournament['data']['results'];
 }
 
-const { entry, lang, parentEntry, priceList, isoDate, registrationOpen } = Astro.props;
+const { entry, lang, parentEntry, priceList, isoDate, registrationOpen, results } = Astro.props;
+const startDate = parseNoStartDate(entry.data.date);
 const prefix = lang === 'en' ? '/en' : '';
+const resultsPrimary = Boolean(results) && (tournamentHasStarted(entry) || !registrationOpen);
+const resultsId = lang === 'en' ? 'results' : 'resultater';
 const registrationId = lang === 'en' ? 'registration' : 'pamelding';
 ---
 
-<aside class="h-fit border-y border-slate-200 bg-white lg:sticky lg:top-24 lg:order-2">
-  <h2 class="border-b border-slate-200 py-4 text-lg font-bold text-navy">
+<aside class="border-b border-slate-200 bg-white">
+  <h2 class="sr-only">
     {lang === 'en' ? 'Facts' : 'Fakta'}
   </h2>
-  <dl class="text-sm">
+  <dl class="text-sm sm:grid sm:grid-cols-3 sm:gap-x-8">
     {
       parentEntry && (
-        <div class="grid grid-cols-[5rem_minmax(0,1fr)] gap-4 border-b border-slate-100 py-3">
+        <div class="grid grid-cols-[4rem_minmax(0,1fr)] gap-3 sm:block border-b border-slate-100 py-2 sm:py-4">
           <dt class="text-slate-500">{t(lang, 'partOf')}</dt>
-          <dd class="text-right font-semibold text-brand">
+          <dd class="font-semibold text-brand">
             <a href={`${prefix}/turneringer/${parentEntry.data.slug}/`} class="no-underline hover:underline">
               {parentEntry.data.name}
             </a>
@@ -34,23 +38,23 @@ const registrationId = lang === 'en' ? 'registration' : 'pamelding';
         </div>
       )
     }
-    <div class="grid grid-cols-[5rem_minmax(0,1fr)] gap-4 border-b border-slate-100 py-3">
+    <div class="grid grid-cols-[4rem_minmax(0,1fr)] gap-3 sm:block border-b border-slate-100 py-2 sm:py-4">
       <dt class="text-slate-500">{t(lang, 'date')}</dt>
-      <dd class="text-right font-semibold text-navy">
+      <dd class="font-semibold text-navy">
         <time datetime={isoDate}>{formatNoDate(entry.data.date, lang)}</time>
       </dd>
     </div>
     {
       entry.data.location && (
-        <div class="grid grid-cols-[5rem_minmax(0,1fr)] gap-4 border-b border-slate-100 py-3">
+        <div class="grid grid-cols-[4rem_minmax(0,1fr)] gap-3 sm:block border-b border-slate-100 py-2 sm:py-4">
           <dt class="text-slate-500">{t(lang, 'location')}</dt>
-          <dd class="text-right font-semibold text-navy">{entry.data.location}</dd>
+          <dd class="font-semibold text-navy">{entry.data.location}</dd>
         </div>
       )
     }
     {
       priceList.length > 0 && (
-        <div class="grid grid-cols-[5rem_minmax(0,1fr)] gap-4 py-3">
+        <div class="grid grid-cols-[4rem_minmax(0,1fr)] gap-3 sm:block py-2 sm:py-4">
           <dt class="text-slate-500">{t(lang, 'prices')}</dt>
           <dd class="space-y-0.5 font-semibold text-navy">
             {priceList.map((price) => (
@@ -62,12 +66,35 @@ const registrationId = lang === 'en' ? 'registration' : 'pamelding';
     }
   </dl>
   {
-    registrationOpen && (
-      <div class="border-t border-slate-200 py-4">
-        <a href={`#${registrationId}`} class="btn-outline w-full text-center no-underline">
-          {t(lang, 'registerPlayer')}
-        </a>
+    (registrationOpen || results) && (
+      <div data-tournament-actions data-event-start={startDate ? formatIsoDate(startDate) : undefined} class="flex flex-wrap gap-3 border-t border-slate-200 py-3">
+        {resultsPrimary && (
+          <a data-results-action href={`#${resultsId}`} class="btn-primary no-underline">{t(lang, 'results')}</a>
+        )}
+        {registrationOpen && (
+          <a data-registration-action href={`#${registrationId}`} class:list={[resultsPrimary ? 'btn-outline' : 'btn-primary', 'no-underline']}>
+            {t(lang, 'registerPlayer')}
+          </a>
+        )}
+        {results && !resultsPrimary && (
+          <a data-results-action href={`#${resultsId}`} class="btn-outline no-underline">{t(lang, 'results')}</a>
+        )}
       </div>
     )
   }
 </aside>
+
+<script>
+  // A cached pre-event build should still prioritize results on the event day.
+  const today = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Oslo', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).format(new Date());
+  for (const actions of document.querySelectorAll<HTMLElement>('[data-tournament-actions]')) {
+    const results = actions.querySelector<HTMLAnchorElement>('[data-results-action]');
+    const registration = actions.querySelector<HTMLAnchorElement>('[data-registration-action]');
+    if (!results || !actions.dataset.eventStart || today < actions.dataset.eventStart) continue;
+    results.classList.replace('btn-outline', 'btn-primary');
+    registration?.classList.replace('btn-primary', 'btn-outline');
+    actions.prepend(results);
+  }
+</script>

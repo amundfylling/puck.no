@@ -79,7 +79,7 @@ const snapshotTotal = Object.values(snapshotCounts).reduce((total, count) => tot
           <a href="/admin/pameldinger/" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand hover:text-brand-dark">Alle påmeldinger →</a>
         </div>
         <div class="scroll-region mt-3 rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900" role="region" aria-label="Turneringsoversikt" tabindex="0">
-          <table class="w-full min-w-[36rem] text-sm">
+          <table class="w-full min-w-[48rem] text-sm">
             <thead>
               <tr class="border-b border-slate-200 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:border-slate-800 dark:text-slate-400">
                 <th class="px-4 py-3">Turnering</th>
@@ -95,6 +95,7 @@ const snapshotTotal = Object.values(snapshotCounts).reduce((total, count) => tot
                   const slug = entry.data.slug;
                   const isTeam = entry.data.playersPerTeam != null;
                   const open = entry.data.registrationOpen !== false;
+                  const hasResults = entry.data.results != null;
                   return (
                     <tr class="border-b border-slate-100 last:border-0 hover:bg-ice/60 dark:border-slate-800/60 dark:hover:bg-slate-800/40">
                       <td class="px-4 py-3">
@@ -140,14 +141,39 @@ const snapshotTotal = Object.values(snapshotCounts).reduce((total, count) => tot
                         </span>
                       </td>
                       <td class="px-4 py-3 text-right whitespace-nowrap">
-                        <a
-                          href={`/api/admin/registrations.csv?slug=${encodeURIComponent(slug)}`}
-                          class="inline-flex min-h-11 items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold text-slate-500 hover:bg-slate-100 hover:text-navy dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
-                          title="Last ned CSV (krever innlogging)"
-                        >
-                          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
-                          CSV
-                        </a>
+                        <div class="flex flex-col items-end">
+                          <div class="flex items-center justify-end gap-2">
+                            {
+                              hasResults && (
+                                <button
+                                  type="button"
+                                  data-results-sync={slug}
+                                  class="inline-flex min-h-11 items-center gap-1.5 rounded-md border border-slate-300 px-3 py-1 text-xs font-semibold text-navy transition-colors hover:border-slate-400 hover:bg-slate-100 active:bg-slate-200 disabled:cursor-wait disabled:opacity-70 dark:border-slate-700 dark:text-white dark:hover:border-slate-600 dark:hover:bg-slate-800 dark:active:bg-slate-700"
+                                >
+                                  <svg data-results-sync-icon class="h-4 w-4 motion-reduce:animate-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M20 11a8.1 8.1 0 0 0-15.5-2M4 4v5h5M4 13a8.1 8.1 0 0 0 15.5 2m.5 5v-5h-5" />
+                                  </svg>
+                                  <span data-results-sync-label>Synk resultater</span>
+                                </button>
+                              )
+                            }
+                            <a
+                              href={`/api/admin/registrations.csv?slug=${encodeURIComponent(slug)}`}
+                              class="inline-flex min-h-11 items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold text-slate-500 hover:bg-slate-100 hover:text-navy active:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white dark:active:bg-slate-700"
+                              title="Last ned CSV (krever innlogging)"
+                            >
+                              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+                              CSV
+                            </a>
+                          </div>
+                          {
+                            hasResults && (
+                              <p data-results-synced-for={slug} class="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
+                                Henter synkstatus …
+                              </p>
+                            )
+                          }
+                        </div>
                       </td>
                     </tr>
                   );
@@ -190,7 +216,14 @@ const snapshotTotal = Object.values(snapshotCounts).reduce((total, count) => tot
     interface Overview {
       tournaments: Record<
         string,
-        { players: number; teams: number; lastRegistrationAt: string | null; registrationOpen: boolean }
+        {
+          players: number;
+          teams: number;
+          lastRegistrationAt: string | null;
+          registrationOpen: boolean;
+          resultsSyncedAt: string | null;
+          resultStageCount: number | null;
+        }
       >;
       totals: { registrations: number; last7Days: number };
       recent: { tournament: string; type: string; name: string; at: string }[];
@@ -207,11 +240,14 @@ const snapshotTotal = Object.values(snapshotCounts).reduce((total, count) => tot
       const statusHelp = root.querySelector<HTMLElement>('[data-dashboard-status-help]');
       const retryButton = root.querySelector<HTMLButtonElement>('[data-dashboard-retry]');
       let loading = false;
+      let retryAction: (() => void) | null = null;
 
-      const showStatus = (text: string, isError = false, help = '') => {
+      const showStatus = (text: string, isError = false, help = '', retry: (() => void) | null = null) => {
         if (!status || !statusMessage || !statusHelp) return;
+        retryAction = retry;
         if (!text) {
           status.classList.add('hidden');
+          retryButton?.classList.add('hidden');
           return;
         }
         statusMessage.textContent = text;
@@ -229,7 +265,7 @@ const snapshotTotal = Object.values(snapshotCounts).reduce((total, count) => tot
         status.classList.toggle('dark:border-emerald-900/50', !isError);
         status.classList.toggle('dark:bg-emerald-950/30', !isError);
         status.classList.toggle('dark:text-emerald-200', !isError);
-        retryButton?.classList.toggle('hidden', !isError);
+        retryButton?.classList.toggle('hidden', retryAction == null);
       };
 
       const parseUtc = (at: string) => new Date(at.replace(' ', 'T') + 'Z');
@@ -250,6 +286,28 @@ const snapshotTotal = Object.values(snapshotCounts).reduce((total, count) => tot
           if (abs >= secs) return rtf.format(Math.trunc(s / secs), unit);
         }
         return rtf.format(s, 'second');
+      };
+      const syncDate = new Intl.DateTimeFormat('nb-NO', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+      const showSyncTime = (slug: string, syncedAt: string | null, stageCount: number | null) => {
+        const target = root.querySelector<HTMLElement>(`[data-results-synced-for="${CSS.escape(slug)}"]`);
+        if (!target) return;
+        if (!syncedAt) {
+          target.textContent = 'Ikke synkronisert ennå';
+          return;
+        }
+        const date = new Date(syncedAt.includes('T') ? syncedAt : `${syncedAt.replace(' ', 'T')}Z`);
+        if (Number.isNaN(date.getTime())) {
+          target.textContent = 'Synkronisert';
+          return;
+        }
+        const stages = stageCount == null ? '' : ` · ${stageCount} ${stageCount === 1 ? 'etappe' : 'etapper'}`;
+        target.textContent = `Sist synk. ${syncDate.format(date)}${stages}`;
       };
 
       const showSnapshotFallback = () => {
@@ -287,6 +345,7 @@ const snapshotTotal = Object.values(snapshotCounts).reduce((total, count) => tot
               'Sanntidsdata er ikke tilgjengelig.',
               true,
               'Cloudflare Access dekker ikke denne adressen, eller innloggingen er utløpt. Siste bygde snapshot vises i mellomtiden.',
+              () => void loadOverview(),
             );
             return;
           }
@@ -294,7 +353,12 @@ const snapshotTotal = Object.values(snapshotCounts).reduce((total, count) => tot
           data = (await res.json()) as Overview;
         } catch {
           showSnapshotFallback();
-          showStatus('Kunne ikke hente sanntidsdata.', true, 'Siste bygde snapshot vises i mellomtiden. Prøv igjen når forbindelsen er tilbake.');
+          showStatus(
+            'Kunne ikke hente sanntidsdata.',
+            true,
+            'Siste bygde snapshot vises i mellomtiden. Prøv igjen når forbindelsen er tilbake.',
+            () => void loadOverview(),
+          );
           return;
         } finally {
           loading = false;
@@ -321,6 +385,7 @@ const snapshotTotal = Object.values(snapshotCounts).reduce((total, count) => tot
             dot.classList.toggle('dark:bg-slate-600', !t.registrationOpen);
             text.textContent = t.registrationOpen ? 'Åpen' : 'Stengt';
           }
+          showSyncTime(slug, t.resultsSyncedAt, t.resultStageCount);
         }
 
         const list = root.querySelector<HTMLElement>('[data-recent]')!;
@@ -346,8 +411,64 @@ const snapshotTotal = Object.values(snapshotCounts).reduce((total, count) => tot
         showStatus('');
       };
 
-      retryButton?.addEventListener('click', () => void loadOverview());
+      retryButton?.addEventListener('click', () => retryAction?.());
       void loadOverview();
+
+      const syncResults = async (btn: HTMLButtonElement) => {
+        if (btn.disabled) return;
+        const slug = btn.dataset.resultsSync!;
+        const name = names[slug] ?? slug;
+        const label = btn.querySelector<HTMLElement>('[data-results-sync-label]');
+        const icon = btn.querySelector<SVGElement>('[data-results-sync-icon]');
+        btn.disabled = true;
+        btn.setAttribute('aria-busy', 'true');
+        if (label) label.textContent = 'Synkroniserer …';
+        icon?.classList.add('animate-spin');
+        try {
+          const response = await fetch('/api/admin/results-sync', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ slug }),
+          });
+          const data = (await response.json()) as {
+            error?: string;
+            message?: string;
+            syncedAt?: string;
+            stageCount?: number;
+          };
+          if (!response.ok) {
+            showStatus(
+              data.error ?? `Noe gikk galt (${response.status}).`,
+              true,
+              'Den eksisterende resultatsiden er ikke endret.',
+              () => void syncResults(btn),
+            );
+            return;
+          }
+          showSyncTime(slug, data.syncedAt ?? null, data.stageCount ?? null);
+          showStatus(
+            `${name}: ${data.message ?? 'Resultatene er synkronisert.'}`,
+            false,
+            'Turneringssiden leser den nye etappelisten direkte. Ingen bygg eller publisering ble startet.',
+          );
+        } catch {
+          showStatus(
+            'Fikk ikke kontakt med resultatsynken.',
+            true,
+            'Den eksisterende resultatsiden er ikke endret.',
+            () => void syncResults(btn),
+          );
+        } finally {
+          btn.disabled = false;
+          btn.removeAttribute('aria-busy');
+          if (label) label.textContent = 'Synk resultater';
+          icon?.classList.remove('animate-spin');
+        }
+      };
+
+      for (const btn of root.querySelectorAll<HTMLButtonElement>('[data-results-sync]')) {
+        btn.addEventListener('click', () => void syncResults(btn));
+      }
 
       // Open/close registration toggle → POST to the PAT-backed endpoint.
       for (const btn of root.querySelectorAll<HTMLButtonElement>('[data-open-toggle]')) {

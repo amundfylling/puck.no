@@ -9,7 +9,6 @@ import { tournamentImage, tournamentStatus } from '../../../lib/content';
 import { formatIsoDate, formatNoDate, parseNoDate } from '../../../lib/dates';
 import { seoForContent } from '../../../lib/seo';
 import { t } from '../../../lib/i18n';
-import { getPublicImageDimensions } from '../../../lib/media';
 import registrations from '../../../data/registrations-snapshot.json';
 import type { GetStaticPaths } from 'astro';
 
@@ -29,7 +28,6 @@ const { Content } = await render(entry);
 const status = tournamentStatus(entry);
 const registrationOpen = status === 'upcoming' && entry.data.registrationOpen;
 const hero = tournamentImage(entry);
-const heroDimensions = await getPublicImageDimensions(hero);
 const date = parseNoDate(entry.data.date);
 const isoDate = date ? formatIsoDate(date) : undefined;
 const path = `/en/turneringer/${entry.data.slug}`;
@@ -114,22 +112,7 @@ const jsonLd = {
       streamUrl={noMirror?.data.streamUrl ?? entry.data.streamUrl}
     />
 
-    {
-      hero && (
-        <figure class="mt-6 sm:mt-8">
-          <img
-            src={hero}
-            alt={entry.data.name}
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-            width={heroDimensions?.width}
-            height={heroDimensions?.height}
-            class="aspect-[16/7] w-full rounded-lg object-cover"
-          />
-        </figure>
-      )
-    }
+    <TournamentFacts entry={entry} lang="en" parentEntry={parentEntry} priceList={priceList} isoDate={isoDate} registrationOpen={registrationOpen} />
 
     <nav aria-label={t('en', 'onThisPage')} class="mt-6 flex flex-wrap items-center gap-x-6 border-y border-slate-200 py-2">
       <span class="w-full py-2 text-sm font-semibold text-navy sm:w-auto">{t('en', 'onThisPage')}</span>
@@ -151,16 +134,7 @@ const jsonLd = {
       </a>
     </nav>
 
-    <div id="overview" class="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-14">
-      <TournamentFacts
-        entry={entry}
-        lang="en"
-        parentEntry={parentEntry}
-        priceList={priceList}
-        isoDate={isoDate}
-        registrationOpen={registrationOpen}
-      />
-
+    <div id="overview" class="mt-8 max-w-3xl">
       <div class:list={['rich-text tournament-body min-w-0 lg:order-1', hero && 'hide-first-image']}>
         {
           childrenEntries.length > 0 && (

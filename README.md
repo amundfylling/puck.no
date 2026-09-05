@@ -191,6 +191,21 @@ algorithm's best result plus the prescribed 10-point winner bonus. Because the
 table follows the current participant list and refreshed values, it may change
 until registration closes.
 
+### SportScorpion results hubs
+
+A tournament may set an optional `results` object on its top-level Norwegian
+frontmatter. Configure `provider` and `tournamentId`; the prebuild step fetches
+the current stage list from SportScorpion and writes
+`src/data/sportscorpion-stages.json` for the same build. The public page then
+renders a bilingual, mobile-friendly hub with links to each stage's schedule
+and either its bracket or standings. Optional `stages` entries containing `id`,
+`type` (`bracket` or `table`), `labelNo`, and `labelEn` provide Norwegian labels
+and a committed offline fallback. Newly discovered provider stages use their
+SportScorpion name until an override is added. The English route reads this
+shared configuration from the Norwegian mirror, so do not duplicate it in the
+English file. Editors maintain these fields under **SportScorpion-resultater**
+in Sveltia CMS.
+
 ## Data & privacy (GDPR)
 
 Registration stores: name, club/country/ranking data (when selected from the

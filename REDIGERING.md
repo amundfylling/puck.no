@@ -109,6 +109,18 @@ kombinasjoner legges til.
    **Sider (engelsk)** → **About us** om nødvendig.
 3. Trykk **Lagre**.
 
+## Koble en turnering til SportScorpion-resultater
+
+1. Velg **Turneringer** og åpne turneringen.
+2. Åpne **SportScorpion-resultater** og fyll inn **Turnerings-ID**. Dette er
+   tallet i turneringsadressen hos SportScorpion.
+3. **Etapper** er valgfritt. Nye etapper hentes automatisk ved neste publisering.
+   Legg bare inn en etappe manuelt hvis den trenger et norsk navn eller skal
+   fungere som reserve når SportScorpion er utilgjengelig. Fyll da inn etappe-ID,
+   norsk og engelsk navn, og velg **Sluttspilltre** eller **Tabell**.
+4. Trykk **Lagre**. Resultatlenkene vises automatisk på både den norske og den
+   engelske turneringssiden; den engelske filen skal ikke konfigureres separat.
+
 ## Laste opp en ny timer (MP3)
 
 1. Velg **Data** → **Timere (lydfiler)**.
