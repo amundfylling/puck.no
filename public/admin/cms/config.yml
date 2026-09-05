@@ -207,6 +207,20 @@ collections:
           - { label: Tidligere, value: past }
         default: upcoming
         hint: 'Kun et hint — faktisk visning regnes ut fra datoen ved bygg.'
+      - label: SportScorpion-resultater
+        name: results
+        widget: object
+        required: false
+        collapsed: true
+        hint: 'Lenken vises øverst fra turneringsdagen. Den engelske siden bruker samme innstilling.'
+        fields:
+          - { label: Leverandør, name: provider, widget: hidden, default: sportscorpion }
+          - label: Turnerings-ID
+            name: tournamentId
+            widget: number
+            value_type: int
+            min: 1
+            hint: 'Tallet etter /tournament/id/ i SportScorpion-lenken, f.eks. 8171.'
       - label: Kladd / intern test
         name: draft
         widget: boolean

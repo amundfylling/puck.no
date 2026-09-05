@@ -84,6 +84,11 @@ const tournaments = defineCollection({
     registrationQuestions: z.array(registrationQuestion).default([]),
     /** ITHF WR tournament level; level 1 distinguishes World/Continental winner guarantees. */
     rankingLevel: rankingLevel.nullable().default(null),
+    /** Official results; configure on the Norwegian source for both languages. */
+    results: z.object({
+      provider: z.literal('sportscorpion'),
+      tournamentId: z.number().int().positive(),
+    }).nullable().default(null),
   }).superRefine((data, ctx) => {
     if (data.playersPerTeam != null && data.rankingLevel != null && data.rankingLevel !== '10') {
       ctx.addIssue({ code: 'custom', path: ['rankingLevel'], message: 'Team tournaments can only use ranking level 10.' });

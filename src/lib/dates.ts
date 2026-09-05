@@ -13,6 +13,30 @@ const NO_MONTHS: Record<string, number> = {
   desember: 11,
 };
 
+export type TournamentDayStatus = 'upcoming' | 'ongoing' | 'past';
+
+/** Calendar-day status in Norway, including every day of a same-month date range. */
+export function tournamentDayStatus(text: string, now: Date = new Date()): TournamentDayStatus | null {
+  const match = text.trim().match(/^(?:(\d{1,2})\.?\s*[–—-]\s*)?(\d{1,2})\.?\s+([a-zæøå]+)\s+(\d{4})$/i);
+  if (!match) return null;
+  const startDay = Number(match[1] ?? match[2]);
+  const endDay = Number(match[2]);
+  const month = NO_MONTHS[match[3].toLowerCase()];
+  const year = Number(match[4]);
+  if (month === undefined || startDay < 1 || startDay > endDay) return null;
+  const end = new Date(Date.UTC(year, month, endDay));
+  if (end.getUTCFullYear() !== year || end.getUTCMonth() !== month || end.getUTCDate() !== endDay) return null;
+
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Oslo', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).formatToParts(now);
+  const part = (type: string) => parts.find((p) => p.type === type)!.value;
+  const today = `${part('year')}-${part('month')}-${part('day')}`;
+  const dayKey = (day: number) => `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+  if (today < dayKey(startDay)) return 'upcoming';
+  return today <= dayKey(endDay) ? 'ongoing' : 'past';
+}
+
 /**
  * Parse Norwegian display dates like "17. januar 2026" or ranges like
  * "1.–3. mai 2026" (end day wins, so status covers the whole event).

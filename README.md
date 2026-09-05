@@ -158,6 +158,17 @@ npm run backfill-ranking -- --remote --apply
 The script reads no contact details. It updates ranked individuals and links
 legacy team roster names only when there is one exact ranking-name match.
 
+### Tournament-day results
+
+A tournament can set `results: { provider: sportscorpion, tournamentId: 8171 }`
+on its Norwegian source to show the official results link above the hero image
+on both language routes. The header shows **Pågår i dag / Ongoing today** on
+the tournament's calendar day(s) in `Europe/Oslo`, with a **Follow live results**
+link. Afterward the link stays available as **View results**. The header is
+rendered at build time and refreshed in the browser on load, every minute, and
+when returning to the tab, so a new deployment is not required at midnight.
+Editors can configure this under **SportScorpion-resultater** in the CMS.
+
 ### ITHF WR 2020 placement points
 
 A tournament may set the optional `rankingLevel` to `1-world`,

@@ -1,0 +1,94 @@
+---
+import type { Tournament } from '../lib/content';
+import { tournamentDayStatus } from '../lib/dates';
+import { t, type Lang } from '../lib/i18n';
+
+interface Props {
+  entry: Tournament;
+  lang: Lang;
+  results: Tournament['data']['results'];
+}
+
+const { entry, lang, results } = Astro.props;
+const status = tournamentDayStatus(entry.data.date) ?? entry.data.status;
+const resultsUrl = results
+  ? `https://th.sportscorpion.com/eng/tournament/id/${results.tournamentId}/`
+  : null;
+---
+
+<header
+  class="mt-3 border-b border-slate-200 pb-6 sm:pb-8"
+  data-tournament-header
+  data-tournament-date={entry.data.date}
+  data-status={status}
+  data-label-upcoming={t(lang, 'upcoming')}
+  data-label-ongoing={t(lang, 'ongoing')}
+  data-label-past={t(lang, 'past')}
+  data-label-live-results={t(lang, 'followLiveResults')}
+  data-label-results={t(lang, 'viewResults')}
+>
+  <h1 class="max-w-4xl text-3xl font-extrabold text-navy sm:text-4xl lg:text-5xl">{entry.data.name}</h1>
+  <div class="mt-4 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <p class="inline-flex items-center gap-2 text-sm font-semibold text-navy" role="status">
+      <span class="status-dot h-2 w-2 shrink-0 rounded-full bg-green-500" aria-hidden="true"></span>
+      <span data-status-label>{t(lang, status)}</span>
+    </p>
+    {
+      resultsUrl && (
+        <div data-tournament-results hidden={status === 'upcoming'}>
+          <a href={resultsUrl} target="_blank" rel="noopener noreferrer" class="btn-outline gap-2">
+            <span data-results-label>{t(lang, status === 'ongoing' ? 'followLiveResults' : 'viewResults')}</span>
+            <svg aria-hidden="true" viewBox="0 0 20 20" class="h-4 w-4 shrink-0 fill-none stroke-current" stroke-width="1.8">
+              <path d="M7 5h8v8M15 5 5 15" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <span class="sr-only">{t(lang, 'opensInNewTab')}</span>
+          </a>
+        </div>
+      )
+    }
+  </div>
+</header>
+
+<style>
+  [data-status='past'] .status-dot {
+    background-color: var(--color-slate-400);
+  }
+</style>
+
+<script>
+  import { tournamentDayStatus } from '../lib/dates';
+
+  const headers = document.querySelectorAll<HTMLElement>('[data-tournament-header]');
+  const updateHeaders = () => {
+    for (const header of headers) {
+      const status = tournamentDayStatus(header.dataset.tournamentDate ?? '');
+      if (!status) continue;
+      header.dataset.status = status;
+      const labels = {
+        upcoming: header.dataset.labelUpcoming,
+        ongoing: header.dataset.labelOngoing,
+        past: header.dataset.labelPast,
+      };
+      const statusLabel = header.querySelector<HTMLElement>('[data-status-label]');
+      if (statusLabel && statusLabel.textContent !== labels[status]) {
+        statusLabel.textContent = labels[status] ?? '';
+      }
+      const results = header.querySelector<HTMLElement>('[data-tournament-results]');
+      if (results) {
+        results.hidden = status === 'upcoming';
+        const label = results.querySelector<HTMLElement>('[data-results-label]');
+        if (label) label.textContent = (status === 'ongoing'
+          ? header.dataset.labelLiveResults
+          : header.dataset.labelResults) ?? '';
+      }
+    }
+  };
+
+  // Static deployments and tabs left open overnight must follow Norway's current date.
+  updateHeaders();
+  window.setInterval(updateHeaders, 60_000);
+  window.addEventListener('pageshow', updateHeaders);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) updateHeaders();
+  });
+</script>
