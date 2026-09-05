@@ -107,7 +107,12 @@ const jsonLd = {
       >
     </p>
 
-    <TournamentHeader entry={entry} lang="en" results={noMirror?.data.results ?? entry.data.results} />
+    <TournamentHeader
+      entry={entry}
+      lang="en"
+      results={noMirror?.data.results ?? entry.data.results}
+      streamUrl={noMirror?.data.streamUrl ?? entry.data.streamUrl}
+    />
 
     {
       hero && (
