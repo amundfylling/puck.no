@@ -165,3 +165,21 @@ Endringen publiseres automatisk i løpet av noen minutter.
 - **Påmeldingsskjemaet vises ikke:** Sjekk at turneringens dato er i
   framtiden.
 - **Noe gikk galt:** Kontakt amund.fylling@puck.no.
+
+### Forhåndsvis og send en illustrasjon til kontroll
+
+Arbeidet i **Illustrasjonsverksted** lagres automatisk på enheten du bruker.
+**Forhåndsvis utkast** viser den nye illustrasjonen uten tegneverktøy, med
+samme renderer som nettsiden. Et eldre diagram vises ved siden av når det
+finnes. Forhåndsvisningen viser også om utkastet er valgt som erstatning.
+
+Velg **Send til kontroll** når utkastet er klart. Du får en lenke til en pull
+request i GitHub. Statusen skiller mellom lokalt utkast, innsending til
+kontroll og illustrasjonen som følger med nettsidens bygg. **Oppdater
+kontrollstatus** henter om kontrollen er åpen, lukket eller slått sammen.
+Endringer du gjør etter innsending er ikke med i den tidligere kontrollen.
+
+Sammenslåing starter publiseringsløpet; vent på et vellykket produksjonsbygg
+og last siden på nytt for å se oppdatert offentlig status. Lokale utkast kan
+fortsatt avvike fra nettsiden. JSON-import og eksport er tilgjengelig under
+**Fil**, blant annet som sikkerhetskopi og ved konflikt med nyere innhold.

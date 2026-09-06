@@ -454,3 +454,19 @@ duplikatinnhold, og besøkende kan havne på det gamle domenet):
 | `ALLOWED_DOMAINS` | sveltia-cms-auth worker | text | Hvilke domener CMS kan kjøre på |
 
 **Hemmeligheter legges ALDRI i git** — kun i Cloudflare-variabler.
+
+### Illustrasjonsverksted: innsending til kontroll
+
+`/api/admin/illustration-review` bruker den eksisterende Pages-hemmeligheten
+`GITHUB_TOKEN`. Tokenet må ha **Contents: Read and write** og **Pull requests:
+Read and write** for `amundfylling/puck.no`. Endepunktet arver signert
+Cloudflare Access-kontroll og kontroll av opprinnelse fra admin-middleware.
+Det oppretter bare `codex/illustration-*`-grener og pull requests; det slår
+ikke sammen eller skriver direkte til `main`.
+
+Test i et innlogget adminvindu etter utrulling: endre en illustrasjon,
+forhåndsvis utkastet, send til kontroll og åpne GitHub-lenken. Kontroller at
+samme innsending ikke gir en ekstra pull request ved nytt forsøk. Godkjenning
+og sammenslåing følger vanlig PR-rutine. Offentlig visning endres etter et
+vellykket produksjonsbygg. Manglende token eller rettigheter gir en feilmelding
+uten å fjerne det lokale utkastet.
