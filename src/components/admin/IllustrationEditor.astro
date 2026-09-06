@@ -29,7 +29,7 @@ const serializedPayload = JSON.stringify(payload)
     <p class="text-sm font-semibold text-brand">Redigerbar SVG</p>
     <h2 class="mt-1 font-display text-2xl font-bold text-navy dark:text-white">Plasser spillerne og tegn bevegelsen</h2>
     <p class="mt-2 leading-relaxed text-slate-600 dark:text-slate-300">
-      Nye illustrasjoner starter med standardoppstillingen: tre angripere, to forsvarere og keeper. Spillerrollen holder hver spiller på riktig spillerlinje. Arbeidet lagres lokalt mens du jobber; last ned JSON-filen når illustrasjonen er ferdig.
+      Nye illustrasjoner starter med standardoppstillingen: tre angripere, to forsvarere og keeper. Spillerrollen holder hver spiller på riktig spillerlinje. Arbeidet lagres på denne enheten. Forhåndsvis utkastet og send det til kontroll når du er ferdig. Nettsiden oppdateres etter godkjenning og vellykket bygg.
     </p>
   </div>
 
@@ -45,15 +45,30 @@ const serializedPayload = JSON.stringify(payload)
       </label>
       <div class="flex flex-wrap gap-3 xl:justify-end">
         <a class="btn-outline" href="/admin/illustrasjoner/kontroll/">Kontroller illustrasjoner</a>
-        <a data-editor-preview class="btn-outline" href={`/kombinasjoner/${payload[0]?.slug ?? ''}/`} target="_blank" rel="noopener noreferrer">
-          Forhåndsvis side
-          <svg aria-hidden="true" class="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3h7v7m0-7L10 14M5 7v12h12v-5" /></svg>
-        </a>
-        <button type="button" data-editor-copy class="btn-outline">Kopier JSON</button>
-        <button type="button" data-editor-download class="btn-primary">Last ned JSON</button>
+        <button type="button" data-editor-preview class="btn-outline">Forhåndsvis utkast</button>
+        <button type="button" data-editor-submit class="btn-primary">Send til kontroll</button>
       </div>
     </div>
   </div>
+
+  <div class="mt-4 space-y-1 text-sm" aria-live="polite">
+    <p data-editor-save-state>Ingen lokale endringer.</p>
+    <p data-editor-review-state></p>
+    <a data-editor-review-link class="hidden underline underline-offset-4" target="_blank" rel="noopener noreferrer">Åpne kontroll i GitHub</a>
+    <button type="button" data-editor-review-refresh class="hidden btn-outline">Oppdater kontrollstatus</button>
+  </div>
+  <dialog data-editor-preview-dialog aria-labelledby="draft-preview-title" class="m-auto max-h-[90vh] w-[min(95vw,80rem)] overflow-auto border border-slate-300 bg-white p-6 text-slate-900 backdrop:bg-black/50 dark:bg-slate-900 dark:text-white">
+    <div class="flex items-start justify-between gap-4">
+      <div><h2 id="draft-preview-title" class="font-display text-2xl font-bold">Forhåndsvis utkast</h2><p data-editor-preview-name class="mt-1"></p></div>
+      <button type="button" data-editor-preview-close class="btn-outline" autofocus>Lukk</button>
+    </div>
+    <p class="my-4">Dette er utkastet på denne enheten. Ingen endringer er publisert ved å åpne forhåndsvisningen.</p>
+    <p data-editor-preview-policy class="mb-4 font-semibold"></p>
+    <div class="grid gap-6 md:grid-cols-2">
+      <section><h3 class="mb-3 font-semibold">Ny illustrasjon</h3><svg data-editor-draft-svg class="block h-auto w-full bg-[#526f78]" role="img" aria-label="Forhåndsvisning av utkast" preserveAspectRatio="xMidYMid meet"></svg></section>
+      <section data-editor-compare><h3 class="mb-3 font-semibold">Eldre diagram</h3><img data-editor-compare-image alt="Eldre diagram til sammenligning" class="h-auto w-full object-contain" /></section>
+    </div>
+  </dialog>
 
   <div class="mt-6 grid min-w-0 gap-6 xl:grid-cols-[minmax(0,1fr)_20rem]">
     <div class="min-w-0">
@@ -124,7 +139,7 @@ const serializedPayload = JSON.stringify(payload)
         <div class="flex items-start gap-3">
           <span data-editor-publication-indicator class="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full" aria-hidden="true"></span>
           <div>
-            <h3 class="font-display text-lg font-bold text-navy dark:text-white">Offentlig visning</h3>
+            <h3 class="font-display text-lg font-bold text-navy dark:text-white">Vises på nettsiden</h3>
             <p data-editor-publication-state class="mt-1 text-sm font-semibold text-slate-700 dark:text-slate-200">Eldre diagram er aktivt</p>
           </div>
         </div>
@@ -133,7 +148,7 @@ const serializedPayload = JSON.stringify(payload)
         </p>
         <label data-editor-publication-toggle class="mt-4 flex min-h-11 cursor-pointer items-start gap-3 text-sm font-semibold text-navy dark:text-white">
           <input data-editor-published type="checkbox" aria-describedby="illustration-publication-help" class="mt-0.5 h-5 w-5 shrink-0 accent-brand" />
-          <span>Erstatt det eldre diagrammet med denne illustrasjonen</span>
+          <span>Ved godkjenning: erstatt det eldre diagrammet med denne illustrasjonen</span>
         </label>
       </section>
 
@@ -226,6 +241,8 @@ const serializedPayload = JSON.stringify(payload)
       <section class="mt-6 border-t border-slate-200 pt-5 dark:border-slate-800">
         <h3 class="font-display text-lg font-bold text-navy dark:text-white">Fil</h3>
         <div class="mt-3 grid gap-2">
+          <button type="button" data-editor-download class="btn-outline">Last ned JSON</button>
+          <button type="button" data-editor-copy class="btn-outline">Kopier JSON</button>
           <label class="btn-outline w-full cursor-pointer">
             Importer JSON
             <input data-editor-import type="file" accept="application/json,.json" class="sr-only" />
@@ -253,6 +270,8 @@ const serializedPayload = JSON.stringify(payload)
 </script>
 
 <style>
+  .btn-outline.hidden { display: none; }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
   .editor-tool {
     display: inline-flex;
     min-height: 2.75rem;

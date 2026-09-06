@@ -1,12 +1,7 @@
 ---
 import type { Lang } from '../lib/i18n';
-import {
-  illustrationPathData,
-  playerSpritePlacement,
-  RINK_ASSET,
-  snapPointToPlayerGuide,
-  type IllustrationEntry,
-} from '../lib/illustrations';
+import type { IllustrationEntry } from '../lib/illustrations';
+import { illustrationMarkup } from '../lib/illustration-renderer';
 
 interface Props {
   entry: IllustrationEntry;
@@ -25,19 +20,13 @@ const {
   variant = 'detail',
   class: className = '',
 } = Astro.props;
-const { viewport, paths, players, slug } = entry.data;
+const { viewport, paths, slug } = entry.data;
 const titleId = `illustration-${slug}-title`;
 const descriptionId = `illustration-${slug}-description`;
 const title = lang === 'en' ? `Movement illustration: ${name}` : `Bevegelsesillustrasjon: ${name}`;
 const description = lang === 'en'
   ? `Table hockey players and numbered arrows show ${paths.length} movement steps on the rink.`
   : `Bordhockeyspillere og nummererte piler viser ${paths.length} bevegelsessteg på banen.`;
-const markerId = `illustration-${slug}-arrow`;
-const styleFor = (kind: 'pass' | 'move' | 'shot') => ({
-  stroke: kind === 'move' ? '#0e2a57' : '#0a9f2f',
-  dash: kind === 'move' ? '8 6' : undefined,
-  width: variant === 'thumbnail' ? (kind === 'shot' ? 2.25 : 2) : (kind === 'shot' ? 8 : 7),
-});
 ---
 
 <svg
@@ -51,68 +40,5 @@ const styleFor = (kind: 'pass' | 'move' | 'shot') => ({
 >
   {!decorative && <title id={titleId}>{title}</title>}
   {!decorative && <desc id={descriptionId}>{description}</desc>}
-  <defs>
-    <marker id={markerId} markerWidth="5" markerHeight="5" refX="4.2" refY="2.5" orient="auto" markerUnits="strokeWidth">
-      <path d="M 0 0 L 5 2.5 L 0 5 z" fill="context-stroke" />
-    </marker>
-    <filter id={`illustration-${slug}-player-shadow`} x="-30%" y="-30%" width="160%" height="160%">
-      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#101820" flood-opacity="0.45" />
-    </filter>
-  </defs>
-  <rect width="415" height="720" fill="#526f78" />
-  <image href={RINK_ASSET} x="0" y="0" width="415" height="720" />
-  {paths.map((path) => {
-    const style = styleFor(path.kind);
-    return (
-      <path
-        d={illustrationPathData(path.points, path.curve)}
-        fill="none"
-        stroke={style.stroke}
-        stroke-width={style.width}
-        stroke-dasharray={style.dash}
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        marker-end={`url(#${markerId})`}
-        vector-effect="non-scaling-stroke"
-        data-illustration-step={path.step}
-      />
-    );
-  })}
-  {players.map((player) => {
-    const placement = playerSpritePlacement(player);
-    const position = snapPointToPlayerGuide(player.position, player.role);
-    return (
-      <g
-        transform={`translate(${position[0]} ${position[1]}) rotate(${player.rotation})`}
-        data-illustration-player={player.id}
-        filter={`url(#illustration-${slug}-player-shadow)`}
-      >
-        <image
-          href={placement.asset}
-          x={placement.x}
-          y={placement.y}
-          width={placement.width}
-          height={placement.height}
-          preserveAspectRatio="xMidYMid meet"
-        />
-      </g>
-    );
-  })}
-  {paths.map((path) => {
-    return (
-      <g data-illustration-step={path.step}>
-        <circle cx={path.label[0]} cy={path.label[1]} r="11" fill="#101820" stroke="#fff" stroke-width="1.5" vector-effect="non-scaling-stroke" />
-        <text
-          x={path.label[0]}
-          y={path.label[1]}
-          fill="#fff"
-          font-family="Geist, system-ui, sans-serif"
-          font-size="14"
-          font-weight="700"
-          text-anchor="middle"
-          dominant-baseline="central"
-        >{path.step}</text>
-      </g>
-    );
-  })}
+  <Fragment set:html={illustrationMarkup(entry.data, `illustration-${slug}`, variant === 'thumbnail')} />
 </svg>

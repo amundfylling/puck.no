@@ -1,3 +1,5 @@
+import { parseScene } from '../lib/illustration-scene';
+import { illustrationMarkup } from '../lib/illustration-renderer';
 import {
   defaultIllustrationPlayers,
   illustrationPathData,
@@ -36,10 +38,6 @@ const clone = <T>(value: T): T => structuredClone(value);
 const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value));
 const round = (value: number) => Number(value.toFixed(1));
 const sceneKey = (slug: string) => `puck-illustration:${slug}:v3`;
-const idPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const playerKinds = ['attacker', 'defender', 'goalie'] as const;
-const playerRoles = ['center', 'right-wing', 'left-wing', 'right-defense', 'left-defense', 'goalie'] as const;
-
 function newScene(slug: string): IllustrationScene {
   return {
     slug,
@@ -53,108 +51,6 @@ function newScene(slug: string): IllustrationScene {
   };
 }
 
-function isPoint(value: unknown): value is IllustrationPoint {
-  return Array.isArray(value)
-    && value.length === 2
-    && value.every((part) => typeof part === 'number' && Number.isFinite(part))
-    && value[0] >= 0 && value[0] <= RINK_WIDTH
-    && value[1] >= 0 && value[1] <= RINK_HEIGHT;
-}
-
-function parseScene(value: unknown, expectedSlug: string, allowEmpty = true): IllustrationScene {
-  if (!value || typeof value !== 'object') throw new Error('JSON-filen må inneholde et sceneobjekt.');
-  const candidate = value as Record<string, unknown>;
-  if (candidate.slug !== expectedSlug) throw new Error(`Scenen må ha slug «${expectedSlug}».`);
-  if (candidate.version !== 1 || candidate.rink !== 'stiga-playoff-v1') throw new Error('Ukjent sceneversjon eller bane.');
-  if (candidate.published != null && typeof candidate.published !== 'boolean') throw new Error('Publiseringsvalget må være sant eller usant.');
-
-  const viewport = candidate.viewport as Record<string, unknown> | undefined;
-  if (!viewport || !['x', 'y', 'width', 'height'].every((field) => typeof viewport[field] === 'number' && Number.isFinite(viewport[field]))) {
-    throw new Error('Utsnittet mangler gyldige tall.');
-  }
-  const parsedViewport = viewport as unknown as Viewport;
-  if (
-    parsedViewport.x < 0 || parsedViewport.y < 0
-    || parsedViewport.width <= 0 || parsedViewport.height <= 0
-    || parsedViewport.x + parsedViewport.width > RINK_WIDTH
-    || parsedViewport.y + parsedViewport.height > RINK_HEIGHT
-  ) throw new Error('Utsnittet må ligge innenfor banen på 415 × 720.');
-
-  if (!Array.isArray(candidate.paths) || (!allowEmpty && candidate.paths.length === 0)) {
-    throw new Error('Illustrasjonen må inneholde minst én pil.');
-  }
-  const paths = candidate.paths.map((raw, index): IllustrationPath => {
-    if (!raw || typeof raw !== 'object') throw new Error(`Pil ${index + 1} er ugyldig.`);
-    const path = raw as Record<string, unknown>;
-    if (!Array.isArray(path.points) || path.points.length < 2 || !path.points.every(isPoint)) {
-      throw new Error(`Pil ${index + 1} må ha minst to gyldige punkter.`);
-    }
-    if (!isPoint(path.label)) throw new Error(`Pil ${index + 1} mangler en gyldig nummerplassering.`);
-    if (!['pass', 'move', 'shot'].includes(String(path.kind))) throw new Error(`Pil ${index + 1} har ukjent type.`);
-    const kind = path.kind as IllustrationPath['kind'];
-    const curve = Boolean(path.curve);
-    const followsWall = Boolean(path.followsWall);
-    if (kind !== 'move' && curve && !followsWall) throw new Error(`Pil ${index + 1} er en kurvet puckbane og må følge vantet bak mål.`);
-    if (followsWall && kind === 'move') throw new Error(`Pil ${index + 1} kan ikke være både spillerbevegelse og puckbane bak mål.`);
-    if (followsWall && (!curve || path.points.length < 3)) throw new Error(`Pil ${index + 1} må ha minst tre punkter for å følge vantet bak mål.`);
-    return {
-      id: `step-${index + 1}`,
-      step: index + 1,
-      kind,
-      curve,
-      followsWall,
-      points: path.points.map((point) => [round(point[0]), round(point[1])]),
-      label: [round(path.label[0]), round(path.label[1])],
-    };
-  });
-
-  const rawPlayers = candidate.players ?? [];
-  if (!Array.isArray(rawPlayers)) throw new Error('Spillere må være en liste.');
-  const playerIds = new Set<string>();
-  const players = rawPlayers.map((raw, index): IllustrationPlayer => {
-    if (!raw || typeof raw !== 'object') throw new Error(`Spiller ${index + 1} er ugyldig.`);
-    const player = raw as Record<string, unknown>;
-    if (typeof player.id !== 'string' || !idPattern.test(player.id) || playerIds.has(player.id)) {
-      throw new Error(`Spiller ${index + 1} må ha en unik id med små bokstaver, tall og bindestreker.`);
-    }
-    if (!playerKinds.includes(player.kind as IllustrationPlayerKind)) throw new Error(`Spiller ${index + 1} har ukjent type.`);
-    if (player.role != null && !playerRoles.includes(player.role as typeof playerRoles[number])) throw new Error(`Spiller ${index + 1} har ukjent rolle.`);
-    if (!isPoint(player.position)) throw new Error(`Spiller ${index + 1} mangler en gyldig posisjon.`);
-    if (typeof player.rotation !== 'number' || !Number.isFinite(player.rotation) || player.rotation < -360 || player.rotation > 360) {
-      throw new Error(`Spiller ${index + 1} må ha rotasjon mellom -360 og 360.`);
-    }
-    if (typeof player.scale !== 'number' || !Number.isFinite(player.scale) || player.scale < 0.5 || player.scale > 1.5) {
-      throw new Error(`Spiller ${index + 1} må ha størrelse mellom 0,5 og 1,5.`);
-    }
-    const role = (player.role ?? null) as IllustrationPlayer['role'];
-    const position: IllustrationPoint = [round(player.position[0]), round(player.position[1])];
-    playerIds.add(player.id);
-    return {
-      id: player.id,
-      kind: player.kind as IllustrationPlayerKind,
-      role,
-      position: snapPointToPlayerGuide(position, role),
-      rotation: round(player.rotation),
-      scale: round(player.scale),
-    };
-  });
-
-  return {
-    slug: expectedSlug,
-    version: 1,
-    rink: 'stiga-playoff-v1',
-    published: candidate.published === true,
-    viewport: {
-      x: round(parsedViewport.x),
-      y: round(parsedViewport.y),
-      width: round(parsedViewport.width),
-      height: round(parsedViewport.height),
-    },
-    paths,
-    players,
-    puck: null,
-  };
-}
 
 function pathStyle(path: IllustrationPath) {
   return {
@@ -180,7 +76,7 @@ function initializeEditor(root: HTMLElement) {
   if (requestedSlug && items.has(requestedSlug)) trickSelect.value = requestedSlug;
   const svg = required<SVGSVGElement>('[data-editor-stage]');
   const status = required<HTMLElement>('[data-editor-status]');
-  const preview = required<HTMLAnchorElement>('[data-editor-preview]');
+  const preview = required<HTMLButtonElement>('[data-editor-preview]');
   const referenceWrap = required<HTMLDetailsElement>('[data-editor-reference-wrap]');
   const reference = required<HTMLImageElement>('[data-editor-reference]');
   const viewportSelect = required<HTMLSelectElement>('[data-editor-viewport]');
@@ -227,8 +123,49 @@ function initializeEditor(root: HTMLElement) {
 
   const announce = (message: string) => { status.textContent = message; };
   const snapshot = () => JSON.stringify(scene);
+  const saveState = required<HTMLElement>('[data-editor-save-state]');
+  const reviewState = required<HTMLElement>('[data-editor-review-state]');
+  const reviewLink = required<HTMLAnchorElement>('[data-editor-review-link]');
+  const refreshReview = required<HTMLButtonElement>('[data-editor-review-refresh]');
+  const submit = required<HTMLButtonElement>('[data-editor-submit]');
+  const dialog = required<HTMLDialogElement>('[data-editor-preview-dialog]');
+  let review: { number: number; state: string; snapshot: string } | null = null;
+  let submitting = false;
+  let reviewError = '';
+  const reviewKey = () => `${sceneKey(currentSlug)}:review`;
+  const renderReview = () => {
+    let currentSnapshot = snapshot();
+    try { currentSnapshot = JSON.stringify(parseScene(scene, currentSlug)); } catch { /* Invalid edits remain editable until corrected before submission. */ }
+    const matches = review?.snapshot === currentSnapshot;
+    const built = items.get(currentSlug)?.scene;
+    const includedInBuild = built && JSON.stringify(parseScene(built, currentSlug)) === review?.snapshot;
+    reviewState.textContent = reviewError || (!review ? 'Ikke sendt til kontroll.'
+      : !matches ? 'Utkastet har endringer som ikke er med i siste kontroll.'
+      : review.state === 'merged' && includedInBuild ? 'Kontroll fullført. Endringene er med i dette bygget.'
+      : review.state === 'merged' ? 'Godkjent og slått sammen. Last siden på nytt etter produksjonsbygget for å se publisert status.'
+      : review.state === 'closed' ? 'Kontrollen er lukket uten publisering.' : 'Sendt til kontroll. Ikke publisert ennå.');
+    reviewLink.classList.toggle('hidden', !review);
+    refreshReview.classList.toggle('hidden', !review);
+    if (review) reviewLink.href = `https://github.com/amundfylling/puck.no/pull/${review.number}`;
+    submit.disabled = submitting || Boolean(matches && review?.state !== 'closed');
+    submit.textContent = submitting ? 'Sender til kontroll …' : 'Send til kontroll';
+  };
+  const restoreReview = () => {
+    review = null;
+    reviewError = '';
+    try {
+      const stored = JSON.parse(localStorage.getItem(reviewKey()) ?? 'null');
+      if (stored && Number.isSafeInteger(stored.number) && stored.number > 0 && typeof stored.snapshot === 'string' && ['open', 'closed', 'merged'].includes(stored.state)) review = stored;
+    } catch { /* A malformed local receipt must not prevent editing. */ }
+    saveState.textContent = 'Lastet fra nettsidens bygg. Lokale utkast lagres bare på denne enheten.';
+    renderReview();
+  };
   const saveDraft = () => {
-    try { localStorage.setItem(sceneKey(currentSlug), JSON.stringify(scene)); } catch {}
+    try {
+      localStorage.setItem(sceneKey(currentSlug), JSON.stringify(scene));
+      saveState.textContent = `Lagret på denne enheten kl. ${new Date().toLocaleTimeString('nb-NO')}.`;
+    } catch { saveState.textContent = 'Kunne ikke lagre på denne enheten. Last ned JSON som sikkerhetskopi før du forlater siden.'; }
+    renderReview();
   };
   const mutate = (change: () => void, message: string) => {
     history.push(snapshot());
@@ -388,16 +325,10 @@ function initializeEditor(root: HTMLElement) {
   const render = () => {
     const item = items.get(currentSlug);
     const hasLegacyDiagram = Boolean(item?.diagram);
-    const usesEditableIllustration = !hasLegacyDiagram || scene.published;
+    const usesEditableIllustration = Boolean(item?.scene && (!hasLegacyDiagram || item.scene.published));
     publicationCard.dataset.state = usesEditableIllustration ? 'new' : 'legacy';
-    publicationState.textContent = hasLegacyDiagram
-      ? usesEditableIllustration ? 'Ny illustrasjon er valgt' : 'Eldre diagram er aktivt'
-      : 'Ny illustrasjon brukes';
-    publicationHelp.textContent = hasLegacyDiagram
-      ? usesEditableIllustration
-        ? 'Den nye illustrasjonen erstatter det eldre diagrammet når denne JSON-filen publiseres.'
-        : 'Det eldre diagrammet vises på nettsiden frem til du godkjenner den nye illustrasjonen.'
-      : 'Denne kombinasjonen har ikke noe eldre diagram å falle tilbake på.';
+    publicationState.textContent = usesEditableIllustration ? 'Publisert illustrasjon i dette bygget' : hasLegacyDiagram ? 'Eldre diagram er publisert' : 'Ingen illustrasjon er publisert';
+    publicationHelp.textContent = 'Statusen gjelder nettsidens bygg. Valget nedenfor gjelder utkastet og trer først i kraft etter kontroll, sammenslåing og vellykket produksjonsbygg.';
     publicationToggleWrap.classList.toggle('hidden', !hasLegacyDiagram);
     publishedToggle.checked = scene.published;
     publishedToggle.disabled = !hasLegacyDiagram;
@@ -461,6 +392,7 @@ function initializeEditor(root: HTMLElement) {
     for (const key of Object.keys(viewportFields) as (keyof Viewport)[]) viewportFields[key].value = String(scene.viewport[key]);
     jsonInput.value = `${JSON.stringify(scene, null, 2)}\n`;
     renderSelection();
+    renderReview();
   };
 
   const loadSlug = (slug: string) => {
@@ -484,7 +416,7 @@ function initializeEditor(root: HTMLElement) {
     } catch {
       scene = item.scene ? parseScene(clone(item.scene), slug) : newScene(slug);
     }
-    preview.href = `/kombinasjoner/${slug}/`;
+    restoreReview();
     if (item.diagram) {
       reference.src = item.diagram;
       reference.alt = `Eldre illustrasjon av ${item.name}`;
@@ -496,6 +428,7 @@ function initializeEditor(root: HTMLElement) {
     }
     setTool('select');
     render();
+    if (restored) saveState.textContent = 'Lokalt utkast gjenopprettet på denne enheten.';
     announce(restored ? `Lokalt utkast for ${item.name} er gjenopprettet.` : `${item.name} er klar.`);
   };
 
@@ -673,8 +606,8 @@ function initializeEditor(root: HTMLElement) {
     mutate(
       () => { scene.published = published; },
       published
-        ? 'Den nye illustrasjonen er godkjent for offentlig visning. Last ned JSON-filen for å publisere valget.'
-        : 'Det eldre diagrammet vil fortsatt vises offentlig når JSON-filen publiseres.',
+        ? 'Utkastet er valgt som erstatning. Send til kontroll for å be om publisering.'
+        : 'Utkastet beholder det eldre diagrammet ved godkjenning.',
     );
   });
   trickSelect.addEventListener('change', () => loadSlug(trickSelect.value));
@@ -751,6 +684,61 @@ function initializeEditor(root: HTMLElement) {
   required<HTMLButtonElement>('[data-editor-delete-player]').addEventListener('click', deleteSelectedPlayer);
 
   const exportScene = () => parseScene(scene, currentSlug, false);
+  preview.addEventListener('click', () => {
+    const item = items.get(currentSlug);
+    const draftSvg = required<SVGSVGElement>('[data-editor-draft-svg]');
+    const { x, y, width, height } = scene.viewport;
+    draftSvg.setAttribute('viewBox', `${x} ${y} ${width} ${height}`);
+    draftSvg.innerHTML = illustrationMarkup(scene, 'draft-preview');
+    required<HTMLElement>('[data-editor-preview-name]').textContent = item?.name ?? currentSlug;
+    required<HTMLElement>('[data-editor-preview-policy]').textContent = item?.diagram && !scene.published
+      ? 'Valget i utkastet beholder det eldre diagrammet på nettsiden.' : 'Den nye illustrasjonen er valgt for offentlig visning etter godkjenning.';
+    required<HTMLElement>('[data-editor-compare]').classList.toggle('hidden', !item?.diagram);
+    const comparison = required<HTMLImageElement>('[data-editor-compare-image]');
+    if (item?.diagram) comparison.src = item.diagram;
+    else comparison.removeAttribute('src');
+    dialog.showModal();
+  });
+  required<HTMLButtonElement>('[data-editor-preview-close]').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('close', () => preview.focus());
+  submit.addEventListener('click', async () => {
+    if (submitting) return;
+    const slug = currentSlug;
+    let sent: IllustrationScene;
+    reviewError = '';
+    try { sent = exportScene(); } catch (error) { reviewError = (error as Error).message; renderReview(); return; }
+    submitting = true;
+    renderReview();
+    try {
+      const response = await fetch('/api/admin/illustration-review', { method: 'POST', signal: AbortSignal.timeout(90_000), headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ slug, scene: sent, baseScene: items.get(slug)?.scene ?? null }) });
+      const result = await response.json().catch(() => { throw new Error('Kunne ikke lese svaret. Kontroller innloggingen og prøv igjen.'); });
+      if (!response.ok) throw new Error(result.error ?? 'Kunne ikke sende til kontroll.');
+      const receipt = { number: result.number, state: result.state, snapshot: JSON.stringify(sent) };
+      try { localStorage.setItem(`${sceneKey(slug)}:review`, JSON.stringify(receipt)); } catch { /* The GitHub review still exists. */ }
+      if (currentSlug === slug) {
+        review = receipt;
+        announce('Innsendingen er registrert. Åpne kontrollen for detaljer.');
+      }
+    } catch (error) { if (currentSlug === slug) reviewError = error instanceof Error ? error.message : 'Kunne ikke sende til kontroll.'; }
+    finally { submitting = false; renderReview(); }
+  });
+  refreshReview.addEventListener('click', async () => {
+    if (!review) return;
+    const slug = currentSlug;
+    const number = review.number;
+    refreshReview.disabled = true;
+    try {
+      const response = await fetch(`/api/admin/illustration-review?slug=${encodeURIComponent(slug)}&review=${number}`, { signal: AbortSignal.timeout(20_000) });
+      const result = await response.json().catch(() => { throw new Error('Kunne ikke lese svaret. Kontroller innloggingen og prøv igjen.'); });
+      if (!response.ok) throw new Error(result.error ?? 'Kunne ikke hente kontrollstatus.');
+      if (currentSlug === slug && review?.number === number) {
+        review.state = result.state;
+        try { localStorage.setItem(reviewKey(), JSON.stringify(review)); } catch {}
+        renderReview();
+      }
+    } catch (error) { announce(error instanceof Error ? error.message : 'Kunne ikke hente kontrollstatus.'); }
+    finally { refreshReview.disabled = false; }
+  });
   required<HTMLButtonElement>('[data-editor-copy]').addEventListener('click', async () => {
     try {
       const text = `${JSON.stringify(exportScene(), null, 2)}\n`;
@@ -809,6 +797,7 @@ function initializeEditor(root: HTMLElement) {
   });
 
   window.addEventListener('keydown', (event) => {
+    if (dialog.open) return;
     const target = event.target as HTMLElement | null;
     const editingText = target?.matches('input, textarea, select, [contenteditable="true"]');
     if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'z') {
