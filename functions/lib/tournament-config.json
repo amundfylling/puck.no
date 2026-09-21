@@ -110,5 +110,14 @@
   "maxSubstitutes": 0,
   "rankingLevel": null,
   "registrationQuestions": []
+ },
+ "trondheim-open-2027": {
+  "date": "23. januar 2027",
+  "endDate": "2027-01-23",
+  "playersPerTeam": null,
+  "maxSubstitutes": 0,
+  "rankingLevel": null,
+  "results": null,
+  "registrationQuestions": []
  }
 }
