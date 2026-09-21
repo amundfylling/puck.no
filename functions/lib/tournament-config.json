@@ -5,6 +5,7 @@
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
+  "results": null,
   "registrationQuestions": []
  },
  "duo-nm-2026": {
@@ -13,6 +14,7 @@
   "playersPerTeam": 2,
   "maxSubstitutes": 0,
   "rankingLevel": "10",
+  "results": null,
   "registrationQuestions": []
  },
  "jæren-open-2025": {
@@ -21,6 +23,7 @@
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
+  "results": null,
   "registrationQuestions": []
  },
  "krohnengen-open-2026": {
@@ -29,6 +32,7 @@
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
+  "results": null,
   "registrationQuestions": []
  },
  "norgesmesterskapet-2026-dame": {
@@ -37,6 +41,7 @@
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
+  "results": null,
   "registrationQuestions": []
  },
  "norgesmesterskapet-2026-junior": {
@@ -45,6 +50,7 @@
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
+  "results": null,
   "registrationQuestions": []
  },
  "norgesmesterskapet-2026-u13": {
@@ -53,6 +59,7 @@
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
+  "results": null,
   "registrationQuestions": []
  },
  "norgesmesterskapet-2026-veteran": {
@@ -61,6 +68,7 @@
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
+  "results": null,
   "registrationQuestions": []
  },
  "norgesmesterskapet-2026": {
@@ -69,6 +77,7 @@
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
+  "results": null,
   "registrationQuestions": []
  },
  "norgesmesterskapet-2027": {
@@ -77,6 +86,7 @@
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
+  "results": null,
   "registrationQuestions": []
  },
  "norway-open-2025": {
@@ -85,6 +95,7 @@
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
+  "results": null,
   "registrationQuestions": []
  },
  "norway-open-2026": {
@@ -93,6 +104,10 @@
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
+  "results": {
+   "provider": "sportscorpion",
+   "tournamentId": 8171
+  },
   "registrationQuestions": []
  },
  "sudden-death-cup": {
@@ -101,6 +116,7 @@
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
+  "results": null,
   "registrationQuestions": []
  },
  "trondheim-open-2025": {
@@ -109,6 +125,16 @@
   "playersPerTeam": null,
   "maxSubstitutes": 0,
   "rankingLevel": null,
+  "results": null,
+  "registrationQuestions": []
+ },
+ "trondheim-open-2027": {
+  "date": "23. januar 2027",
+  "endDate": "2027-01-23",
+  "playersPerTeam": null,
+  "maxSubstitutes": 0,
+  "rankingLevel": null,
+  "results": null,
   "registrationQuestions": []
  }
 }
