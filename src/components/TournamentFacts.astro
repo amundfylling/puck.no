@@ -11,25 +11,29 @@ interface Props {
   isoDate?: string;
   registrationOpen: boolean;
   results?: Tournament['data']['results'];
+  isUpcoming: boolean;
 }
 
-const { entry, lang, parentEntry, priceList, isoDate, registrationOpen, results } = Astro.props;
+const { entry, lang, parentEntry, priceList, isoDate, registrationOpen, results, isUpcoming } = Astro.props;
 const startDate = parseNoStartDate(entry.data.date);
 const prefix = lang === 'en' ? '/en' : '';
 const resultsPrimary = Boolean(results) && (tournamentHasStarted(entry) || !registrationOpen);
 const resultsId = lang === 'en' ? 'results' : 'resultater';
 const registrationId = lang === 'en' ? 'registration' : 'pamelding';
+const registrationLabel = entry.data.playersPerTeam == null
+  ? t(lang, 'registerPlayer')
+  : lang === 'en' ? 'Register team' : 'Registrer lag';
 ---
 
-<aside class="border-b border-slate-200 bg-white">
+<aside class="min-w-0 border-b border-slate-200 bg-white lg:col-start-2 lg:row-span-3 lg:self-start lg:border-b-0 lg:border-l lg:pl-8">
   <h2 class="sr-only">
     {lang === 'en' ? 'Facts' : 'Fakta'}
   </h2>
-  <dl class="text-sm sm:grid sm:grid-cols-3 sm:gap-x-8">
+  <dl class="text-sm sm:grid sm:grid-cols-3 sm:gap-x-8 lg:block">
     {
       parentEntry && (
-        <div class="grid grid-cols-[4rem_minmax(0,1fr)] gap-3 sm:block border-b border-slate-100 py-2 sm:py-4">
-          <dt class="text-slate-500">{t(lang, 'partOf')}</dt>
+        <div class="grid grid-cols-[5.5rem_minmax(0,1fr)] gap-3 border-b border-slate-200 py-3 sm:block lg:grid lg:py-3">
+          <dt class="font-medium text-slate-600">{t(lang, 'partOf')}</dt>
           <dd class="font-semibold text-brand">
             <a href={`${prefix}/turneringer/${parentEntry.data.slug}/`} class="no-underline hover:underline">
               {parentEntry.data.name}
@@ -38,25 +42,25 @@ const registrationId = lang === 'en' ? 'registration' : 'pamelding';
         </div>
       )
     }
-    <div class="grid grid-cols-[4rem_minmax(0,1fr)] gap-3 sm:block border-b border-slate-100 py-2 sm:py-4">
-      <dt class="text-slate-500">{t(lang, 'date')}</dt>
+    <div class="grid grid-cols-[5.5rem_minmax(0,1fr)] gap-3 border-b border-slate-200 py-3 sm:block lg:grid lg:py-3">
+      <dt class="font-medium text-slate-600">{t(lang, 'date')}</dt>
       <dd class="font-semibold text-navy">
         <time datetime={isoDate}>{formatNoDate(entry.data.date, lang)}</time>
       </dd>
     </div>
     {
       entry.data.location && (
-        <div class="grid grid-cols-[4rem_minmax(0,1fr)] gap-3 sm:block border-b border-slate-100 py-2 sm:py-4">
-          <dt class="text-slate-500">{t(lang, 'location')}</dt>
+        <div class="grid grid-cols-[5.5rem_minmax(0,1fr)] gap-3 border-b border-slate-200 py-3 sm:block lg:grid lg:py-3">
+          <dt class="font-medium text-slate-600">{t(lang, 'location')}</dt>
           <dd class="font-semibold text-navy">{entry.data.location}</dd>
         </div>
       )
     }
     {
       priceList.length > 0 && (
-        <div class="grid grid-cols-[4rem_minmax(0,1fr)] gap-3 sm:block py-2 sm:py-4">
-          <dt class="text-slate-500">{t(lang, 'prices')}</dt>
-          <dd class="space-y-0.5 font-semibold text-navy">
+        <div class="grid grid-cols-[5.5rem_minmax(0,1fr)] gap-3 py-3 sm:block lg:grid lg:py-3">
+          <dt class="font-medium text-slate-600">{t(lang, 'prices')}</dt>
+          <dd class="space-y-1 font-semibold leading-snug text-navy">
             {priceList.map((price) => (
               <div>{price}</div>
             ))}
@@ -67,13 +71,13 @@ const registrationId = lang === 'en' ? 'registration' : 'pamelding';
   </dl>
   {
     (registrationOpen || results) && (
-      <div data-tournament-actions data-event-start={startDate ? formatIsoDate(startDate) : undefined} class="flex flex-wrap gap-3 border-t border-slate-200 py-3">
+      <div data-tournament-actions data-event-start={startDate ? formatIsoDate(startDate) : undefined} class="flex flex-wrap gap-3 border-t border-slate-200 py-4 lg:[&>a]:w-full">
         {resultsPrimary && (
           <a data-results-action href={`#${resultsId}`} class="btn-primary no-underline">{t(lang, 'results')}</a>
         )}
         {registrationOpen && (
           <a data-registration-action href={`#${registrationId}`} class:list={[resultsPrimary ? 'btn-outline' : 'btn-primary', 'no-underline']}>
-            {t(lang, 'registerPlayer')}
+            {registrationLabel}
           </a>
         )}
         {results && !resultsPrimary && (
@@ -82,6 +86,11 @@ const registrationId = lang === 'en' ? 'registration' : 'pamelding';
       </div>
     )
   }
+  {isUpcoming && !registrationOpen && (
+    <p class="border-t border-slate-200 py-4 text-sm font-semibold text-slate-600">
+      {lang === 'en' ? 'Registration is closed' : 'Påmeldingen er stengt'}
+    </p>
+  )}
 </aside>
 
 <script>

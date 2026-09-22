@@ -39,6 +39,7 @@ const players =
     (p) => p.name && p.name.toLowerCase() !== 'name',
   ) ?? [];
 const priceList = entry.data.prices?.split(';').map((s) => s.trim()).filter(Boolean) ?? [];
+const hasSchedule = /^# Tidsskjema\s*$/m.test(entry.body ?? '');
 
 const allTournaments = await getCollection('tournaments', (t) => !t.data.draft && t.data.lang === 'no');
 const parentEntry = entry.data.parent
@@ -95,25 +96,36 @@ const jsonLd = {
   ogImage={hero}
   jsonLd={jsonLd}
 >
-  <article class="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
+  <article class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
     <p class="text-sm">
       <a href="/turneringer/" class="inline-flex items-center min-h-[44px] text-sm font-semibold text-brand no-underline hover:underline"
         >&larr; {t('no', 'tournaments')}</a
       >
     </p>
 
-    <TournamentHeader entry={entry} lang="no" results={entry.data.results} streamUrl={entry.data.streamUrl} />
+    <div class="mt-4 grid gap-x-12 gap-y-8 sm:mt-6 lg:grid-cols-[minmax(0,1fr)_21rem]">
+      <TournamentHeader entry={entry} lang="no" results={entry.data.results} streamUrl={entry.data.streamUrl} />
+      <TournamentFacts
+        entry={entry}
+        lang="no"
+        parentEntry={parentEntry}
+        priceList={priceList}
+        isoDate={isoDate}
+        registrationOpen={registrationOpen}
+        results={entry.data.results}
+        isUpcoming={status === 'upcoming'}
+      />
 
-    <TournamentFacts entry={entry} lang="no" parentEntry={parentEntry} priceList={priceList} isoDate={isoDate} registrationOpen={registrationOpen} />
-
-    <nav aria-label={t('no', 'onThisPage')} class="mt-6 flex flex-wrap items-center gap-x-6 border-y border-slate-200 py-2">
+    <nav aria-label={t('no', 'onThisPage')} class="flex flex-wrap items-center gap-x-6 border-b border-slate-200 py-2 lg:col-start-1">
       <span class="w-full py-2 text-sm font-semibold text-navy sm:w-auto">{t('no', 'onThisPage')}</span>
       <a href="#oversikt" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
         {t('no', 'overview')}
       </a>
-      <a href="#tidsskjema" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
-        {t('no', 'schedule')}
-      </a>
+      {hasSchedule && (
+        <a href="#tidsskjema" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
+          {t('no', 'schedule')}
+        </a>
+      )}
       {
         registrationOpen && (
           <a href="#pamelding" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
@@ -126,7 +138,7 @@ const jsonLd = {
       </a>
     </nav>
 
-    <div id="oversikt" class="mt-8 max-w-3xl">
+    <div id="oversikt" class="max-w-3xl scroll-mt-24 lg:col-start-1">
       <div class:list={['rich-text tournament-body min-w-0 lg:order-1', hero && 'hide-first-image']}>
         {
           childrenEntries.length > 0 && (
@@ -161,6 +173,7 @@ const jsonLd = {
         <Content />
       </div>
 
+    </div>
     </div>
 
     {

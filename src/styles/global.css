@@ -325,15 +325,20 @@ summary {
   @apply font-semibold text-slate-900;
 }
 /* Tournament cover photos appear in overview cards, not in the detail body. */
-.rich-text.hide-first-image > p:first-child:has(> img:only-child) {
+.rich-text.hide-first-image > p:first-of-type:has(> img:only-child) {
   @apply hidden;
+}
+/* Give the event invitation a clear lead before the schedule and details. */
+.tournament-body > p:first-of-type:not(:has(img)),
+.tournament-body > p:first-of-type:has(img) + p {
+  @apply mt-0 mb-8 text-lg leading-relaxed text-navy sm:text-xl;
 }
 /* Tournament pages: schedule rows as a timetable. */
 .tournament-body h2:is(#tidsskjema, #schedule) {
-  @apply mt-10 text-2xl;
+  @apply mt-12 scroll-mt-24 border-t border-slate-200 pt-8 text-2xl sm:text-3xl;
 }
 .tournament-body h2:is(#tidsskjema, #schedule) ~ p:has(> strong:first-child) {
-  @apply my-0 grid min-h-11 grid-cols-[4.5rem_minmax(0,1fr)] items-baseline gap-3 border-b border-slate-100 py-2.5;
+  @apply my-0 grid min-h-11 grid-cols-[4.5rem_minmax(0,1fr)] items-baseline gap-4 border-b border-slate-200 py-3;
 }
 .tournament-body h2:is(#tidsskjema, #schedule) ~ p > strong:first-child {
   @apply shrink-0 font-mono text-sm font-bold tabular-nums text-navy;

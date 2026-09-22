@@ -39,6 +39,7 @@ const players =
     (p) => p.name && p.name.toLowerCase() !== 'name',
   ) ?? [];
 const priceList = entry.data.prices?.split(';').map((s) => s.trim()).filter(Boolean) ?? [];
+const hasSchedule = /^# Schedule\s*$/m.test(entry.body ?? '');
 const noMirror = (await getCollection('tournaments', (t) => !t.data.draft && t.data.lang === 'no'))
   .find((t) => t.data.slug === entry.data.slug);
 const registrationQuestions = noMirror?.data.registrationQuestions ?? entry.data.registrationQuestions;
@@ -98,30 +99,41 @@ const jsonLd = {
   ogImage={hero}
   jsonLd={jsonLd}
 >
-  <article class="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
+  <article class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
     <p class="text-sm">
       <a href="/en/turneringer/" class="inline-flex items-center min-h-[44px] font-semibold text-brand no-underline hover:underline"
         >&larr; {t('en', 'tournaments')}</a
       >
     </p>
 
-    <TournamentHeader
-      entry={entry}
-      lang="en"
-      results={noMirror?.data.results ?? entry.data.results}
-      streamUrl={noMirror?.data.streamUrl ?? entry.data.streamUrl}
-    />
+    <div class="mt-4 grid gap-x-12 gap-y-8 sm:mt-6 lg:grid-cols-[minmax(0,1fr)_21rem]">
+      <TournamentHeader
+        entry={entry}
+        lang="en"
+        results={noMirror?.data.results ?? entry.data.results}
+        streamUrl={noMirror?.data.streamUrl ?? entry.data.streamUrl}
+      />
+      <TournamentFacts
+        entry={entry}
+        lang="en"
+        parentEntry={parentEntry}
+        priceList={priceList}
+        isoDate={isoDate}
+        registrationOpen={registrationOpen}
+        results={noMirror?.data.results ?? entry.data.results}
+        isUpcoming={status === 'upcoming'}
+      />
 
-    <TournamentFacts entry={entry} lang="en" parentEntry={parentEntry} priceList={priceList} isoDate={isoDate} registrationOpen={registrationOpen} />
-
-    <nav aria-label={t('en', 'onThisPage')} class="mt-6 flex flex-wrap items-center gap-x-6 border-y border-slate-200 py-2">
+    <nav aria-label={t('en', 'onThisPage')} class="flex flex-wrap items-center gap-x-6 border-b border-slate-200 py-2 lg:col-start-1">
       <span class="w-full py-2 text-sm font-semibold text-navy sm:w-auto">{t('en', 'onThisPage')}</span>
       <a href="#overview" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
         {t('en', 'overview')}
       </a>
-      <a href="#schedule" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
-        {t('en', 'schedule')}
-      </a>
+      {hasSchedule && (
+        <a href="#schedule" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
+          {t('en', 'schedule')}
+        </a>
+      )}
       {
         registrationOpen && (
           <a href="#registration" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
@@ -134,7 +146,7 @@ const jsonLd = {
       </a>
     </nav>
 
-    <div id="overview" class="mt-8 max-w-3xl">
+    <div id="overview" class="max-w-3xl scroll-mt-24 lg:col-start-1">
       <div class:list={['rich-text tournament-body min-w-0 lg:order-1', hero && 'hide-first-image']}>
         {
           childrenEntries.length > 0 && (
@@ -169,6 +181,7 @@ const jsonLd = {
         <Content />
       </div>
 
+    </div>
     </div>
 
     {
