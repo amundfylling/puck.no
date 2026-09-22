@@ -2,8 +2,9 @@
 import { render } from 'astro:content';
 import { formatDate } from '../lib/dates';
 import { categorySlug, type Post } from '../lib/content';
-import { t, type Lang } from '../lib/i18n';
+import { postMirrorsEnToNo, t, type Lang } from '../lib/i18n';
 import { getPublicImageDimensions } from '../lib/media';
+import PostReactions from './PostReactions.astro';
 
 interface Props {
   post: Post;
@@ -15,6 +16,7 @@ const { Content } = await render(post);
 const prefix = lang === 'en' ? '/en' : '';
 const blogPath = `${prefix}/blog/`;
 const coverDimensions = await getPublicImageDimensions(post.data.cover);
+const noMirrorSlug = lang === 'en' ? postMirrorsEnToNo[post.data.slug] : undefined;
 ---
 
 <article class="mx-auto max-w-3xl px-4 py-10">
@@ -65,4 +67,5 @@ const coverDimensions = await getPublicImageDimensions(post.data.cover);
   <div class="rich-text mt-8">
     <Content />
   </div>
+  <PostReactions slug={noMirrorSlug ?? post.data.slug} reactionLang={noMirrorSlug ? 'no' : lang} lang={lang} />
 </article>

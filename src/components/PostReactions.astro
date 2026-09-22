@@ -1,0 +1,128 @@
+---
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  slug: string;
+  reactionLang: Lang;
+  lang: Lang;
+}
+
+const { slug, reactionLang, lang } = Astro.props;
+const labels = lang === 'en'
+  ? {
+      heading: 'What did you think?', hint: 'Choose one. Tap it again to remove it.',
+      heart: 'Love it', fire: 'Amazing', laugh: 'Funny', wow: 'Surprising', clap: 'Applause',
+      loading: 'Loading reactions…', unavailable: 'Reactions are unavailable right now. Try reloading the page.',
+      saveFailed: 'Your reaction could not be saved. Please try again.',
+      saved: 'Reaction saved.', removed: 'Reaction removed.',
+      noScript: 'Enable JavaScript to see and add reactions.',
+    }
+  : {
+      heading: 'Hva synes du?', hint: 'Velg én reaksjon. Trykk igjen for å fjerne den.',
+      heart: 'Liker', fire: 'Kult', laugh: 'Morsomt', wow: 'Overraskende', clap: 'Applaus',
+      loading: 'Laster reaksjoner…', unavailable: 'Reaksjonene er utilgjengelige nå. Prøv å laste siden på nytt.',
+      saveFailed: 'Reaksjonen kunne ikke lagres. Prøv igjen.',
+      saved: 'Reaksjonen er lagret.', removed: 'Reaksjonen er fjernet.',
+      noScript: 'Slå på JavaScript for å se og legge til reaksjoner.',
+    };
+const choices = [
+  { id: 'heart', symbol: '❤️', label: labels.heart },
+  { id: 'fire', symbol: '🔥', label: labels.fire },
+  { id: 'laugh', symbol: '😂', label: labels.laugh },
+  { id: 'wow', symbol: '😮', label: labels.wow },
+  { id: 'clap', symbol: '👏', label: labels.clap },
+];
+---
+
+<section
+  class="mt-12 border-t border-slate-200 pt-8"
+  aria-label={labels.heading}
+  data-post-reactions
+  data-url={`/api/reactions/${reactionLang}/${encodeURIComponent(slug)}`}
+  data-labels={JSON.stringify(labels)}
+>
+  <h2 class="text-xl font-bold text-navy">{labels.heading}</h2>
+  <p class="mt-1 text-sm text-slate-600">{labels.hint}</p>
+  <div class="mt-4 flex flex-wrap gap-2" role="group" aria-label={labels.heading}>
+    {choices.map((choice) => (
+      <button
+        type="button"
+        data-reaction={choice.id}
+        data-name={choice.label}
+        aria-label={`${choice.label}: ${labels.loading}`}
+        aria-pressed="false"
+        disabled
+        class="inline-flex min-h-11 min-w-16 items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-3 py-2 text-base font-medium text-navy transition-colors hover:border-brand hover:text-brand disabled:cursor-wait disabled:opacity-60 aria-pressed:border-brand aria-pressed:bg-red-50 aria-pressed:text-brand"
+      >
+        <span aria-hidden="true" class="text-xl leading-none">{choice.symbol}</span>
+        <span data-count class="tabular-nums">–</span>
+      </button>
+    ))}
+  </div>
+  <p class="mt-3 min-h-5 text-sm text-slate-600" data-reaction-status role="status" aria-live="polite">{labels.loading}</p>
+  <noscript><p class="mt-2 text-sm text-slate-600">{labels.noScript}</p></noscript>
+</section>
+
+<script>
+  type Reaction = 'heart' | 'fire' | 'laugh' | 'wow' | 'clap';
+  type ReactionState = { counts: Record<Reaction, number>; selected: Reaction | null };
+  const choices: Reaction[] = ['heart', 'fire', 'laugh', 'wow', 'clap'];
+
+  document.querySelectorAll<HTMLElement>('[data-post-reactions]').forEach((section) => {
+    const url = section.dataset.url!;
+    const labels = JSON.parse(section.dataset.labels!) as Record<string, string>;
+    const buttons = [...section.querySelectorAll<HTMLButtonElement>('[data-reaction]')];
+    const status = section.querySelector<HTMLElement>('[data-reaction-status]')!;
+    let selected: Reaction | null = null;
+
+    function render(state: ReactionState) {
+      selected = state.selected;
+      for (const button of buttons) {
+        const emoji = button.dataset.reaction as Reaction;
+        const count = state.counts[emoji];
+        button.querySelector<HTMLElement>('[data-count]')!.textContent = String(count);
+        button.setAttribute('aria-pressed', String(selected === emoji));
+        button.setAttribute('aria-label', `${button.dataset.name}: ${count}`);
+        button.disabled = false;
+      }
+    }
+
+    async function load(response: Response): Promise<ReactionState> {
+      if (!response.ok) throw new Error(`Reactions HTTP ${response.status}`);
+      const data: unknown = await response.json();
+      if (!data || typeof data !== 'object' || !('counts' in data) || !('selected' in data)) {
+        throw new Error('Invalid reaction response');
+      }
+      const state = data as ReactionState;
+      if (!state.counts || !choices.every((choice) => Number.isSafeInteger(state.counts[choice]) && state.counts[choice] >= 0)
+        || (state.selected !== null && !choices.includes(state.selected))) {
+        throw new Error('Invalid reaction state');
+      }
+      return state;
+    }
+
+    fetch(url, { credentials: 'same-origin', cache: 'no-store' })
+      .then(load)
+      .then((state) => { render(state); status.textContent = ''; })
+      .catch(() => { status.textContent = labels.unavailable; });
+
+    for (const button of buttons) {
+      button.addEventListener('click', async () => {
+        const emoji = button.dataset.reaction as Reaction;
+        const remove = selected === emoji;
+        buttons.forEach((item) => { item.disabled = true; });
+        status.textContent = labels.loading;
+        try {
+          const response = await fetch(`${url}?emoji=${remove ? 'remove' : emoji}`, {
+            method: 'POST', credentials: 'same-origin', cache: 'no-store',
+          });
+          render(await load(response));
+          status.textContent = remove ? labels.removed : labels.saved;
+        } catch {
+          buttons.forEach((item) => { item.disabled = false; });
+          status.textContent = labels.saveFailed;
+        }
+      });
+    }
+  });
+</script>
