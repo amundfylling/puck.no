@@ -6,6 +6,7 @@
  * Points sort descending; equal team totals use the best player's world rank.
  */
 import { KNOWN_SLUGS, TOURNAMENTS } from '../../../lib/tournaments';
+import { tournamentRouteSlug } from '../../../lib/tournament-route-slug';
 import { parseRoster } from '../../../lib/registration';
 import { calculatePlacementPoints } from '../../../lib/ranking-points';
 
@@ -24,8 +25,8 @@ function json(data: unknown, status = 200): Response {
 }
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
-  const slug = String(context.params.slug);
-  if (!KNOWN_SLUGS.has(slug)) {
+  const slug = tournamentRouteSlug(context.params.slug);
+  if (slug == null || !KNOWN_SLUGS.has(slug)) {
     return json({ error: 'Ukjent turnering.' }, 404);
   }
   const { results } = await context.env.DB.prepare(

@@ -2,6 +2,7 @@
 /** GET /api/tournaments/{slug}/results — public, non-personal stage snapshot. */
 import { isSportScorpionStageArray } from '../../../lib/sportscorpion.js';
 import { KNOWN_SLUGS, TOURNAMENTS } from '../../../lib/tournaments';
+import { tournamentRouteSlug } from '../../../lib/tournament-route-slug';
 
 type Env = CloudflareEnv;
 
@@ -24,8 +25,8 @@ interface ResultRow {
 }
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
-  const slug = String(context.params.slug);
-  if (!KNOWN_SLUGS.has(slug)) return json({ error: 'Ukjent turnering.' }, 404);
+  const slug = tournamentRouteSlug(context.params.slug);
+  if (slug == null || !KNOWN_SLUGS.has(slug)) return json({ error: 'Ukjent turnering.' }, 404);
   const configured = TOURNAMENTS[slug]?.results;
   if (!configured) return json({ error: 'Turneringen har ikke et resultatsenter.' }, 404);
 
