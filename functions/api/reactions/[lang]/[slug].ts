@@ -1,13 +1,13 @@
 /// <reference types="@cloudflare/workers-types" />
 /** Anonymous, one-choice-per-browser blog reactions. */
-import knownKeys from '../../../lib/blog-post-keys.json' with { type: 'json' };
+import { BLOG_POST_KEYS } from '../../../lib/blog-post-keys.ts';
 
 type Env = CloudflareEnv;
 type Reaction = 'heart' | 'fire' | 'laugh' | 'wow' | 'clap';
 type Counts = Record<Reaction, number>;
 
 const REACTIONS: readonly Reaction[] = ['heart', 'fire', 'laugh', 'wow', 'clap'];
-const KNOWN_KEYS = new Set<string>(knownKeys);
+const KNOWN_KEYS = new Set<string>(BLOG_POST_KEYS);
 const COOKIE_NAME = 'puck_reaction_id';
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 

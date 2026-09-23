@@ -15,7 +15,7 @@
     "audit-generated": "node scripts/audit-generated.mjs",
     "generate:cloudflare-types": "wrangler types functions/worker-configuration.d.ts --env-interface CloudflareEnv --include-runtime false",
     "check:cloudflare-types": "wrangler types functions/worker-configuration.d.ts --env-interface CloudflareEnv --include-runtime false --check",
-    "test": "node --test functions/lib/*.test.ts scripts/lib/*.test.mjs scripts/seed-d1.test.mjs",
+    "test": "node --test functions/lib/*.test.ts scripts/lib/*.test.mjs scripts/lib/*.test.ts scripts/seed-d1.test.mjs",
     "backfill-ranking": "node scripts/backfill-ranking-values.mjs",
     "refresh-qualification": "QUALIFICATION_FORCE_REFRESH=1 node scripts/fetch-qualification.mjs"
   },

@@ -2,9 +2,10 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { DatabaseSync } from 'node:sqlite';
 import { test } from 'node:test';
-import keys from './blog-post-keys.json' with { type: 'json' };
-import { onRequestGet, onRequestPost } from '../api/reactions/[lang]/[slug].ts';
+import { BLOG_POST_KEYS } from '../../functions/lib/blog-post-keys.ts';
+import { onRequestGet, onRequestPost } from '../../functions/api/reactions/[lang]/[slug].ts';
 
+const keys = BLOG_POST_KEYS;
 const [lang, slug] = keys[0].split('/');
 const endpoint = `https://puck.no/api/reactions/${lang}/${encodeURIComponent(slug)}`;
 
