@@ -20,6 +20,17 @@ full project conventions.
 | `npm run check` | Type/astro check (keep at 0 errors / 0 warnings) |
 | `npm run check-links` | Crawl `dist/`, fail on broken internal links |
 
+## Homepage photo movement
+
+Both homepages use `ScrollPhotoHero.astro` with the existing `hero.png`.
+Astro produces responsive WebP images and a visible static poster; a single
+React/Remotion island enhances it when reduced motion is not requested.
+Scroll position seeks the paused Player (no autoplay or rendering service).
+`ScrollPhotoPlayer.tsx` controls the framing, with a 22% desktop zoom and 10%
+on compact screens. The Astro component controls the short sticky runway.
+Reduced motion and JavaScript-disabled browsers retain the static photograph.
+Keep `remotion` and `@remotion/player` pinned to the same version when upgrading.
+
 ## Backend (Phase 3): registration API
 
 - **Stack:** Cloudflare Pages file-based functions in `functions/` (TypeScript) +
