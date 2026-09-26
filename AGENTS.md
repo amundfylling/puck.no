@@ -226,6 +226,30 @@ can see them; duplicate relative paths across the two source roots fail builds.
 - Slugs keep decoded Nordic characters (e.g. `jæren-open-2025`,
   `lær-bordhockey`). Wix percent-encodes them in URLs; we decode for paths.
 
+## Required Git and PR workflow
+
+- Before starting a new change, run `git status --short` and `git fetch origin`.
+  Create the feature branch from the freshly fetched `origin/main`, not an
+  unchecked local `main` or a previous task's branch. Preserve existing work;
+  use an isolated worktree if the checkout has unrelated changes.
+- Before opening or updating a PR, fetch again and inspect both
+  `git log --oneline origin/main..HEAD` and `git diff --stat origin/main...HEAD`.
+  Every commit and changed file must belong to the requested task. Squash-merged
+  or abandoned commits from earlier tasks must not be carried into a new PR.
+- Integrate current `origin/main` and resolve all conflicts before handing off.
+  If the branch has an incorrect base, replay only the intended task commits
+  onto current `origin/main`; do not resolve by overwriting newer main changes.
+  Preserve current dependency versions and regenerate the lockfile from the
+  resolved package manifest. Re-run checks/build after integration.
+- For an already-published branch that needs rebasing, preserve a backup ref and
+  push with `--force-with-lease` against the verified prior remote commit; never
+  force-push blindly or push directly to `main`.
+- After pushing, verify GitHub's mergeability and CI/Cloudflare Pages checks for
+  the latest PR head SHA. A successful local build does not prove the PR is
+  mergeable or the preview deployed. Resolve conflicts and investigate failing
+  checks before claiming completion; explicitly report pending checks or an
+  external blocker if they cannot be completed. Do not merge the PR unless asked.
+
 ## Frontmatter conventions
 
 - Pages: `title`, `slug`, `lang` (`no`|`en`), `description` (meta
