@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import { satteri } from '@astrojs/markdown-satteri';
 import { satteriRehypeTricks } from './src/plugins/rehype-tricks.mjs';
@@ -71,6 +72,7 @@ export default defineConfig({
   // internal link, canonical, or sitemap entry hits that redirect.
   trailingSlash: 'always',
   integrations: [
+    react(),
     sitemap({
       filter: (page) => !page.includes('/admin') && !/\/404\/?$/.test(page),
     }),
