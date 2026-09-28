@@ -23,6 +23,7 @@ When registering for tournaments and using the website, the following informatio
 * **Player Identity & Ranking:** Name, club, country and ITHF player ID (from the International Table Hockey Federation world ranking).
 * **Contact Information:** Email address and phone number provided upon registration.
 * **Registration Questions:** Answers to specific tournament questions (such as meal choices or category selection).
+* **Blog reactions:** When you choose an emoji, a random ID is stored in a cookie sent only to the reactions API. It lasts up to one year. The database stores a separate derived key for each post and your chosen emoji so you can change or remove it. Only the number of reactions per emoji is public; no name or contact details are collected for this feature.
 
 ## 3. Public vs. Private Information
 
@@ -55,6 +56,7 @@ We use reliable technology providers to deliver secure digital services:
 
 * Email addresses and phone numbers are stored only for as long as necessary to manage the specific tournament and seasonal wrap-up.
 * Names and tournament results are retained in historical competition archives.
+* A blog reaction's emoji and derived key are retained to display its count, including after the reaction cookie expires.
 
 ## 7. Information Regarding Minors
 
