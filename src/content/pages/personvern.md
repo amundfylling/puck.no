@@ -23,6 +23,7 @@ Ved påmelding til turneringer og bruk av nettstedet kan følgende opplysninger 
 * **Spilleridentitet og ranking:** Navn, klubb, land og ITHF spiller-ID (fra den internasjonale bordhockeyunionens verdensranking).
 * **Kontaktinformasjon:** E-postadresse og telefonnummer oppgitt ved påmelding.
 * **Tilleggsspørsmål ved påmelding:** Ev. svar på spesifikke arrangementsspørsmål (f.eks. lunsjvalg eller klasse).
+* **Reaksjoner på blogginnlegg:** Når du velger en emoji, lagres en tilfeldig ID i en informasjonskapsel som bare sendes til reaksjons-API-et. Den varer i opptil ett år. Databasen lagrer en nøkkel avledet separat for hvert innlegg og den valgte emojien, slik at du kan endre eller fjerne reaksjonen. Bare antall reaksjoner per emoji vises offentlig; navn og kontaktinformasjon samles ikke inn for dette.
 
 ## 3. Offentlige vs. private opplysninger
 
@@ -55,6 +56,7 @@ Vi benytter utvalgte teknologileverandører for å levere trygge digitale tjenes
 
 * E-post og telefonnummer lagres kun så lenge det er nødvendig for å administrere den aktuelle turneringen og påfølgende sesongavslutning.
 * Navn og turneringsresultater bevares i forbundets historiske arkiver.
+* Emoji og avledet nøkkel for en bloggreaksjon beholdes for å vise telleren, også etter at reaksjonskapselen utløper.
 
 ## 7. Informasjon om mindreårige
 
