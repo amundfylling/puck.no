@@ -183,7 +183,7 @@ export function t(lang: Lang, key: UiKey): string {
 }
 
 /**
- * Blog post slug pairs (NO slug -> EN slug) for the two translated posts.
+ * Blog post slug pairs (NO slug -> EN slug) for translated posts.
  * Used for the language switcher and hreflang.
  */
 export const postMirrorsNoToEn: Record<string, string> = {
@@ -217,6 +217,7 @@ export const postMirrorsNoToEn: Record<string, string> = {
   'adventskalender-2024-resultater': 'advent-calendar-2024-results',
   'caics-suveren-i-trondheim-open': 'caics-dominant-in-trondheim-open',
   'forhåndstips-norway-open-2026': 'predictions-norway-open-2026',
+  'forhåndstips-krohnengen-open-2026': 'predictions-krohnengen-open-2026',
   'forhåndstips-jæren-open-2025': 'predictions-jæren-open-2025',
   'forhåndtips-krohnengen-open-2024': 'predictions-krohnengen-open-2024',
   'hvem-kan-utfordre-magnus-i-årets-nm': 'who-can-challenge-magnus-in-this-years-nm',
