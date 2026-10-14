@@ -1,9 +1,9 @@
 ---
-title: "Local Leagues"
+title: "Local leagues"
 slug: "lokalligaer"
 lang: "en"
 description: null
-seoTitle: "Local Leagues | Bordhockeyforbundet"
+seoTitle: "Local leagues | Bordhockeyforbundet"
 menuOrder: 2
 ---
 

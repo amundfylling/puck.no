@@ -1,9 +1,9 @@
 ---
-title: "Learn table hockey - Videos"
+title: "Learn table hockey – videos"
 slug: "lær-bordhockey-videoer"
 lang: "en"
 description: "Video series covering the fundamentals of table hockey: technique, build-up play, defense and the most common combinations."
-seoTitle: "Learn table hockey - Videos | Bordhockeyforbundet"
+seoTitle: "Learn table hockey – videos | Bordhockeyforbundet"
 menuOrder: null
 ---
 ## Lesson 1: Basic Technique

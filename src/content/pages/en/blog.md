@@ -1,9 +1,9 @@
 ---
-title: "NEWS"
+title: "News"
 slug: "blog"
 lang: "en"
 description: "The latest news from Norwegian table hockey! Read up on upcoming and completed tournaments and other exciting content."
-seoTitle: "NEWS | Bordhockeyforbundet"
+seoTitle: "News | Bordhockeyforbundet"
 menuOrder: 5
 ---
 ![122d22ef-0433-4179-809c-cd7616b47e0a\_edited.jpg](/media/images/blog-32ec236c.jpg)

@@ -37,10 +37,10 @@ const l = {
     <div class="hero-reveal">
       <h1 class="text-4xl font-extrabold leading-tight text-navy sm:text-5xl">{entry.data.title}</h1>
       {entry.data.description && <p class="mt-4 text-lg leading-relaxed text-slate-700">{entry.data.description}</p>}
-      <div class="mt-6 flex flex-wrap gap-3">
+      <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
         <a href={pagePath('services-1', lang)} class="btn-primary">{l.play}</a>
-        <a href={pagePath('lokalligaer', lang)} class="btn-outline">{l.leagues}</a>
-        <a href={pagePath('turneringer', lang)} class="btn-outline">{l.tournaments}</a>
+        <a href={pagePath('lokalligaer', lang)} class="inline-flex min-h-11 items-center font-semibold text-brand no-underline hover:underline">{l.leagues} <span aria-hidden="true" class="ml-1">&rarr;</span></a>
+        <a href={pagePath('turneringer', lang)} class="inline-flex min-h-11 items-center font-semibold text-brand no-underline hover:underline">{l.tournaments} <span aria-hidden="true" class="ml-1">&rarr;</span></a>
       </div>
     </div>
     <Picture
@@ -50,7 +50,7 @@ const l = {
       sizes="(min-width: 1152px) 544px, (min-width: 1024px) calc(50vw - 2rem), calc(100vw - 2rem)"
       fallbackFormat="jpg"
       alt={l.heroAlt}
-      class="hero-reveal hero-reveal-delay w-full rounded-xl shadow-lg ring-1 ring-slate-900/10"
+      class="hero-reveal hero-reveal-delay w-full rounded-lg"
       loading="eager"
       fetchpriority="high"
     />
@@ -115,7 +115,7 @@ const l = {
     <h2 id="latest-news" class="text-2xl font-bold text-navy">{t(lang, 'latestNews')}</h2>
     <a href={pagePath('blog', lang)} class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">{l.allNews}</a>
   </div>
-  <div class="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  <div class="mt-4 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
     {posts.map((post, i) => <PostCard post={post} lang={lang} eager={i === 0} />)}
   </div>
 </section>

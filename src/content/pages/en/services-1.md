@@ -1,9 +1,9 @@
 ---
-title: "PLAY TABLE HOCKEY"
+title: "Play table hockey"
 slug: "services-1"
 lang: "en"
 description: null
-seoTitle: "PLAY TABLE HOCKEY | Bordhockeyforbundet"
+seoTitle: "Play table hockey | Bordhockeyforbundet"
 menuOrder: 1
 ---
 

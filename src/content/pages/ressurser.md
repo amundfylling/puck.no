@@ -1,9 +1,9 @@
 ---
-title: "RESSURSER"
+title: "Ressurser"
 slug: "ressurser"
 lang: "no"
 description: null
-seoTitle: "RESSURSER | Bordhockeyforbundet"
+seoTitle: "Ressurser | Bordhockeyforbundet"
 menuOrder: 6
 ---
 

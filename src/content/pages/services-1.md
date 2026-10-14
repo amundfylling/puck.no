@@ -1,9 +1,9 @@
 ---
-title: "SPILL BORDHOCKEY"
+title: "Spill bordhockey"
 slug: "services-1"
 lang: "no"
 description: null
-seoTitle: "SPILL BORDHOCKEY | Bordhockeyforbundet"
+seoTitle: "Spill bordhockey | Bordhockeyforbundet"
 menuOrder: 1
 ---
 

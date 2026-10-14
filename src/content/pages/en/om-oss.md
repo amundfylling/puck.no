@@ -1,9 +1,9 @@
 ---
-title: "ABOUT US"
+title: "About us"
 slug: "om-oss"
 lang: "en"
 description: "The Norwegian Table Hockey Association (NTHF) has organized table hockey tournaments in Norway since 1991. The association works to promote table hockey by organizing tournaments, supporting local leagues and making the sport more accessible to everyone who wants to participate."
-seoTitle: "ABOUT US | Bordhockeyforbundet"
+seoTitle: "About us | Bordhockeyforbundet"
 menuOrder: 10
 ---
 ![\_DSC0002(1)\_edited.jpg](/media/images/om-oss-96e217ca.webp)

@@ -1,9 +1,9 @@
 ---
-title: "NYHETER"
+title: "Nyheter"
 slug: "blog"
 lang: "no"
 description: "Siste nytt fra bordhockeynorge! Her kan man lese seg opp på kommende eller ferdigspilte turneringer og annet spennende innhold."
-seoTitle: "NYHETER | Bordhockeyforbundet"
+seoTitle: "Nyheter | Bordhockeyforbundet"
 menuOrder: 5
 ---
 ![122d22ef-0433-4179-809c-cd7616b47e0a\_edited.jpg](/media/images/blog-32ec236c.jpg)

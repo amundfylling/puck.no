@@ -20,92 +20,53 @@ const { post, lang, eager = false, featured = false, headingLevel = 3 } = Astro.
 const href = `${lang === 'en' ? '/en' : ''}/post/${post.data.slug}/`;
 const Heading = headingLevel === 2 ? 'h2' : 'h3';
 const coverDimensions = await getPublicImageDimensions(post.data.cover);
+// No card boxes or pills: photo, meta, title, excerpt, categories as text (design rules 1 and 6).
 ---
 
-{
-  featured ? (
-    <article class="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md sm:flex-row">
-      {post.data.cover && (
-        <div class="overflow-hidden sm:w-3/5">
-          <img
-            src={post.data.cover}
-            alt=""
-            loading={eager ? 'eager' : 'lazy'}
-            decoding="async"
-            fetchpriority={eager ? 'high' : undefined}
-            width={coverDimensions?.width}
-            height={coverDimensions?.height}
-            class="aspect-video h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-        </div>
-      )}
-      <div class="flex flex-1 flex-col justify-center p-6">
-        <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">
-          <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate, lang)}</time>
-          <span aria-hidden="true"> · </span><span class="normal-case">{post.data.author}</span>
-        </p>
-        <Heading class="mt-1.5 text-2xl font-bold leading-snug">
-          <a href={href} class="text-navy no-underline hover:text-brand">{post.data.title}</a>
-        </Heading>
-        {post.data.description && (
-          <p class="mt-2 line-clamp-3 text-slate-600">{post.data.description}</p>
-        )}
-        {post.data.categories.length > 0 && (
-          <ul class="mt-3 flex flex-wrap gap-2" aria-label={lang === 'en' ? 'Categories' : 'Kategorier'}>
-            {post.data.categories.map((cat) => (
-              <li>
-                <a
-                  href={`${lang === 'en' ? '/en' : ''}/blog/categories/${categorySlug(cat)}/`}
-                  class="inline-flex min-h-11 items-center rounded-full bg-ice px-2.5 py-0.5 text-xs font-semibold text-navy no-underline hover:bg-navy hover:text-white"
-                >
-                  {cat}
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </article>
-  ) : (
-    <article class="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md">
-      {post.data.cover && (
-        <div class="overflow-hidden">
-          <img
-            src={post.data.cover}
-            alt=""
-            loading={eager ? 'eager' : 'lazy'}
-            decoding="async"
-            fetchpriority={eager ? 'high' : undefined}
-            width={coverDimensions?.width}
-            height={coverDimensions?.height}
-            class="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-        </div>
-      )}
-      <div class="flex flex-1 flex-col p-4">
-        <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">
-          <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate, lang)}</time>
-          <span aria-hidden="true"> · </span><span class="normal-case">{post.data.author}</span>
-        </p>
-        <Heading class="mt-1 text-lg font-bold leading-snug">
-          <a href={href} class="text-navy no-underline hover:text-brand">{post.data.title}</a>
-        </Heading>
-        {post.data.description && <p class="mt-2 line-clamp-3 text-sm text-slate-600">{post.data.description}</p>}
-        {post.data.categories.length > 0 && (
-          <ul class="mt-3 flex flex-wrap gap-2" aria-label={lang === 'en' ? 'Categories' : 'Kategorier'}>
-            {post.data.categories.map((cat) => (
-              <li>
-                <a
-                  href={`${lang === 'en' ? '/en' : ''}/blog/categories/${categorySlug(cat)}/`}
-                  class="inline-flex min-h-11 items-center rounded-full bg-ice px-2.5 py-0.5 text-xs font-semibold text-navy no-underline hover:bg-navy hover:text-white"
-                >
-                  {cat}
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </article>
-  )
-}
+<article
+  class:list={[
+    'group',
+    featured ? 'grid gap-5 border-b border-slate-200 pb-8 sm:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] sm:items-center sm:gap-8' : 'flex flex-col',
+  ]}
+>
+  {post.data.cover && (
+    <a href={href} tabindex="-1" aria-hidden="true" class="block overflow-hidden rounded-lg">
+      <img
+        src={post.data.cover}
+        alt=""
+        loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
+        fetchpriority={eager ? 'high' : undefined}
+        width={coverDimensions?.width}
+        height={coverDimensions?.height}
+        class="aspect-video w-full object-cover"
+      />
+    </a>
+  )}
+  <div class:list={['flex flex-1 flex-col', !featured && post.data.cover && 'mt-4']}>
+    <p class="text-sm text-slate-600">
+      <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate, lang)}</time>
+      <span aria-hidden="true"> · </span>{post.data.author}
+    </p>
+    <Heading class:list={['mt-1 font-bold leading-snug', featured ? 'text-2xl sm:text-3xl' : 'text-lg']}>
+      <a href={href} class="text-navy no-underline group-hover:text-brand hover:underline">{post.data.title}</a>
+    </Heading>
+    {post.data.description && (
+      <p class:list={['mt-2 line-clamp-3 text-slate-600', !featured && 'text-sm']}>{post.data.description}</p>
+    )}
+    {post.data.categories.length > 0 && (
+      <ul class="mt-1 flex flex-wrap gap-x-3" aria-label={lang === 'en' ? 'Categories' : 'Kategorier'}>
+        {post.data.categories.map((cat) => (
+          <li>
+            <a
+              href={`${lang === 'en' ? '/en' : ''}/blog/categories/${categorySlug(cat)}/`}
+              class="inline-flex min-h-11 items-center text-sm font-semibold text-navy no-underline hover:text-brand hover:underline"
+            >
+              {cat}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</article>
