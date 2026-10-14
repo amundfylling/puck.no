@@ -43,6 +43,7 @@ function buildNavItems(lang: Lang): NavItem[] {
         children: [
           { label: 'About us', href: p('/om-oss') },
           { label: 'Annual meeting minutes', href: p('/årsmøter') },
+          { label: 'Puck Awards', href: p('/puck-awards') },
         ],
       },
     ];
@@ -79,6 +80,7 @@ function buildNavItems(lang: Lang): NavItem[] {
       children: [
         { label: 'Om oss', href: '/om-oss' },
         { label: 'Referat fra årsmøter', href: '/årsmøter' },
+        { label: 'Puck Awards', href: '/puck-awards' },
       ],
     },
   ];
