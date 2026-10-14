@@ -61,4 +61,4 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 };
 
 export const onRequest: PagesFunction<Env> = async () =>
-  json({ error: 'Method not allowed' }, 405);
+  json({ error: 'Metoden er ikke tillatt.' }, 405);

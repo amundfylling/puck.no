@@ -115,7 +115,7 @@ const l = en
 
   <section id="nominer" aria-labelledby="puckene-heading" class="pb-10 sm:pb-14">
     <h2 id="puckene-heading" class="sr-only">{l.categories}</h2>
-    {!open && <p class="mb-8 border-l-4 border-navy bg-ice px-4 py-3 text-slate-700">{l.closed}</p>}
+    <p data-awards-closed class:list={['mb-8 border-l-4 border-navy bg-ice px-4 py-3 text-slate-700', open && 'hidden']}>{l.closed}</p>
     {open && <noscript><p class="mb-6 font-semibold text-brand">{l.noscript}</p></noscript>}
     {open && !siteKey && (
       <p class="mb-6 border-l-4 border-yellow-500 bg-yellow-100 px-4 py-3 text-sm text-yellow-900">{l.noKey}</p>
@@ -123,6 +123,7 @@ const l = en
 
     <form
       data-awards-form
+      data-closes={awards.nominationsClose}
       novalidate
       data-success={l.success}
       data-sending={l.sending}
@@ -146,7 +147,7 @@ const l = en
               <p class="mt-2 leading-relaxed text-slate-600">{en ? category.descriptionEn : category.descriptionNo}</p>
             </div>
             {open && (
-              <div class="grid content-start gap-4">
+              <div data-awards-input class="grid content-start gap-4">
                 <label class="grid gap-1 text-sm font-semibold text-navy">
                   <span>{l.nominee}</span>
                   <input
@@ -175,7 +176,7 @@ const l = en
       </ol>
 
       {open && (
-        <div class="grid gap-8 pt-10 md:grid-cols-[3.5rem_minmax(0,18rem)_minmax(0,1fr)] md:gap-8">
+        <div data-awards-input class="grid gap-8 pt-10 md:grid-cols-[3.5rem_minmax(0,18rem)_minmax(0,1fr)] md:gap-8">
           <div class="hidden md:block"></div>
           <p class="text-sm leading-relaxed text-slate-600">{l.privacy}</p>
           <div class="grid content-start gap-5">
@@ -208,7 +209,15 @@ const l = en
   const msg = form?.querySelector<HTMLElement>('[data-message]');
   const counter = form?.querySelector<HTMLElement>('[data-filled]');
 
-  if (form && btn && msg && counter) {
+  // The page is static, so re-check the Oslo-date deadline in the browser:
+  // between midnight and the next rebuild the API already rejects nominations.
+  const osloToday = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Oslo', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).format(new Date());
+  if (form?.dataset.closes && osloToday > form.dataset.closes) {
+    form.querySelectorAll('[data-awards-input]').forEach((el) => el.remove());
+    document.querySelector('[data-awards-closed]')?.classList.remove('hidden');
+  } else if (form && btn && msg && counter) {
     const items = Array.from(form.querySelectorAll<HTMLElement>('[data-category]'));
     const label = btn.textContent ?? '';
 
