@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PuckAwards from '../components/PuckAwards.astro';
+import awards from '../data/puck-awards.json';
+---
+
+<BaseLayout
+  lang="no"
+  title={`Puck Awards ${awards.year} – nominer | Norges Bordhockeyforbund`}
+  description={`Nominer kandidater til Puck Awards ${awards.year}, norsk bordhockeys idrettsgalla under banketten i NM.`}
+  canonicalPath="/puck-awards"
+  noUrl="/puck-awards"
+  enUrl="/en/puck-awards"
+>
+  <PuckAwards lang="no" />
+</BaseLayout>

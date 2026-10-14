@@ -1,0 +1,293 @@
+---
+import { getCollection } from 'astro:content';
+import awards from '../data/puck-awards.json';
+import { formatDate, formatNoDate } from '../lib/dates';
+import { TURNSTILE_AWARDS_ACTION } from '../lib/turnstile';
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const en = lang === 'en';
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined;
+
+// Nominations stay open through the Norwegian calendar date in
+// nominationsClose; the API enforces the same rule (functions/lib/puck-awards.ts).
+const today = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'Europe/Oslo', year: 'numeric', month: '2-digit', day: '2-digit',
+}).format(new Date());
+const open = awards.open && today <= awards.nominationsClose;
+const closeDate = formatDate(new Date(`${awards.nominationsClose}T12:00:00Z`), lang);
+
+const [event] = await getCollection(
+  'tournaments',
+  (t) => t.data.lang === 'no' && t.data.slug === awards.eventSlug,
+);
+const eventHref = event ? `${en ? '/en' : ''}/turneringer/${event.data.slug}/` : null;
+const eventDate = event ? formatNoDate(event.data.date, lang) : null;
+
+const l = en
+  ? {
+      eyebrow: 'The Norwegian table hockey gala',
+      awarded: 'Awarded',
+      awardedAt: `At the banquet during NM ${awards.year}`,
+      deadline: 'Nominations close',
+      categories: 'The pucks',
+      nominee: 'Who do you nominate?',
+      nomineePlaceholder: 'Player, club or event',
+      reason: 'Why?',
+      optional: '(optional)',
+      yourName: 'Your name',
+      submit: 'Send nominations',
+      sending: 'Sending…',
+      success: 'Thank you! Your nominations have been received.',
+      filled: (n: number) => `${n} of ${awards.categories.length} pucks filled in`,
+      privacy:
+        'Leave as many pucks blank as you like. Nominations are anonymous unless you add your name, and only the NBHF board can see them.',
+      closed: `Nominations for Puck Awards ${awards.year} are closed. The winners are revealed at the banquet.`,
+      noscript: 'Nominating requires JavaScript.',
+      noKey: 'Nominations are not configured (missing Turnstile site key).',
+      genericError: 'Something went wrong. Please try again later.',
+      networkError: 'Network error. Please try again.',
+      emptyError: 'Nominate someone for at least one puck.',
+    }
+  : {
+      eyebrow: 'Norsk bordhockeys idrettsgalla',
+      awarded: 'Utdeles',
+      awardedAt: `På banketten under NM ${awards.year}`,
+      deadline: 'Nominasjonsfrist',
+      categories: 'Puckene',
+      nominee: 'Hvem nominerer du?',
+      nomineePlaceholder: 'Spiller, klubb eller hendelse',
+      reason: 'Hvorfor?',
+      optional: '(valgfritt)',
+      yourName: 'Navnet ditt',
+      submit: 'Send nominasjoner',
+      sending: 'Sender…',
+      success: 'Takk! Nominasjonene dine er mottatt.',
+      filled: (n: number) => `${n} av ${awards.categories.length} pucker fylt ut`,
+      privacy:
+        'Du kan hoppe over så mange pucker du vil. Nominasjonene er anonyme med mindre du skriver navnet ditt, og bare styret i NBHF ser dem.',
+      closed: `Nominasjonen til Puck Awards ${awards.year} er stengt. Vinnerne kåres på banketten.`,
+      noscript: 'Nominasjon krever JavaScript.',
+      noKey: 'Nominasjonen er ikke konfigurert (mangler Turnstile-nøkkel).',
+      genericError: 'Noe gikk galt. Prøv igjen senere.',
+      networkError: 'Nettverksfeil. Prøv igjen.',
+      emptyError: 'Nominer noen i minst én kategori.',
+    };
+---
+
+<header class="border-b border-navy-dark bg-navy text-white">
+  <div class="mx-auto grid max-w-5xl items-center gap-8 px-4 py-12 sm:py-16 ">
+    <div class="hero-reveal">
+      <p class="text-sm font-semibold text-white/70">{l.eyebrow}</p>
+      <h1 class="mt-2 text-4xl font-extrabold leading-none tracking-tight sm:text-6xl">
+        Puck Awards <span class="text-brand">{awards.year}</span>
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-white/85">{en ? awards.introEn : awards.introNo}</p>
+    </div>
+  </div>
+</header>
+
+<div class="mx-auto max-w-5xl px-4">
+  <dl class="grid border-b border-slate-200 py-6 text-sm sm:grid-cols-2 sm:gap-8">
+    <div class="flex gap-4 border-b border-slate-200 py-3 sm:border-0 sm:py-0">
+      <dt class="w-36 shrink-0 font-semibold text-navy">{l.awarded}</dt>
+      <dd class="text-slate-700">
+        {l.awardedAt}
+        {event && eventHref && (
+          <>
+            {' · '}<a href={eventHref} class="text-brand underline-offset-2 hover:underline">{event.data.location}, {eventDate}</a>
+          </>
+        )}
+      </dd>
+    </div>
+    <div class="flex gap-4 py-3 sm:py-0">
+      <dt class="w-36 shrink-0 font-semibold text-navy">{l.deadline}</dt>
+      <dd class="flex items-center gap-2 text-slate-700">
+        <span class:list={['inline-block size-2 rounded-full', open ? 'bg-green-600' : 'bg-slate-400']} aria-hidden="true"></span>
+        {closeDate}
+      </dd>
+    </div>
+  </dl>
+
+  <section id="nominer" aria-labelledby="puckene-heading" class="pb-10 sm:pb-14">
+    <h2 id="puckene-heading" class="sr-only">{l.categories}</h2>
+    <p data-awards-closed class:list={['mb-8 border-l-4 border-navy bg-ice px-4 py-3 text-slate-700', open && 'hidden']}>{l.closed}</p>
+    {open && <noscript><p class="mb-6 font-semibold text-brand">{l.noscript}</p></noscript>}
+    {open && !siteKey && (
+      <p class="mb-6 border-l-4 border-yellow-500 bg-yellow-100 px-4 py-3 text-sm text-yellow-900">{l.noKey}</p>
+    )}
+
+    <form
+      data-awards-form
+      data-closes={awards.nominationsClose}
+      novalidate
+      data-success={l.success}
+      data-sending={l.sending}
+      data-generic-error={l.genericError}
+      data-network-error={l.networkError}
+      data-empty-error={l.emptyError}
+      data-filled-template={l.filled(0).replace('0', '{n}')}
+    >
+      <ol class="divide-y divide-slate-200 border-b border-slate-200">
+        {awards.categories.map((category, index) => (
+          <li class="grid gap-5 py-8 md:grid-cols-[3.5rem_minmax(0,18rem)_minmax(0,1fr)] md:gap-8" data-category={category.id}>
+            <span
+              class="flex size-12 items-center justify-center rounded-full bg-[#1b2433] font-display text-lg font-extrabold text-white ring-4 ring-slate-200 transition-colors data-[filled]:ring-brand"
+              aria-hidden="true"
+              data-marker
+            >
+              {index + 1}
+            </span>
+            <div>
+              <h3 id={`puck-${category.id}`} class="text-2xl font-bold text-navy">{category.name}</h3>
+              <p class="mt-2 leading-relaxed text-slate-600">{en ? category.descriptionEn : category.descriptionNo}</p>
+            </div>
+            {open && (
+              <div data-awards-input class="grid content-start gap-4">
+                <label class="grid gap-1 text-sm font-semibold text-navy">
+                  <span>{l.nominee}</span>
+                  <input
+                    name={`${category.id}.nominee`}
+                    type="text"
+                    maxlength="120"
+                    autocomplete="off"
+                    placeholder={l.nomineePlaceholder}
+                    aria-describedby={`puck-${category.id}`}
+                    class="rounded border border-slate-300 px-3 py-2 font-normal"
+                  />
+                </label>
+                <label class="grid gap-1 text-sm font-semibold text-navy">
+                  <span>{l.reason} <span class="font-normal text-slate-500">{l.optional}</span></span>
+                  <textarea
+                    name={`${category.id}.reason`}
+                    rows="2"
+                    maxlength="2000"
+                    class="rounded border border-slate-300 px-3 py-2 font-normal"
+                  ></textarea>
+                </label>
+              </div>
+            )}
+          </li>
+        ))}
+      </ol>
+
+      {open && (
+        <div data-awards-input class="grid gap-8 pt-10 md:grid-cols-[3.5rem_minmax(0,18rem)_minmax(0,1fr)] md:gap-8">
+          <div class="hidden md:block"></div>
+          <p class="text-sm leading-relaxed text-slate-600">{l.privacy}</p>
+          <div class="grid content-start gap-5">
+            <label class="grid gap-1 text-sm font-semibold text-navy">
+              <span>{l.yourName} <span class="font-normal text-slate-500">{l.optional}</span></span>
+              <input name="nominator" type="text" maxlength="120" autocomplete="name" class="rounded border border-slate-300 px-3 py-2 font-normal" />
+            </label>
+            {siteKey && (
+              <div class="cf-turnstile" data-sitekey={siteKey} data-action={TURNSTILE_AWARDS_ACTION} data-language={lang === 'en' ? 'en' : 'nb'}></div>
+            )}
+            <div class="flex flex-wrap items-center gap-4">
+              <button type="submit" data-submit disabled={!siteKey} class="btn-primary disabled:cursor-not-allowed disabled:opacity-50">
+                {l.submit}
+              </button>
+              <span data-filled class="text-sm text-slate-600" aria-live="polite">{l.filled(0)}</span>
+            </div>
+            <p data-message role="status" aria-live="polite" aria-atomic="true" tabindex="-1" class="hidden rounded px-3 py-2 text-sm font-semibold"></p>
+          </div>
+        </div>
+      )}
+    </form>
+  </section>
+</div>
+
+{open && siteKey && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>}
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-awards-form]');
+  const btn = form?.querySelector<HTMLButtonElement>('[data-submit]');
+  const msg = form?.querySelector<HTMLElement>('[data-message]');
+  const counter = form?.querySelector<HTMLElement>('[data-filled]');
+
+  // The page is static, so re-check the Oslo-date deadline in the browser:
+  // between midnight and the next rebuild the API already rejects nominations.
+  const osloToday = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Oslo', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).format(new Date());
+  if (form?.dataset.closes && osloToday > form.dataset.closes) {
+    form.querySelectorAll('[data-awards-input]').forEach((el) => el.remove());
+    document.querySelector('[data-awards-closed]')?.classList.remove('hidden');
+  } else if (form && btn && msg && counter) {
+    const items = Array.from(form.querySelectorAll<HTMLElement>('[data-category]'));
+    const label = btn.textContent ?? '';
+
+    const showMessage = (text: string, ok: boolean) => {
+      msg.textContent = text;
+      msg.className = `rounded px-3 py-2 text-sm font-semibold ${ok ? 'bg-green-50 text-green-800' : 'bg-red-50 text-brand-dark'}`;
+      msg.focus();
+    };
+
+    const collect = () => {
+      const nominations: Record<string, { nominee: string; reason: string }> = {};
+      for (const item of items) {
+        const id = item.dataset.category!;
+        const nominee = item.querySelector<HTMLInputElement>('input')?.value.trim() ?? '';
+        const reason = item.querySelector<HTMLTextAreaElement>('textarea')?.value.trim() ?? '';
+        item.querySelector('[data-marker]')?.toggleAttribute('data-filled', nominee !== '');
+        if (nominee || reason) nominations[id] = { nominee, reason };
+      }
+      return nominations;
+    };
+
+    const refreshCount = () => {
+      const filled = Object.values(collect()).filter((n) => n.nominee).length;
+      counter.textContent = (form.dataset.filledTemplate ?? '{n}').replace('{n}', String(filled));
+    };
+    form.addEventListener('input', refreshCount);
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const nominations = collect();
+      if (!Object.values(nominations).some((n) => n.nominee)) {
+        showMessage(form.dataset.emptyError ?? '', false);
+        items[0]?.querySelector<HTMLInputElement>('input')?.focus();
+        return;
+      }
+      btn.disabled = true;
+      btn.textContent = form.dataset.sending ?? label;
+      btn.setAttribute('aria-busy', 'true');
+      try {
+        const token = form.querySelector<HTMLInputElement>('[name="cf-turnstile-response"]')?.value ?? '';
+        const nominator = form.querySelector<HTMLInputElement>('[name="nominator"]')?.value ?? '';
+        const res = await fetch('/api/awards/nominations', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nominations, nominator, turnstileToken: token }),
+        });
+        const body = (await res.json().catch(() => ({}))) as { error?: string };
+        if (res.ok) {
+          form.reset();
+          refreshCount();
+          showMessage(form.dataset.success ?? '', true);
+        } else {
+          showMessage(body.error ?? form.dataset.genericError ?? '', false);
+        }
+      } catch {
+        showMessage(form.dataset.networkError ?? '', false);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = label;
+        btn.removeAttribute('aria-busy');
+        const w = (window as unknown as { turnstile?: { reset: (el?: HTMLElement) => void } }).turnstile;
+        form.querySelectorAll<HTMLElement>('.cf-turnstile').forEach((el) => w?.reset(el));
+      }
+    });
+  }
+</script>
+
+<style is:global>
+  [data-awards-form] input,
+  [data-awards-form] textarea {
+    font-size: 16px;
+  }
+</style>

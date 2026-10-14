@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PuckAwards from '../../components/PuckAwards.astro';
+import awards from '../../data/puck-awards.json';
+---
+
+<BaseLayout
+  lang="en"
+  title={`Puck Awards ${awards.year} – nominate | Norwegian Table Hockey Federation`}
+  description={`Nominate candidates for Puck Awards ${awards.year}, the Norwegian table hockey gala at the NM banquet.`}
+  canonicalPath="/en/puck-awards"
+  noUrl="/puck-awards"
+  enUrl="/en/puck-awards"
+>
+  <PuckAwards lang="en" />
+</BaseLayout>
