@@ -1,9 +1,9 @@
 ---
-title: "OM OSS"
+title: "Om oss"
 slug: "om-oss"
 lang: "no"
 description: "Norges Bordhockeyforbund (NBHF) har arrangert bordhockeyturneringer i Norge siden 1991. Forbundet arbeider for å fremme bordhockeysporten gjennom å organisere turneringer, støtte lokalligaer og gjøre sporten mer tilgjengelig for alle som ønsker å delta."
-seoTitle: "OM OSS | Bordhockeyforbundet"
+seoTitle: "Om oss | Bordhockeyforbundet"
 menuOrder: 10
 ---
 ![\_DSC0002(1)\_edited.jpg](/media/images/om-oss-96e217ca.webp)

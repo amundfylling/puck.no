@@ -76,7 +76,7 @@ const registrationLabel = entry.data.playersPerTeam == null
           <a data-results-action href={`#${resultsId}`} class="btn-primary no-underline">{t(lang, 'results')}</a>
         )}
         {registrationOpen && (
-          <a data-registration-action href={`#${registrationId}`} class:list={[resultsPrimary ? 'btn-outline' : 'btn-primary', 'no-underline']}>
+          <a data-registration-action href={`#${registrationId}`} class="btn-outline no-underline">
             {registrationLabel}
           </a>
         )}
@@ -100,10 +100,12 @@ const registrationLabel = entry.data.playersPerTeam == null
   }).format(new Date());
   for (const actions of document.querySelectorAll<HTMLElement>('[data-tournament-actions]')) {
     const results = actions.querySelector<HTMLAnchorElement>('[data-results-action]');
-    const registration = actions.querySelector<HTMLAnchorElement>('[data-registration-action]');
     if (!results || !actions.dataset.eventStart || today < actions.dataset.eventStart) continue;
     results.classList.replace('btn-outline', 'btn-primary');
-    registration?.classList.replace('btn-primary', 'btn-outline');
     actions.prepend(results);
+    // Keep one primary action: the registration submit steps down to outlined.
+    document
+      .querySelector('[data-registration] [data-submit]')
+      ?.classList.replace('btn-primary', 'btn-outline');
   }
 </script>

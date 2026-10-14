@@ -1,9 +1,9 @@
 ---
-title: "Lær Bordhockey - Videoer"
+title: "Lær bordhockey – videoer"
 slug: "lær-bordhockey-videoer"
 lang: "no"
 description: "Videoserie som går gjennom det grunnleggende i bordhockey: teknikk, oppspill, forsvar og de vanligste kombinasjonene."
-seoTitle: "Lær Bordhockey - Videoer | Bordhockeyforbundet"
+seoTitle: "Lær bordhockey – videoer | Bordhockeyforbundet"
 menuOrder: null
 ---
 ## Leksjon 1: Grunnleggende teknikk

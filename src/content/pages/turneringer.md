@@ -1,9 +1,9 @@
 ---
-title: "Turneringer (List)"
+title: "Turneringer"
 slug: "turneringer"
 lang: "no"
 description: null
-seoTitle: "Turneringer (List) | Bordhockeyforbundet"
+seoTitle: "Turneringer | Bordhockeyforbundet"
 menuOrder: 4
 ---
 # Turneringer

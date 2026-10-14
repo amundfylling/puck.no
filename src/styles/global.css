@@ -124,6 +124,19 @@ summary {
   transform: translateY(0);
 }
 
+/* ---------- page shell ----------
+   Every public page shares one container (same left edge as the header) and
+   one title style. Reading text is narrowed inside it with max-w-3xl. */
+.page-shell {
+  @apply mx-auto max-w-6xl px-4 py-10 sm:py-14;
+}
+.page-title {
+  @apply text-3xl font-extrabold leading-tight text-navy sm:text-4xl;
+}
+.page-lead {
+  @apply mt-4 max-w-3xl text-lg leading-relaxed text-slate-600;
+}
+
 /* ---------- buttons ---------- */
 @utility btn {
   @apply inline-flex min-h-11 min-w-11 items-center justify-center rounded-md px-5 py-2.5 font-semibold no-underline transition-colors;
@@ -209,7 +222,7 @@ summary {
   @apply my-6 h-auto max-w-full rounded-lg;
 }
 .rich-text .video-embed {
-  @apply my-6 aspect-video overflow-hidden rounded-lg shadow-md;
+  @apply my-6 aspect-video overflow-hidden rounded-lg;
 }
 .rich-text .video-embed iframe {
   @apply h-full w-full border-0;
@@ -223,17 +236,24 @@ summary {
 .rich-text .image-row img {
   @apply my-0 w-full;
 }
+/* Board members, hub and league entries: plain rows separated by thin
+   dividers, no shadowed card boxes (design rule 1). Buttons inside rows render
+   as text links so a page never stacks several primary actions (rule 6). */
 .rich-text .board-grid {
-  @apply my-8 grid gap-6 sm:grid-cols-2;
+  @apply my-8 grid gap-x-10 border-t border-slate-200 sm:grid-cols-2;
 }
 .rich-text .board-member {
-  @apply flex items-start gap-4 rounded-lg border border-slate-200 bg-white p-4 shadow-sm;
+  @apply flex items-start gap-4 border-b border-slate-200 py-5;
 }
 .rich-text .board-member img {
-  @apply my-0 h-24 w-24 shrink-0 rounded-full object-cover;
+  @apply my-0 h-20 w-20 shrink-0 rounded-full object-cover;
 }
 .rich-text .board-member picture {
   display: contents;
+}
+/* <source> children would otherwise become empty flex items and add gaps. */
+.rich-text .board-member source {
+  display: none;
 }
 .rich-text .board-member h3 {
   @apply m-0 text-lg font-bold text-navy;
@@ -242,45 +262,42 @@ summary {
   @apply my-1 text-sm;
 }
 .rich-text .board-member .board-role {
-  @apply mt-0 font-semibold text-brand;
+  @apply mt-0 font-semibold text-slate-600;
 }
-.rich-text .hub-grid {
-  @apply my-8 grid gap-6 sm:grid-cols-3;
-}
+.rich-text .hub-grid,
 .rich-text .league-grid {
-  @apply my-8 grid gap-6 sm:grid-cols-2;
-}
-.rich-text .hub-card .hub-actions {
-  @apply mt-4 flex flex-wrap gap-2;
-}
-.rich-text .hub-card .hub-actions .btn-primary,
-.rich-text .hub-card .hub-actions .btn-outline {
-  @apply mt-0;
+  @apply my-8 border-t border-slate-200;
 }
 .rich-text .hub-card {
-  @apply flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md;
+  @apply grid gap-4 border-b border-slate-200 py-6 sm:gap-8;
+}
+.rich-text .hub-card:has(> img) {
+  @apply sm:grid-cols-[16rem_minmax(0,1fr)] sm:items-start lg:grid-cols-[20rem_minmax(0,1fr)];
 }
 .rich-text .hub-card img {
-  @apply my-0 aspect-video w-full object-cover;
+  @apply my-0 aspect-[16/10] w-full rounded-lg object-cover;
 }
 .rich-text .hub-card .hub-body {
-  @apply flex flex-1 flex-col p-5;
+  @apply flex min-w-0 flex-col;
 }
 .rich-text .hub-card h2,
 .rich-text .hub-card h3 {
-  @apply m-0 text-xl font-bold text-navy;
+  @apply m-0 text-xl font-bold text-navy sm:text-2xl;
 }
 .rich-text .hub-card .hub-lead {
-  @apply mt-1 mb-0 text-sm font-semibold text-slate-700;
+  @apply mt-2 mb-0 font-semibold text-slate-700;
 }
 .rich-text .hub-card .hub-text {
-  @apply mt-2 mb-0 flex-1 text-sm leading-relaxed text-slate-600;
+  @apply mt-2 mb-0 max-w-prose leading-relaxed text-slate-600;
 }
-.rich-text .hub-card .btn-primary {
-  @apply mt-4 self-start whitespace-nowrap no-underline;
+.rich-text .hub-card .hub-actions {
+  @apply mt-2 flex flex-wrap gap-x-6;
 }
-.rich-text .hub-card .btn-outline {
-  @apply mt-4 self-start !border whitespace-nowrap no-underline;
+.rich-text .hub-card :is(.btn-primary, .btn-outline) {
+  @apply mt-2 inline-flex min-h-11 min-w-0 items-center self-start rounded-none border-0 bg-transparent p-0 font-semibold text-brand no-underline hover:bg-transparent hover:text-brand-dark hover:underline;
+}
+.rich-text .hub-card .hub-actions :is(.btn-primary, .btn-outline) {
+  @apply mt-0;
 }
 .rich-text blockquote {
   @apply my-6 border-l-4 border-brand bg-ice px-4 py-2 italic;

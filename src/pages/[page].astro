@@ -31,12 +31,9 @@ const seo = seoForContent(path, entry.data);
   noUrl={pagePath(entry.data.slug, 'no')}
   enUrl={pagePath(pageMirrorsNoToEn[entry.data.slug] ?? entry.data.slug, 'en')}
 >
-  <div class="border-b border-slate-200 bg-ice">
-    <div class="mx-auto max-w-4xl px-4 py-10">
-      <h1 class="text-3xl font-extrabold text-navy sm:text-4xl">{entry.data.title}</h1>
-    </div>
-  </div>
-  <article class="mx-auto max-w-4xl px-4 py-10">
+  <article class="page-shell">
+    <h1 class="page-title max-w-3xl">{entry.data.title}</h1>
+    <div class="mt-8 max-w-4xl">
     {
       entry.data.slug === 'årsmøter' ? (
         <Arsmoter lang="no" />
@@ -53,5 +50,6 @@ const seo = seoForContent(path, entry.data);
         </div>
       )
     }
+    </div>
   </article>
 </BaseLayout>

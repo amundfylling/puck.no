@@ -19,9 +19,9 @@ const seo = seoForContent('/en/bilder', entry.data);
   noUrl="/bilder"
   enUrl="/en/bilder"
 >
-  <section class="mx-auto max-w-6xl px-4 py-10">
-    <h1 class="text-3xl font-extrabold text-navy">{entry.data.title}</h1>
-    {entry.data.description && <p class="mt-3 max-w-2xl text-slate-600">{entry.data.description}</p>}
+  <section class="page-shell">
+    <h1 class="page-title">{entry.data.title}</h1>
+    {entry.data.description && <p class="page-lead">{entry.data.description}</p>}
     <GalleryIndex lang="en" />
   </section>
 </BaseLayout>

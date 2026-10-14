@@ -7,24 +7,23 @@ export interface NavItem {
   children?: NavItem[];
 }
 
-/** Main navigation, mirroring the old Wix site structure. */
+/** Main navigation. Tournaments are top level; the logo links home. */
 function buildNavItems(lang: Lang): NavItem[] {
   const p = (path: string) => (lang === 'en' ? `/en${path}` : path);
   if (lang === 'en') {
     return [
-      { label: 'HOME', href: '/en' },
+      { label: 'Tournaments', href: p('/turneringer') },
+      { label: 'News', href: p('/blog') },
       {
-        label: 'PLAY TABLE HOCKEY',
+        label: 'Play table hockey',
         href: p('/spill-bordhockey'),
         children: [
           { label: 'Local leagues', href: p('/lokalligaer') },
           { label: 'Learn table hockey', href: p('/lær-bordhockey') },
-          { label: 'Tournaments', href: p('/turneringer') },
         ],
       },
-      { label: 'NEWS', href: p('/blog') },
       {
-        label: 'RESOURCES',
+        label: 'Resources',
         href: p('/ressurser'),
         children: [
           { label: 'Timers', href: p('/timere') },
@@ -33,12 +32,12 @@ function buildNavItems(lang: Lang): NavItem[] {
             href: 'https://stiga.trefik.cz/ithf/ranking/index.aspx',
             external: true,
           },
-          { label: 'WORLD CHAMPIONSHIP 2027 QUALIFICATION', href: p('/kvalifisering-mesterskap') },
+          { label: 'World Championship 2027 qualification', href: p('/kvalifisering-mesterskap') },
         ],
       },
-      { label: 'GALLERIES', href: p('/bilder') },
+      { label: 'Galleries', href: p('/bilder') },
       {
-        label: 'ABOUT US',
+        label: 'About us',
         href: p('/om-oss'),
         children: [
           { label: 'About us', href: p('/om-oss') },
@@ -48,19 +47,18 @@ function buildNavItems(lang: Lang): NavItem[] {
     ];
   }
   return [
-    { label: 'HJEM', href: '/' },
+    { label: 'Turneringer', href: '/turneringer' },
+    { label: 'Nyheter', href: '/blog' },
     {
-      label: 'SPILL BORDHOCKEY',
+      label: 'Spill bordhockey',
       href: '/spill-bordhockey',
       children: [
         { label: 'Lokalligaer', href: '/lokalligaer' },
         { label: 'Lær bordhockey', href: '/lær-bordhockey' },
-        { label: 'Turneringer', href: '/turneringer' },
       ],
     },
-    { label: 'NYHETER', href: '/blog' },
     {
-      label: 'RESSURSER',
+      label: 'Ressurser',
       href: '/ressurser',
       children: [
         { label: 'Timere', href: '/timere' },
@@ -72,9 +70,9 @@ function buildNavItems(lang: Lang): NavItem[] {
         { label: 'Kvalifisering VM 2027', href: '/kvalifisering-mesterskap' },
       ],
     },
-    { label: 'BILDER', href: '/bilder' },
+    { label: 'Bilder', href: '/bilder' },
     {
-      label: 'OM OSS',
+      label: 'Om oss',
       href: '/om-oss',
       children: [
         { label: 'Om oss', href: '/om-oss' },

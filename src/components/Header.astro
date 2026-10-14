@@ -92,7 +92,7 @@ const isCurrent = (href: string) => currentPath === href;
                 href={item.href}
                 aria-current={isCurrent(item.href) ? 'page' : undefined}
                 class:list={[
-                  'flex min-h-[44px] items-center rounded px-3 py-2 text-sm font-semibold no-underline',
+                  'flex min-h-[44px] items-center rounded px-3 py-2 text-sm font-semibold uppercase no-underline',
                   isActive(item.href) ? 'text-brand' : 'text-navy hover:bg-ice hover:text-brand',
                 ]}
               >
