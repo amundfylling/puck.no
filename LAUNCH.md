@@ -434,6 +434,8 @@ duplikatinnhold, og besøkende kan havne på det gamle domenet):
   `npx wrangler d1 migrations apply puck-no --remote` FØR du merger kode som
   bruker dem — et Pages-bygg går live automatisk ved merge, og ny kode som
   forventer en kolonne som ikke finnes ennå feiler for alle påmeldinger.
+  Dette gjelder også `0009_blog_reactions.sql` før reaksjoner på blogginnlegg
+  publiseres.
 - **Verdensrankingen** hentes ved hvert bygg og ved nye rangerte påmeldinger.
   Registrerte spillere i kommende turneringer oppdateres hver onsdag kl. 03:00
   Europe/Oslo av `puck-no-mcp`-Workeren. Se Worker-loggene hvis feltet «Ranking
