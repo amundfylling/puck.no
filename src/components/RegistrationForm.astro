@@ -18,6 +18,8 @@ interface Props {
     required: boolean;
     options: Array<{ value: string; labelNo: string; labelEn: string }>;
   }>;
+  /** Results are the page's primary action (event day), so submit is outlined. */
+  secondarySubmit?: boolean;
 }
 
 const {
@@ -26,6 +28,7 @@ const {
   playersPerTeam = null,
   maxSubstitutes = 0,
   registrationQuestions = [],
+  secondarySubmit = false,
 } = Astro.props;
 const isTeam = playersPerTeam != null;
 const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined;
@@ -227,7 +230,7 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
       ></div>
     )}
     <div>
-      <button type="submit" data-submit data-sending={l.sending} disabled={!siteKey} class="btn-primary disabled:cursor-not-allowed disabled:opacity-50">
+      <button type="submit" data-submit data-sending={l.sending} disabled={!siteKey} class:list={[secondarySubmit ? 'btn-outline' : 'btn-primary', 'disabled:cursor-not-allowed disabled:opacity-50']}>
         {l.submit}
       </button>
     </div>

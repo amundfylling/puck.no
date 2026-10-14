@@ -103,5 +103,9 @@ const registrationLabel = entry.data.playersPerTeam == null
     if (!results || !actions.dataset.eventStart || today < actions.dataset.eventStart) continue;
     results.classList.replace('btn-outline', 'btn-primary');
     actions.prepend(results);
+    // Keep one primary action: the registration submit steps down to outlined.
+    document
+      .querySelector('[data-registration] [data-submit]')
+      ?.classList.replace('btn-primary', 'btn-outline');
   }
 </script>
