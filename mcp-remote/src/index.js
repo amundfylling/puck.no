@@ -20,6 +20,7 @@ import {
 } from './oauth.js';
 import { handleMcp } from './mcp.js';
 import { isOsloRefreshTime, refreshUpcomingRankings } from './rankingSync.js';
+import { isOsloReminderTime, runTournamentReminders } from './reminders.js';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -54,6 +55,15 @@ function serverCard(request) {
     supportedProtocolVersions: ['2025-06-18', '2025-03-26', '2024-11-05'],
     capabilities: { tools: { listChanged: false } },
   });
+}
+
+function logged(event, job) {
+  return job
+    .then((result) => console.log(JSON.stringify({ event, ...result })))
+    .catch((error) => {
+      console.error(JSON.stringify({ event: `${event}_error`, kind: error?.constructor?.name ?? 'Error' }));
+      throw error;
+    });
 }
 
 export default {
@@ -107,19 +117,13 @@ export default {
   },
   async scheduled(controller, env, ctx) {
     const scheduledAt = new Date(controller.scheduledTime);
-    // Wrangler cron is UTC. It fires at both possible UTC offsets; exactly
-    // one invocation is 03:00 Europe/Oslo across daylight-saving changes.
-    if (!isOsloRefreshTime(scheduledAt)) return;
-    ctx.waitUntil(
-      refreshUpcomingRankings(env, scheduledAt)
-        .then((result) => console.log(JSON.stringify({ event: 'ranking_refresh', ...result })))
-        .catch((error) => {
-          console.error(JSON.stringify({
-            event: 'ranking_refresh_error',
-            kind: error?.constructor?.name ?? 'Error',
-          }));
-          throw error;
-        }),
-    );
+    // Wrangler cron is UTC. Each job fires at both possible UTC offsets;
+    // exactly one invocation matches its Europe/Oslo time across DST changes.
+    if (isOsloRefreshTime(scheduledAt)) {
+      ctx.waitUntil(logged('ranking_refresh', refreshUpcomingRankings(env, scheduledAt)));
+    }
+    if (isOsloReminderTime(scheduledAt)) {
+      ctx.waitUntil(logged('tournament_reminders', runTournamentReminders(env, scheduledAt)));
+    }
   },
 };

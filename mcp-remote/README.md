@@ -20,7 +20,8 @@ puck-no-mcp.workers.dev
    ├─ OAuth: GitHub-innlogging → collaborator-sjekk på repoet (som CMS-et)
    ├─ D1-binding: påmeldingsverktøy mot den levende databasen
    ├─ GitHub API (PAT): innholdsverktøy committer rett til main (som CMS-et)
-   └─ Cron: oppdaterer rankingdata onsdag kl. 03:00 Europe/Oslo
+   ├─ Cron: oppdaterer rankingdata onsdag kl. 03:00 Europe/Oslo
+   └─ Cron: turneringspåminnelser på e-post daglig kl. 09:00 Europe/Oslo
 ```
 
 ## Sikkerhetsmodell
@@ -143,3 +144,36 @@ avvises.
   oppdaterer klubb, land, rankingposisjon, samlede poeng, eksakt
   `Player_Value`/`ranking_value` og lagseeding for kommende turneringer, og
   beholder gamle verdier dersom ITHF-oppslaget feiler.
+
+## Turneringspåminnelser (e-post)
+
+`src/reminders.js` kjører daglig kl. 09:00 Europe/Oslo. Én kalendermåned før
+en turnering starter får alle e-postadresser i `registrations` (alle
+turneringer, også tidligere) en e-post med lenke til turneringssiden.
+
+- **Allerede påmeldt hoppes over:** samme e-post, eller samme ITHF-spiller-ID
+  (også via lagroster), er allerede påmeldt turneringen.
+- **Nasjonalitet** kommer fra `country` (ITHF-rankingen, lagroster for lag):
+  ikke-norske får bare Norway Open (på engelsk, `/en/turneringer/...`).
+  Urangerte uten land regnes som norske, med mindre de bare har spilt
+  Norway Open.
+- Kladder, turneringer med stengt påmelding og avmeldte adresser hoppes over.
+  Hver adresse får maks én e-post per turnering (`reminder_sends`), og en
+  bommet kjøring tas igjen innen sju dager.
+- **Avmelding:** hver e-post har en lenke til `/api/unsubscribe?token=...` på
+  nettsiden (og `List-Unsubscribe` for ett-klikk i e-postklienter).
+- **Sending via [Resend](https://resend.com)** (gratisplan holder: 3000/mnd).
+  Uten `REMINDER_EMAILS_ENABLED = "true"` + `RESEND_API_KEY` er jobben i
+  tørrkjøring og logger bare antall (`tournament_reminders` i Logs).
+
+Slik skrus det på:
+
+1. Opprett Resend-konto, verifiser domenet `puck.no` (DNS-poster i
+   Cloudflare) og lag en API-nøkkel.
+2. `npx wrangler d1 migrations apply puck-no --remote` (fra repo-roten).
+3. `npx wrangler secret put RESEND_API_KEY`
+4. Test: `npx wrangler secret put REMINDER_TEST_RECIPIENT` med din egen
+   adresse — du får én `[TEST]`-e-post per turnering og språk når en
+   turnering er en måned unna. Slett secreten etterpå.
+5. Sett `REMINDER_EMAILS_ENABLED = "true"` (og ev. `REMINDER_FROM`) i
+   `wrangler.toml` og deploy.

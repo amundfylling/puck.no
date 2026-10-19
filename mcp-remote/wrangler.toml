@@ -10,16 +10,26 @@ head_sampling_rate = 1
 [triggers]
 # 03:00 Europe/Oslo is 01:00 UTC in summer and 02:00 UTC in winter.
 # The handler checks local Oslo time so only one of the two runs performs work.
-crons = ["0 1,2 * * WED"]
+# 09:00 Europe/Oslo daily (07:00/08:00 UTC): tournament reminder emails.
+crons = ["0 1,2 * * WED", "0 7,8 * * *"]
 
 # Remote MCP server for puck.no admin (phone access via OAuth).
 # Secrets (never in git — set with `./node_modules/.bin/wrangler secret put <NAME>`):
 #   GITHUB_OAUTH_CLIENT_ID / GITHUB_OAUTH_CLIENT_SECRET — OAuth app for login
 #   GITHUB_TOKEN — fine-grained PAT (this repo, Contents: read+write)
 #   MCP_TOKEN_SECRET — HMAC key for issued tokens: `openssl rand -hex 32`
+#   RESEND_API_KEY — Resend API key for tournament reminder emails
+#
+# Reminder emails stay in dry-run (log counts only) until
+# REMINDER_EMAILS_ENABLED is "true" AND RESEND_API_KEY is set. Set the
+# REMINDER_TEST_RECIPIENT secret/var to send samples to one address instead.
 
 [vars]
 GITHUB_REPO = "amundfylling/puck.no"
+SITE_URL = "https://www.puck.no"
+REMINDER_EMAILS_ENABLED = "false"
+# Must be on a domain verified in Resend.
+REMINDER_FROM = "Norges Bordhockeyforbund <turnering@puck.no>"
 
 [[d1_databases]]
 binding = "DB"
