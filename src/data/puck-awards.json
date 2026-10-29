@@ -1,0 +1,46 @@
+{
+  "year": 2027,
+  "open": true,
+  "nominationsClose": "2027-04-02",
+  "eventSlug": "norgesmesterskapet-2027",
+  "introNo": "Norges Bordhockeyforbund arrangerer hvert år Puck Awards under banketten i norgesmesterskapet (NM). Puck Awards er norsk bordhockeys idrettsgalla, og deltagerne i NM stemmer fram vinnerne. Puckene premierer gode og dårlige prestasjoner på og utenfor brettet i perioden fra og med fjorårets NM og fram til årets NM.",
+  "introEn": "Every year the Norwegian Table Hockey Federation hosts Puck Awards at the banquet during the Norwegian Championship (NM). Puck Awards is Norwegian table hockey's sports gala, and the NM participants vote for the winners. The pucks reward good and bad performances on and off the table, from last year's NM up to this year's.",
+  "categories": [
+    {
+      "id": "losnespucken",
+      "name": "Løsnespucken",
+      "descriptionNo": "Til en nykommer som har utmerket seg ut positivt sportslig eller utenomsportslig..",
+      "descriptionEn": "For a newcomer who has stood out positively, on or off the table."
+    },
+    {
+      "id": "sportspucken",
+      "name": "Sportspucken",
+      "descriptionNo": "Til en spiller som har prestert sterke sportslige resultat, eller har vist stor sportslig fremgang.",
+      "descriptionEn": "For a player with strong results, or who has shown great sporting progress."
+    },
+    {
+      "id": "apen-puck",
+      "name": "Åpen puck",
+      "descriptionNo": "Til en spiller, klubb, hendelse, eller hva det måtte være, som har bidratt positivt til legendarien i bordhockeymiljøet.",
+      "descriptionEn": "For a player, club, event or anything else that has added to the legends of the table hockey community."
+    },
+    {
+      "id": "hjemaspucken",
+      "name": "Hjemåspucken",
+      "descriptionNo": "Til en spiller eller klubb som har underprestert sportslig, sosialt, eller på andre måter i relasjon til bordhockey. Oppkallet etter Geir Hjemås, som var Europas dårligste spiller i 2010.",
+      "descriptionEn": "For a player or club that has underperformed on the table, socially or otherwise in relation to table hockey. Named after Geir Hjemås, Europe's lowest-ranked player in 2010."
+    },
+    {
+      "id": "bankettpucken",
+      "name": "Bankettpucken",
+      "descriptionNo": "Den gjeveste av puckene i Puck Awards. Deles ut til en spiller eller klubb som har prestert på et høyt nivå i bankettsammenheng.",
+      "descriptionEn": "The most coveted puck of them all. Awarded to a player or club that has performed at a high level at the banquet."
+    },
+    {
+      "id": "fou-pucken",
+      "name": "FoU-pucken",
+      "descriptionNo": "(Forskning og utvikling): Til en person som i løpet av de siste sesongene har funnet opp eller innført et nytt triks i NBA, som er effektivt eller spektakulært. Sist delt ut i 2002 til Roger Bashir for \"Brustadbua\".",
+      "descriptionEn": "(Research and development): For a person who over the last few seasons has invented or introduced a new trick that is effective or spectacular. Last awarded in 2002 to Roger Bashir for \"Brustadbua\"."
+    }
+  ]
+}

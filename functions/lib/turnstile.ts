@@ -30,13 +30,14 @@ export function parseTurnstileHostnames(value: string | undefined): ReadonlySet<
   return hostnames;
 }
 
-/** Validate a token with Siteverify and bind it to this action and hostname. */
+/** Validate a token with Siteverify and bind it to the expected action and hostname. */
 export async function verifyTurnstile(
   secret: string,
   token: string,
   remoteIp: string | null,
   allowedHostnames: ReadonlySet<string>,
   fetcher: Fetcher = fetch,
+  expectedAction: string = TURNSTILE_REGISTRATION_ACTION,
 ): Promise<boolean> {
   if (
     !secret ||
@@ -65,7 +66,7 @@ export async function verifyTurnstile(
     const hostname = typeof result.hostname === 'string' ? result.hostname.toLowerCase() : '';
     return (
       result.success === true &&
-      result.action === TURNSTILE_REGISTRATION_ACTION &&
+      result.action === expectedAction &&
       allowedHostnames.has(hostname)
     );
   } catch {
