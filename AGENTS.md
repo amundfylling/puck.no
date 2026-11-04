@@ -96,6 +96,8 @@ functions/               # Cloudflare Pages Functions (TypeScript):
   api/admin/registrations.json.ts # GET full rows for the protected portal
   api/admin/registration-open.ts  # POST open/close registration — commits
                                   # frontmatter via GitHub API (GITHUB_TOKEN)
+  api/unsubscribe.ts              # GET/POST opt-out of tournament reminder
+                                  # emails (sent by mcp-remote's daily cron)
 migrations/              # ordered D1 schema migrations (apply all pending)
 wrangler.toml            # real production D1 binding (ID is public, not secret)
 .dev.vars.example        # local env template (Cloudflare TEST keys are safe)
