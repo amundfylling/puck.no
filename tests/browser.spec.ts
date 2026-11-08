@@ -164,6 +164,50 @@ test.describe('Registration Form & Player Combobox', () => {
     await expect(comboInput).toHaveValue('Magnus Klippen');
     await expect(list).toBeHidden();
   });
+
+  test('tapping an option on a touch device selects it without falling through', async ({ page, browserName }) => {
+    test.skip(browserName !== 'chromium', 'uses CDP touch events');
+    await page.route('/ranking.json', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify([
+          [1, 101, 'Magnus Klippen', 'BPT', 'NOR', 1000, 1000],
+          [2, 102, 'Magnus Testesen', 'BPT', 'NOR', 900, 900],
+        ]),
+      }),
+    );
+
+    await page.goto('/turneringer/trondheim-open-2027/');
+    const comboInput = page.locator('[data-combo-input]').first();
+    await comboInput.focus();
+    await comboInput.fill('Magnus');
+    const option = page.locator('[data-combo-list] [role="option"]').first();
+    await expect(option).toBeVisible();
+    await option.scrollIntoViewIfNeeded();
+
+    // Record where the click lands. On iOS the click that follows a tap used to
+    // hit whatever was under the list after it closed on touch start
+    // (the "can't find my name" toggle), switching the row to manual entry.
+    await page.evaluate(() => {
+      (window as unknown as { __clicks: string[] }).__clicks = [];
+      document.addEventListener('click', (e) => {
+        const el = e.target as HTMLElement;
+        (window as unknown as { __clicks: string[] }).__clicks.push(el.closest('[role="option"]') ? 'option' : el.tagName);
+      }, true);
+    });
+    const box = (await option.boundingBox())!;
+    const point = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+    const cdp = await page.context().newCDPSession(page);
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [point] });
+    await page.waitForTimeout(100);
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+
+    await expect(comboInput).toHaveValue('Magnus Klippen');
+    await expect(page.locator('[data-combo-list]').first()).toBeHidden();
+    await expect(page.locator('[data-combo-fallback-input]').first()).toBeHidden();
+    expect(await page.evaluate(() => (window as unknown as { __clicks: string[] }).__clicks)).toEqual(['option']);
+  });
 });
 
 test.describe('Viewport Overflow Tests', () => {

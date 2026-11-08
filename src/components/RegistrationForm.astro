@@ -318,10 +318,11 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
           meta.className = 'ml-2 text-xs text-slate-500';
           meta.textContent = `${p[3]} · ${p[4]} · WR ${p[0]}${p[5] != null ? ` · ${p[5]} ${msgs.points ?? 'points'}` : ''}`;
           li.append(b, meta);
-          li.addEventListener('pointerdown', (e) => {
-            e.preventDefault(); // keep focus on input
-            select(i);
-          });
+          // Select on click, not pointerdown: on touch devices the click that
+          // follows a tap would otherwise land on whatever sits under the list
+          // once it has closed (the "can't find my name" toggle), and selecting
+          // on touch start also made the list impossible to scroll.
+          li.addEventListener('click', () => select(i));
           list.appendChild(li);
         });
       }
@@ -392,7 +393,22 @@ const visibleCount = isTeam ? playersPerTeam! : 1;
           close();
         }
       });
-      input.addEventListener('blur', () => setTimeout(close, 150));
+      // Keep focus on the input when pressing an option (desktop), and don't let
+      // the blur timer close the list while a finger/mouse is down on it.
+      let pressingList = false;
+      list.addEventListener('mousedown', (e) => e.preventDefault());
+      list.addEventListener('pointerdown', () => (pressingList = true));
+      const release = () => setTimeout(() => (pressingList = false), 400);
+      list.addEventListener('pointerup', release);
+      list.addEventListener('pointercancel', release);
+      input.addEventListener('blur', () =>
+        setTimeout(() => {
+          if (!pressingList) close();
+        }, 150),
+      );
+      document.addEventListener('pointerdown', (e) => {
+        if (!list.classList.contains('hidden') && !box.contains(e.target as Node)) close();
+      });
 
       toggle.addEventListener('click', () => {
         state.fallback = !state.fallback;
