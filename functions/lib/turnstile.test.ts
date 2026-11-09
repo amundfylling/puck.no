@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { TURNSTILE_REGISTRATION_ACTION } from '../../src/lib/turnstile.ts';
+import { TURNSTILE_AWARDS_ACTION, TURNSTILE_REGISTRATION_ACTION } from '../../src/lib/turnstile.ts';
 import {
   MAX_TURNSTILE_TOKEN_LENGTH,
   parseTurnstileHostnames,
@@ -51,4 +51,10 @@ test('Turnstile hostname configuration accepts exact hosts and rejects wildcards
     [...parseTurnstileHostnames('puck.no,*.puck.no, https://www.puck.no,LOCALHOST')],
     ['puck.no', 'localhost'],
   );
+});
+
+test('Turnstile can be bound to the Puck Awards action instead', async () => {
+  const awards = siteverify({ success: true, action: TURNSTILE_AWARDS_ACTION, hostname: 'puck.no' });
+  assert.equal(await verifyTurnstile('secret', 'token', null, allowed, awards, TURNSTILE_AWARDS_ACTION), true);
+  assert.equal(await verifyTurnstile('secret', 'token', null, allowed, awards), false);
 });
