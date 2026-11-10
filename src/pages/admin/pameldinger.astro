@@ -20,7 +20,7 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
     <div class="mt-4 flex flex-col gap-3 lg:flex-row lg:items-center">
       <select
         data-tournament-select
-        class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-navy lg:max-w-xs dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+        class="min-h-11 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-base font-semibold text-navy sm:text-sm lg:max-w-xs dark:border-slate-700 dark:bg-slate-900 dark:text-white"
         aria-label="Velg turnering"
       >
         {views.map(({ entry, status }) => (
@@ -28,21 +28,23 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
         ))}
       </select>
       <div class="relative flex-1">
-        <svg class="pointer-events-none absolute top-3.5 left-3 h-4 w-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
+        <svg class="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
         <input
           type="search"
           data-search
           placeholder="Søk på navn, land, e-post eller svar …"
-          class="w-full rounded-lg border border-slate-300 bg-white py-2 pr-3 pl-9 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500"
+          class="min-h-11 w-full rounded-lg border border-slate-300 bg-white py-2 pr-3 pl-9 text-base sm:text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500"
           aria-label="Filtrer påmeldinger"
         />
       </div>
-      <button type="button" data-add class="btn-primary inline-flex items-center justify-center !px-4 !py-2 text-sm whitespace-nowrap">
-        + Legg til
-      </button>
-      <a data-csv-link href="#" class="btn-outline inline-flex items-center justify-center !px-4 !py-2 text-sm whitespace-nowrap">
-        Last ned CSV
-      </a>
+      <div class="grid grid-cols-2 gap-3 lg:flex">
+        <button type="button" data-add class="btn-primary inline-flex min-h-11 items-center justify-center !px-4 !py-2 text-sm whitespace-nowrap">
+          + Legg til
+        </button>
+        <a data-csv-link href="#" class="btn-outline inline-flex min-h-11 items-center justify-center !px-4 !py-2 text-sm whitespace-nowrap">
+          Last ned CSV
+        </a>
+      </div>
     </div>
 
     <div class="mt-4 flex flex-wrap gap-2 text-sm">
@@ -52,14 +54,25 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
       <span class="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-500 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400">
         Siste påmelding: <strong data-stat-last>–</strong>
       </span>
+      <label class="ml-auto inline-flex items-center gap-2 text-slate-500 md:hidden dark:text-slate-400">
+        Sorter
+        <select data-sort-select class="min-h-11 rounded-lg border border-slate-300 bg-white px-2 text-base font-semibold text-navy dark:border-slate-700 dark:bg-slate-900 dark:text-white">
+          <option value="points">Poeng</option>
+          <option value="name">Navn</option>
+          <option value="country">Land</option>
+          <option value="wr">Verdensranking</option>
+          <option value="at">Nyeste først</option>
+        </select>
+      </label>
       <span data-stat-filtered class="hidden rounded-full border border-brand/30 bg-brand/5 px-3 py-1 text-brand-dark dark:text-brand">
         Viser <strong data-stat-filtered-count class="tabular-nums">0</strong> treff
       </span>
     </div>
 
     <div class="scroll-region mt-4 rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900" role="region" aria-label="Påmeldinger" tabindex="0">
-      <table class="w-full min-w-[76rem] text-sm">
-        <thead>
+      <!-- Below md each row renders as a card (see the global style block at the bottom). -->
+      <table data-registrations-table class="w-full text-sm md:min-w-[76rem]">
+        <thead class="sr-only md:not-sr-only">
           <tr class="border-b border-slate-200 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:border-slate-800 dark:text-slate-400">
             <th class="px-4 py-3">#</th>
             <th class="px-4 py-3" data-sort-header="name" aria-sort="none"><button type="button" data-sort="name" class="uppercase hover:text-navy dark:hover:text-white">Navn <span data-sort-arrow="name"></span></button></th>
@@ -79,8 +92,8 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
     </div>
     <p data-table-status class="mt-3 hidden text-sm" role="status"></p>
 
-    <dialog data-editor class="m-auto max-h-[90vh] w-[min(44rem,calc(100%-2rem))] overflow-y-auto rounded-xl border border-slate-200 bg-white p-0 text-slate-900 backdrop:bg-navy/50 dark:border-slate-700 dark:bg-slate-900 dark:text-white">
-      <form data-editor-form class="p-5 sm:p-6">
+    <dialog data-editor class="m-0 h-full max-h-none w-full max-w-none overflow-y-auto overscroll-contain border-slate-200 bg-white p-0 sm:m-auto sm:h-auto sm:max-h-[90vh] sm:w-[min(44rem,calc(100%-2rem))] sm:rounded-xl sm:border text-slate-900 backdrop:bg-navy/50 dark:border-slate-700 dark:bg-slate-900 dark:text-white">
+      <form data-editor-form class="flex min-h-full flex-col px-4 pt-[max(1rem,env(safe-area-inset-top))] sm:block sm:min-h-0 sm:p-6">
         <div class="flex items-start justify-between gap-4 border-b border-slate-200 pb-4 dark:border-slate-700">
           <div>
             <h2 data-editor-title class="text-xl font-bold text-navy dark:text-white">Legg til påmelding</h2>
@@ -96,12 +109,12 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
 
         <div class="mt-5 grid gap-4 sm:grid-cols-2">
           <label class="grid gap-1 text-sm font-semibold">
-            E-post <span class="text-brand">*</span>
-            <input data-editor-email type="email" required maxlength="254" class="rounded border border-slate-300 bg-white px-3 py-2 font-normal dark:border-slate-700 dark:bg-slate-950" />
+            <span>E-post <span class="text-brand">*</span></span>
+            <input data-editor-email type="email" required maxlength="254" autocomplete="off" class="min-h-11 rounded border border-slate-300 bg-white px-3 py-2 font-normal dark:border-slate-700 dark:bg-slate-950" />
           </label>
           <label class="grid gap-1 text-sm font-semibold">
             Telefonnummer
-            <input data-editor-phone type="tel" maxlength="30" class="rounded border border-slate-300 bg-white px-3 py-2 font-normal dark:border-slate-700 dark:bg-slate-950" />
+            <input data-editor-phone type="tel" maxlength="30" autocomplete="off" class="min-h-11 rounded border border-slate-300 bg-white px-3 py-2 font-normal dark:border-slate-700 dark:bg-slate-950" />
           </label>
         </div>
 
@@ -109,7 +122,7 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
         <div data-editor-history class="mt-4 hidden border-t border-slate-200 pt-4 text-sm dark:border-slate-700"></div>
         <p data-editor-message class="mt-4 hidden rounded px-3 py-2 text-sm font-semibold" role="status"></p>
 
-        <div class="mt-6 flex flex-wrap justify-between gap-3 border-t border-slate-200 pt-4 dark:border-slate-700">
+        <div class="sticky bottom-0 -mx-4 mt-auto flex flex-wrap justify-between gap-3 border-t border-slate-200 bg-white px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:static sm:mx-0 sm:mt-6 sm:px-0 sm:pb-0 dark:border-slate-700 dark:bg-slate-900">
           <button type="button" data-editor-delete class="hidden min-h-11 px-3 text-sm font-semibold text-red-700 underline dark:text-red-400">Slett påmelding</button>
           <div class="ml-auto flex gap-2">
             <button type="button" data-editor-cancel class="btn-outline">Avbryt</button>
@@ -169,6 +182,7 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
       const statLast = root.querySelector<HTMLElement>('[data-stat-last]')!;
       const statFiltered = root.querySelector<HTMLElement>('[data-stat-filtered]')!;
       const statFilteredCount = root.querySelector<HTMLElement>('[data-stat-filtered-count]')!;
+      const sortSelect = root.querySelector<HTMLSelectElement>('[data-sort-select]')!;
       const dialog = root.querySelector<HTMLDialogElement>('[data-editor]')!;
       const editorForm = root.querySelector<HTMLFormElement>('[data-editor-form]')!;
       const editorTitle = root.querySelector<HTMLElement>('[data-editor-title]')!;
@@ -218,11 +232,19 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
         tr.appendChild(td);
         return tr;
       };
-      const cell = (text: string, extra = '') => {
+      const cell = (text: string, extra = '', name = '') => {
         const td = document.createElement('td');
         td.className = `px-4 py-2.5 align-top ${extra}`;
         td.textContent = text;
+        if (name) td.dataset.cell = name;
         return td;
+      };
+      const link = (href: string, text: string, extra = '') => {
+        const a = document.createElement('a');
+        a.href = href;
+        a.className = `break-all underline-offset-2 hover:underline ${extra}`;
+        a.textContent = text;
+        return a;
       };
       const cmpNullable = (a: number | null, b: number | null, highFirst: boolean) => {
         if (a == null && b == null) return 0;
@@ -250,31 +272,35 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
         tbody.replaceChildren(...(sorted.length ? sorted.map((row, index) => {
           const tr = document.createElement('tr');
           tr.className = 'border-b border-slate-100 last:border-0 hover:bg-ice/60 dark:border-slate-800/60 dark:hover:bg-slate-800/40';
-          const contact = cell(row.email, 'text-slate-600 dark:text-slate-300');
+          // mailto:/tel: links so a phone can mail or call the contact in one tap.
+          const contact = cell('', 'text-slate-600 dark:text-slate-300', 'contact');
+          contact.appendChild(link(`mailto:${row.email}`, row.email));
           if (row.phone) {
             const phone = document.createElement('div');
             phone.className = 'text-xs text-slate-500';
-            phone.textContent = row.phone;
+            phone.appendChild(link(`tel:${row.phone.replace(/[^\d+]/g, '')}`, row.phone));
             contact.appendChild(phone);
           }
           const answerText = row.answers.map((answer) => `${answer.questionLabelNo}: ${answer.labelNo}`).join('\n');
           const actions = document.createElement('td');
           actions.className = 'px-4 py-2.5 text-right';
+          actions.dataset.cell = 'actions';
           const edit = document.createElement('button');
           edit.type = 'button';
           edit.className = 'min-h-11 px-2 font-semibold text-brand underline';
           edit.textContent = 'Rediger';
+          edit.setAttribute('aria-label', `Rediger ${row.name}`);
           edit.addEventListener('click', () => openEditor(row));
           actions.appendChild(edit);
           tr.append(
-            cell(String(index + 1), 'tabular-nums text-slate-600 dark:text-slate-400'),
-            cell(row.name, 'max-w-xs font-semibold text-navy dark:text-white'),
-            cell(row.country ?? '–', 'text-slate-600 dark:text-slate-300'),
-            cell(row.world_ranking == null ? '–' : String(row.world_ranking), 'tabular-nums'),
-            cell(row.ranking_points == null ? '–' : String(row.ranking_points), 'tabular-nums font-semibold'),
+            cell(String(index + 1), 'tabular-nums text-slate-600 dark:text-slate-400', 'index'),
+            cell(row.name, 'max-w-xs font-semibold text-navy dark:text-white', 'name'),
+            cell(row.country ?? '–', 'text-slate-600 dark:text-slate-300', 'country'),
+            cell(row.world_ranking == null ? '–' : String(row.world_ranking), 'tabular-nums', 'wr'),
+            cell(row.ranking_points == null ? '–' : String(row.ranking_points), 'tabular-nums font-semibold', 'points'),
             contact,
-            cell(answerText || '–', 'max-w-xs whitespace-pre-line text-slate-600 dark:text-slate-300'),
-            cell(fmtDate.format(parseUtc(row.created_at)), 'whitespace-nowrap text-slate-500'),
+            cell(answerText || '–', 'max-w-xs whitespace-pre-line text-slate-600 dark:text-slate-300', answerText ? 'answers' : 'answers-empty'),
+            cell(fmtDate.format(parseUtc(row.created_at)), 'whitespace-nowrap text-slate-500', 'at'),
             actions,
           );
           return tr;
@@ -286,6 +312,7 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
         statLast.textContent = latest ? fmtDate.format(parseUtc(latest)) : '–';
         statFiltered.classList.toggle('hidden', !query);
         statFilteredCount.textContent = String(filtered.length);
+        sortSelect.value = sortKey;
         root.querySelectorAll<HTMLElement>('[data-sort-arrow]').forEach((arrow) => {
           const key = arrow.dataset.sortArrow as SortKey;
           arrow.textContent = key === sortKey ? (sortDir === 1 ? '↑' : '↓') : '';
@@ -344,7 +371,7 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
         input.required = true;
         input.placeholder = 'Søk i verdensrankingen, eller skriv fullt navn for urangert spiller';
         input.value = existing?.name ?? '';
-        input.className = 'w-full rounded border border-slate-300 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-950';
+        input.className = 'min-h-11 w-full rounded border border-slate-300 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-950';
         const meta = document.createElement('p');
         meta.className = 'mt-1 text-xs text-slate-500';
         if (existing?.playerId) meta.textContent = `ITHF-ID ${existing.playerId}${existing.worldRanking ? ` · VR ${existing.worldRanking}` : ''}${existing.rankingPoints != null ? ` · ${existing.rankingPoints} poeng` : ''}`;
@@ -369,7 +396,7 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
               matches.replaceChildren(...hits.map((player) => {
                 const button = document.createElement('button');
                 button.type = 'button';
-                button.className = 'block w-full border-b border-slate-100 px-3 py-2 text-left text-sm last:border-0 hover:bg-ice dark:border-slate-800 dark:hover:bg-slate-800';
+                button.className = 'block min-h-11 w-full border-b border-slate-100 px-3 py-2 text-left text-sm last:border-0 hover:bg-ice dark:border-slate-800 dark:hover:bg-slate-800';
                 button.textContent = `${player[2]} — ${player[3]} · ${player[4]} · VR ${player[0]}${player[5] != null ? ` · ${player[5]} poeng` : ''}`;
                 button.addEventListener('click', () => {
                   state.playerId = player[1];
@@ -417,7 +444,7 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
           const answer = document.createElement('select');
           answer.dataset.answerId = question.id;
           answer.required = question.required;
-          answer.className = 'rounded border border-slate-300 bg-white px-3 py-2 font-normal dark:border-slate-700 dark:bg-slate-950';
+          answer.className = 'min-h-11 rounded border border-slate-300 bg-white px-3 py-2 font-normal dark:border-slate-700 dark:bg-slate-950';
           const blank = document.createElement('option');
           blank.value = '';
           blank.textContent = question.required ? 'Velg …' : 'Ikke besvart';
@@ -543,6 +570,11 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
         void load(select.value);
       });
       search.addEventListener('input', render);
+      sortSelect.addEventListener('change', () => {
+        sortKey = sortSelect.value as SortKey;
+        sortDir = sortKey === 'points' || sortKey === 'at' ? -1 : 1;
+        render();
+      });
       root.querySelectorAll<HTMLButtonElement>('[data-sort]').forEach((button) => button.addEventListener('click', () => {
         const key = button.dataset.sort as SortKey;
         if (sortKey === key) sortDir = sortDir === 1 ? -1 : 1;
@@ -556,4 +588,50 @@ const configs = Object.fromEntries(views.map(({ entry }) => [entry.data.slug, {
       void load(select.value);
     }
   </script>
+
+  <!-- Rows are built in JS, so this can't be a scoped style. -->
+  <style is:global>
+    @media (max-width: 767.98px) {
+      [data-registrations-table],
+      [data-registrations-table] tbody {
+        display: block;
+      }
+      [data-registrations-table] tbody > tr {
+        display: grid;
+        grid-template-columns: auto auto 1fr auto;
+        grid-template-areas:
+          'name name name actions'
+          'country wr points actions'
+          'contact contact contact contact'
+          'answers answers answers answers'
+          'at at at at';
+        column-gap: 0.75rem;
+        row-gap: 0.25rem;
+        padding: 0.75rem 1rem;
+      }
+      [data-registrations-table] tbody td {
+        display: block;
+        padding: 0;
+        max-width: none;
+      }
+      [data-registrations-table] td[colspan] {
+        grid-column: 1 / -1;
+        padding: 2.5rem 0;
+      }
+      [data-registrations-table] td[data-cell='index'],
+      [data-registrations-table] td[data-cell='answers-empty'] {
+        display: none;
+      }
+      [data-registrations-table] td[data-cell='name'] { grid-area: name; font-size: 1rem; }
+      [data-registrations-table] td[data-cell='country'] { grid-area: country; }
+      [data-registrations-table] td[data-cell='wr'] { grid-area: wr; }
+      [data-registrations-table] td[data-cell='wr']::before { content: 'VR '; color: rgb(100 116 139); }
+      [data-registrations-table] td[data-cell='points'] { grid-area: points; }
+      [data-registrations-table] td[data-cell='points']::after { content: ' poeng'; font-weight: 400; color: rgb(100 116 139); }
+      [data-registrations-table] td[data-cell='contact'] { grid-area: contact; padding-top: 0.25rem; }
+      [data-registrations-table] td[data-cell='answers'] { grid-area: answers; font-size: 0.8125rem; }
+      [data-registrations-table] td[data-cell='at'] { grid-area: at; font-size: 0.75rem; }
+      [data-registrations-table] td[data-cell='actions'] { grid-area: actions; align-self: start; margin: -0.625rem -0.5rem 0 0; }
+    }
+  </style>
 </AdminLayout>

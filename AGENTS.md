@@ -25,6 +25,11 @@ bilingual: Norwegian (default, at `/...`) and English (at `/en/...`).
 - **Phase 4b (done):** custom admin portal at `/admin/` — dashboard with
   live registration data (`AdminLayout.astro`, sidebar shell, dark mode,
   Norwegian UI). Sveltia CMS moved to `/admin/cms/`; the portal links there.
+  Mobile: below `lg` a bottom tab bar (incl. CMS) replaces the sidebar for
+  daily use; below `md` the dashboard and registration tables render as
+  stacked cards (same DOM, CSS only) and the registration editor is a
+  full-screen sheet. `/admin/manifest.webmanifest` gives a home-screen icon
+  (`display: browser`, so Access and GitHub OAuth keep working).
 - **Phase 5 (docs done, launch pending):** `LAUNCH.md` is the full
   Norwegian runbook — deploy to the free `puck-no.pages.dev` domain first,
   verify everything, then cut `puck.no` over. Repo niceties: MIT `LICENSE`,

@@ -11,7 +11,8 @@ backend:
 
 site_url: https://www.puck.no
 locale: 'no'
-logo_url: /favicon.png
+logo:
+  src: /favicon.png
 
 # CMS-opplastinger må være committet for at Cloudflare-bygg skal se dem.
 # prebuild optimaliserer kilden til den offentlige /media/images-stien.
@@ -429,7 +430,7 @@ collections:
                 widget: file
                 media_folder: public/media/audio
                 public_folder: /media/audio
-              - { label: Varighet (hint, f.eks. 05:38), name: duration_hint, widget: string, required: false }
+              - { label: 'Varighet (hint, f.eks. 05:38)', name: duration_hint, widget: string, required: false }
       - name: documents
         label: Årsmøtedokumenter (PDF)
         file: src/data/documents.json
@@ -448,5 +449,5 @@ collections:
                 widget: file
                 media_folder: public/media/pdf
                 public_folder: /media/pdf
-              - { label: Kildelenke (Wix, historisk), name: sourceUrl, widget: hidden, required: false }
+              - { label: 'Kildelenke (Wix, historisk)', name: sourceUrl, widget: hidden, required: false }
               - { label: Side, name: page, widget: hidden, default: '/årsmøter', required: false }
