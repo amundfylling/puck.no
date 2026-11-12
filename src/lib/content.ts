@@ -59,15 +59,6 @@ export function tournamentImage(t: Tournament): string | null {
   return t.body?.match(/!\[[^\]]*\]\((\/media\/[^)\s]+)\)/)?.[1] ?? null;
 }
 
-/** English mirror (src/content/tournaments/en/) for a Norwegian tournament. */
-export async function getTournamentMirror(entry: Tournament): Promise<Tournament | undefined> {
-  const en = await getCollection(
-    'tournaments',
-    (t) => !t.data.draft && t.data.lang === 'en' && t.data.slug === entry.data.slug,
-  );
-  return en[0];
-}
-
 /** All tournaments: upcoming first (soonest first), then past (newest first). */
 export async function getTournamentsSorted(
   now: Date = new Date(),
@@ -93,11 +84,6 @@ export async function getTournamentsSorted(
     .filter((v) => v.status === 'past')
     .sort((a, b) => (b.date?.getTime() ?? 0) - (a.date?.getTime() ?? 0));
   return [...upcoming, ...past];
-}
-
-/** Static pages for a language. */
-export async function getPages(lang: Lang): Promise<Page[]> {
-  return getCollection('pages', (p) => p.data.lang === lang);
 }
 
 export interface TournamentFamily<T extends { entry: Tournament; date: Date | null }> {

@@ -106,7 +106,6 @@ export const ui = {
   openMenu: { no: 'Åpne meny', en: 'Open menu' },
   closeMenu: { no: 'Lukk meny', en: 'Close menu' },
   languageSwitcher: { no: 'Velg språk', en: 'Choose language' },
-  readMore: { no: 'Les mer', en: 'Read more' },
   latestNews: { no: 'Siste nytt', en: 'Latest news' },
   allNews: { no: 'Alle nyheter', en: 'All news' },
   nextTournament: { no: 'Terminliste', en: 'Tournament schedule' },
@@ -135,10 +134,6 @@ export const ui = {
   country: { no: 'Land', en: 'Country' },
   wr: { no: 'WR', en: 'WR' },
   registerPlayer: { no: 'Registrer spiller', en: 'Register player' },
-  registrationPlaceholder: {
-    no: 'Påmeldingsskjema kommer her (fase 3).',
-    en: 'Registration form will be placed here (phase 3).',
-  },
   openDocument: { no: 'Åpne dokument', en: 'Open document' },
   opensInNewTab: { no: '(åpnes i ny fane)', en: '(opens in new tab)' },
   categories: { no: 'Kategorier', en: 'Categories' },
