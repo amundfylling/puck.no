@@ -19,6 +19,8 @@ full project conventions.
 | `npm run preview` | Serve the production build |
 | `npm run check` | Type/astro check (keep at 0 errors / 0 warnings) |
 | `npm run check-links` | Crawl `dist/`, fail on broken internal links |
+| `npm test` | Unit tests (Node test runner) |
+| `npm run test:e2e` | Playwright browser tests against the built `dist/` (run `npm run build` first; `npx playwright install chromium` once) |
 
 ## Backend (Phase 3): registration API
 

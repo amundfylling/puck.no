@@ -9,7 +9,7 @@ export default defineConfig({
   reporter: 'list',
   use: {
     baseURL: 'http://localhost:4321',
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
   },
   projects: [
     {
@@ -22,7 +22,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'export PATH="$HOME/.nvm/versions/node/v24.18.0/bin:$PATH" && npm run preview',
+    // Serves the already-built dist/ folder, so run `npm run build` first.
+    command: 'npm run preview',
     url: 'http://localhost:4321',
     reuseExistingServer: !process.env.CI,
     timeout: 120000,

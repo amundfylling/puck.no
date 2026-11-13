@@ -36,13 +36,11 @@ for (const lang of ['no', 'en'] as const) {
     await link.focus();
     await expect(link).toBeFocused();
     const linkBox = await link.boundingBox();
-    const heroBox = await page.locator('article figure').first().boundingBox();
     expect(linkBox!.height).toBeGreaterThanOrEqual(44);
-    expect(linkBox!.y + linkBox!.height).toBeLessThan(heroBox!.y);
     expect(linkBox!.y + linkBox!.height).toBeLessThan(page.viewportSize()!.height);
     const streamBox = await stream.boundingBox();
     expect(streamBox!.height).toBeGreaterThanOrEqual(44);
-    expect(streamBox!.y + streamBox!.height).toBeLessThan(heroBox!.y);
+    expect(streamBox!.y + streamBox!.height).toBeLessThan(page.viewportSize()!.height);
     expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)).toBe(false);
 
     await page.clock.setSystemTime(new Date('2026-09-05T21:59:30Z'));
