@@ -34,15 +34,15 @@
   "private": true,
   "type": "module",
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
-    "@astrojs/markdown-remark": "^7.3.1",
+    "@astrojs/check": "^0.9.12",
+    "@astrojs/markdown-remark": "^7.3.6",
     "@astrojs/markdown-satteri": "^0.4.2",
     "@axe-core/playwright": "^4.14.0",
-    "@cloudflare/workers-types": "^5.20261002.1",
-    "@playwright/test": "^1.63.0",
-    "marked": "^18.0.14",
-    "turndown": "^7.2.4",
+    "@cloudflare/workers-types": "^5.20261110.1",
+    "@playwright/test": "^1.65.0",
+    "marked": "^18.2.0",
+    "turndown": "^7.2.5",
     "typescript": "^6.0.3",
-    "wrangler": "^4.146.0"
+    "wrangler": "^4.159.0"
   }
 }
