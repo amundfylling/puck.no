@@ -76,7 +76,6 @@ jobs:
             for changed_file in "${changed_files[@]}"; do
               case "${changed_file}" in
                 package.json|package-lock.json|npm-shrinkwrap.json|\
-                migration/package.json|migration/package-lock.json|migration/npm-shrinkwrap.json|\
                 .github/workflows/*.yml|.github/workflows/*.yaml)
                   ;;
                 *)
