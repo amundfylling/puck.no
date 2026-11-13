@@ -5,6 +5,7 @@ import RegistrationForm from '../../../components/RegistrationForm.astro';
 import ParticipantList from '../../../components/ParticipantList.astro';
 import TournamentFacts from '../../../components/TournamentFacts.astro';
 import TournamentHeader from '../../../components/TournamentHeader.astro';
+import TournamentResults from '../../../components/TournamentResults.astro';
 import { tournamentImage, tournamentStatus } from '../../../lib/content';
 import { formatIsoDate, formatNoDate, parseNoDate } from '../../../lib/dates';
 import { seoForContent } from '../../../lib/seo';
@@ -43,6 +44,7 @@ const hasSchedule = /^# Schedule\s*$/m.test(entry.body ?? '');
 const noMirror = (await getCollection('tournaments', (t) => !t.data.draft && t.data.lang === 'no'))
   .find((t) => t.data.slug === entry.data.slug);
 const registrationQuestions = noMirror?.data.registrationQuestions ?? entry.data.registrationQuestions;
+const results = noMirror?.data.results ?? entry.data.results;
 
 const allTournaments = await getCollection('tournaments', (t) => !t.data.draft && t.data.lang === 'en');
 const parentEntry = entry.data.parent
@@ -110,7 +112,7 @@ const jsonLd = {
       <TournamentHeader
         entry={entry}
         lang="en"
-        results={noMirror?.data.results ?? entry.data.results}
+        results={results}
         streamUrl={noMirror?.data.streamUrl ?? entry.data.streamUrl}
       />
       <TournamentFacts
@@ -120,7 +122,7 @@ const jsonLd = {
         priceList={priceList}
         isoDate={isoDate}
         registrationOpen={registrationOpen}
-        results={noMirror?.data.results ?? entry.data.results}
+        results={results}
         isUpcoming={status === 'upcoming'}
       />
 
@@ -141,6 +143,11 @@ const jsonLd = {
           </a>
         )
       }
+      {results && (
+        <a href="#results" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
+          {t('en', 'results')}
+        </a>
+      )}
       <a href="#participants" class="inline-flex min-h-11 items-center text-sm font-semibold text-brand no-underline hover:underline">
         {t('en', 'registeredPlayers')}
       </a>
@@ -183,6 +190,8 @@ const jsonLd = {
 
     </div>
     </div>
+
+    {results && <TournamentResults results={results} lang="en" slug={entry.data.slug} />}
 
     {
       registrationOpen && (

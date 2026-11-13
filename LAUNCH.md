@@ -271,13 +271,9 @@ sluttdato, men dette daglige bygget holder lister og statustekst oppdatert.
 **Gjør dette først når A9 er krysset av.** Frem til nå er den gamle
 Wix-siden urørt.
 
-> **Domenespesifikk merknad (2026-08-11):** `puck.no` er registrert hos
-> Simply.com, men bruker fortsatt Wix-navnetjenerne. Følg den verifiserte,
-> e-postbevarende planen i `DNS-CUTOVER.md` og importer
-> `puck.no.cloudflare-stage.txt` før navnetjenerbyttet. Den inneholder 12
-> verifiserte poster, inkludert begge aktive DKIM-postene. Ikke importer den
-> inaktive Simply-eksporten direkte. Planen flytter først DNS uten å endre
-> noen tjenester, tester e-post, og bytter deretter bare webpostene til Pages.
+> **Merknad:** Dette steget er gjennomført — `puck.no` bruker nå
+> Cloudflare-navnetjenerne. Den gamle staging-sonen og `DNS-CUTOVER.md` er
+> fjernet fra repoet (ligger i git-historikken).
 
 ## B1. Legg puck.no inn i Cloudflare
 
@@ -286,8 +282,7 @@ Wix-siden urørt.
 2. Cloudflare scanner DNS og viser to **Cloudflare-navnetjenere**
    (f.eks. `dana.ns.cloudflare.com`).
 3. Hos Simply.com: velg `puck.no` → **DNS** → **Sæt navneservere** og bytt
-   fra Wix-navnetjenerne til de to Cloudflare ga. Se `DNS-CUTOVER.md` for
-   forhåndskontroll av DNSSEC, eksakt staging-sone og verifisering av e-post.
+   fra Wix-navnetjenerne til de to Cloudflare ga.
 4. Vent på at Cloudflare bekrefter (typisk 5–60 min, kan ta noen timer).
    Du får e-post når domenet er aktivt.
    - **Merk:** puck.no peker nå til Cloudflare, men gamle DNS-poster

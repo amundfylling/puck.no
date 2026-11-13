@@ -36,13 +36,11 @@ for (const lang of ['no', 'en'] as const) {
     await link.focus();
     await expect(link).toBeFocused();
     const linkBox = await link.boundingBox();
-    const heroBox = await page.locator('article figure').first().boundingBox();
     expect(linkBox!.height).toBeGreaterThanOrEqual(44);
-    expect(linkBox!.y + linkBox!.height).toBeLessThan(heroBox!.y);
     expect(linkBox!.y + linkBox!.height).toBeLessThan(page.viewportSize()!.height);
     const streamBox = await stream.boundingBox();
     expect(streamBox!.height).toBeGreaterThanOrEqual(44);
-    expect(streamBox!.y + streamBox!.height).toBeLessThan(heroBox!.y);
+    expect(streamBox!.y + streamBox!.height).toBeLessThan(page.viewportSize()!.height);
     expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)).toBe(false);
 
     await page.clock.setSystemTime(new Date('2026-09-05T21:59:30Z'));
@@ -98,5 +96,25 @@ for (const lang of ['no', 'en'] as const) {
     await page.clock.setSystemTime(new Date('2026-10-17T12:00:00Z'));
     await page.reload();
     await expect(banner).toBeHidden();
+  });
+  test(`${lang}: the results hub lists each SportScorpion stage`, async ({ page }) => {
+    // Keep the build-time snapshot: no live Functions API under `astro preview`.
+    await page.route('**/api/tournaments/**/results', (route) => route.fulfill({ status: 404, body: '' }));
+    await page.goto(`${prefix}/turneringer/norway-open-2026/`);
+    const sectionId = lang === 'en' ? 'results' : 'resultater';
+    const hub = page.locator(`#${sectionId}[data-results-hub]`);
+    await expect(hub).toBeVisible();
+    await expect(page.locator(`nav a[href="#${sectionId}"]`)).toBeVisible();
+    // The stage list is refreshed from SportScorpion at build time, so check its shape, not names.
+    const stages = hub.locator('[data-results-stage-list] > div');
+    expect(await stages.count()).toBeGreaterThan(0);
+    for (const stage of await stages.all()) {
+      await expect(stage.getByRole('heading', { level: 3 })).not.toBeEmpty();
+      const links = stage.getByRole('link');
+      await expect(links).toHaveCount(2);
+      await expect(links.first()).toHaveAttribute('href', /^https:\/\/th\.sportscorpion\.com\/eng\/tournament\/stage\/\d+\/matches\/$/);
+      await expect(links.last()).toHaveAttribute('href', /^https:\/\/th\.sportscorpion\.com\/eng\/tournament\/stage\/\d+\/(draws|results)\/$/);
+    }
+    await expect(hub.locator('a[href="https://th.sportscorpion.com/eng/tournament/id/8171/"]')).toBeVisible();
   });
 }

@@ -22,11 +22,3 @@ export function publicIllustration(
   if (!entry) return undefined;
   return !legacyDiagram || entry.data.published ? entry : undefined;
 }
-
-export function findIllustration(
-  slug: string | null | undefined,
-  entries: IllustrationEntry[],
-): IllustrationEntry | undefined {
-  if (!slug) return undefined;
-  return entries.find((entry) => entry.data.slug === slug);
-}
