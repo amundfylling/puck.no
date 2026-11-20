@@ -4,7 +4,9 @@ on:
   schedule:
     # Tournament status is computed at build time. One daily rebuild keeps the
     # upcoming/past lists accurate even during weeks without content commits.
-    # The Wednesday build also refreshes the VM 2027 qualification standings.
+    # The Wednesday build also refreshes the VM 2027 qualification standings,
+    # and every build refreshes the NBL medal table and tournament streaks
+    # (scripts/fetch-nbl-stats.mjs) from the ITHF world ranking.
     - cron: '17 2 * * *'
   workflow_dispatch:
 
