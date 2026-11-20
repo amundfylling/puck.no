@@ -1,0 +1,261 @@
+---
+import statsJson from '../data/nbl-statistikk.json';
+import type { Lang } from '../lib/i18n';
+
+interface TournamentRef {
+  id: number;
+  name: string;
+  date: string;
+}
+
+interface MedalRow {
+  rank: number;
+  playerId: number;
+  name: string;
+  gold: number;
+  silver: number;
+  bronze: number;
+  total: number;
+}
+
+interface CurrentStreak {
+  rank: number;
+  playerId: number;
+  name: string;
+  streak: number;
+  from: TournamentRef;
+}
+
+interface LongestStreak extends CurrentStreak {
+  to: TournamentRef;
+  active: boolean;
+}
+
+interface NblStats {
+  generatedAt: string;
+  tournamentCount: number;
+  latestTournament: (TournamentRef & { players: number }) | null;
+  medals: MedalRow[];
+  currentStreaks: CurrentStreak[];
+  longestStreaks: LongestStreak[];
+}
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const stats = statsJson as unknown as NblStats;
+const locale = lang === 'en' ? 'en-GB' : 'nb-NO';
+const date = (value: string) => new Intl.DateTimeFormat(locale, {
+  day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Oslo',
+}).format(new Date(`${value.slice(0, 10)}T12:00:00Z`));
+const playerUrl = (id: number) => `https://stiga.trefik.cz/ithf/ranking/player.aspx?id=${id}`;
+const tournamentUrl = (id: number) => `https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=${id}`;
+const SERIES_URL = 'https://stiga.trefik.cz/ithf/ranking/serial.aspx?ID=220001';
+
+const ongoing = stats.currentStreaks.filter((row) => row.streak >= 2);
+const newStarts = stats.currentStreaks.length - ongoing.length;
+
+const t = lang === 'en'
+  ? {
+      series: 'Series', seriesValue: 'Norwegian NBL (ITHF)',
+      tournaments: 'Tournaments in the series', latest: 'Latest tournament', updated: 'Last updated',
+      updateNote: 'Updated automatically every day from the ITHF world ranking.',
+      medalsTitle: 'All-time medal table', medalsIntro: 'Gold, silver and bronze medals from every tournament in the Norwegian NBL series, sorted by golds, then silvers, then bronzes.',
+      rank: 'Rank', name: 'Player', gold: 'Gold', silver: 'Silver', bronze: 'Bronze', total: 'Total',
+      currentTitle: 'Most tournaments in a row right now',
+      currentIntro: 'Consecutive Norwegian NBL tournaments played up to and including the latest one. Missing a single tournament resets the streak to zero.',
+      streak: 'In a row', since: 'Since', newStarts: (n: number, name: string) => `${n} more ${n === 1 ? 'player' : 'players'} started a new streak at ${name}.`,
+      noCurrent: 'Nobody has played the last two tournaments in a row.',
+      longestTitle: 'Record: most tournaments in a row',
+      longestIntro: 'Each player’s longest-ever streak of consecutive Norwegian NBL tournaments.',
+      period: 'Period', active: 'Ongoing',
+      definitionTitle: 'What counts as a tournament?',
+      definition: 'All tournaments in the ITHF series “Norwegian NBL” count: the Norwegian Championships, Norway Open and the other Norwegian ranking tournaments. Separate classes such as women, juniors and veterans are separate ITHF series and do not count. Very old tournaments are sometimes registered with only month and year, so their exact order may be approximate.',
+      source: 'Open the series at the ITHF world ranking',
+      profile: 'Open ITHF player profile', newTab: 'opens in a new tab',
+    }
+  : {
+      series: 'Serie', seriesValue: 'Norwegian NBL (ITHF)',
+      tournaments: 'Turneringer i serien', latest: 'Siste turnering', updated: 'Sist oppdatert',
+      updateNote: 'Oppdateres automatisk hver dag fra ITHF-verdensrankingen.',
+      medalsTitle: 'Adelskalender', medalsIntro: 'Gull, sølv og bronse fra alle turneringer i NBL-serien, sortert etter antall gull, deretter sølv og bronse.',
+      rank: 'Plass', name: 'Spiller', gold: 'Gull', silver: 'Sølv', bronze: 'Bronse', total: 'Totalt',
+      currentTitle: 'Flest turneringer på rad akkurat nå',
+      currentIntro: 'Antall NBL-turneringer på rad til og med den siste. Misser man én turnering, nullstilles rekken.',
+      streak: 'På rad', since: 'Siden', newStarts: (n: number, name: string) => `${n} ${n === 1 ? 'spiller' : 'spillere'} til startet en ny rekke på ${name}.`,
+      noCurrent: 'Ingen har spilt de to siste turneringene på rad.',
+      longestTitle: 'Rekord: flest turneringer på rad',
+      longestIntro: 'Hver spillers lengste rekke med NBL-turneringer på rad gjennom tidene.',
+      period: 'Periode', active: 'Pågår',
+      definitionTitle: 'Hvilke turneringer teller?',
+      definition: 'Alle turneringer i ITHF-serien «Norwegian NBL» teller: NM, Norway Open og de andre norske rankingturneringene. Egne klasser som kvinner, junior og veteran er egne ITHF-serier og teller ikke. Svært gamle turneringer er noen ganger registrert bare med måned og år, så rekkefølgen kan være omtrentlig der.',
+      source: 'Åpne serien hos ITHF-verdensrankingen',
+      profile: 'Åpne spillerprofil hos ITHF', newTab: 'åpnes i ny fane',
+    };
+
+const linkClass = 'font-semibold text-navy underline decoration-slate-300 underline-offset-2 hover:text-brand hover:decoration-brand';
+const thClass = 'px-2 py-2 font-semibold';
+---
+
+<section data-nbl-stats>
+  <dl class="grid gap-x-8 gap-y-5 border-y border-slate-200 py-6 sm:grid-cols-2">
+    <div>
+      <dt class="text-sm font-semibold text-slate-600">{t.series}</dt>
+      <dd class="mt-1 font-semibold text-navy">{t.seriesValue}</dd>
+    </div>
+    <div>
+      <dt class="text-sm font-semibold text-slate-600">{t.tournaments}</dt>
+      <dd class="mt-1 tabular-nums text-slate-800">{stats.tournamentCount}</dd>
+    </div>
+    {stats.latestTournament && (
+      <div>
+        <dt class="text-sm font-semibold text-slate-600">{t.latest}</dt>
+        <dd class="mt-1 text-slate-800">{stats.latestTournament.name} · {date(stats.latestTournament.date)}</dd>
+      </div>
+    )}
+    <div>
+      <dt class="text-sm font-semibold text-slate-600">{t.updated}</dt>
+      <dd class="mt-1 text-slate-800">
+        {date(stats.generatedAt)}
+        <span class="block text-sm text-slate-600">{t.updateNote}</span>
+      </dd>
+    </div>
+  </dl>
+
+  <details class="border-b border-slate-200 py-5">
+    <summary class="cursor-pointer font-semibold text-navy">{t.definitionTitle}</summary>
+    <div class="mt-3 space-y-3 text-sm leading-relaxed text-slate-700">
+      <p>{t.definition}</p>
+      <a
+        href={SERIES_URL}
+        target="_blank"
+        rel="noopener"
+        class="inline-flex min-h-11 items-center font-semibold text-brand underline underline-offset-2 hover:text-brand-dark"
+      >{t.source}<span class="sr-only"> ({t.newTab})</span></a>
+    </div>
+  </details>
+
+  <section class="mt-10" aria-labelledby={`medals-${lang}`}>
+    <h2 id={`medals-${lang}`} class="border-b-2 border-navy pb-3 text-2xl font-bold text-navy">{t.medalsTitle}</h2>
+    <p class="mt-3 text-sm text-slate-600">{t.medalsIntro}</p>
+    <div class="scroll-region mt-4" role="region" aria-labelledby={`medals-${lang}`} tabindex="0">
+      <table class="w-full min-w-[30rem] border-collapse text-sm">
+        <thead>
+          <tr class="border-b border-slate-300 text-left text-slate-600">
+            <th scope="col" class={`${thClass} w-14`}>{t.rank}</th>
+            <th scope="col" class={thClass}>{t.name}</th>
+            <th scope="col" class={`${thClass} text-right`}>
+              <span class="inline-flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-full bg-amber-400" aria-hidden="true"></span>{t.gold}</span>
+            </th>
+            <th scope="col" class={`${thClass} text-right`}>
+              <span class="inline-flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-full bg-slate-400" aria-hidden="true"></span>{t.silver}</span>
+            </th>
+            <th scope="col" class={`${thClass} text-right`}>
+              <span class="inline-flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-full bg-orange-700" aria-hidden="true"></span>{t.bronze}</span>
+            </th>
+            <th scope="col" class={`${thClass} text-right`}>{t.total}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {stats.medals.map((row) => (
+            <tr class="border-b border-slate-200 last:border-0">
+              <td class="px-2 py-2 tabular-nums text-slate-500">{row.rank}.</td>
+              <td class="px-2 py-2">
+                <a href={playerUrl(row.playerId)} target="_blank" rel="noopener" class={linkClass}>
+                  {row.name}<span class="sr-only"> – {t.profile} ({t.newTab})</span>
+                </a>
+              </td>
+              <td class="px-2 py-2 text-right font-semibold tabular-nums">{row.gold}</td>
+              <td class="px-2 py-2 text-right tabular-nums">{row.silver}</td>
+              <td class="px-2 py-2 text-right tabular-nums">{row.bronze}</td>
+              <td class="px-2 py-2 text-right tabular-nums text-slate-600">{row.total}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mt-12" aria-labelledby={`current-${lang}`}>
+    <h2 id={`current-${lang}`} class="border-b-2 border-navy pb-3 text-2xl font-bold text-navy">{t.currentTitle}</h2>
+    <p class="mt-3 text-sm text-slate-600">{t.currentIntro}</p>
+    {ongoing.length === 0 ? (
+      <p class="py-6 text-slate-600">{t.noCurrent}</p>
+    ) : (
+      <div class="scroll-region mt-4" role="region" aria-labelledby={`current-${lang}`} tabindex="0">
+        <table class="w-full min-w-[30rem] border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-slate-300 text-left text-slate-600">
+              <th scope="col" class={`${thClass} w-14`}>{t.rank}</th>
+              <th scope="col" class={thClass}>{t.name}</th>
+              <th scope="col" class={`${thClass} text-right`}>{t.streak}</th>
+              <th scope="col" class={thClass}>{t.since}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ongoing.map((row) => (
+              <tr class="border-b border-slate-200 last:border-0">
+                <td class="px-2 py-2 tabular-nums text-slate-500">{row.rank}.</td>
+                <td class="px-2 py-2">
+                  <a href={playerUrl(row.playerId)} target="_blank" rel="noopener" class={linkClass}>
+                    {row.name}<span class="sr-only"> – {t.profile} ({t.newTab})</span>
+                  </a>
+                </td>
+                <td class="px-2 py-2 text-right font-semibold tabular-nums">{row.streak}</td>
+                <td class="px-2 py-2">
+                  <a href={tournamentUrl(row.from.id)} target="_blank" rel="noopener" class="underline decoration-slate-300 underline-offset-2 hover:text-brand">
+                    {row.from.name}<span class="sr-only"> ({t.newTab})</span>
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )}
+    {newStarts > 0 && stats.latestTournament && (
+      <p class="mt-3 text-sm text-slate-600">{t.newStarts(newStarts, stats.latestTournament.name)}</p>
+    )}
+  </section>
+
+  <section class="mt-12" aria-labelledby={`longest-${lang}`}>
+    <h2 id={`longest-${lang}`} class="border-b-2 border-navy pb-3 text-2xl font-bold text-navy">{t.longestTitle}</h2>
+    <p class="mt-3 text-sm text-slate-600">{t.longestIntro}</p>
+    <div class="scroll-region mt-4" role="region" aria-labelledby={`longest-${lang}`} tabindex="0">
+      <table class="w-full min-w-[34rem] border-collapse text-sm">
+        <thead>
+          <tr class="border-b border-slate-300 text-left text-slate-600">
+            <th scope="col" class={`${thClass} w-14`}>{t.rank}</th>
+            <th scope="col" class={thClass}>{t.name}</th>
+            <th scope="col" class={`${thClass} text-right`}>{t.streak}</th>
+            <th scope="col" class={thClass}>{t.period}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {stats.longestStreaks.map((row) => (
+            <tr class="border-b border-slate-200 last:border-0">
+              <td class="px-2 py-2 tabular-nums text-slate-500">{row.rank}.</td>
+              <td class="px-2 py-2">
+                <a href={playerUrl(row.playerId)} target="_blank" rel="noopener" class={linkClass}>
+                  {row.name}<span class="sr-only"> – {t.profile} ({t.newTab})</span>
+                </a>
+              </td>
+              <td class="px-2 py-2 text-right font-semibold tabular-nums">{row.streak}</td>
+              <td class="px-2 py-2 text-slate-700">
+                <span title={`${row.from.name} – ${row.to.name}`}>
+                  {row.from.name} – {row.active ? (
+                    <span class="inline-flex items-center gap-1.5 font-semibold text-emerald-800">
+                      <span class="h-2 w-2 rounded-full bg-emerald-600" aria-hidden="true"></span>{t.active.toLowerCase()}
+                    </span>
+                  ) : row.to.name}
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</section>
