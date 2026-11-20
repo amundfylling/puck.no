@@ -11,6 +11,13 @@ import { decodeHtml, extractElementById, parseIthfDate, textFromHtml } from './q
 export const NBL_STATS_VERSION = 1;
 export const NBL_SERIAL_ID = 220001;
 export const STREAK_LEADERBOARD_SIZE = 25;
+/**
+ * Extraordinary tournaments that count towards a streak (and the medal
+ * table) when played, but never break a streak when missed.
+ * 32562 = Bryne Grand Prix 2023, held alongside the 2023 World Championships
+ * in Bryne.
+ */
+export const OPTIONAL_TOURNAMENT_IDS = new Set([32562]);
 
 function extractRows(fragment) {
   return [...String(fragment).matchAll(/<tr\b[^>]*>([\s\S]*?)(?=<tr\b|<\/table>|$)/gi)].map((match) => match[1]);
@@ -96,15 +103,17 @@ function tournamentRef(tournament) {
  * consecutive tournaments. Returns current streaks (players who played the
  * latest tournament) and each player's longest-ever streak.
  */
-export function computeStreaks(tournaments, names = {}) {
+export function computeStreaks(tournaments, names = {}, optionalIds = OPTIONAL_TOURNAMENT_IDS) {
   const ordered = sortTournaments(tournaments);
   const running = new Map(); // playerId -> { length, startIndex }
   const best = new Map(); // playerId -> { length, startIndex, endIndex }
 
   ordered.forEach((tournament, index) => {
     const present = new Set(tournament.players);
-    for (const playerId of [...running.keys()]) {
-      if (!present.has(playerId)) running.delete(playerId);
+    if (!optionalIds.has(tournament.id)) {
+      for (const playerId of [...running.keys()]) {
+        if (!present.has(playerId)) running.delete(playerId);
+      }
     }
     for (const playerId of present) {
       const run = running.get(playerId) ?? { length: 0, startIndex: index };

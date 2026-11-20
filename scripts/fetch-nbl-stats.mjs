@@ -33,6 +33,10 @@ const MAX_JSON_BYTES = 8 * 1024 * 1024;
 // Re-download at most this many changed tournaments per build to stay polite;
 // anything left over is picked up by the next (daily) build.
 const MAX_TOURNAMENT_FETCHES = 250;
+// ITHF corrections usually land shortly after a tournament, and a swapped
+// participant does not change the player count, so recent tournaments are
+// always re-downloaded.
+const RECENT_REFRESH_DAYS = 60;
 
 const headers = {
   accept: 'text/html,application/xhtml+xml',
@@ -107,9 +111,11 @@ async function generate(cacheSource, now) {
   if (listed.length < 50) throw new Error(`Suspiciously few tournaments (${listed.length}).`);
 
   const cache = cachedTournaments(cacheSource);
+  const recentSince = new Date(now.getTime() - RECENT_REFRESH_DAYS * 86_400_000).toISOString().slice(0, 10);
   const stale = listed.filter((tournament) => {
     const cached = cache.get(tournament.id);
-    return !cached || (tournament.playerCount !== null && cached.players.length !== tournament.playerCount);
+    return !cached || tournament.date >= recentSince ||
+      (tournament.playerCount !== null && cached.players.length !== tournament.playerCount);
   });
   const toFetch = stale.slice(-MAX_TOURNAMENT_FETCHES);
   console.log(`nbl-stats: ${listed.length} tournaments, ${cache.size} cached, fetching ${toFetch.length}`);

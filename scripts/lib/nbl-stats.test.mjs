@@ -84,3 +84,17 @@ test('builds ranked output and round-trips the tournament cache', () => {
   assert.deepEqual(data.latestTournament, { id: 2, name: 'T2', date: '2024-02-01', players: 2 });
   assert.deepEqual(cachedTournaments(data).get(1).players, tournaments[0].players);
 });
+
+test('an optional tournament extends a streak but missing it does not break one', () => {
+  const tournaments = [
+    { id: 1, date: '2023-04-15', name: 'NM', players: [1, 2] },
+    { id: 9, date: '2023-06-15', name: 'Bryne GP', players: [1, 3] },
+    { id: 2, date: '2023-09-16', name: 'Norway Open', players: [1, 2, 3] },
+  ];
+  const { current } = computeStreaks(tournaments, { 1: 'Ada', 2: 'Bo', 3: 'Cy' }, new Set([9]));
+  assert.deepEqual(current.map((row) => [row.name, row.streak, row.from.name]), [
+    ['Ada', 3, 'NM'],
+    ['Bo', 2, 'NM'],
+    ['Cy', 2, 'Bryne GP'],
+  ]);
+});
