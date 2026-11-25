@@ -17,7 +17,7 @@ jobs:
   site:
     name: Site and Pages Functions
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     env:
       # Cloudflare's public always-pass test key exercises the rendered form.
       PUBLIC_TURNSTILE_SITE_KEY: 1x00000000000000000000AA
@@ -54,6 +54,20 @@ jobs:
 
       - name: Audit generated metadata, accessibility and CSP invariants
         run: npm run audit-generated
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Run browser tests (Playwright)
+        run: npm run test:e2e
+
+      - name: Upload Playwright results on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: test-results/
+          retention-days: 7
 
   mcp:
     name: Local MCP server

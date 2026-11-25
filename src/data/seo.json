@@ -239,6 +239,10 @@
   "title": "Kvalifisering VM 2027 | Bordhockeyforbundet",
   "description": "Løpende norsk kvalifiseringsoversikt til bordhockey-VM 2027 i Valmiera, automatisk oppdatert fra ITHF-resultater."
  },
+ "/adelskalender": {
+  "title": "Adelskalender og statistikk | Bordhockeyforbundet",
+  "description": "Adelskalender med gull, sølv og bronse i norske NBL-turneringer, og hvem som har spilt flest turneringer på rad – oppdatert daglig fra ITHF."
+ },
  "/bilder": {
   "title": "Bildegallerier | Bordhockeyforbundet",
   "description": ""
@@ -294,6 +298,10 @@
  "/en/kvalifisering-mesterskap": {
   "title": "World Championship 2027 Qualification | Bordhockeyforbundet",
   "description": "Live Norwegian qualification standings for the 2027 World Table Hockey Championship in Valmiera, automatically updated from ITHF results."
+ },
+ "/en/adelskalender": {
+  "title": "Medal table and streaks | Bordhockeyforbundet",
+  "description": "All-time medal table for Norwegian NBL tournaments and the longest runs of consecutive tournaments, updated daily from the ITHF world ranking."
  },
  "/en/bilder": {
   "title": "Image galleries | Bordhockeyforbundet",

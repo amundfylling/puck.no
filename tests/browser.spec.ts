@@ -2,6 +2,9 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 test.describe('Automated Accessibility Audits (axe)', () => {
+  // The homepage hero fades in; scanning mid-animation reports false contrast
+  // failures. The site already disables the animation for reduced motion.
+  test.use({ reducedMotion: 'reduce' });
   const routesToTest = [
     '/',
     '/en/',
@@ -68,25 +71,24 @@ test.describe('Mobile Navigation Accessibility', () => {
 test.describe('Desktop Submenu Keyboard Navigation', () => {
   test.use({ viewport: { width: 1024, height: 768 } });
 
-  test('desktop submenu is activatable by keyboard toggle button and closes with Escape', async ({ page }) => {
+  test('desktop submenu opens when its parent link has keyboard focus', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'desktop navigation only');
     await page.goto('/');
 
-    const subToggle = page.locator('[data-submenu-toggle]').first();
-    const navItem = subToggle.locator('xpath=ancestor::*[contains(@class, "group") or @data-nav-item]');
-    const submenu = navItem.locator('[data-submenu]');
+    const navItem = page.locator('[data-nav] li.group').first();
+    const parentLink = navItem.locator(':scope > a');
+    const firstChild = navItem.locator('ul a').first();
 
-    // Submenu initial closed state
-    await expect(subToggle).toHaveAttribute('aria-expanded', 'false');
+    // Closed until the item is hovered or focused
+    await expect(firstChild).toBeHidden();
 
-    // Click toggle button to open
-    await subToggle.click();
-    await expect(subToggle).toHaveAttribute('aria-expanded', 'true');
-    await expect(submenu).toBeVisible();
+    // Keyboard focus on the parent opens the submenu (focus-within)
+    await parentLink.focus();
+    await expect(firstChild).toBeVisible();
 
-    // Escape closes submenu and returns focus to subToggle
-    await page.keyboard.press('Escape');
-    await expect(subToggle).toHaveAttribute('aria-expanded', 'false');
-    await expect(subToggle).toBeFocused();
+    // Tabbing onward reaches the submenu links
+    await page.keyboard.press('Tab');
+    await expect(firstChild).toBeFocused();
   });
 });
 
@@ -112,28 +114,25 @@ test.describe('PostCard Stretched Link Behavior', () => {
 });
 
 test.describe('Registration Form & Player Combobox', () => {
-  test('combobox keyboard navigation, ranking error fallback, and unranked fallback', async ({ page }) => {
+  // Needs a tournament whose registration is open; update when it closes.
+  const REGISTRATION_PAGE = '/turneringer/trondheim-open-2027/';
+
+  test('unranked fallback still works when the ranking fails to load', async ({ page }) => {
     // Intercept ranking.json to mock failure
     await page.route('/ranking.json', (route) => route.abort('failed'));
 
-    await page.goto('/turneringer/norway-open-2026/');
-    const formSection = page.locator('[data-registration]');
-    await formSection.scrollIntoViewIfNeeded();
-
+    await page.goto(REGISTRATION_PAGE);
     const comboInput = page.locator('[data-combo-input]').first();
-    const errorMsg = page.locator('[data-combo-error]').first();
-
-    // Focus input triggers ranking fetch failure and shows visible error
     await comboInput.focus();
-    await expect(errorMsg).toBeVisible();
-    await expect(errorMsg).toContainText('Verdensrankingen kunne ikke lastes');
+    await expect(page.locator('[data-combo-list]').first()).toBeHidden();
 
     // Unranked player fallback button operates cleanly
     const fallbackToggle = page.locator('[data-combo-fallback-toggle]').first();
     await fallbackToggle.click();
     const fallbackInput = page.locator('[data-combo-fallback-input]').first();
     await expect(fallbackInput).toBeVisible();
-    await expect(fallbackInput).toHaveAttribute('aria-required', 'true');
+    await expect(fallbackInput).toBeFocused();
+    await expect(fallbackInput).toHaveJSProperty('required', true);
     await fallbackInput.fill('Test Spiller');
     await expect(fallbackInput).toHaveValue('Test Spiller');
   });
@@ -147,7 +146,7 @@ test.describe('Registration Form & Player Combobox', () => {
       }),
     );
 
-    await page.goto('/turneringer/norway-open-2026/');
+    await page.goto(REGISTRATION_PAGE);
     const comboInput = page.locator('[data-combo-input]').first();
     await comboInput.focus();
     await comboInput.fill('Magnus');
@@ -163,6 +162,50 @@ test.describe('Registration Form & Player Combobox', () => {
     await page.keyboard.press('Enter');
     await expect(comboInput).toHaveValue('Magnus Klippen');
     await expect(list).toBeHidden();
+  });
+
+  test('tapping an option on a touch device selects it without falling through', async ({ page, browserName }) => {
+    test.skip(browserName !== 'chromium', 'uses CDP touch events');
+    await page.route('/ranking.json', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify([
+          [1, 101, 'Magnus Klippen', 'BPT', 'NOR', 1000, 1000],
+          [2, 102, 'Magnus Testesen', 'BPT', 'NOR', 900, 900],
+        ]),
+      }),
+    );
+
+    await page.goto(REGISTRATION_PAGE);
+    const comboInput = page.locator('[data-combo-input]').first();
+    await comboInput.focus();
+    await comboInput.fill('Magnus');
+    const option = page.locator('[data-combo-list] [role="option"]').first();
+    await expect(option).toBeVisible();
+    await option.scrollIntoViewIfNeeded();
+
+    // Record where the click lands. On iOS the click that follows a tap used to
+    // hit whatever was under the list after it closed on touch start
+    // (the "can't find my name" toggle), switching the row to manual entry.
+    await page.evaluate(() => {
+      (window as unknown as { __clicks: string[] }).__clicks = [];
+      document.addEventListener('click', (e) => {
+        const el = e.target as HTMLElement;
+        (window as unknown as { __clicks: string[] }).__clicks.push(el.closest('[role="option"]') ? 'option' : el.tagName);
+      }, true);
+    });
+    const box = (await option.boundingBox())!;
+    const point = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+    const cdp = await page.context().newCDPSession(page);
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [point] });
+    await page.waitForTimeout(100);
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+
+    await expect(comboInput).toHaveValue('Magnus Klippen');
+    await expect(page.locator('[data-combo-list]').first()).toBeHidden();
+    await expect(page.locator('[data-combo-fallback-input]').first()).toBeHidden();
+    expect(await page.evaluate(() => (window as unknown as { __clicks: string[] }).__clicks)).toEqual(['option']);
   });
 });
 

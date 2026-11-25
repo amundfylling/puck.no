@@ -28,9 +28,9 @@ bilingual: Norwegian (default, at `/...`) and English (at `/en/...`).
 - **Phase 5 (docs done, launch pending):** `LAUNCH.md` is the full
   Norwegian runbook — deploy to the free `puck-no.pages.dev` domain first,
   verify everything, then cut `puck.no` over. Repo niceties: MIT `LICENSE`,
-  Dependabot, PR previews. If local originals are ever lost, re-fetch them
-  from the (still live) Wix CDN with `node migration/restore-originals.mjs`
-  (verifies sha256 against `migration/manifest.json`).
+  Dependabot, PR previews. The one-off Wix migration scripts (scraper,
+  manifest, `restore-originals.mjs`) were removed after launch; recover them
+  from git history if ever needed.
 
 ## Toolchain
 
@@ -123,7 +123,7 @@ public/
 src/assets/images/       # sources for Astro's <Image>/<Picture>/getImage
                          # pipeline (hero.png — front-page hero + og:image),
                          # committed so CI builds can resolve the imports
-migration/               # Phase 1 scraper + one-off fix-ups (raw/ git-ignored)
+migration/raw/           # git-ignored local exports (registration CSVs from mcp/)
 mcp/                     # puck-no-admin MCP server (local stdio admin tools
                          # for tournaments/registrations/content — see
                          # mcp/README.md; own package.json, `npm test` in mcp/)
@@ -250,7 +250,7 @@ can see them; duplicate relative paths across the two source roots fail builds.
   and contact info is stored once per team. The participant list is rendered from
   `src/data/registrations-snapshot.json` — do NOT re-add it to the Markdown
   body (the Wix duplicate table + registration widget markup was removed in
-  Phase 2, see `migration/clean-tournament-bodies.mjs`).
+  Phase 2).
 
 ## How to add a news post
 

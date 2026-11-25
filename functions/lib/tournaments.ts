@@ -47,8 +47,3 @@ export interface RegistrationQuestion {
 export const TOURNAMENTS = config as unknown as Record<string, TournamentConfig>;
 
 export const KNOWN_SLUGS: ReadonlySet<string> = new Set(Object.keys(TOURNAMENTS));
-
-export function isTeamTournament(slug: string): boolean {
-  const c = TOURNAMENTS[slug];
-  return c != null && c.playersPerTeam != null;
-}

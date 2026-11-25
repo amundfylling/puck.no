@@ -9,6 +9,26 @@
       "id": 23764,
       "name": "Group Stage",
       "type": "table"
+    },
+    {
+      "id": 23894,
+      "name": "Division B",
+      "type": "table"
+    },
+    {
+      "id": 23893,
+      "name": "Finished",
+      "type": "table"
+    },
+    {
+      "id": 23895,
+      "name": "B-Play-Off",
+      "type": "bracket"
+    },
+    {
+      "id": 23896,
+      "name": "Finished",
+      "type": "bracket"
     }
   ]
 }
